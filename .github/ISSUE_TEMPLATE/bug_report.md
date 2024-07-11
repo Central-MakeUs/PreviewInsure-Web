@@ -4,7 +4,6 @@ about: 버그 리포트시 사용하는 템플릿
 title: ''
 labels: ''
 assignees: ''
-
 ---
 
 ## 어떤 버그인가요?
