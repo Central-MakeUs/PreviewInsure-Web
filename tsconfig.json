@@ -20,5 +20,5 @@
     "skipLibCheck": true, // 라이브러리 검사 건너뛰기
     "forceConsistentCasingInFileNames": true // 파일 이름 대소문자 일관성 검사
   },
-  "include": ["src", "vite.config.ts"]
+  "include": ["src", "vite.config.ts", "svg.d.ts"]
 }
