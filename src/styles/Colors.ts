@@ -1,0 +1,17 @@
+export default {
+  Primary100: '#D3D8FF',
+  Primary200: '#B6BFFF',
+  Primary300: '#96A2FF',
+  Primary400: '#7A89FF',
+  Primary500: '#6879FB',
+  Secondary100: '#FFFBEF',
+  Secondary200: '#FFF1CD',
+  Secondary300: '#FFE7AB',
+  Secondary400: '#FFDD85',
+  Secondary500: '#FBD268',
+  Black100: '#C7C7C7',
+  Black200: '#AAAAAA',
+  Black300: '#7E7E7E',
+  Black400: '#575757',
+  Black500: '#434343',
+};
