@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import media from '@styles/media';
+import Button from '@components/commons/Button';
 
 const testPage1 = () => {
   return (
@@ -11,7 +12,44 @@ const testPage1 = () => {
       <a>aaaaaaaaaaaaa</a>
       <b>bbbbbbbbbb</b>
       <br />
-      <button>button</button>
+      <Button
+        kind="fill"
+        disable={false}
+        text="Button"
+        size="big"
+        handler={() => {
+          console.log('click!');
+        }}
+      ></Button>
+      <Button
+        kind="fill"
+        disable={false}
+        text="small"
+        size="small"
+        handler={() => {
+          console.log('click!');
+        }}
+      ></Button>
+      <br />
+      <Button
+        kind="outline"
+        disable={false}
+        text="버튼2"
+        size="big"
+        handler={() => {
+          console.log('click!');
+        }}
+      ></Button>
+      <br />
+      <Button
+        kind="text"
+        disable={false}
+        text="버튼3"
+        size="big"
+        handler={() => {
+          console.log('click!');
+        }}
+      ></Button>
 
       <Container></Container>
 

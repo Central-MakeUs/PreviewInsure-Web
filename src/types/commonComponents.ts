@@ -21,3 +21,13 @@ export type ProcessProps = {
   stepNumber: number;
   activeStep: number;
 };
+
+export type ButtonType = 'fill' | 'outline' | 'text';
+export type ButtonSizeType = 'big' | 'small';
+export type ButtonProps = {
+  kind: ButtonType;
+  disable: boolean;
+  text: string;
+  size: ButtonSizeType;
+  handler: () => void;
+};
