@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export type SearchBarProps = {
   backgroundColor: string;
   icon: any;
@@ -37,4 +39,10 @@ export type CategoryProps = {
   text: string;
   color: string;
   handler: () => void;
+};
+
+export type TabProps = {
+  stepText: string[];
+  activeStep: number;
+  handler: Dispatch<SetStateAction<number>>;
 };
