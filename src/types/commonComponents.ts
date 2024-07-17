@@ -7,6 +7,7 @@ export type SearchBarProps = {
 export type SelectorProps = {
   check: boolean;
   setCheck: (check: boolean) => void;
+  type: 'circle' | 'square';
 };
 
 type LoadingType = 'blank' | 'balls' | 'bars' | 'bubbles' | 'cubes' | 'cylon' | 'spin' | 'spinningBubbles' | 'spokes';
