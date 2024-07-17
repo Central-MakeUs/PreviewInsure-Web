@@ -24,6 +24,10 @@ const GlobalStyle = styled.createGlobalStyle`
     box-sizing: border-box;
   }
 
+  * {
+    font-family: 'Pretendard';
+  }
+
   body {
     font-family: 'Pretendard', sans-serif;
     min-width: 320px;
