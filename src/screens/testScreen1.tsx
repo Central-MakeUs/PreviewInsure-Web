@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import media from '@styles/media';
 import Button from '@components/commons/Button';
+import Cartegory from '@components/commons/Cartegory';
 
 const testPage1 = () => {
   return (
@@ -50,6 +51,10 @@ const testPage1 = () => {
           console.log('click!');
         }}
       ></Button>
+
+      <br />
+      <Cartegory color="Primary" text="Cartegory" handler={() => console.log('remove')} />
+      <Cartegory color="Gray" text="Cartegory" handler={() => console.log('remove')} />
 
       <Container></Container>
 

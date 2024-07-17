@@ -31,3 +31,10 @@ export type ButtonProps = {
   size: ButtonSizeType;
   handler: () => void;
 };
+
+export type CategoryColorType = 'Primary' | 'Gray';
+export type CategoryProps = {
+  text: string;
+  color: string;
+  handler: () => void;
+};
