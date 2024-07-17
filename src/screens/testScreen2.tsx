@@ -32,7 +32,7 @@ const testPage2 = () => {
         handler={SearchBarHandler}
       />
       {/* Selector */}
-      <Selector check={check} setCheck={setCheck} />
+      <Selector type={'circle'} check={check} setCheck={setCheck} />
       {/* Loading */}
       <Loading type={'spinningBubbles'} color={'#6879FB'} width={69.33} height={69.33} />
       {/* process  밑에는 샘플 버튼  */}
