@@ -2,7 +2,7 @@ import { ButtonProps, ButtonSizeType, ButtonType } from '@/types/commonComponent
 import styled from 'styled-components';
 
 const Button = ({ kind, disable, text, size, handler }: ButtonProps) => {
-  console.log('Button is rendering!');
+  //   console.log('Button is rendering!');
   return (
     <BtnContainer kind={kind} size={size} disabled={disable} onClick={handler}>
       {text}
