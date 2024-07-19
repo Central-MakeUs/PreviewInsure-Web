@@ -5,12 +5,10 @@ import theme from '@styles/theme';
 
 function App() {
   return (
-    <div>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <RootRouter />
-      </ThemeProvider>
-    </div>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <RootRouter />
+    </ThemeProvider>
   );
 }
 
