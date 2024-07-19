@@ -4,6 +4,7 @@ import Button from '@components/commons/Button';
 import Cartegory from '@components/commons/Cartegory';
 import Tab from '@components/commons/Tab';
 import { useState } from 'react';
+import { ReactComponent as Lock } from '@assets/icons/Lock.svg';
 
 const testPage1 = () => {
   const [curStep, setCurStep] = useState(1);
@@ -19,41 +20,48 @@ const testPage1 = () => {
       <Button
         kind="fill"
         disable={false}
-        text="Button"
         size="big"
+        width="100%"
         handler={() => {
           console.log('click!');
         }}
-      ></Button>
+      >
+        <Lock width={24} height={24} fill={'white'} />
+        Button
+      </Button>
       <Button
         kind="fill"
-        disable={false}
-        text="small"
         size="small"
         handler={() => {
           console.log('click!');
         }}
-      ></Button>
+      >
+        <Lock width={20} height={20} fill={'white'} style={{ marginRight: '1.6rem' }} />
+        small
+      </Button>
       <br />
       <Button
         kind="outline"
         disable={false}
-        text="버튼2"
         size="big"
         handler={() => {
           console.log('click!');
         }}
-      ></Button>
+      >
+        <Lock width={24} height={24} fill={'black'} />
+        버튼2
+      </Button>
       <br />
       <Button
         kind="text"
         disable={false}
-        text="버튼3"
         size="big"
         handler={() => {
           console.log('click!');
         }}
-      ></Button>
+      >
+        버튼3
+      </Button>
 
       <br />
       <Cartegory color="Primary" text="Cartegory" handler={() => console.log('remove')} />
@@ -65,21 +73,23 @@ const testPage1 = () => {
       <Button
         kind="outline"
         disable={false}
-        text="이전"
         size="small"
         handler={() => {
           if (curStep !== 1) setCurStep(curStep - 1);
         }}
-      ></Button>
+      >
+        이전
+      </Button>
       <Button
         kind="outline"
         disable={false}
-        text="다음"
         size="small"
         handler={() => {
           if (curStep !== 3) setCurStep(curStep + 1);
         }}
-      ></Button>
+      >
+        다음
+      </Button>
 
       <Container></Container>
 

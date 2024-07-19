@@ -29,10 +29,12 @@ export type ButtonType = 'fill' | 'outline' | 'text';
 export type ButtonSizeType = 'big' | 'small';
 export type ButtonProps = {
   kind: ButtonType;
-  disable: boolean;
-  text: string;
+  disable?: boolean;
   size: ButtonSizeType;
+  width?: string;
+  height?: string;
   handler: () => void;
+  children: React.ReactNode;
 };
 
 export type CategoryColorType = 'Primary' | 'Gray';
