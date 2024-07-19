@@ -1,18 +1,28 @@
 import { ButtonProps, ButtonSizeType, ButtonType } from '@/types/commonComponents';
 import styled from 'styled-components';
 
-const Button = ({ kind, disable, text, size, handler }: ButtonProps) => {
+const Button = ({
+  kind,
+  disable = false,
+  size,
+  width = 'fit-content',
+  height = 'fit-content',
+  handler,
+  children,
+}: ButtonProps) => {
   //   console.log('Button is rendering!');
   return (
-    <BtnContainer kind={kind} size={size} disabled={disable} onClick={handler}>
-      {text}
+    <BtnContainer kind={kind} size={size} width={width} height={height} disabled={disable} onClick={handler}>
+      {children}
     </BtnContainer>
   );
 };
 
-const BtnContainer = styled.button<{ kind: ButtonType; size: ButtonSizeType }>`
+const BtnContainer = styled.button<{ kind: ButtonType; size: ButtonSizeType; width: string; height: string }>`
   font-size: ${(props) => (props.size === 'big' ? '3rem' : '1.8rem')};
   font-weight: ${(props) => (props.size === 'big' ? '600' : '400')};
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
   padding: 1.2rem 6.4rem 1.2rem 6.4rem;
   border-radius: 3.3rem;
   border: 2px solid ${({ theme }) => theme.colors.Primary500};
