@@ -22,6 +22,7 @@ const testPage2 = () => {
         <h1>test2</h1>
         <p>2번 페이지</p>
         <p>티즈 테스트용</p>
+        <p>배포자동화 되나?</p>
       </div>
       <br />
       <Chatting width={30} height={30} fill="orange" />
