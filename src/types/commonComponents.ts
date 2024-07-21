@@ -49,3 +49,10 @@ export type TabProps = {
   activeStep: number;
   handler: Dispatch<SetStateAction<number>>;
 };
+
+export type OAuthButtonProps = {
+  icon: any;
+  text: string;
+  type: 'google' | 'apple';
+  onClick: () => void;
+};
