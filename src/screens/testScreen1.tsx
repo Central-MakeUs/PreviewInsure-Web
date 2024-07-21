@@ -23,6 +23,8 @@ const testPage1 = () => {
     <div>
       <Title>test1</Title>
 
+      <Title>dev 수정</Title>
+
       {/* <Title>{isLoading ? data : 'loading...'}</Title> */}
 
       <Button kind="fill" disable={false} size="big" width="80%" handler={() => googleLogin()}>
