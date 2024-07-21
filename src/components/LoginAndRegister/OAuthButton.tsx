@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import type { OAuthButtonProps } from '@/types/commonComponents';
+import type { OAuthButtonProps } from '@/types/LoginAndRegisterComponents';
 
 function OAuthButton({ icon, text, type, onClick }: OAuthButtonProps) {
   return (

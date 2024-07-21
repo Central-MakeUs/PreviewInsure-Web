@@ -9,6 +9,8 @@ const homeScreen = () => {
       <Link to="/test1">test1</Link>
       <br />
       <Link to="/test2">test2</Link>
+      <br />
+      <Link to="/login">login</Link>
     </div>
   );
 };
