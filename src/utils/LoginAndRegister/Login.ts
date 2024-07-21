@@ -1,6 +1,4 @@
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_APP_GOOGLE_CLIENT_ID;
-// const GOOGLE_REDIRECT_URI = import.meta.env.VITE_APP_GOOGLE_REDIRECnpT_URI;
-
 const GOOGLE_REDIRECT_URI = window.location.protocol + '//' + window.location.host + '/callback/google';
 
 export const googleLogin = () => {
