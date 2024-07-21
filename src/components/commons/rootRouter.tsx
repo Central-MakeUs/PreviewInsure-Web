@@ -9,6 +9,7 @@ import RegisterNickname from '@screens/LoginAndRegister/RegisterNickname';
 import Footer from './Footer';
 import Header from './Header';
 import styled from 'styled-components';
+import GoogleLoginCallback from '@screens/LoginAndRegister/GoogleLoginCallback';
 
 const rootRouter = () => {
   return (
@@ -24,6 +25,7 @@ const rootRouter = () => {
           <Route path="/register" element={<RegisterScreen />} />
           <Route path="/registerAgree" element={<RegisterAgree />} />
           <Route path="/registerNickname" element={<RegisterNickname />} />
+          <Route path="/callback/google" element={<GoogleLoginCallback />} />
         </Routes>
       </WrapContent>
 

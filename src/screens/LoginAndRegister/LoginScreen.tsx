@@ -5,9 +5,12 @@ import { ReactComponent as AppleIcon } from '@/assets/icons/AppleIcon.svg';
 import OAuthButton from '@components/LoginAndRegister/OAuthButton';
 import { Link } from 'react-router-dom';
 
+import { googleLogin } from '@utils/LoginAndRegister/Login';
+
 function LoginScreen() {
   const LoginGoogle = () => {
     console.log('login Google');
+    googleLogin();
   };
 
   const LoginApple = () => {
