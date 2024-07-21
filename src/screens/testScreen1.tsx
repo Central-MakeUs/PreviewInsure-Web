@@ -5,12 +5,29 @@ import Cartegory from '@components/commons/Cartegory';
 import Tab from '@components/commons/Tab';
 import { useState } from 'react';
 import { ReactComponent as Lock } from '@assets/icons/Lock.svg';
+import { googleLogin } from '@utils/LoginAndRegister/Login';
+import { useQuery } from '@tanstack/react-query';
 
+import { getRandomNickname } from '@utils/LoginAndRegister/RegisterApi';
+interface NickNameInterface {
+  code: number;
+  message: string;
+  data: object;
+}
 const testPage1 = () => {
   const [curStep, setCurStep] = useState(1);
+
+  // const { isLoading, data } = useQuery<NickNameInterface>({ queryKey: ['nickname'], queryFn: getRandomNickname });
+
   return (
     <div>
       <Title>test1</Title>
+
+      {/* <Title>{isLoading ? data : 'loading...'}</Title> */}
+
+      <Button kind="fill" disable={false} size="big" width="80%" handler={() => googleLogin()}>
+        구글로그인
+      </Button>
       <p>1번 페이지</p>
       <p>이노 테스트용</p>
 

@@ -5,15 +5,18 @@ import { ReactComponent as AppleIcon } from '@/assets/icons/AppleIcon.svg';
 import OAuthButton from '@components/LoginAndRegister/OAuthButton';
 import { useNavigate } from 'react-router-dom';
 
+import { googleLogin } from '@utils/LoginAndRegister/Login';
+
 function RegisterScreen() {
   const navigate = useNavigate();
   const RegisterGoogle = () => {
     console.log('Register Google');
-    navigate('/registerAgree');
+    googleLogin();
   };
 
   const RegisterApple = () => {
     console.log('Register Apple');
+    navigate('/registerAgree');
   };
 
   return (
