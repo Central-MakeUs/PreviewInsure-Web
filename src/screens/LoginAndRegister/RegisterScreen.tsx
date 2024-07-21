@@ -3,10 +3,13 @@ import styled from 'styled-components';
 import { ReactComponent as GoogleIcon } from '@/assets/icons/GoogleIcon.svg';
 import { ReactComponent as AppleIcon } from '@/assets/icons/AppleIcon.svg';
 import OAuthButton from '@components/LoginAndRegister/OAuthButton';
+import { useNavigate } from 'react-router-dom';
 
 function RegisterScreen() {
+  const navigate = useNavigate();
   const RegisterGoogle = () => {
     console.log('Register Google');
+    navigate('/registerAgree');
   };
 
   const RegisterApple = () => {
