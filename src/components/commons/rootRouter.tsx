@@ -10,6 +10,11 @@ import Footer from './Footer';
 import Header from './Header';
 import styled from 'styled-components';
 import GoogleLoginCallback from '@screens/LoginAndRegister/GoogleLoginCallback';
+import InsueBordingScreen from '@screens/InsueBording/InsueBordingScreen';
+import UserInfoScreen from '@screens/User/UserInfoScreen';
+import MainScreen from '@screens/Main/MainScreen';
+import InsuePlannerScreen from '@screens/InsuePlanner/InsuePlannerScreen';
+import Question from '@screens/Question/Question';
 
 const rootRouter = () => {
   return (
@@ -26,6 +31,12 @@ const rootRouter = () => {
           <Route path="/registerAgree" element={<RegisterAgree />} />
           <Route path="/registerNickname" element={<RegisterNickname />} />
           <Route path="/callback/google" element={<GoogleLoginCallback />} />
+          <Route path="/insueBording" element={<InsueBordingScreen />} />
+
+          <Route path="/main" element={<MainScreen />} />
+          <Route path="/insuePlanner" element={<InsuePlannerScreen />} />
+          <Route path="/question" element={<Question />} />
+          <Route path="/user" element={<UserInfoScreen />} />
         </Routes>
       </WrapContent>
 
