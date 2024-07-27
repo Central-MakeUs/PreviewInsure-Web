@@ -6,51 +6,81 @@ import Tab from '@components/commons/Tab';
 import { useState } from 'react';
 import { ReactComponent as Lock } from '@assets/icons/Lock.svg';
 import { googleLogin } from '@utils/LoginAndRegister/Login';
-import { useQuery } from '@tanstack/react-query';
+import { useGetHealthQuery, useHealthMutation } from '@apis/health/health';
+import { HealthRequest } from '@apis/health/health.d';
 
-import { getRandomNickname } from '@utils/LoginAndRegister/RegisterApi';
-interface NickNameInterface {
-  code: number;
-  message: string;
-  data: object;
-}
+// Get 요청 방법
+const GetTest = () => {
+  const { healthQuery } = useGetHealthQuery();
+
+  if (healthQuery.isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (healthQuery.isError) {
+    return <div>Error: {healthQuery.error.message}</div>;
+  }
+  return (
+    <>
+      {healthQuery.isFetching && <p>fetch 요청중...</p>}
+      <p>TEST GET 요청 결과 : {healthQuery.data?.isHealthCheck.toString()}</p>
+      <button
+        onClick={() => {
+          healthQuery.refetch();
+        }}
+      >
+        GET 요청 다시 보내기
+      </button>
+    </>
+  );
+};
+
+// POST 요청 방법
+const PostTest = () => {
+  const { healthMutation } = useHealthMutation();
+
+  const handleSubmit = () => {
+    const updateData: HealthRequest = {
+      name: '테스트',
+      input: '테스트 input',
+    };
+
+    healthMutation.mutate(updateData);
+  };
+
+  return (
+    <div>
+      <p>POST TEST</p>
+      <button onClick={() => handleSubmit()}>POST 보내기</button>
+
+      {healthMutation.isPending && <p>요청 전송중...</p>}
+      {healthMutation.isError && <p>Error: {healthMutation.error?.message}</p>}
+      {healthMutation.isSuccess && <p>POST Success 결과 : {healthMutation.data?.input}</p>}
+    </div>
+  );
+};
+
 const testPage1 = () => {
   const [curStep, setCurStep] = useState(1);
-
-  // const { isLoading, data } = useQuery<NickNameInterface>({ queryKey: ['nickname'], queryFn: getRandomNickname });
 
   return (
     <div>
       <Title>test1</Title>
-
+      <GetTest />
+      <PostTest />
       <Title>dev 수정</Title>
-
-      {/* <Title>{isLoading ? data : 'loading...'}</Title> */}
-
-      <Button kind="fill" disable={false} size="big" width="80%" handler={() => googleLogin()}>
+      <Button kind="fill" disable={false} size="small" width="80%" handler={() => googleLogin()}>
         구글로그인
       </Button>
       <p>1번 페이지</p>
       <p>이노 테스트용</p>
-
       <a>aaaaaaaaaaaaa</a>
       <b>bbbbbbbbbb</b>
       <br />
       <Button
-        kind="fill"
+        kind="fill" // fill, outline, text
+        size="small" // small, big
         disable={false}
-        size="big"
-        width="100%"
-        handler={() => {
-          console.log('click!');
-        }}
-      >
-        <Lock width={24} height={24} fill={'white'} />
-        Button
-      </Button>
-      <Button
-        kind="fill"
-        size="small"
         handler={() => {
           console.log('click!');
         }}
@@ -59,59 +89,12 @@ const testPage1 = () => {
         small
       </Button>
       <br />
-      <Button
-        kind="outline"
-        disable={false}
-        size="big"
-        handler={() => {
-          console.log('click!');
-        }}
-      >
-        <Lock width={24} height={24} fill={'black'} />
-        버튼2
-      </Button>
       <br />
-      <Button
-        kind="text"
-        disable={false}
-        size="big"
-        handler={() => {
-          console.log('click!');
-        }}
-      >
-        버튼3
-      </Button>
-
-      <br />
-      <Cartegory color="Primary" text="Cartegory" handler={() => console.log('remove')} />
-      <Cartegory color="Gray" text="Cartegory" handler={() => console.log('remove')} />
-
+      <Cartegory color="Primary" text="Cartegory" handler={() => console.log('remove')} /> //Primary, Gray
       <div style={{ width: '100%' }}>
         <Tab stepText={['과거', '현재', '미래']} activeStep={curStep} handler={setCurStep}></Tab>
       </div>
-      <Button
-        kind="outline"
-        disable={false}
-        size="small"
-        handler={() => {
-          if (curStep !== 1) setCurStep(curStep - 1);
-        }}
-      >
-        이전
-      </Button>
-      <Button
-        kind="outline"
-        disable={false}
-        size="small"
-        handler={() => {
-          if (curStep !== 3) setCurStep(curStep + 1);
-        }}
-      >
-        다음
-      </Button>
-
       <Container></Container>
-
       <PcView>
         <p>pc에서만 보이는 영역</p>
       </PcView>
@@ -130,7 +113,7 @@ const PcView = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: ${({ theme }) => theme.fontSizes.title};
+  font-size: ${({ theme }) => theme.fontSizes.subtitle};
 `;
 
 const Container = styled.div`
