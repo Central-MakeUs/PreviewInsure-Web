@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import media from './media';
 
 const styled = { createGlobalStyle };
 
@@ -10,6 +11,9 @@ const GlobalStyle = styled.createGlobalStyle`
   html {
     font-size: 62.5%; //10px
     height: 100%;
+    ${media.medium`
+    font-size:50%;
+    `}
   }
 
   body,

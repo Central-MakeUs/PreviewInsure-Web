@@ -3,9 +3,11 @@ const pixelToRem = (size: number) => `${size / 10}rem`;
 
 // font size를 객체로 반환
 const fontSizes = {
-  title: pixelToRem(60),
+  title: pixelToRem(45),
   subtitle: pixelToRem(30),
-  paragraph: pixelToRem(18),
+  paragraph: pixelToRem(25),
+  small: pixelToRem(20),
+  tiny: pixelToRem(15),
 };
 
 // 자주 사용하는 색

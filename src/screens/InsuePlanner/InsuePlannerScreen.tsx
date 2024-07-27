@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import InsuePlannerQuestion from '@components/InsuePlanner/InsuePlannerQuestion';
 import InsuePlannerLoading from '@components/InsuePlanner/InsuePlannerLoading';
+import media from '@styles/media';
 
 function InsuePlannerScreen() {
   const titleSize = '4.5rem';

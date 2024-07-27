@@ -99,7 +99,7 @@ const Line = styled.div`
 
 const Explain = styled.p`
   color: ${({ theme }) => theme.colors.Black200};
-  font-size: ${({ theme }) => theme.fontSizes.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.tiny};
   flex-direction: column;
   text-align: center;
   line-height: 1.5;
