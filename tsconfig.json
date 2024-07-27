@@ -8,6 +8,7 @@
       "@stores/*": ["stores/*"],
       "@styles/*": ["styles/*"],
       "@utils/*": ["utils/*"],
+      "@apis/*": ["apis/*"],
       "@/*": ["*"]
     },
     "outDir": "./dist", // 컴파일된 파일의 출력 디렉토리
