@@ -53,7 +53,7 @@ const Left = styled.div`
   align-items: end;
 `;
 const Text = styled.span`
-  font-size: 2.4rem;
+  font-size: ${({ theme }) => theme.fontSizes.paragraph};
   font-weight: 600;
   color: ${({ theme }) => theme.colors.Black500};
 `;
@@ -63,7 +63,7 @@ const Nav = styled.nav`
   display: flex;
   gap: 10px;
 
-  font-size: 2rem;
+  font-size: ${({ theme }) => theme.fontSizes.small};
   font-weight: 600;
 `;
 const NavItem = styled.span`

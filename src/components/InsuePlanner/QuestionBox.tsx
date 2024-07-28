@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import type { QuestionBoxProps } from '@/types/InsuePlannerComponents';
 
-function QuestionBox({ svg, fontSize, text, bottom, right }: QuestionBoxProps) {
+function QuestionBox({ svg, text, bottom, right }: QuestionBoxProps) {
   return (
     <QuestionBoxWrapper>
       <QuestionBoxSvg bottom={bottom} right={right}>
         {svg}
       </QuestionBoxSvg>
-      <QuestionBoxText paragraphSize={fontSize}>{text}</QuestionBoxText>
+      <QuestionBoxText>{text}</QuestionBoxText>
     </QuestionBoxWrapper>
   );
 }
@@ -33,8 +33,8 @@ const QuestionBoxSvg = styled.div<{ bottom: string; right: string }>`
   right: ${({ right }) => right}%;
 `;
 
-const QuestionBoxText = styled.p<{ paragraphSize: string }>`
-  font-size: ${({ paragraphSize }) => paragraphSize};
+const QuestionBoxText = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes.small};
   font-weight: 500;
   color: ${({ theme }) => theme.colors.Black500};
 `;

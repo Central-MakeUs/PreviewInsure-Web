@@ -60,7 +60,7 @@ const Title = styled.h1`
   font-weight: 600;
   display: block;
   margin-bottom: 3.4rem;
-  font-size: ${({ theme }) => theme.fontSizes.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.Black500};
 `;
 
