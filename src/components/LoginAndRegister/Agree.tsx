@@ -51,7 +51,7 @@ const AgreeLeft = styled.div`
 `;
 const AgreeLeftText = styled.p`
   color: ${({ theme }) => theme.colors.Black500};
-  font-size: ${({ theme }) => theme.fontSizes.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   font-weight: 600;
 `;
 
@@ -64,7 +64,7 @@ const AgreeRight = styled.button`
   border: none;
   background-color: inherit;
   color: ${({ theme }) => theme.colors.Black500};
-  font-size: ${({ theme }) => theme.fontSizes.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   display: flex;
   align-items: center;
   transition: all 0.3s ease-in-out;

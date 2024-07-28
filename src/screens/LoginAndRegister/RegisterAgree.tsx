@@ -85,7 +85,7 @@ const Title = styled.h1`
   font-weight: 600;
   display: block;
   margin-bottom: 3.4rem;
-  font-size: ${({ theme }) => theme.fontSizes.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.Black500};
 `;
 
@@ -126,7 +126,7 @@ const RegisterBtn = styled.button<{ registerable: boolean }>`
 
 const Explain = styled.p`
   color: ${({ theme }) => theme.colors.Black500};
-  font-size: ${({ theme }) => theme.fontSizes.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.tiny};
   flex-direction: column;
   text-align: center;
   line-height: 1.5;

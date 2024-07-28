@@ -1,6 +1,7 @@
 import Reac, { useState } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as Information } from '@/assets/icons/Information.svg';
+import { ReactComponent as Warning } from '@/assets/icons/Warning.svg';
+import { ReactComponent as Close } from '@/assets/icons/Close.svg';
 import { ReactComponent as Heart } from '@/assets/icons/Heart.svg';
 
 function RegisterNickname() {
@@ -24,15 +25,15 @@ function RegisterNickname() {
         나는 <Nickname>{nickname}</Nickname>에요.
       </NicknameLine>
       <RegisterBtnGroup>
-        <RegisterBtn onClick={resetNickname} registerable={false}>
-          다시 설정할래요...
+        <RegisterBtn onClick={resetNickname}>
+          <Close width={25} height={25} fill={'#fff'} /> 다시 설정할래요
         </RegisterBtn>
-        <RegisterBtn onClick={confirmNickname} registerable={true}>
-          <Heart width={24} height={21} /> 마음에 들어요!
+        <RegisterBtn onClick={confirmNickname}>
+          <Heart width={24} height={21} fill={'#fff'} /> 마음에 들어요!
         </RegisterBtn>
       </RegisterBtnGroup>
       <Explain>
-        <Information width={32} height={32} fill={'#000'} />
+        <Warning width={32} height={32} fill={'#000'} />
         <p>닉네임은 설정 이후 변경할 수 없어요.</p>
       </Explain>
     </Container>
@@ -49,7 +50,7 @@ const Title = styled.h1`
   font-weight: 600;
   display: block;
   margin-bottom: 3.4rem;
-  font-size: ${({ theme }) => theme.fontSizes.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.Black500};
 `;
 
@@ -69,7 +70,7 @@ const SubtitleP = styled.p``;
 const NicknameLine = styled.p`
   display: flex;
   align-items: center;
-  font-size: ${({ theme }) => theme.fontSizes.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.Black500};
   font-weight: 600;
   margin-bottom: 7rem;
@@ -86,25 +87,30 @@ const RegisterBtnGroup = styled.div`
   gap: 4rem;
 `;
 
-const RegisterBtn = styled.button<{ registerable: boolean }>`
+const RegisterBtn = styled.button`
   width: 22.5rem;
   height: 6rem;
   border: none;
-  background-color: ${({ registerable, theme }) => (registerable ? theme.colors.Primary500 : '#f5f5f5;')};
+  background-color: ${({ theme }) => theme.colors.Black100};
   ${({ theme }) => theme.common.flexCenter};
-  color: ${({ theme, registerable }) => (registerable ? '#fff' : theme.colors.Black500)};
-  font-size: ${({ theme }) => theme.fontSizes.paragraph};
+  color: #fff;
+  font-size: ${({ theme }) => theme.fontSizes.small};
   font-weight: 600;
   border-radius: 1.4rem;
   cursor: pointer;
-  margin-bottom: 3.7rem;
+  margin-bottom: 5rem;
   transition: all 0.3s ease;
   gap: 1.6rem;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.Primary500};
+    transition: 0.5s;
+  }
 `;
 
 const Explain = styled.p`
   color: ${({ theme }) => theme.colors.Black500};
-  font-size: ${({ theme }) => theme.fontSizes.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   display: flex;
   align-items: center;
   gap: 1.6rem;

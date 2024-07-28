@@ -56,7 +56,7 @@ const Title = styled.h1`
   font-weight: 600;
   display: block;
   margin-bottom: 3.4rem;
-  font-size: ${({ theme }) => theme.fontSizes.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.Black500};
 `;
 
@@ -95,7 +95,7 @@ const Line = styled.div`
 
 const StyledLink = styled(Link)`
   color: ${({ theme }) => theme.colors.Black200};
-  font-size: ${({ theme }) => theme.fontSizes.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.tiny};
   border-bottom: 1px solid ${({ theme }) => theme.colors.Black200};
 `;
 
