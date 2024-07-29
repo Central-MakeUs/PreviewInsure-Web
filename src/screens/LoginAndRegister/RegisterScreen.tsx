@@ -6,6 +6,7 @@ import OAuthButton from '@components/LoginAndRegister/OAuthButton';
 import { useNavigate } from 'react-router-dom';
 
 import { googleLogin } from '@utils/LoginAndRegister/Login';
+import { appleLogin } from '@utils/LoginAndRegister/AppleLogin';
 
 function RegisterScreen() {
   const navigate = useNavigate();
@@ -14,9 +15,9 @@ function RegisterScreen() {
     googleLogin();
   };
 
-  const RegisterApple = () => {
+  const RegisterApple = async () => {
     console.log('Register Apple');
-    navigate('/registerAgree');
+    appleLogin();
   };
 
   return (

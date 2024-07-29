@@ -15,6 +15,7 @@ import UserInfoScreen from '@screens/User/UserInfoScreen';
 import MainScreen from '@screens/Main/MainScreen';
 import InsuePlannerScreen from '@screens/InsuePlanner/InsuePlannerScreen';
 import Question from '@screens/Question/Question';
+import AppleLoginCallback from '@screens/LoginAndRegister/AppleLoginCallback';
 
 const rootRouter = () => {
   return (
@@ -31,6 +32,7 @@ const rootRouter = () => {
           <Route path="/registerAgree" element={<RegisterAgree />} />
           <Route path="/registerNickname" element={<RegisterNickname />} />
           <Route path="/callback/google" element={<GoogleLoginCallback />} />
+          <Route path="/callback/apple" element={<AppleLoginCallback />} />
           <Route path="/insueBording" element={<InsueBordingScreen />} />
 
           <Route path="/main" element={<MainScreen />} />
