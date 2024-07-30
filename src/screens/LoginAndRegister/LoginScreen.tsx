@@ -6,6 +6,7 @@ import OAuthButton from '@components/LoginAndRegister/OAuthButton';
 import { Link } from 'react-router-dom';
 
 import { googleLogin } from '@utils/LoginAndRegister/Login';
+import { appleLogin } from '@utils/LoginAndRegister/AppleLogin';
 
 function LoginScreen() {
   const LoginGoogle = () => {
@@ -15,6 +16,7 @@ function LoginScreen() {
 
   const LoginApple = () => {
     console.log('login Apple');
+    appleLogin();
   };
 
   return (
