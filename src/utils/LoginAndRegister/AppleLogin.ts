@@ -10,7 +10,7 @@ export const appleLogin = async () => {
     redirectURI: `${REDIRECT_URI}`,
     state: 'previewInsure',
     nonce: '821',
-    usePopup: true,
+    usePopup: false,
   });
 
   try {
