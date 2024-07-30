@@ -1,10 +1,13 @@
 const APPLE_CLIENT_ID = import.meta.env.VITE_APP_APPLE_CLIENT_ID;
 
+const REDIRECT_URI = window.location.protocol + '//' + window.location.host + '/callback/apple';
+
 export const appleLogin = async () => {
+  //   console.log(REDIRECT_URI);
   window.AppleID.auth.init({
     clientId: APPLE_CLIENT_ID,
     scope: 'email name',
-    redirectURI: 'https://previewinsure.com/callback/apple',
+    redirectURI: `${REDIRECT_URI}`,
     state: 'previewInsure',
     nonce: '821',
     usePopup: true,
