@@ -17,7 +17,11 @@ export const appleLogin = async () => {
     `&nonce=${encodeURIComponent('821')}`;
 
   // 브라우저에서 Apple 로그인 페이지로 리디렉션
-  window.location.href = AUTH_URL;
+  try {
+    window.location.href = AUTH_URL;
+  } catch (error) {
+    console.log(error);
+  }
 
   //   window.AppleID.auth.init({
   //     clientId: APPLE_CLIENT_ID,
