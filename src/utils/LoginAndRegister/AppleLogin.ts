@@ -3,20 +3,35 @@ const APPLE_CLIENT_ID = import.meta.env.VITE_APP_APPLE_CLIENT_ID;
 const REDIRECT_URI = window.location.protocol + '//' + window.location.host + '/callback/apple';
 
 export const appleLogin = async () => {
-  //   console.log(REDIRECT_URI);
-  window.AppleID.auth.init({
-    clientId: APPLE_CLIENT_ID,
-    scope: 'email name',
-    redirectURI: `${REDIRECT_URI}`,
-    state: 'previewInsure',
-    nonce: '821',
-    usePopup: false,
-  });
+  const RESPONSE_TYPE = 'code id_token'; // 요청하는 응답 타입
+  const RESPONSE_MODE = 'fragment'; // fragment | from_post
 
-  try {
-    const res = await window.AppleID.auth.signIn();
-    console.log(res);
-  } catch (error) {
-    console.log(error);
-  }
+  const AUTH_URL =
+    `https://appleid.apple.com/auth/authorize?` +
+    `client_id=${encodeURIComponent(APPLE_CLIENT_ID)}` +
+    `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
+    `&response_type=${encodeURIComponent(RESPONSE_TYPE)}` +
+    `&response_mode=${encodeURIComponent(RESPONSE_MODE)}` +
+    `&scope=${encodeURIComponent('')}` +
+    `&state=${encodeURIComponent('previewInsure')}` +
+    `&nonce=${encodeURIComponent('821')}`;
+
+  // 브라우저에서 Apple 로그인 페이지로 리디렉션
+  window.location.href = AUTH_URL;
+
+  //   window.AppleID.auth.init({
+  //     clientId: APPLE_CLIENT_ID,
+  //     scope: 'email name',
+  //     redirectURI: `${REDIRECT_URI}`,
+  //     state: 'previewInsure',
+  //     nonce: '821',
+  //     usePopup: false,
+  //   });
+
+  //   try {
+  //     const res = await window.AppleID.auth.signIn();
+  //     console.log(res);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
 };
