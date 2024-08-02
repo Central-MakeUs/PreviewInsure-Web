@@ -6,12 +6,14 @@ import { ReactComponent as Insurance } from '@/assets/icons/InsuePlanner/Insuran
 import { ReactComponent as Airplane } from '@/assets/icons/InsuePlanner/Airplane.svg';
 import QuestionBox from '@components/InsuePlanner/QuestionBox';
 import type { InsuePlannerQuestionProps } from '@/types/InsuePlannerComponents';
+import FailAlarm from '@components/commons/FailAlarm';
 
 function InsuePlannerQuestion({ setLoading }: InsuePlannerQuestionProps) {
   const [text, setText] = useState<string>('');
   const [canQuestion, setCanQuestion] = useState<boolean>(false);
   const [check, setCheck] = useState<boolean>(true);
   const [visible, setVisible] = useState<boolean>(false);
+  const [alarmShown, setAlarmShown] = useState(false);
 
   useEffect(() => {
     if (text.length >= 4) {
@@ -22,8 +24,17 @@ function InsuePlannerQuestion({ setLoading }: InsuePlannerQuestionProps) {
     }
   }, [text]);
 
+  useEffect(() => {
+    if (alarmShown) {
+      setTimeout(() => {
+        setAlarmShown(false);
+      }, 2000);
+    }
+  }, [alarmShown]);
+
   const questionBtnClickHandler = () => {
     if (!canQuestion) {
+      setAlarmShown(true);
       setVisible(true);
       return;
     }
@@ -38,6 +49,9 @@ function InsuePlannerQuestion({ setLoading }: InsuePlannerQuestionProps) {
   };
   return (
     <>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <FailAlarm text={'질문 내용을 입력해 주세요.'} alarmShown={alarmShown} />
+      </div>
       <Title>
         <TitleP>보험에 대한 고민,</TitleP>
         <TitleP>
@@ -61,7 +75,7 @@ function InsuePlannerQuestion({ setLoading }: InsuePlannerQuestionProps) {
           <InputShareWrapper>
             <InputShareLeft visible={visible}>질문 내용을 입력해 주세요.</InputShareLeft>
             <InputShareRight>
-              <Selector type={'square'} check={check} setCheck={setCheck} />
+              <Selector type={'square'} check={check} setCheck={setCheck} redFlag={false} />
               <InputShareWrapperP>전체 게시판에 질문 내용 공유하기</InputShareWrapperP>
             </InputShareRight>
           </InputShareWrapper>
