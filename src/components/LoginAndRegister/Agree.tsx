@@ -5,15 +5,18 @@ import { ReactComponent as Up } from '@assets/icons/Up.svg';
 import { ReactComponent as Down } from '@assets/icons/Down.svg';
 import type { AgreeProps } from '@/types/LoginAndRegisterComponents';
 
-function Agree({ check, setCheck, text, type, detail }: AgreeProps) {
+function Agree({ check, setCheck, text, type, detail, registerBtnClicked }: AgreeProps) {
   const [showDetail, setShowDetail] = useState(false);
   return (
     <>
       <AgreeContainer>
         <AgreeLeft>
-          <Selector type={'square'} check={check} setCheck={setCheck} />
-          <AgreeLeftText>
-            {text} <AgreeLeftTextType type={type}>{type === 'essential' ? '(필수)' : '(선택)'}</AgreeLeftTextType>
+          <Selector type={'square'} check={check} setCheck={setCheck} redFlag={!check && registerBtnClicked} />
+          <AgreeLeftText check={check} registerBtnClicked={registerBtnClicked}>
+            {text}{' '}
+            <AgreeLeftTextType check={check} registerBtnClicked={registerBtnClicked} type={type}>
+              {type === 'essential' ? '(필수)' : '(선택)'}
+            </AgreeLeftTextType>
           </AgreeLeftText>
         </AgreeLeft>
         <AgreeRight onClick={() => setShowDetail(!showDetail)}>
@@ -49,15 +52,21 @@ const AgreeLeft = styled.div`
   align-items: center;
   gap: 2.1rem;
 `;
-const AgreeLeftText = styled.p`
-  color: ${({ theme }) => theme.colors.Black500};
+const AgreeLeftText = styled.p<{ registerBtnClicked: boolean; check: boolean }>`
+  color: ${({ theme, check, registerBtnClicked }) =>
+    !check && registerBtnClicked ? theme.colors.AlertT : theme.colors.Black500};
   font-size: ${({ theme }) => theme.fontSizes.small};
   font-weight: 600;
 `;
 
-const AgreeLeftTextType = styled.span<{ type: string }>`
+const AgreeLeftTextType = styled.span<{ type: string; registerBtnClicked: boolean; check: boolean }>`
   display: inline;
-  color: ${({ theme, type }) => (type === 'essential' ? theme.colors.Primary500 : theme.colors.Black500)};
+  color: ${({ theme, type, registerBtnClicked, check }) =>
+    !check && registerBtnClicked
+      ? theme.colors.AlertT
+      : type === 'essential'
+        ? theme.colors.Primary500
+        : theme.colors.Black500};
 `;
 
 const AgreeRight = styled.button`

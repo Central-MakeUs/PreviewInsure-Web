@@ -5,7 +5,7 @@ import InsuePlannerLoading from '@components/InsuePlanner/InsuePlannerLoading';
 
 function InsuePlannerScreen() {
   const [loading, setLoading] = useState<boolean>(false);
-  return <Container>{loading ? <InsuePlannerLoading /> : <InsuePlannerQuestion setLoading={setLoading} />}</Container>;
+  return <Container> {loading ? <InsuePlannerLoading /> : <InsuePlannerQuestion setLoading={setLoading} />}</Container>;
 }
 
 export default InsuePlannerScreen;

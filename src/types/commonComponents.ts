@@ -10,6 +10,7 @@ export type SelectorProps = {
   check: boolean;
   setCheck: (check: boolean) => void;
   type: 'circle' | 'square';
+  redFlag: boolean;
 };
 
 type LoadingType = 'blank' | 'balls' | 'bars' | 'bubbles' | 'cubes' | 'cylon' | 'spin' | 'spinningBubbles' | 'spokes';
@@ -48,4 +49,9 @@ export type TabProps = {
   stepText: string[];
   activeStep: number;
   handler: Dispatch<SetStateAction<number>>;
+};
+
+export type FailAlarmProps = {
+  text: string;
+  alarmShown: boolean;
 };

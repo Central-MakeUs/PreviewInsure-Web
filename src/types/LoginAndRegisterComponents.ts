@@ -4,6 +4,7 @@ export type AgreeProps = {
   text: string;
   type: 'essential' | 'selectable';
   detail: any;
+  registerBtnClicked: boolean;
 };
 
 export type OAuthButtonProps = {

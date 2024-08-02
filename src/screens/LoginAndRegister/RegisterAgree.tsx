@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Agree from '@components/LoginAndRegister/Agree';
 import { useNavigate } from 'react-router-dom';
+import FailAlarm from '@components/commons/FailAlarm';
 
 const sampleP = (
   <>
@@ -17,6 +18,8 @@ function RegisterAgree() {
   const [check2, setCheck2] = useState(false);
   const [check3, setCheck3] = useState(false);
   const [registerable, setRegisterable] = useState(false);
+  const [alarmShown, setAlarmShown] = useState(false);
+  const [registerBtnClicked, setRegisterBtnClicked] = useState(false);
 
   useEffect(() => {
     console.log('check1', check1);
@@ -27,8 +30,25 @@ function RegisterAgree() {
     }
   }, [check1, check2, check3]);
 
+  useEffect(() => {
+    // 가입가능하게 되었을 때 약관 동의 텍스트 빨간색 변하는 거 초기화
+    if (registerable) {
+      setRegisterBtnClicked(false);
+    }
+  }, [registerable]);
+
+  useEffect(() => {
+    if (alarmShown) {
+      setTimeout(() => {
+        setAlarmShown(false);
+      }, 2000);
+    }
+  }, [alarmShown]);
+
   const goNextStep = () => {
     if (!registerable) {
+      setAlarmShown(true);
+      setRegisterBtnClicked(true);
       return;
     }
     navigate('/registerNickname');
@@ -36,6 +56,7 @@ function RegisterAgree() {
 
   return (
     <Container>
+      <FailAlarm text={'서비스 약관에 동의해 주세요.'} alarmShown={alarmShown} />
       <Title>회원가입</Title>
       <Subtitle>
         <SubtitleP>맞춤형 서비스 제공을 위해</SubtitleP>
@@ -48,6 +69,7 @@ function RegisterAgree() {
           text={'프리뷰인슈 이용 약관에 동의합니다.'}
           type={'essential'}
           detail={sampleP}
+          registerBtnClicked={registerBtnClicked}
         />
         <Agree
           check={check2}
@@ -55,6 +77,7 @@ function RegisterAgree() {
           text={`개인정보 수집 및 이용에 동의합니다.)`}
           type={'essential'}
           detail={sampleP}
+          registerBtnClicked={registerBtnClicked}
         />
         <Agree
           check={check3}
@@ -62,6 +85,7 @@ function RegisterAgree() {
           text={'마케팅 활용 및 광고성 정보 수신에 동의합니다.'}
           type={'selectable'}
           detail={sampleP}
+          registerBtnClicked={false}
         />
       </AgreeGroup>
       <RegisterBtn onClick={goNextStep} registerable={registerable}>
