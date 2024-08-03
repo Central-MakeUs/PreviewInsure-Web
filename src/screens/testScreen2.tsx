@@ -5,6 +5,7 @@ import SearchBar from '@components/commons/SearchBar';
 import Selector from '@components/commons/Selector';
 import Loading from '@components/commons/Loading';
 import Process from '@components/commons/Process';
+import Process2 from '@components/commons/Process2';
 
 const testPage2 = () => {
   //searchBar icon 클릭 시
@@ -33,11 +34,12 @@ const testPage2 = () => {
         handler={SearchBarHandler}
       />
       {/* Selector */}
-      <Selector type={'circle'} check={check} setCheck={setCheck} />
+      <Selector type={'circle'} check={check} setCheck={setCheck} redFlag={false} />
       {/* Loading */}
       <Loading type={'spinningBubbles'} color={'#6879FB'} width={69.33} height={69.33} />
       {/* process  밑에는 샘플 버튼  */}
       <Process stepNumber={4} activeStep={activeStep} />
+      <Process2 activeStep={activeStep} />
       <br />
       <br />
       <button disabled={activeStep === 1} onClick={() => setActiveStep(activeStep - 1)}>

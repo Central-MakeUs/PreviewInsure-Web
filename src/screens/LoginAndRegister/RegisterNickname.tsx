@@ -1,4 +1,4 @@
-import Reac, { useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as Warning } from '@/assets/icons/Warning.svg';
 import { ReactComponent as Close } from '@/assets/icons/Close.svg';
