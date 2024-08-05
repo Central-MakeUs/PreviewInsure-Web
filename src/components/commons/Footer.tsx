@@ -1,3 +1,4 @@
+import media from '@styles/media';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -44,6 +45,10 @@ const Container = styled.footer`
   background-color: #f5f6f8;
   position: relative;
   transform: translateY(-100%);
+
+  ${media.small`
+    display: none;
+  `}
 `;
 const Left = styled.div`
   position: absolute;

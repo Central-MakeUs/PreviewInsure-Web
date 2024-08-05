@@ -29,7 +29,7 @@ const homeScreen = () => {
         <NavItem>Insue Planner</NavItem>
       </Link>
       <br />
-      <Link to="/qustion">
+      <Link to="/question">
         <NavItem>QNA</NavItem>
       </Link>
       <br />
