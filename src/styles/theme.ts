@@ -12,6 +12,7 @@ const fontSizes = {
 
 // 자주 사용하는 색
 const colors = {
+  Primary_W: '#EBEEFF',
   Primary100: '#D3D8FF',
   Primary200: '#B6BFFF',
   Primary300: '#96A2FF',
@@ -22,6 +23,7 @@ const colors = {
   Secondary300: '#FFE7AB',
   Secondary400: '#FFDD85',
   Secondary500: '#FBD268',
+  Black_W: '#F8F8F8',
   Black100: '#C7C7C7',
   Black200: '#AAAAAA',
   Black300: '#7E7E7E',
