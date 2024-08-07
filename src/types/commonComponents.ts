@@ -26,6 +26,10 @@ export type ProcessProps = {
   activeStep: number;
 };
 
+export type Process2Props = {
+  activeStep: number;
+};
+
 export type ButtonType = 'fill' | 'outline' | 'text';
 export type ButtonSizeType = 'big' | 'small';
 export type ButtonProps = {
