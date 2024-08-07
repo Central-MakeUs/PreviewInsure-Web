@@ -5,22 +5,31 @@ import { ReactComponent as Close } from '@/assets/icons/Close.svg';
 import { ReactComponent as Heart } from '@/assets/icons/Heart.svg';
 import MonthPicker from './InsueBoardingCompononets/MonthPicker';
 import YearPicker from './InsueBoardingCompononets/YearPicker';
+import { useNavigate } from 'react-router-dom';
 
 type StepProps = {
   goNextStep: () => void;
   goPreviousStep: () => void;
+  setBirthYear: (arg: number) => void;
+  setBirthMonth: (arg: number) => void;
 };
 
-function Step1({ goNextStep, goPreviousStep }: StepProps) {
+function Step1({ goNextStep, goPreviousStep, setBirthYear, setBirthMonth }: StepProps) {
+  const navigate = useNavigate();
   // 나이 선택
   const [alarmShown, setAlarmShown] = useState(false);
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [year, setYear] = useState(new Date().getFullYear());
+
   const cancelHandler = () => {
-    setAlarmShown(true);
+    // setAlarmShown(true);
+    navigate('/congratulate');
   };
+
   const inputYearAndMonth = () => {
     console.log(month, year);
+    setBirthYear(year);
+    setBirthMonth(month);
     goNextStep();
   };
 

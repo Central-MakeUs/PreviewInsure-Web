@@ -5,18 +5,22 @@ import styled from 'styled-components';
 type StepProps = {
   goNextStep: () => void;
   goPreviousStep: () => void;
+  setGender: (arg: 'M' | 'W' | null) => void;
 };
 
-function Step2({ goNextStep, goPreviousStep }: StepProps) {
+function Step2({ goNextStep, goPreviousStep, setGender }: StepProps) {
   const handleSelectMen = () => {
     console.log('men');
+    setGender('M');
     goNextStep();
   };
   const handleSelectWomen = () => {
     console.log('women');
+    setGender('W');
     goNextStep();
   };
   const handleSkip = () => {
+    setGender(null);
     goNextStep();
   };
 

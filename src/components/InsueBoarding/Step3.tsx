@@ -6,15 +6,14 @@ import { ReactComponent as Heart } from '@/assets/icons/Heart.svg';
 type StepProps = {
   goNextStep: () => void;
   goPreviousStep: () => void;
+  setComplete: (arg: boolean) => void;
 };
 
-function Step3({ goNextStep, goPreviousStep }: StepProps) {
+function Step3({ goNextStep, goPreviousStep, setComplete }: StepProps) {
   const handleNo = () => {
-    console.log('no');
-    goNextStep();
+    setComplete(true);
   };
   const handleYes = () => {
-    console.log('yes');
     goNextStep();
   };
 
