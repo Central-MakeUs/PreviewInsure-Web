@@ -1,10 +1,17 @@
 import styled from 'styled-components';
 import type { QuestionBoxProps } from '@/types/InsuePlannerComponents';
 
-function QuestionBox({ svg, text, bottom, right }: QuestionBoxProps) {
+function QuestionBox({ svg, text, bottom, right, setQuestion, value, setCurrentScreen }: QuestionBoxProps) {
   return (
     <QuestionBoxWrapper>
-      <QuestionBoxSvg bottom={bottom} right={right}>
+      <QuestionBoxSvg
+        bottom={bottom}
+        right={right}
+        onClick={() => {
+          setQuestion(value);
+          setCurrentScreen('A');
+        }}
+      >
         {svg}
       </QuestionBoxSvg>
       <QuestionBoxText>{text}</QuestionBoxText>
@@ -14,7 +21,8 @@ function QuestionBox({ svg, text, bottom, right }: QuestionBoxProps) {
 
 export default QuestionBox;
 
-const QuestionBoxWrapper = styled.div`
+const QuestionBoxWrapper = styled.button`
+  border: none;
   width: 33.3%;
   height: 21.8rem;
   border-radius: 4rem;
@@ -25,6 +33,7 @@ const QuestionBoxWrapper = styled.div`
   padding: 2rem 2.8rem;
   position: relative;
   background: ${({ theme }) => `linear-gradient(to bottom, ${theme.colors.Primary100}, #fff)`};
+  cursor: pointer;
 `;
 
 const QuestionBoxSvg = styled.div<{ bottom: string; right: string }>`

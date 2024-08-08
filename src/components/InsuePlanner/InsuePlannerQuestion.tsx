@@ -7,6 +7,7 @@ import { ReactComponent as Airplane } from '@/assets/icons/InsuePlanner/Airplane
 import QuestionBox from '@components/InsuePlanner/QuestionBox';
 import type { InsuePlannerQuestionProps } from '@/types/InsuePlannerComponents';
 import FailAlarm from '@components/commons/FailAlarm';
+import InsueQuestionCategory from './InsuePlannerComponents/InsueQuestionCategory';
 
 function InsuePlannerQuestion({ setQuestion, setCurrentScreen }: InsuePlannerQuestionProps) {
   const [text, setText] = useState<string>('');
@@ -14,6 +15,7 @@ function InsuePlannerQuestion({ setQuestion, setCurrentScreen }: InsuePlannerQue
   const [check, setCheck] = useState<boolean>(true);
   const [visible, setVisible] = useState<boolean>(false);
   const [alarmShown, setAlarmShown] = useState(false);
+  const [insureSearchCategory, setInsureSearchCategory] = useState('전체 카테고리');
 
   useEffect(() => {
     if (text.length >= 4) {
@@ -40,6 +42,7 @@ function InsuePlannerQuestion({ setQuestion, setCurrentScreen }: InsuePlannerQue
     }
 
     console.log('questionClick');
+    console.log('current category', insureSearchCategory);
     setQuestion(text);
     setCurrentScreen('A');
     //api 처리
@@ -57,6 +60,12 @@ function InsuePlannerQuestion({ setQuestion, setCurrentScreen }: InsuePlannerQue
       </Title>
       <Subtitle>궁금한점을 물어보세요!</Subtitle>
       <InputContainer>
+        {/*  */}
+        <InputCategory>
+          <InsueQuestionCategory setInsureSearchCategory={setInsureSearchCategory} />
+        </InputCategory>
+
+        {/*  */}
         <InputWrapperWrapper>
           <InputWrapper>
             <Input
@@ -89,17 +98,26 @@ function InsuePlannerQuestion({ setQuestion, setCurrentScreen }: InsuePlannerQue
             bottom={'20'}
             right={'5'}
             text={'10년 뒤 어떤보험이 필요할까요?'}
+            value={'10년 뒤 어떤보험이 필요할까요?'}
+            setQuestion={setQuestion}
+            setCurrentScreen={setCurrentScreen}
           />
           <QuestionBox
             svg={<Insurance width={207} height={207} />}
             bottom={'25'}
             right={'5'}
             text={'보험에 대해 잘 모르겠어요.'}
+            value={'보험에 대해 잘 모르겠어요.'}
+            setQuestion={setQuestion}
+            setCurrentScreen={setCurrentScreen}
           />
           <QuestionBox
             svg={<Airplane width={374} height={375} />}
             bottom={'-4'}
             right={'-13'}
+            value={'해외여행 가기 전 보험 가입이 필요할까요?'}
+            setQuestion={setQuestion}
+            setCurrentScreen={setCurrentScreen}
             text={
               <>
                 해외여행 가기 전<br />
@@ -152,8 +170,12 @@ const InputContainer = styled.div`
   margin-bottom: 6.4rem;
 `;
 
+const InputCategory = styled.div`
+  width: 20%;
+`;
+
 const InputWrapperWrapper = styled.div`
-  width: 85%;
+  width: 65%;
 `;
 
 const InputWrapper = styled.div`
@@ -197,6 +219,7 @@ const InputShareLeft = styled.p<{ visible: boolean }>`
   color: #ff6f6f;
   opacity: ${({ visible }) => (visible ? 1 : 0)};
 `;
+
 const InputShareRight = styled.div`
   display: flex;
   align-items: center;
