@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import media from '@styles/media';
 import { ReactComponent as DownSelector } from '@/assets/icons/DownSelector.svg';
 import { ReactComponent as UpSelector } from '@/assets/icons/UpSelector.svg';
+import { insures } from '@/static/insures';
 
 type InsueCardProps = {
   text: string;
@@ -10,32 +11,6 @@ type InsueCardProps = {
   SVG: any;
   getData?: any; //step5에서  보험종류, 보험회사  정보 가져올 때 사용
 };
-
-const insures = [
-  '한화생명',
-  'ABL생명',
-  '삼성생명',
-  '흥국생명',
-  '교보생명',
-  'iM라이프',
-  '미래에셋생명',
-  'KDB생명',
-  'DB생명',
-  '동양생명',
-  '메트라이프생명',
-  'KB라이프생명',
-  '신한라이프생명',
-  '처브라이프생명',
-  '하나생명',
-  'BNP파리바카디프생명',
-  '푸본현대생명',
-  '라이나생명',
-  'AIA생명',
-  'IBK연금보험',
-  'NH농협생명',
-  '교보라이프플래닛생명',
-  '그 외',
-];
 
 function InsureCard({ text, rotate, SVG, getData }: InsueCardProps) {
   const [insureCompany, setInsureCompany] = useState('KB손해보험');

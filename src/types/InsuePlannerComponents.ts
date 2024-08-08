@@ -8,8 +8,11 @@ export type InsuePlannerQuestionProps = {
 export type QuestionBoxProps = {
   svg: any;
   text: string | ReactElement;
+  value: string;
   bottom: string;
   right: string;
+  setQuestion: (arg: string) => void;
+  setCurrentScreen: (arg: 'Q' | 'A') => void;
 };
 
 //answer

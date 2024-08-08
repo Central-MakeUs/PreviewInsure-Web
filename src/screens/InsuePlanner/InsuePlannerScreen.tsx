@@ -20,9 +20,3 @@ function InsuePlannerScreen() {
 }
 
 export default InsuePlannerScreen;
-
-const Container = styled.div`
-  padding: 10rem 36rem;
-  display: flex;
-  flex-direction: column;
-`;
