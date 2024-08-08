@@ -18,6 +18,7 @@ export default InsuePlannerLoading;
 
 const Container = styled.div`
   display: flex;
+  padding: 10rem 36rem;
   flex-direction: column;
   align-items: center;
 `;

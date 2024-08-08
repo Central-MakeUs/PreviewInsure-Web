@@ -32,6 +32,8 @@ const testPage2 = () => {
         backgroundColor={'#fff'}
         icon={<Magnifier width={27} height={29} fill={'#000'} />}
         handler={SearchBarHandler}
+        height={9}
+        placeholder={'awefewf'}
       />
       {/* Selector */}
       <Selector type={'circle'} check={check} setCheck={setCheck} redFlag={false} />

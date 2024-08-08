@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import type { SearchBarProps } from '@/types/commonComponents';
 import styled from 'styled-components';
 
-function SearchBar({ backgroundColor, icon, handler }: SearchBarProps) {
+function SearchBar({ backgroundColor, icon, handler, height, placeholder }: SearchBarProps) {
   const searchRef = useRef<any>(null);
   const [text, setText] = useState<string>('');
   return (
@@ -11,6 +11,7 @@ function SearchBar({ backgroundColor, icon, handler }: SearchBarProps) {
         searchRef.current.focus();
       }}
       backgroundColor={backgroundColor}
+      height={height}
     >
       <SearchBarWrapper>
         <SearchBarInput
@@ -20,6 +21,7 @@ function SearchBar({ backgroundColor, icon, handler }: SearchBarProps) {
           }}
           value={text}
           type="text"
+          placeholder={placeholder}
         />
         <SearchBarBtn onClick={handler}>{icon}</SearchBarBtn>
       </SearchBarWrapper>
@@ -27,13 +29,13 @@ function SearchBar({ backgroundColor, icon, handler }: SearchBarProps) {
   );
 }
 
-const SearchBarContainer = styled.div<{ backgroundColor: string }>`
-  border: 1px solid #000;
-  width: 735px; // prop 가능성
-  height: 90px; // prop 가능성
+const SearchBarContainer = styled.div<{ backgroundColor: string; height: number }>`
+  /* border: 1px solid #000; */
+  width: 100%;
+  height: ${({ height }) => height}rem; // prop
   background-color: ${({ backgroundColor }) => backgroundColor}; // prop
   ${({ theme }) => theme.common.flexCenter}
-  border-radius: 20px;
+  border-radius: 4.5rem;
 `;
 
 const SearchBarWrapper = styled.div`
@@ -49,7 +51,7 @@ const SearchBarInput = styled.input`
   border: none;
   width: 90%;
   min-height: 48px;
-  font-size: ${({ theme }) => theme.fontSizes.subtitle};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   outline: none;
   background-color: inherit;
 `;

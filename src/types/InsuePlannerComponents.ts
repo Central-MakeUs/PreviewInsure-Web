@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 
 export type InsuePlannerQuestionProps = {
-  setLoading: (arg: boolean) => void;
+  setQuestion: (arg: string) => void;
+  setCurrentScreen: (arg: 'Q' | 'A') => void;
 };
 
 export type QuestionBoxProps = {
@@ -9,4 +10,18 @@ export type QuestionBoxProps = {
   text: string | ReactElement;
   bottom: string;
   right: string;
+};
+
+//answer
+
+export type InsuePlannerAnswerProps = {
+  question: string;
+  setCurrentScreen: (arg: 'Q' | 'A') => void;
+};
+
+export type HistoryItemProps = {
+  selected: boolean;
+  title: string;
+  contents: string;
+  setCurrentQuestion: (arg: string) => void;
 };

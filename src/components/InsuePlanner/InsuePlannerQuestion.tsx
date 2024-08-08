@@ -8,7 +8,7 @@ import QuestionBox from '@components/InsuePlanner/QuestionBox';
 import type { InsuePlannerQuestionProps } from '@/types/InsuePlannerComponents';
 import FailAlarm from '@components/commons/FailAlarm';
 
-function InsuePlannerQuestion({ setLoading }: InsuePlannerQuestionProps) {
+function InsuePlannerQuestion({ setQuestion, setCurrentScreen }: InsuePlannerQuestionProps) {
   const [text, setText] = useState<string>('');
   const [canQuestion, setCanQuestion] = useState<boolean>(false);
   const [check, setCheck] = useState<boolean>(true);
@@ -40,15 +40,12 @@ function InsuePlannerQuestion({ setLoading }: InsuePlannerQuestionProps) {
     }
 
     console.log('questionClick');
-    setLoading(true);
+    setQuestion(text);
+    setCurrentScreen('A');
     //api 처리
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-    // setLoading(false);
   };
   return (
-    <>
+    <Container>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <FailAlarm text={'질문 내용을 입력해 주세요.'} alarmShown={alarmShown} />
       </div>
@@ -112,11 +109,17 @@ function InsuePlannerQuestion({ setLoading }: InsuePlannerQuestionProps) {
           />
         </QuestionBoxWrapper>
       </QuestionContainer>
-    </>
+    </Container>
   );
 }
 
 export default InsuePlannerQuestion;
+
+const Container = styled.div`
+  padding: 10rem 36rem;
+  display: flex;
+  flex-direction: column;
+`;
 
 const Title = styled.p`
   display: flex;
