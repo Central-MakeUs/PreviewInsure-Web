@@ -120,6 +120,7 @@ const SubtitleP = styled.p``;
 const CardButton = styled.button`
   border: none;
   background-color: inherit;
+  cursor: pointer;
 `;
 
 const Selected = styled.div`

@@ -95,7 +95,7 @@ const Selected = styled.div`
   display: flex;
   justify-content: flex-start;
   gap: 3rem;
-  /* overflow-x: scroll; */
+  /* overflow-x: scroll; */ //버그 수정 필요
   /* overflow-y: visible; */
   z-index: 10;
 `;

@@ -4,6 +4,8 @@ export type SearchBarProps = {
   backgroundColor: string;
   icon: any;
   handler: () => void;
+  height: number;
+  placeholder: string;
 };
 
 export type SelectorProps = {
