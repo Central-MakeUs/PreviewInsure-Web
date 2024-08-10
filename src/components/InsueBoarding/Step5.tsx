@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import InsureCard from '@components/commons/InsureCard';
 import { ReactComponent as Check } from '@/assets/icons/Selector.svg';
 import { convertInsureType } from '@utils/common/convertInsureType';
+import media from '@styles/media';
+import { relative } from 'path';
 
 type insure = {
   insuranceType: string;
@@ -54,24 +56,17 @@ function Step5({ selectedInsures, toSelectInsures, setInsures, setComplete }: St
       <Subtitle>
         <SubtitleP>현재 사용중인 보험사를 선택해 주세요</SubtitleP>
       </Subtitle>
-      {/* <div
-        style={
-          {
-            overflowX: 'auto',
-            width: '100%',
-          }
-        }
-      > */}
-      <Selected>
-        {selectedInsures.map((card: any, index: number) => (
-          <SelectedButtonWrapper>
-            <InsureCard text={card.text} rotate={cardRotate} SVG={card.SVG} getData={getData} />
-            <ButtonShadow></ButtonShadow>
-          </SelectedButtonWrapper>
-        ))}
-      </Selected>
-      {/* </div> */}
-
+      <div style={{ position: 'relative', width: '100%', height: '27.4rem' }} />
+      <SelectedBox>
+        <Selected>
+          {selectedInsures.map((card: any, index: number) => (
+            <SelectedButtonWrapper>
+              <InsureCard text={card.text} rotate={cardRotate} SVG={card.SVG} getData={getData} />
+              <ButtonShadow></ButtonShadow>
+            </SelectedButtonWrapper>
+          ))}
+        </Selected>
+      </SelectedBox>
       <ToSelect>
         {toSelectInsures.map((card: any, index: number) => (
           <ToSelectBtnWrapper>
@@ -103,24 +98,28 @@ const Subtitle = styled.p`
 `;
 
 const SubtitleP = styled.p``;
+const SelectedBox = styled.div`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 80%;
+  top: 40%;
+
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  z-index: 4;
+`;
 
 const Selected = styled.div`
-  height: 23rem;
-  max-width: 90%;
-  /* width: fit-content; */
-  margin-bottom: 4.4rem;
+  width: fit-content;
+  height: 50rem;
+  overflow: visible;
+
   display: flex;
   justify-content: flex-start;
   gap: 3rem;
-  z-index: 10;
-  overflow-y: visible;
-  /* height: 100%; */
-  overflow-x: scroll;
-  overflow-y: visible; // 수직 오버플로우 허용
-  overflow: visible; // 전체 오버플로우 허용
-
-  /* scrollbar-width: none; */
-  /* -ms-overflow-style: none; //drag 기능 추가 */
 `;
 
 const SelectedButtonWrapper = styled.div`
@@ -179,6 +178,7 @@ const RegisterBtn = styled.button`
   margin-bottom: 5rem;
   transition: all 0.3s ease;
   gap: 1.6rem;
+  z-index: 5;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.Primary500};
