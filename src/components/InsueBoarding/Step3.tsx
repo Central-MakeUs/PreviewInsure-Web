@@ -24,7 +24,7 @@ function Step3({ goNextStep, goPreviousStep, setComplete }: StepProps) {
       </Subtitle>
       <RegisterBtnGroup>
         <RegisterBtn onClick={handleNo}>
-          <Close width={25} height={25} fill={'#fff'} /> 아니요, 없어요
+          <Close width={20} height={20} fill={'#fff'} /> 아니요, 없어요
         </RegisterBtn>
         <RegisterBtn onClick={handleYes}>
           <Heart width={22} height={19} fill={'#fff'} /> 네, 경험해봤어요!

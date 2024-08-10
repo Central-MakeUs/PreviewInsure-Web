@@ -65,7 +65,7 @@ function Step1({ goNextStep, goPreviousStep, setBirthYear, setBirthMonth }: Step
       </DateSelectWrapper>
       <RegisterBtnGroup>
         <RegisterBtn onClick={cancelHandler}>
-          <Close width={25} height={25} fill={'#fff'} /> 다음에 할래요
+          <Close width={20} height={20} fill={'#fff'} /> 다음에 할래요
         </RegisterBtn>
         <RegisterBtn onClick={inputYearAndMonth}>
           <Heart width={22} height={19} fill={'#fff'} /> 맵을 만들어볼래요!

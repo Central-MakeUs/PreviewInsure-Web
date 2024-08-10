@@ -14,7 +14,7 @@ import { ReactComponent as Book } from '@/assets/icons/InsueCard/Book.svg';
 import { ReactComponent as WheelChair } from '@/assets/icons/InsueCard/WheelChair.svg';
 import { ReactComponent as CI } from '@/assets/icons/InsueCard/CI.svg';
 
-import { ReactComponent as Check } from '@/assets/icons/Selector.svg';
+import { ReactComponent as Check } from '@/assets/icons/Approve.svg';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 type StepProps = {

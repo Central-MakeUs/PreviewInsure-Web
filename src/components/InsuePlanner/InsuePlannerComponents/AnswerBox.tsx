@@ -37,7 +37,7 @@ function AnswerBox({ text, links }: AnswerAnswerBoxProps) {
             {links.map((e, i) => (
               <LinkBtn
                 onClick={() => {
-                  location.href = e.insuranceLink;
+                  window.open(e.insuranceLink, '_blank', 'noopener, noreferrer');
                 }}
               >
                 {e.insuranceCompany}

@@ -22,7 +22,7 @@ function InsueMapSecondSection({
   const btnTxt = registInsueCompany ? `${registInsueCompany} 바로가기` : '가입한 보험 정보 입력하기';
 
   // icon
-  const iconTxt = isSubscribe ? '관심보험 등록 완료!' : isRegist ? `${insueName} 미등록` : '관심보험 미등록';
+  const iconTxt = isSubscribe ? '관심보험 등록 완료!' : isRegist ? '관심보험 미등록' : `${insueName} 미등록`;
   const backTxt = isRegist ? `${nickname}님의\n운전자 보험` : `아직 ${insueName}에\n가입하지 않았어요!`;
 
   const handleMoveBtn = () => {

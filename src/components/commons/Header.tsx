@@ -61,10 +61,6 @@ const Container = styled.header`
   &.primary {
     background-color: ${({ theme }) => theme.colors.Primary500};
   }
-
-  ${media.small`
-  height: 8rem;
-  `};
 `;
 
 const PC = styled.div`
@@ -90,15 +86,15 @@ const LogoImg = styled.img`
   z-index: 3;
   cursor: pointer;
   ${media.small`
-    width: 8.9rem;
+    width: 100px;
     left: 29px;
-    top: 3.2rem
+    top: 5.2rem
   `};
 
   ${media.mobile`
     width: 100px;
     left: 29px;
-    top: 3.2rem
+    top: 5.2rem
   `};
 `;
 
