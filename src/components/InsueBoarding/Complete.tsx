@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Loading from '@components/commons/Loading';
+import {
+  useAgeMutation,
+  AgeRequest,
+  patchBoardData,
+  useBoardMutation,
+  BoardRequest,
+} from '@apis/insueboarding/insueboarding';
+import { convertInsureType } from '@utils/common/convertInsureType';
 
 type insure = {
   insuranceType: string;
@@ -17,11 +25,31 @@ type CompleteProps = {
 function Complete({ birthYear, birthMonth, gender, insures }: CompleteProps) {
   const [loading, setLoading] = useState(true);
   const nickname = '춤추는 부엉이';
+  const { ageMutation } = useAgeMutation();
+  const { boardMutation } = useBoardMutation();
+
+  // console.log(convertInsureType('생명 보험'));
+
+  const handleAPI = () => {
+    const updateAgeData: AgeRequest = {
+      year: birthYear,
+      month: birthMonth,
+    };
+    ageMutation.mutate(updateAgeData);
+
+    const updateBoardDate: BoardRequest = {
+      gender: gender,
+      insureBoards: insures,
+    };
+    boardMutation.mutate(updateBoardDate);
+  };
 
   useEffect(() => {
-    console.log(birthYear, birthMonth, gender);
-    console.log(insures);
+    console.log(birthYear, birthMonth);
+    console.log(gender, insures);
+    //api
 
+    handleAPI();
     //로딩 끝나면 -> api 통신
     setTimeout(() => {
       setLoading(false);

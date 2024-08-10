@@ -88,11 +88,12 @@ function Step4({ goNextStep, goPreviousStep, setSelectedInsures, setToSelectInsu
             <CSSTransition key={card.text} timeout={300} classNames="card">
               <CardButton onClick={() => handleToSelectedCardClick(card)}>
                 <InsureCard text={card.text} rotate={true} SVG={card.SVG} />
+                <Screen></Screen>
               </CardButton>
             </CSSTransition>
           ))}
         </TransitionGroup>
-        <Screen></Screen>
+        {/* <Screen></Screen> */}
       </ToSelect>
 
       <RegisterBtn onClick={registerInsures}>
@@ -121,6 +122,7 @@ const CardButton = styled.button`
   border: none;
   background-color: inherit;
   cursor: pointer;
+  position: relative;
 `;
 
 const Selected = styled.div`
@@ -182,8 +184,11 @@ const ToSelect = styled.div`
   padding-left: 1rem;
   padding-right: 1rem;
   overflow-y: hidden;
-  overflow-x: scroll;
+  overflow-x: auto;
   position: relative;
+
+  /* scrollbar-width: none; Firefox */
+  /* -ms-overflow-style: none; Internet Explorer 10+ */
 
   .card-enter {
     opacity: 0;
@@ -212,11 +217,11 @@ const ToSelect = styled.div`
 const Screen = styled.div`
   position: absolute;
   /* border: 1px solid #000; */
-  bottom: 0;
+  top: 30%;
   width: 100%;
-  height: 4rem;
-  background: #fff;
-  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+  height: 7rem;
+  /* background: #fff; */
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #fff 100%);
 `;
 
 const RegisterBtn = styled.button`
