@@ -119,7 +119,7 @@ function MainScreen() {
 const Container = styled.div`
   position: relative;
   width: 100%;
-  height: calc(100vh - 12rem); // header 높이만큼 빼기
+  height: calc(100vh - 16rem); // header 높이만큼 빼기
   background-color: ${({ theme }) => theme.colors.Primary500};
   overflow: hidden;
   ${media.small`
