@@ -12,7 +12,7 @@ export const appleLogin = async () => {
     `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
     `&response_type=${encodeURIComponent(RESPONSE_TYPE)}` +
     `&response_mode=${encodeURIComponent(RESPONSE_MODE)}` +
-    `&scope=${encodeURIComponent('name email')}` +
+    `&scope=${encodeURIComponent('')}` +
     `&state=${encodeURIComponent('previewInsure')}` +
     `&nonce=${encodeURIComponent('821')}`;
 
