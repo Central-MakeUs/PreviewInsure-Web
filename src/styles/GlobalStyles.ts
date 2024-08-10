@@ -9,10 +9,24 @@ const GlobalStyle = styled.createGlobalStyle`
   ${reset}
 
   html {
-    font-size: 62.5%; //10px
+    line-height: normal;
+    /* font-size: 62.5%; //10px */
+    font-size: 55%;
     height: 100%;
+    ${media.large`
+    font-size:48%;
+    `}
     ${media.medium`
-    font-size:50%;
+    // 992 ~ 1199
+    font-size:35%;
+    `}
+    ${media.small`   
+    // 768 ~ 990  모바일 기준
+    font-size:28%;
+    `}
+    ${media.mobile`
+    // 767 < 
+    font-size:25%;
     `}
   }
 

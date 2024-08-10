@@ -44,6 +44,7 @@ const Container = styled.div`
   padding: 7.6rem 0;
   ${({ theme }) => theme.common.flexCenter};
   flex-direction: column;
+  height: calc(100vh - 18rem);
 `;
 
 const Title = styled.h1`

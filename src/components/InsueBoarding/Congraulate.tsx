@@ -7,7 +7,7 @@ function Congratulate() {
   const navigate = useNavigate();
   useEffect(() => {
     setTimeout(() => {
-      navigate('/main');
+      navigate('/');
     }, 3000);
   }, []);
   return (

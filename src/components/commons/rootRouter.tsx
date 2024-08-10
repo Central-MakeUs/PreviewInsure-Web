@@ -26,7 +26,7 @@ const rootRouter = () => {
         <Header />
 
         <Routes>
-          <Route path="/" element={<HomeScreen />} />
+          <Route path="/" element={<MainScreen />} />
           <Route path="/test1" element={<TestScreen1 />} />
           <Route path="/test2" element={<TestScreen2 />} />
           <Route path="/login" element={<LoginScreen />} />
@@ -39,7 +39,7 @@ const rootRouter = () => {
           <Route path="/congratulate" element={<Congratulate />} />
           <Route path="/insueMap" element={<InsueMapScreen />} />
 
-          <Route path="/main" element={<MainScreen />} />
+          {/* <Route path="/main" element={<MainScreen />} /> */}
           <Route path="/insuePlanner" element={<InsuePlannerScreen />} />
           <Route path="/question" element={<Question />} />
           <Route path="/user" element={<UserInfoScreen />} />

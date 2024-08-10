@@ -193,6 +193,7 @@ const Input = styled.textarea`
   outline: none;
   border-radius: 3rem;
   overflow: hidden;
+  resize: none;
 
   &::placeholder {
     color: #adadad;

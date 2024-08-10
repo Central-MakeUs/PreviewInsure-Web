@@ -1,11 +1,13 @@
 import { css, type CSSObject, type Interpolation } from 'styled-components';
 
-export type Breakpoints = 'small' | 'medium' | 'large';
+export type Breakpoints = 'mobile' | 'small' | 'medium' | 'large' | 'xlarge';
 
 export const breakpoints: Record<Breakpoints, string> = {
-  small: '@media (max-width: 1047px)',
-  medium: '@media (max-width: 1366px)',
-  large: '@media (min-width: 1367px)',
+  mobile: '@media (max-width: 767px)', // 767 <
+  small: '@media (max-width: 991px)', // 768 ~ 990
+  medium: '@media (max-width: 1200px)', // 992 ~ 1199
+  large: '@media (max-width: 1609px)', // 1201~ 1609
+  xlarge: '@media (min-width: 1610px)', // 1610>
 };
 
 const media = Object.entries(breakpoints).reduce((acc, [key, value]) => {

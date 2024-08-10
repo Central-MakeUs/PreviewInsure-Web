@@ -85,6 +85,7 @@ function InsueBoardingScreen() {
 
 const Container = styled.div`
   padding: 7.6rem 0;
+  height: calc(100vh - 18rem);
   ${({ theme }) => theme.common.flexCenter};
   flex-direction: column;
 `;
