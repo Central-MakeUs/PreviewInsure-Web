@@ -135,6 +135,9 @@ const Selected = styled.div`
   gap: 3rem;
   overflow-y: hidden;
 
+  scrollbar-width: none;
+  -ms-overflow-style: none; //drag 기능 추가
+
   .card-enter {
     opacity: 0;
     transform: translateY(50%);
@@ -184,11 +187,11 @@ const ToSelect = styled.div`
   padding-left: 1rem;
   padding-right: 1rem;
   overflow-y: hidden;
-  overflow-x: auto;
+  overflow-x: scroll;
   position: relative;
 
-  /* scrollbar-width: none; Firefox */
-  /* -ms-overflow-style: none; Internet Explorer 10+ */
+  scrollbar-width: none;
+  -ms-overflow-style: none; //drag 기능 추가
 
   .card-enter {
     opacity: 0;
