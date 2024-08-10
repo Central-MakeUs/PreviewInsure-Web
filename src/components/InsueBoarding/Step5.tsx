@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import InsureCard from '@components/commons/InsureCard';
 import { ReactComponent as Check } from '@/assets/icons/Selector.svg';
+import { convertInsureType } from '@utils/common/convertInsureType';
 
 type insure = {
   insuranceType: string;
@@ -18,7 +19,10 @@ type Step5Props = {
 function Step5({ selectedInsures, toSelectInsures, setInsures, setComplete }: Step5Props) {
   const [cardRotate, setCardRotate] = useState(false);
   const [insureCardInfos, setInsureCardInfos] = useState<any[]>(
-    selectedInsures.map((card: any) => ({ insuranceType: card.text, insuranceCompany: 'KB손해보험' })),
+    selectedInsures.map((card: any) => ({
+      insuranceType: convertInsureType(card.text),
+      insuranceCompany: 'KB손해보험',
+    })),
   );
 
   const getData = (cardInsureType: string, cardInsureCompany: string) => {
@@ -60,9 +64,12 @@ function Step5({ selectedInsures, toSelectInsures, setInsures, setComplete }: St
       </Selected>
       <ToSelect>
         {toSelectInsures.map((card: any, index: number) => (
-          <InsureCard text={card.text} rotate={true} SVG={card.SVG} />
+          <ToSelectBtnWrapper>
+            <InsureCard text={card.text} rotate={true} SVG={card.SVG} />
+            <Screen></Screen>
+          </ToSelectBtnWrapper>
         ))}
-        <Screen></Screen>
+        {/* <Screen></Screen> */}
       </ToSelect>
       <RegisterBtn onClick={registerInsureDetail}>
         <Check width={25} height={25} fill={'#fff'} />
@@ -98,6 +105,10 @@ const Selected = styled.div`
   /* overflow-x: scroll; */ //버그 수정 필요
   /* overflow-y: visible; */
   z-index: 10;
+
+  overflow-x: scroll; // 수평 스크롤 가능
+  overflow-y: visible; // 수직 오버플로우 허용
+  overflow: visible; // 전체 오버플로우 허용
 `;
 
 const SelectedButtonWrapper = styled.div`
@@ -128,13 +139,18 @@ const ToSelect = styled.div`
   position: relative;
 `;
 
+const ToSelectBtnWrapper = styled.div`
+  position: relative;
+`;
+
 const Screen = styled.div`
   position: absolute;
   /* border: 1px solid #000; */
-  bottom: 0;
+  top: 30%;
   width: 100%;
-  height: 4rem;
-  background: #fff;
+  height: 7rem;
+  /* background: #fff; */
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #fff 100%);
 `;
 
 const RegisterBtn = styled.button`

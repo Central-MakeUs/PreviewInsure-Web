@@ -4,6 +4,7 @@ import media from '@styles/media';
 import { ReactComponent as DownSelector } from '@/assets/icons/DownSelector.svg';
 import { ReactComponent as UpSelector } from '@/assets/icons/UpSelector.svg';
 import { insures } from '@/static/insures';
+import GradientBackground from './GradientBackground';
 
 type InsueCardProps = {
   text: string;
@@ -29,10 +30,12 @@ function InsureCard({ text, rotate, SVG, getData }: InsueCardProps) {
   return (
     <Card rotate={rotate}>
       <CardFront>
+        <GradientBackground />
         <InsueName>{text}</InsueName>
         <SVGWrapper>{SVG}</SVGWrapper>
       </CardFront>
       <CardBack>
+        <GradientBackground />
         <InsueName>{text}</InsueName>
         <SelectWrapper>
           <Button onClick={() => setShowMenu(!showMenu)}>
@@ -70,34 +73,15 @@ const Card = styled.div<{ rotate: boolean }>`
   transition: transform 0.3s;
   transform-style: preserve-3d;
   background: #fff;
-  border: 1px solid ${({ theme }) => theme.colors.Primary500};
+  /* border: 1px solid ${({ theme }) => theme.colors.Primary500}; */
 
-  /* &::before {
-    //border
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: -1px;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(114.512deg, rgba(104, 121, 251, 0.5) 0%, rgba(104, 121, 251, 0) 100%);
-    pointer-events: none;
-     backdrop-filter: blur(5px);
-  } */
-
-  /* &:hover {
-    transform:  rotateY(180deg);
-  } */
   & > * {
     width: 100%;
     height: 100%;
     border-radius: inherit;
     backface-visibility: hidden;
     position: absolute;
-    background: linear-gradient(to bottom right, rgba(104, 121, 251, 0.4), rgba(255, 255, 255, 0));
+    /* background: linear-gradient(to bottom right, rgba(104, 121, 251, 0.4), rgba(255, 255, 255, 0)); */
   }
 `;
 
@@ -106,6 +90,7 @@ const CardFront = styled.div`
   flex-direction: column;
   padding-top: 2rem;
   align-items: center;
+  /* position: relative; */
 `;
 const CardBack = styled.div`
   transform: rotateY(180deg);
@@ -133,9 +118,11 @@ const SVGWrapper = styled.div`
 const SelectWrapper = styled.div`
   width: 14rem;
   /* height: 4.8rem; */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: flex-start; */
+  position: absolute;
+  top: 25%;
 `;
 
 const Button = styled.button`
@@ -161,7 +148,7 @@ const InsureContents = styled.div<{ open: boolean }>`
   /* border: 1px solid #000; */
   border-radius: 0.5rem;
   transition: all 0.3s ease-in-out;
-  overflow: scroll;
+  overflow-y: scroll;
   overflow-x: hidden;
 `;
 
