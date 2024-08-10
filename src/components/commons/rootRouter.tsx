@@ -17,6 +17,7 @@ import InsuePlannerScreen from '@screens/InsuePlanner/InsuePlannerScreen';
 import Question from '@screens/Question/Question';
 import AppleLoginCallback from '@screens/LoginAndRegister/AppleLoginCallback';
 import Congratulate from '@components/InsueBoarding/Congraulate';
+import InsueMapScreen from '@screens/InsueMap/InsueMapScreen';
 
 const rootRouter = () => {
   return (
@@ -36,6 +37,7 @@ const rootRouter = () => {
           <Route path="/callback/apple" element={<AppleLoginCallback />} />
           <Route path="/insueBording" element={<InsueBordingScreen />} />
           <Route path="/congratulate" element={<Congratulate />} />
+          <Route path="/insueMap" element={<InsueMapScreen />} />
 
           <Route path="/main" element={<MainScreen />} />
           <Route path="/insuePlanner" element={<InsuePlannerScreen />} />
