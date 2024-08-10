@@ -31,13 +31,21 @@ function LoginScreen() {
       <ButtonGroup>
         <OAuthButton
           onClick={LoginGoogle}
-          icon={<GoogleIcon width={25} height={25} />}
+          icon={
+            <GoogleIconBox>
+              <GoogleIcon width={'100%'} height={'100%'} />
+            </GoogleIconBox>
+          }
           text={'Google 로그인'}
           type={'google'}
         />
         <OAuthButton
           onClick={LoginApple}
-          icon={<AppleIcon width={23} height={25} />}
+          icon={
+            <AppleIconBox>
+              <AppleIcon width={23} height={25} />
+            </AppleIconBox>
+          }
           text={'Apple 로그인'}
           type={'apple'}
         />
@@ -50,7 +58,10 @@ function LoginScreen() {
 
 const Container = styled.div`
   padding: 7.6rem 0;
-  ${({ theme }) => theme.common.flexCenter};
+  /* ${({ theme }) => theme.common.flexCenter}; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   flex-direction: column;
   height: calc(100vh - 18rem);
 `;
@@ -87,6 +98,16 @@ const ButtonGroup = styled.div`
   align-items: center;
   gap: 1.6rem;
   margin-bottom: 7rem;
+`;
+
+const GoogleIconBox = styled.div`
+  width: 2.5rem;
+  height: 2.3rem;
+`;
+
+const AppleIconBox = styled.div`
+  width: 2.3rem;
+  height: 2.5rem;
 `;
 
 const Line = styled.div`

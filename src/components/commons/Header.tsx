@@ -85,6 +85,11 @@ const LogoImg = styled.img`
   top: 7rem;
   z-index: 3;
   cursor: pointer;
+  ${media.medium`
+    width: 120px;
+    left: 29px;
+    top: 5.2rem
+  `};
   ${media.small`
     width: 100px;
     left: 29px;
