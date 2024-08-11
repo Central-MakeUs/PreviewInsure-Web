@@ -66,7 +66,7 @@ const Title = styled.h1`
 
   ${media.mobile`
     // 767 < 
-    font-size:3rem;
+    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
     color: ${({ theme }: any) => theme.colors.Black200};
   `}
 `;

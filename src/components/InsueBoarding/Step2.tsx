@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import media from '@styles/media';
+import { ReactComponent as Warning } from '@/assets/icons/Warning.svg';
 //성별
 
 type StepProps = {
@@ -34,6 +36,13 @@ function Step2({ goNextStep, goPreviousStep, setGender }: StepProps) {
         <RegisterBtn onClick={handleSelectWomen}>여성</RegisterBtn>
         <RegisterBtn onClick={handleSkip}>건너띄기</RegisterBtn>
       </SelectWrapper>
+
+      <Explain>
+        <WarningIconBox>
+          <Warning width={'100%'} height={'100%'} fill={'#aaa'} />
+        </WarningIconBox>
+        <p>닉네임은 설정 이후 변경할 수 없어요.</p>
+      </Explain>
     </>
   );
 }
@@ -55,15 +64,21 @@ const SelectWrapper = styled.div`
   display: flex;
   gap: 5rem;
   align-items: center;
+
+  ${media.mobile`
+    // 767 < 
+   width:80%;
+   margin-bottom:6rem;
+  `}
 `;
 
 const SubtitleP = styled.p``;
 
 const RegisterBtn = styled.button`
   border: none;
-  background-color: ${({ theme }) => theme.colors.Black100};
+  background-color: ${({ theme }) => theme.colors.Primary_W};
   ${({ theme }) => theme.common.flexCenter};
-  color: #fff;
+  color: ${({ theme }) => theme.colors.Primary500};
   font-size: ${({ theme }) => theme.fontSizes.small};
   font-weight: 600;
   border-radius: 1.4rem;
@@ -75,5 +90,34 @@ const RegisterBtn = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.colors.Primary500};
     transition: 0.5s;
+    color: #fff;
   }
+
+  ${media.mobile`
+    // 767 < 
+      flex-grow:1;
+      padding:3rem 3.5rem;
+      font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
+      border-radius: 3.5rem;
+  `}
+`;
+
+const Explain = styled.p`
+  //mobile에만 존재
+  display: none;
+
+  ${media.mobile`
+    // 767 < 
+    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+    display: flex;
+    color: ${({ theme }: any) => theme.colors.Black200};
+    text-align: center;
+    line-height: 1.5;
+    gap: 1rem;
+  `}
+`;
+
+const WarningIconBox = styled.div`
+  width: 3.2rem;
+  height: 3.2rem;
 `;
