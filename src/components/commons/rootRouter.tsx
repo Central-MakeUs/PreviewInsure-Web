@@ -18,8 +18,24 @@ import Question from '@screens/Question/Question';
 import AppleLoginCallback from '@screens/LoginAndRegister/AppleLoginCallback';
 import Congratulate from '@components/InsueBoarding/Congraulate';
 import InsueMapScreen from '@screens/InsueMap/InsueMapScreen';
+import BottomNav from './BottomNav';
+import media from '@styles/media';
+import { useEffect, useState } from 'react';
 
 const rootRouter = () => {
+  // 모바일 사이즈에서만 BottomNav를 랜더링 하도록 함.
+  // BottomNav에 스크롤 이벤트가 있기 때문.
+  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <BrowserRouter>
       <WrapContent>
@@ -46,7 +62,7 @@ const rootRouter = () => {
         </Routes>
       </WrapContent>
 
-      <Footer />
+      {isMobile ? <BottomNav /> : <Footer />}
     </BrowserRouter>
   );
 };
@@ -54,8 +70,12 @@ const rootRouter = () => {
 const WrapContent = styled.div`
   height: auto;
   min-height: 100%;
-  padding-bottom: 19rem; //footer
   position: relative;
+  padding-bottom: 19rem; //footer
+
+  ${media.mobile`
+    padding-bottom: 78px; // BottomNav
+  `}
 `;
 
 export default rootRouter;
