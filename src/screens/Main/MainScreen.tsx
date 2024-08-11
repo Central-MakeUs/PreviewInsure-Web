@@ -83,9 +83,10 @@ function MainScreen() {
           </CSSTransition>
         </TransitionGroup>
         <CharacterImg src={character} />
-        <GradientImgBackground />
-        <ColorBackground />
       </CharacterBox>
+
+      <GradientImgBackground />
+      <ColorBackground />
 
       <ScrollBox ref={scrollWrapperRef}>
         <SelectBox>
@@ -103,7 +104,7 @@ function MainScreen() {
       </ScrollBox>
 
       <ArrowBox onClick={() => hanldeSelected(1)}>
-        <Arrow width={43} height={200} color="white" />
+        <Arrow width={43} height={'100%'} color="white" />
       </ArrowBox>
       <LeftArrowBox onClick={() => hanldeSelected(-1)}>
         <ArrowMini width={9} height={20} color="white" />
@@ -122,8 +123,9 @@ const Container = styled.div`
   height: calc(100vh - 16rem); // header 높이만큼 빼기
   background-color: ${({ theme }) => theme.colors.Primary500};
   overflow: hidden;
-  ${media.small`
-  height: calc(100vh - 22rem); // header + nav
+
+  ${media.mobile`
+    height: calc(100vh - 18rem - 78px); // header + nav
   `};
 `;
 
@@ -131,11 +133,12 @@ const TextBox = styled.div`
   width: fit-content;
   height: fit-content;
   position: absolute;
-  bottom: 50%;
+  bottom: 55%;
   left: 10%;
 
-  ${media.small`
-    top: 0;
+  ${media.mobile`
+    top: 3%;
+    left: 7%;
   `};
 `;
 const Logoimg = styled.img`
@@ -144,8 +147,7 @@ const Logoimg = styled.img`
   margin-left: 0.8rem;
 
   ${media.small`
-    width: 10rem;
-    margin-right: 0.7rem;
+  margin-right: 2rem;
     margin-left: 0;
   `};
 `;
@@ -153,10 +155,6 @@ const TextSmall = styled.span`
   font-size: 4rem;
   font-weight: 600;
   color: white;
-
-  ${media.small`
-    font-size: 1.6rem;
-  `};
 `;
 const TextBig = styled.p`
   font-size: 7rem;
@@ -165,24 +163,42 @@ const TextBig = styled.p`
   margin-top: 1.7rem;
 
   ${media.small`
-    font-size: 2rem;
-    margin-top: 0.9rem;
+    font-size: 5rem;
+    /* margin-top: 0.9rem; */
   `};
 `;
 
 const CharacterBox = styled.div`
   position: absolute;
   right: 0;
-  top: 42%;
-  transform: translate(0, -50%);
+  bottom: 0;
+
+  /* top: -18rem; */
+  /* top: 42%; */
+  /* transform: translate(0, -50%); */
   width: 60%;
-  max-height: 120rem;
+  /* max-height: 100rem; */
+  height: 100vh;
+  margin-bottom: 10rem;
+  /* max-height: 90rem; */
+  /* overflow: hidden; */
 
   ${media.small`
-    top: 50%;
-    left:50%;
-    transform: translate(-50%, -50%);
-    width: 120%;
+    width: 70%;
+    /* max-height:100%; */
+  `}
+
+  ${media.mobile`
+    /* top: 50%; */
+    /* left:50%; */
+    /* position: relative; */
+    /* left: 50%; */
+    /* top: 0; */
+    /* transform: translate(-50%,0); */
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    margin-bottom: 25rem;
   `};
 `;
 
@@ -201,9 +217,10 @@ const IconBox = styled.div`
   width: 20rem;
   height: 20rem;
   position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
-  left: 13%;
+  bottom: 37%;
+  /* transform: translate(-200%, -50%); */
+  left: 15%;
+  z-index: 3;
 
   display: flex;
   flex-direction: column;
@@ -212,10 +229,16 @@ const IconBox = styled.div`
   transition: all 2s;
 
   ${media.small`
-    width: 12rem;
-    height: 12rem;
-    top: 45%;
+    width: 30rem;
+    height: 30rem;
+    /* left: 15%; */
+    /* transform: translate(0,0); */
   `};
+
+  ${media.mobile`
+    left:8%;
+    /* bottom: 70rem; */
+  `}
 
   transition:
     transform 300ms ease-in-out,
@@ -247,42 +270,76 @@ const IconTxt = styled.span`
   color: white;
   white-space: nowrap;
 
-  ${({ theme }) => media.small`
-    font-size: ${theme.fontSizes.small};
+  ${media.small`
+    font-size: 4rem
   `};
 `;
 
 const Icon = styled.div`
   width: 100%;
   min-width: 12rem;
-  max-width: 18rem;
 
-  ${media.small`
-    min-width: 8rem;
-  `};
   animation: ${moving} 1s 0s linear alternate infinite;
 `;
 
 const CharacterImg = styled.img`
+  position: absolute;
+  bottom: 0;
   width: 100%;
-  height: 100%;
+  height: fit-content;
+  min-height: 90rem;
+  max-width: 125rem;
+  object-fit: contain;
+
+  ${media.small`
+    max-width: 200rem;
+  `}
+
+  ${media.mobile`
+    width:120%;
+    max-width: 120%;
+    left:53%;
+    bottom: 38%;
+    transform: translate(-50%, 50%);
+    /* position: absolute; */
+    /* width: 100%; */
+    /* height: 100%; */
+    /* bottom:10%;
+    left: 50%;
+    transform: translateX(-50%); */
+  `};
 `;
 const GradientImgBackground = styled.div`
   width: 100%;
   max-height: 8rem;
-  height: 14%;
+  height: 20%;
   min-height: 5.8rem;
   position: absolute;
-  bottom: 22%;
+  bottom: 27.8rem;
   background: linear-gradient(180deg, rgba(104, 121, 251, 0) 0%, ${({ theme }) => theme.colors.Primary500} 100%);
+
+  ${media.small`
+    bottom: 39.8rem;
+  `}
+
+  ${media.mobile`
+  bottom: 59.8rem;
+  `};
 `;
 
 const ColorBackground = styled.div`
   width: 100%;
-  height: 22.5%;
+  height: 28rem;
   position: absolute;
   bottom: 0;
   background-color: ${({ theme }) => theme.colors.Primary500};
+
+  ${media.small`
+    height: 40rem;
+  `};
+  ${media.mobile`
+    height: 60rem;
+  `};
 `;
 
 const ScrollBox = styled.div`
@@ -297,9 +354,8 @@ const ScrollBox = styled.div`
 
 const SelectBox = styled.div`
   width: fit-content;
-  height: 27.5%;
   min-width: 10rem;
-  padding: 0 0 2.5% 0;
+  padding-bottom: 3%;
   z-index: 2;
 
   display: flex;
@@ -311,31 +367,32 @@ const SelectBox = styled.div`
 const ArrowBox = styled.div`
   z-index: 3;
   position: absolute;
-  bottom: 5%;
+  bottom: 3%;
   right: 4rem;
-  ${media.small`
+  height: 22%;
+  ${media.mobile`
     display: none;
   `};
 `;
 const LeftArrowBox = styled.div`
   z-index: 3;
   position: absolute;
-  bottom: 25%;
+  bottom: 23%;
   left: 2.5rem;
   display: none;
 
   transform: rotate(180deg);
-  ${media.small`
+  ${media.mobile`
     display: block;
   `};
 `;
 const RightArrowBox = styled.div`
   z-index: 3;
   position: absolute;
-  bottom: 25%;
+  bottom: 23%;
   right: 2.5rem;
   display: none;
-  ${media.small`
+  ${media.mobile`
     display: block;
   `};
 `;

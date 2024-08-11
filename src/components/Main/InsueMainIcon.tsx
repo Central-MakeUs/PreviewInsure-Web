@@ -55,6 +55,11 @@ const Box = styled.div<{ isSelected: boolean }>`
     transform: scale(0.8);
     opacity: 0;
   }
+
+  ${({ isSelected }) => media.small`
+  padding: ${isSelected ? '5.5rem 3.2rem 2rem 3.2rem' : '3rem 2.8rem 1.8rem 2.8rem'};
+
+  `};
 `;
 
 const IconBox = styled.div<{ isSelected: boolean }>`
@@ -62,8 +67,13 @@ const IconBox = styled.div<{ isSelected: boolean }>`
   min-height: ${({ isSelected }) => (isSelected ? '18rem' : '13rem')};
   transition: max-height 0.3s ease;
 
-  ${media.small`
-    min-height: 8rem;
+  ${({ isSelected }) => media.medium`
+  min-width: ${isSelected ? '24rem' : '16rem'};
+  min-height: ${isSelected ? '24rem' : '16rem'};
+  `};
+  ${({ isSelected }) => media.small`
+  min-width: ${isSelected ? '30rem' : '22rem'};
+  min-height: ${isSelected ? '30rem' : '22rem'};
   `};
 `;
 
@@ -74,6 +84,10 @@ const TopText = styled.span<{ isSelected: boolean }>`
   white-space: nowrap;
   transform: ${({ isSelected }) => (isSelected ? `scale(1.4)` : 'none')};
   /* transition: transform 0.2s ease; */
+
+  ${media.small`
+    font-size: 2.8rem;
+  `}
 `;
 
 const Move = styled.span<{ isSelected: boolean }>`
