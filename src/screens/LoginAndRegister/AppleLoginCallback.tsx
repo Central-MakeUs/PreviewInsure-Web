@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loading from '@components/commons/Loading';
+import axiosInstance from '@utils/axios';
+import axios from 'axios';
+
+const SERVER_URL = import.meta.env.VITE_APP_SERVER_URL;
 
 function AppleLoginCallback() {
   const navigate = useNavigate();
@@ -16,13 +20,23 @@ function AppleLoginCallback() {
     setState(queryParams.get('state'));
   }, []);
 
-  const handleSign = () => {
+  const handleSign = async () => {
     const data = {
-      id_token: idToken,
+      platform: 'APPLE',
+      appleToken: idToken,
       code: code,
-      state: state,
+      // state: state,
     };
-    console.log(data);
+    console.log('RequestData', data);
+
+    // api 통신
+    try {
+      // const response = await axiosInstance.post('/oauth', data);
+      const response = await axios.post(`${SERVER_URL}/oauth`, data);
+      console.log('res', response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
