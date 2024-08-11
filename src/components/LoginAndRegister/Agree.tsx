@@ -4,6 +4,7 @@ import Selector from '@components/commons/Selector';
 import { ReactComponent as Up } from '@assets/icons/Up.svg';
 import { ReactComponent as Down } from '@assets/icons/Down.svg';
 import type { AgreeProps } from '@/types/LoginAndRegisterComponents';
+import media from '@styles/media';
 
 function Agree({ check, setCheck, text, type, detail, registerBtnClicked }: AgreeProps) {
   const [showDetail, setShowDetail] = useState(false);
@@ -22,12 +23,12 @@ function Agree({ check, setCheck, text, type, detail, registerBtnClicked }: Agre
         <AgreeRight onClick={() => setShowDetail(!showDetail)}>
           {!showDetail ? (
             <>
-              상세보기
+              <AgreeRightText>상세보기</AgreeRightText>
               <Down width={38} height={39} />
             </>
           ) : (
             <>
-              접기
+              <AgreeRightText>접기</AgreeRightText>
               <Up width={38} height={39} />
             </>
           )}
@@ -51,12 +52,22 @@ const AgreeLeft = styled.div`
   display: flex;
   align-items: center;
   gap: 2.1rem;
+  ${media.mobile`
+    // 767 < 
+    width:75%;
+  `}
 `;
 const AgreeLeftText = styled.p<{ registerBtnClicked: boolean; check: boolean }>`
   color: ${({ theme, check, registerBtnClicked }) =>
     !check && registerBtnClicked ? theme.colors.AlertT : theme.colors.Black500};
   font-size: ${({ theme }) => theme.fontSizes.small};
   font-weight: 600;
+
+  ${media.mobile`
+    // 767 < 
+    font-size:3.1rem;
+    font-weight:500;
+  `}
 `;
 
 const AgreeLeftTextType = styled.span<{ type: string; registerBtnClicked: boolean; check: boolean }>`
@@ -77,6 +88,13 @@ const AgreeRight = styled.button`
   display: flex;
   align-items: center;
   transition: all 0.3s ease-in-out;
+`;
+
+const AgreeRightText = styled.p`
+  ${media.mobile`
+    // 767 < 
+    display:none;
+  `}
 `;
 
 const AgreeContents = styled.div<{ open: boolean }>`

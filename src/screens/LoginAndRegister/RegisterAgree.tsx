@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Agree from '@components/LoginAndRegister/Agree';
 import { useNavigate } from 'react-router-dom';
 import FailAlarm from '@components/commons/FailAlarm';
+import media from '@styles/media';
 
 const sampleP = (
   <>
@@ -57,40 +58,43 @@ function RegisterAgree() {
   return (
     <Container>
       <FailAlarm text={'서비스 약관에 동의해 주세요.'} alarmShown={alarmShown} />
-      <Title>회원가입</Title>
-      <Subtitle>
-        <SubtitleP>맞춤형 서비스 제공을 위해</SubtitleP>
-        <SubtitleP>서비스 약관에 동의해주세요.</SubtitleP>
-      </Subtitle>
-      <AgreeGroup>
-        <Agree
-          check={check1}
-          setCheck={setCheck1}
-          text={'프리뷰인슈 이용 약관에 동의합니다.'}
-          type={'essential'}
-          detail={sampleP}
-          registerBtnClicked={registerBtnClicked}
-        />
-        <Agree
-          check={check2}
-          setCheck={setCheck2}
-          text={`개인정보 수집 및 이용에 동의합니다.)`}
-          type={'essential'}
-          detail={sampleP}
-          registerBtnClicked={registerBtnClicked}
-        />
-        <Agree
-          check={check3}
-          setCheck={setCheck3}
-          text={'마케팅 활용 및 광고성 정보 수신에 동의합니다.'}
-          type={'selectable'}
-          detail={sampleP}
-          registerBtnClicked={false}
-        />
-      </AgreeGroup>
+      <RegisterAgreeWrapper>
+        <Title>회원가입</Title>
+        <Subtitle>
+          <SubtitleP>맞춤형 서비스 제공을 위해</SubtitleP>
+          <SubtitleP>서비스 약관에 동의해주세요.</SubtitleP>
+        </Subtitle>
+        <AgreeGroup>
+          <Agree
+            check={check1}
+            setCheck={setCheck1}
+            text={'프리뷰인슈 이용 약관에 동의합니다.'}
+            type={'essential'}
+            detail={sampleP}
+            registerBtnClicked={registerBtnClicked}
+          />
+          <Agree
+            check={check2}
+            setCheck={setCheck2}
+            text={`개인정보 수집 및 이용에 동의합니다.`}
+            type={'essential'}
+            detail={sampleP}
+            registerBtnClicked={registerBtnClicked}
+          />
+          <Agree
+            check={check3}
+            setCheck={setCheck3}
+            text={'마케팅 활용 및 광고성 정보 수신에 동의합니다.'}
+            type={'selectable'}
+            detail={sampleP}
+            registerBtnClicked={false}
+          />
+        </AgreeGroup>
+      </RegisterAgreeWrapper>
       <RegisterBtn onClick={goNextStep} registerable={registerable}>
         가입하기
       </RegisterBtn>
+      <Line />
       <Explain>
         <p>사용자는 이용 약관 . 및개인정보 수집 및 이용 동의를 거부할수 있으나,</p> 거부시 회원가입 및 서비스 이용이
         제한됩니다.
@@ -106,12 +110,29 @@ const Container = styled.div`
   height: calc(100vh - 18rem);
 `;
 
+const RegisterAgreeWrapper = styled.div`
+  width: 100%;
+  ${({ theme }) => theme.common.flexCenter};
+  flex-direction: column;
+
+  ${media.mobile`
+    // 767 < 
+    flex-grow:1;
+  `}
+`;
+
 const Title = styled.h1`
   font-weight: 600;
   display: block;
   margin-bottom: 3.4rem;
   font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.Black500};
+
+  ${media.mobile`
+    // 767 < 
+    font-size:3rem;
+    color: ${({ theme }: any) => theme.colors.Black200};
+  `}
 `;
 
 const Subtitle = styled.p`
@@ -147,6 +168,28 @@ const RegisterBtn = styled.button<{ registerable: boolean }>`
   cursor: pointer;
   margin-bottom: 3.7rem;
   transition: all 0.3s ease;
+
+  ${media.mobile`
+    // 767 < 
+    width:80%;
+    font-size:3.2rem;
+    font-weight:400;
+    height:10rem;
+    border-radius: 2.8rem;
+  `}
+`;
+
+const Line = styled.div`
+  display: none;
+  height: 0;
+  border: 0.5px solid ${({ theme }) => theme.colors.Black200};
+  margin-bottom: 4.3rem;
+
+  ${media.mobile`
+    // 767 < 
+    display:block;
+    width:82%;
+  `}
 `;
 
 const Explain = styled.p`
@@ -155,6 +198,13 @@ const Explain = styled.p`
   flex-direction: column;
   text-align: center;
   line-height: 1.5;
+
+  ${media.mobile`
+    // 767 < 
+    width:82%;
+    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+    color: ${({ theme }: any) => theme.colors.Black200};
+  `}
 `;
 
 export default RegisterAgree;

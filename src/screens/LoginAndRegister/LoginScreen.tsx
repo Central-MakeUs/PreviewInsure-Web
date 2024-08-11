@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 import { googleLogin } from '@utils/LoginAndRegister/Login';
 import { appleLogin } from '@utils/LoginAndRegister/AppleLogin';
+import media from '@styles/media';
 
 function LoginScreen() {
   const LoginGoogle = () => {
@@ -32,9 +33,9 @@ function LoginScreen() {
         <OAuthButton
           onClick={LoginGoogle}
           icon={
-            <GoogleIconBox>
+            <IconBox>
               <GoogleIcon width={'100%'} height={'100%'} />
-            </GoogleIconBox>
+            </IconBox>
           }
           text={'Google 로그인'}
           type={'google'}
@@ -42,9 +43,9 @@ function LoginScreen() {
         <OAuthButton
           onClick={LoginApple}
           icon={
-            <AppleIconBox>
-              <AppleIcon width={23} height={25} />
-            </AppleIconBox>
+            <IconBox>
+              <AppleIcon width={'100%'} height={'100%'} />
+            </IconBox>
           }
           text={'Apple 로그인'}
           type={'apple'}
@@ -72,6 +73,11 @@ const Title = styled.h1`
   margin-bottom: 3.4rem;
   font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.Black500};
+
+  ${media.mobile`
+    // 767 < 
+    display:none;
+  `}
 `;
 
 const Subtitle = styled.p`
@@ -83,6 +89,11 @@ const Subtitle = styled.p`
   color: #000;
   line-height: 1.1;
   margin-bottom: 9.5rem;
+
+  ${media.mobile`
+    // 767 < 
+    flex-grow:1;
+  `}
 `;
 
 const SubtitleP = styled.p``;
@@ -98,16 +109,23 @@ const ButtonGroup = styled.div`
   align-items: center;
   gap: 1.6rem;
   margin-bottom: 7rem;
+
+  ${media.mobile`
+    // 767 < 
+    width:100%;
+    gap: 2rem;
+  `}
 `;
 
-const GoogleIconBox = styled.div`
-  width: 2.5rem;
-  height: 2.3rem;
-`;
+const IconBox = styled.div`
+  width: 3rem;
+  height: 3rem;
 
-const AppleIconBox = styled.div`
-  width: 2.3rem;
-  height: 2.5rem;
+  ${media.mobile`
+    // 767 < 
+    width: 5rem;
+    height: 5rem;
+  `}
 `;
 
 const Line = styled.div`
@@ -115,12 +133,22 @@ const Line = styled.div`
   height: 0;
   border: 0.5px solid ${({ theme }) => theme.colors.Black200};
   margin-bottom: 4.3rem;
+
+  ${media.mobile`
+    // 767 < 
+    width:82%;
+  `}
 `;
 
 const StyledLink = styled(Link)`
   color: ${({ theme }) => theme.colors.Black200};
   font-size: ${({ theme }) => theme.fontSizes.tiny};
   border-bottom: 1px solid ${({ theme }) => theme.colors.Black200};
+
+  ${media.mobile`
+    // 767 < 
+    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+  `}
 `;
 
 export default LoginScreen;

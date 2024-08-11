@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { googleLogin } from '@utils/LoginAndRegister/Login';
 import { appleLogin } from '@utils/LoginAndRegister/AppleLogin';
+import media from '@styles/media';
 
 function RegisterScreen() {
   const navigate = useNavigate();
@@ -32,13 +33,21 @@ function RegisterScreen() {
       <ButtonGroup>
         <OAuthButton
           onClick={RegisterGoogle}
-          icon={<GoogleIcon width={25} height={25} />}
+          icon={
+            <IconBox>
+              <GoogleIcon width={'100%'} height={'100%'} />
+            </IconBox>
+          }
           text={'Google로 시작하기'}
           type={'google'}
         />
         <OAuthButton
           onClick={RegisterApple}
-          icon={<AppleIcon width={23} height={25} />}
+          icon={
+            <IconBox>
+              <AppleIcon width={'100%'} height={'100%'} />
+            </IconBox>
+          }
           text={'Apple로 시작하기'}
           type={'apple'}
         />
@@ -53,7 +62,10 @@ function RegisterScreen() {
 
 const Container = styled.div`
   padding: 7.6rem 0;
-  ${({ theme }) => theme.common.flexCenter};
+  /* ${({ theme }) => theme.common.flexCenter}; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   flex-direction: column;
   height: calc(100vh - 18rem);
 `;
@@ -64,6 +76,11 @@ const Title = styled.h1`
   margin-bottom: 3.4rem;
   font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.Black500};
+
+  ${media.mobile`
+    // 767 < 
+    display:none;
+  `}
 `;
 
 const Subtitle = styled.p`
@@ -75,6 +92,11 @@ const Subtitle = styled.p`
   color: #000;
   line-height: 1.1;
   margin-bottom: 9.5rem;
+
+  ${media.mobile`
+    // 767 < 
+    flex-grow:1;
+  `}
 `;
 
 const SubtitleP = styled.p``;
@@ -90,6 +112,23 @@ const ButtonGroup = styled.div`
   align-items: center;
   gap: 1.6rem;
   margin-bottom: 7rem;
+
+  ${media.mobile`
+    // 767 < 
+    width:100%;
+    gap: 2rem;
+  `}
+`;
+
+const IconBox = styled.div`
+  width: 3rem;
+  height: 3rem;
+
+  ${media.mobile`
+    // 767 < 
+    width: 5rem;
+    height: 5rem;
+  `}
 `;
 
 const Line = styled.div`
@@ -97,6 +136,11 @@ const Line = styled.div`
   height: 0;
   border: 0.5px solid ${({ theme }) => theme.colors.Black200};
   margin-bottom: 4.3rem;
+
+  ${media.mobile`
+    // 767 < 
+    width:82%;
+  `}
 `;
 
 const Explain = styled.p`
@@ -105,6 +149,11 @@ const Explain = styled.p`
   flex-direction: column;
   text-align: center;
   line-height: 1.5;
+
+  ${media.mobile`
+    // 767 < 
+    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+  `}
 `;
 
 export default RegisterScreen;
