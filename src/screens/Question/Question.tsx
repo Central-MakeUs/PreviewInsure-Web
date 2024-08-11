@@ -19,7 +19,7 @@ function Question() {
   const [categorys, setCategorys] = useState(Categorys); //view에 보여질 category
   const myCategorys = Categorys.filter((category) => myInsueCategory.includes(category.name));
 
-  const [ref, inView] = useInView({ rootMargin: '100px' }); // 무한스크롤 감지
+  const [ref, inView] = useInView({ rootMargin: '0px' }); // 무한스크롤 감지
   const { questionQuery } = useQuestionInfiniteQuery();
 
   // 전체보기, 가입한 보험 보기
@@ -58,6 +58,7 @@ function Question() {
   // 무한 스크롤 감지시 페이지 추가 요청
   useEffect(() => {
     if (inView) {
+      console.log('data 추가');
       questionQuery.fetchNextPage();
     }
   }, [inView]);
@@ -93,8 +94,12 @@ function Question() {
           <FailAlarm text={'현재 가입한 보험이 없습니다.'} alarmShown={alarmShown} />
           <ScrollGroup>
             <CategoryGroup>
-              {categorys.map((category) => (
-                <div key={category.value} onClick={() => hanldeSelect(category)}>
+              {categorys.map((category, index) => (
+                <div
+                  key={category.value}
+                  onClick={() => hanldeSelect(category)}
+                  className={index > categorys.length / 2 ? 'leftmargin' : ''}
+                >
                   <CategoryItem
                     name={category.name}
                     Icon={category.miniIcon}
@@ -112,12 +117,7 @@ function Question() {
         <QList>
           {questionQuery.data?.pages.map((page, pageIndex) =>
             page.data.map((q, index) => (
-              <QuestionAnswer
-                key={`${pageIndex}-${index}`}
-                question={q.question}
-                answer={q.answer}
-                tags={q.tags}
-              ></QuestionAnswer>
+              <QuestionAnswer key={`${pageIndex}-${index}`} question={q.question} answer={q.answer} tags={q.tags} />
             )),
           )}
         </QList>
@@ -132,7 +132,6 @@ function Question() {
 
 const Container = styled.div`
   justify-content: center;
-  overflow: hidden;
 `;
 const Head = styled.div`
   background-color: ${({ theme }) => theme.colors.Primary500};
@@ -140,8 +139,8 @@ const Head = styled.div`
   position: relative;
   width: 100%;
 
-  ${media.small`
-    height: 30rem;
+  ${media.mobile`
+    height: 50rem;
   `}
 `;
 const BackImg = styled.img`
@@ -164,6 +163,10 @@ const TextBox = styled.div`
   top: 30%;
   left: 50%;
   transform: translate(-50%, 0);
+
+  ${media.mobile`
+    top: 40%;
+  `}
 `;
 const Search = styled.div`
   width: 80%;
@@ -171,7 +174,7 @@ const Search = styled.div`
   position: relative;
   top: -20rem;
 
-  ${media.small`
+  ${media.mobile`
     width: 100%;
     top: -1rem;
   `}
@@ -188,7 +191,7 @@ const SearchBox = styled.div`
   justify-content: center;
   align-items: center;
 
-  ${media.small`
+  ${media.mobile`
     border-radius: 0;
     box-shadow: none;
   `}
@@ -202,10 +205,11 @@ const ViewGroup = styled.div`
   margin-top: 2rem;
   background-color: ${({ theme }) => theme.colors.Primary_W};
 
-  ${media.small`
+  ${media.mobile`
     position:absolute;
-    top: -2rem;
+    top: -3rem;
     margin-top:0;
+    border-radius: 14px;
   `}
 `;
 const ViewBtn = styled.div<{ selected: boolean }>`
@@ -213,7 +217,7 @@ const ViewBtn = styled.div<{ selected: boolean }>`
   padding: 2.1rem 0;
   width: 24.8rem;
   text-align: center;
-  background-color: ${(props) => (props.selected ? props.theme.colors.Primary500 : 'none')};
+  background-color: ${(props) => (props.selected ? props.theme.colors.Primary500 : '')};
   color: ${(props) => (props.selected ? 'white' : props.theme.colors.Primary500)};
   font-weight: 600;
   line-height: normal;
@@ -221,18 +225,20 @@ const ViewBtn = styled.div<{ selected: boolean }>`
   transition: 0.2s;
 
   ${media.small`
+    border-radius: 14px;
     width: fit-content;
-    padding: 1.2rem 2.2rem;
+    padding: 3.1rem 5.1rem;
+    font-size: 3rem;
   `};
 `;
 
 const ScrollGroup = styled.div`
-  ${media.small`
+  ${media.mobile`
     width: 100%;
     position: relative;
     overflow-x: hidden;
     display: inline-block;
-    top: 4rem
+    top: 9rem
   `}
 `;
 
@@ -243,17 +249,24 @@ const CategoryGroup = styled.div`
   margin: 4.7rem 17.6rem 4.4rem 17.6rem;
   justify-content: center;
 
-  ${({ theme }) => media.small`
+  ${({ theme }) => media.mobile`
     width: 100%;
     display: grid;
     grid-template-columns: repeat(6, max-content);
     overflow: auto;
-    padding: 2.2rem 2.8rem 2.6rem 2.8rem;
+    padding: 5.5rem 7rem 6.5rem 7rem;
     margin:0;
     justify-content: space-between;
     
     border-bottom: 5px solid ${theme.colors.Black_W};
   `}
+
+  .leftmargin {
+    ${media.mobile`
+      position: relative;
+      left: 14rem;
+    `}
+  }
 `;
 
 const List = styled.div`
@@ -263,9 +276,9 @@ const List = styled.div`
   top: -8rem;
   z-index: 3;
 
-  ${media.small`
+  ${media.mobile`
     width: 80%;
-    top: 4rem;
+    top: 10rem;
     padding-top: 3.1rem
   `};
 `;
@@ -273,15 +286,19 @@ const ListTitle = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.subtitle};
   font-weight: 600;
   margin-bottom: 3.1rem;
+
+  ${media.small`
+    font-size: 18px;
+  `}
 `;
 
 const QList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 7.5rem;
-  margin-bottom: 5rem;
+
   ${media.small`
-    gap: 3.2rem;
+    gap: 8rem;
   `};
 `;
 export default Question;

@@ -97,9 +97,9 @@ const LogoImg = styled.img`
   `};
 
   ${media.mobile`
-    width: 100px;
+    width: 76px;
     left: 29px;
-    top: 5.2rem
+    top: 6rem
   `};
 `;
 
