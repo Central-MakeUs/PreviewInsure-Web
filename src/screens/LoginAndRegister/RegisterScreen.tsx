@@ -68,6 +68,11 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   height: calc(100vh - 18rem);
+
+  ${media.mobile`
+    // 767 < 
+    height: calc(100vh - 32rem);
+  `}
 `;
 
 const Title = styled.h1`

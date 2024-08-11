@@ -2,20 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import InsureCard from '@components/commons/InsureCard';
 
-import { ReactComponent as Car } from '@/assets/icons/InsueCard/Car.svg';
-import { ReactComponent as HeartBeat } from '@/assets/icons/InsueCard/HeartBeat.svg';
-import { ReactComponent as Health } from '@/assets/icons/InsueCard/Health.svg';
-import { ReactComponent as HospitalSign } from '@/assets/icons/InsueCard/HospitalSign.svg';
-import { ReactComponent as ToothBraces } from '@/assets/icons/InsueCard/ToothBraces.svg';
-import { ReactComponent as MoneyBag } from '@/assets/icons/InsueCard/MoneyBag.svg';
-import { ReactComponent as PetFootprint } from '@/assets/icons/InsueCard/PetFootprint.svg';
-import { ReactComponent as PiggyBank } from '@/assets/icons/InsueCard/PiggyBank.svg';
-import { ReactComponent as Book } from '@/assets/icons/InsueCard/Book.svg';
-import { ReactComponent as WheelChair } from '@/assets/icons/InsueCard/WheelChair.svg';
-import { ReactComponent as CI } from '@/assets/icons/InsueCard/CI.svg';
-
 import { ReactComponent as Check } from '@/assets/icons/Approve.svg';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { initialCards } from '@/static/insurebordCards';
+import media from '@styles/media';
 
 type StepProps = {
   goNextStep: () => void;
@@ -27,19 +17,6 @@ type StepProps = {
 function Step4({ goNextStep, goPreviousStep, setSelectedInsures, setToSelectInsures }: StepProps) {
   const [cardRotate, setCardRotate] = useState(false);
 
-  const initialCards = [
-    { text: '생명보험', SVG: <HeartBeat width={157} height={157} /> },
-    { text: '건강보험', SVG: <Health width={140} height={140} /> },
-    { text: '상해보험', SVG: <HospitalSign width={133} height={133} /> },
-    { text: 'CI보험', SVG: <CI width={120} height={124} /> },
-    { text: '치아보험', SVG: <ToothBraces width={147} height={147} /> },
-    { text: '간병/치매보험', SVG: <WheelChair width={130} height={130} /> },
-    { text: '연금보험', SVG: <MoneyBag width={127} height={127} /> },
-    { text: '교육보험', SVG: <Book width={130} height={130} /> },
-    { text: '저축보험', SVG: <PiggyBank width={127} height={127} /> },
-    { text: '애견보험', SVG: <PetFootprint width={113} height={113} /> },
-    { text: '자동차보험', SVG: <Car width={136} height={146} /> },
-  ];
   const [selectedCards, setSelectedCards] = useState<any>([]);
   const [toSelectCards, setToSelectCards] = useState(initialCards);
 
@@ -93,11 +70,13 @@ function Step4({ goNextStep, goPreviousStep, setSelectedInsures, setToSelectInsu
             </CSSTransition>
           ))}
         </TransitionGroup>
-        {/* <Screen></Screen> */}
       </ToSelect>
 
       <RegisterBtn onClick={registerInsures}>
-        <Check width={25} height={25} fill={'#fff'} />다 골랐어요!
+        <CheckIconBox>
+          <Check width={'100%'} height={'100%'} fill={'#fff'} />
+        </CheckIconBox>
+        다 골랐어요!
       </RegisterBtn>
     </>
   );
@@ -120,6 +99,7 @@ const SubtitleP = styled.p``;
 
 const CardButton = styled.button`
   border: none;
+  padding: 0;
   background-color: inherit;
   cursor: pointer;
   position: relative;
@@ -160,6 +140,14 @@ const Selected = styled.div`
       opacity 300ms,
       transform 300ms;
   }
+
+  ${media.mobile`
+    // 767 < 
+    margin-bottom: 5rem;
+    max-width:72%;
+    gap: 5rem;
+    height: 40rem;
+  `}
 `;
 
 const SelectedButtonWrapper = styled.div`
@@ -183,7 +171,7 @@ const ToSelect = styled.div`
   display: flex;
   justify-content: flex-start;
   gap: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 10rem;
   padding-left: 1rem;
   padding-right: 1rem;
   overflow-y: hidden;
@@ -215,6 +203,11 @@ const ToSelect = styled.div`
       opacity 300ms,
       transform 300ms;
   }
+
+  ${media.mobile`
+    // 767 < 
+    gap: 1.5rem;
+  `}
 `;
 
 const Screen = styled.div`
@@ -225,6 +218,12 @@ const Screen = styled.div`
   height: 7rem;
   /* background: #fff; */
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #fff 100%);
+
+  ${media.mobile`
+    // 767 < 
+    height: 6rem;
+    top: 40%;
+  `}
 `;
 
 const RegisterBtn = styled.button`
@@ -246,4 +245,27 @@ const RegisterBtn = styled.button`
     background-color: ${({ theme }) => theme.colors.Primary500};
     transition: 0.5s;
   }
+
+  ${media.mobile`
+    // 767 < 
+    position: fixed;
+    bottom: 12%;
+
+    width:80%;
+    font-size:3.2rem;
+    font-weight:400;
+    height:10rem;
+    border-radius: 2.8rem;
+  `}
+`;
+
+const CheckIconBox = styled.div`
+  width: 4.5rem;
+  height: 4.5rem;
+
+  ${media.mobile`
+    // 767 < 
+    width: 6rem;
+    height: 6rem;
+  `}
 `;
