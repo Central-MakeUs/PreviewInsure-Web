@@ -1,6 +1,6 @@
 import { QuestionAnswerProps } from '@/types/QuestionComponents';
 import styled from 'styled-components';
-import { ReactComponent as Down } from '@assets/icons/Down.svg';
+import { ReactComponent as Up } from '@assets/icons/Up.svg';
 
 import Colors from '@styles/Colors';
 import { useState } from 'react';
@@ -20,12 +20,12 @@ function QuestionAnswer({ question, answer, tags }: QuestionAnswerProps) {
           (viewLong ? (
             <DetailBtn onClick={() => setViewLong(false)}>
               <span>접기</span>
-              <Down width={38} height={39} fill={Colors.Black500} style={{ transform: 'rotate(180deg)' }} />
+              <Up width={38} height={30} fill={Colors.Black500} />
             </DetailBtn>
           ) : (
             <DetailBtn onClick={() => setViewLong(true)}>
               <span>상세보기</span>
-              <Down width={38} height={39} fill={Colors.Black500} />
+              <Up width={38} height={30} fill={Colors.Black500} style={{ transform: 'rotate(180deg)' }} />
             </DetailBtn>
           ))}
       </Line>
@@ -45,11 +45,11 @@ function QuestionAnswer({ question, answer, tags }: QuestionAnswerProps) {
 
 const Container = styled.div``;
 const GapLine = styled.div`
-  ${({ theme }) => media.small`
-    width: 150%;
-    padding-top: 3.2rem;
+  ${({ theme }) => media.mobile`
+    width: 98vw;
+    padding-top: 8rem;
     position: relative;
-    left: -20%;
+    left: -11%;
     border-bottom: 5px solid ${theme.colors.Black_W};
   `}
 `;
@@ -58,6 +58,11 @@ const Line = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2.3rem;
+
+  ${media.mobile`
+    margin-bottom: 4rem;
+    align-items: flex-start;
+  `}
 `;
 const DetailBtn = styled.div`
   display: flex;
@@ -66,7 +71,7 @@ const DetailBtn = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.Black500};
 
-  ${({ theme }) => media.small`
+  ${({ theme }) => media.mobile`
     span {
         display: none;
     }
@@ -80,8 +85,14 @@ const DetailBtn = styled.div`
 const Flex = styled.div`
   display: flex;
   font-weight: 400;
+
   font-size: ${({ theme }) => theme.fontSizes.paragraph};
   color: ${({ theme }) => theme.colors.Black500};
+
+  ${media.small`
+    font-size: 14px;
+    margin-bottom: 4rem;
+  `}
 `;
 
 const Question = styled.div`
@@ -90,6 +101,10 @@ const Question = styled.div`
   color: ${({ theme }) => theme.colors.Primary500};
   line-height: normal;
   display: flex;
+
+  ${media.small`
+    font-size: 16px;
+  `}
 `;
 const Preview = styled.p`
   font-weight: 400;
@@ -104,6 +119,11 @@ const Preview = styled.p`
   -webkit-line-clamp: 3;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  ${media.small`
+    font-size: 14px;
+    margin-bottom: 4rem;
+  `}
 `;
 const Answer = styled.p`
   font-weight: 400;
@@ -112,6 +132,11 @@ const Answer = styled.p`
   line-height: normal;
   margin-bottom: 2.4rem;
   white-space: pre-line;
+
+  ${media.small`
+    font-size: 14px;
+    margin-bottom: 4rem;
+  `}
 `;
 const TagGroup = styled.div`
   display: flex;
@@ -120,10 +145,15 @@ const TagGroup = styled.div`
 `;
 const TagItem = styled.div`
   background-color: ${({ theme }) => theme.colors.Black_W};
-  border-radius: 1.2rem;
+  border-radius: 12px;
   padding: 2rem;
   font-weight: 500;
   font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.Primary500};
+
+  ${media.small`
+    padding: 10px;
+    font-size: 14px;
+  `}
 `;
 export default QuestionAnswer;
