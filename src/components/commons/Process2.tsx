@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Process2Props } from '@/types/commonComponents';
 import styled from 'styled-components';
+import media from '@styles/media';
 
 const Process2 = ({ activeStep }: Process2Props) => {
   return (
@@ -29,6 +30,12 @@ const ProcessBlock = styled.div<{ step: number; activeStep: number }>`
           ? theme.colors.Primary500
           : theme.colors.Black100};
   transition: border 0.6s ease-in-out;
+
+  ${media.mobile`
+    // 767 < 
+    width: 7rem;
+    border-width:2px;
+  `}
 `;
 
 export default Process2;

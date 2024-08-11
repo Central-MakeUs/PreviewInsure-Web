@@ -8,6 +8,7 @@ import Step3 from '@components/InsueBoarding/Step3';
 import Step4 from '@components/InsueBoarding/Step4';
 import Step5 from '@components/InsueBoarding/Step5';
 import Complete from '@components/InsueBoarding/Complete';
+import media from '@styles/media';
 
 type insure = {
   insuranceType: string;
@@ -96,10 +97,22 @@ const Title = styled.h1`
   margin-bottom: 3.4rem;
   font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.Black500};
+
+  ${media.mobile`
+    // 767 < 
+    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+    color: ${({ theme }: any) => theme.colors.Black200};
+    font-weight: 400;
+  `}
 `;
 
 const ProcessWrapper = styled.div`
   margin-bottom: 6rem;
+
+  ${media.mobile`
+    // 767 < 
+    margin-bottom: 8rem;
+  `}
 `;
 
 export default InsueBoardingScreen;

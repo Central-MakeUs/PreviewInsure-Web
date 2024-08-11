@@ -87,8 +87,8 @@ const LogoImg = styled.img`
   cursor: pointer;
   ${media.medium`
     width: 120px;
-    left: 29px;
-    top: 5.2rem
+    left: 10%;
+    top: 10rem;
   `};
   ${media.small`
     width: 100px;

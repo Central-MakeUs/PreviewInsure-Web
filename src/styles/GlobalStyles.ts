@@ -26,7 +26,7 @@ const GlobalStyle = styled.createGlobalStyle`
     `}
     ${media.mobile`
     // 767 < 
-    font-size:25%;
+      font-size:25%;
     `}
   }
 
