@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import InsureCard from '@components/commons/InsureCard';
-import { ReactComponent as Check } from '@/assets/icons/Selector.svg';
+import { ReactComponent as Check } from '@/assets/icons/Approve.svg';
 import { convertInsureType } from '@utils/common/convertInsureType';
 import media from '@styles/media';
 import { relative } from 'path';
@@ -56,7 +56,8 @@ function Step5({ selectedInsures, toSelectInsures, setInsures, setComplete }: St
       <Subtitle>
         <SubtitleP>현재 사용중인 보험사를 선택해 주세요</SubtitleP>
       </Subtitle>
-      <div style={{ position: 'relative', width: '100%', height: '27.4rem' }} />
+
+      <SelectedBoxBlock />
       <SelectedBox>
         <Selected>
           {selectedInsures.map((card: any, index: number) => (
@@ -67,6 +68,7 @@ function Step5({ selectedInsures, toSelectInsures, setInsures, setComplete }: St
           ))}
         </Selected>
       </SelectedBox>
+
       <ToSelect>
         {toSelectInsures.map((card: any, index: number) => (
           <ToSelectBtnWrapper>
@@ -74,10 +76,11 @@ function Step5({ selectedInsures, toSelectInsures, setInsures, setComplete }: St
             <Screen></Screen>
           </ToSelectBtnWrapper>
         ))}
-        {/* <Screen></Screen> */}
       </ToSelect>
       <RegisterBtn onClick={registerInsureDetail}>
-        <Check width={25} height={25} fill={'#fff'} />
+        <CheckIconBox>
+          <Check width={'100%'} height={'100%'} fill={'#fff'} />
+        </CheckIconBox>
         입력 완료!
       </RegisterBtn>
     </>
@@ -98,6 +101,21 @@ const Subtitle = styled.p`
 `;
 
 const SubtitleP = styled.p``;
+
+const SelectedBoxBlock = styled.div`
+  /* position: relative; */
+  width: 100%;
+  height: 23rem;
+  margin-bottom: 4.4rem;
+
+  ${media.mobile`
+    // 767 < 
+    margin-bottom: 5rem;
+    width:70%;
+    height: 40rem;
+  `}
+`;
+
 const SelectedBox = styled.div`
   position: absolute;
   left: 50%;
@@ -110,6 +128,12 @@ const SelectedBox = styled.div`
   -ms-overflow-style: none;
 
   z-index: 4;
+
+  ${media.mobile`
+    // 767 < 
+    top: 42%;
+    max-width: 72%;
+  `}
 `;
 
 const Selected = styled.div`
@@ -120,6 +144,11 @@ const Selected = styled.div`
   display: flex;
   justify-content: flex-start;
   gap: 3rem;
+
+  ${media.mobile`
+    // 767 < 
+    gap: 5rem;
+  `}
 `;
 
 const SelectedButtonWrapper = styled.div`
@@ -143,11 +172,19 @@ const ToSelect = styled.div`
   display: flex;
   justify-content: flex-start;
   gap: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 10rem;
   padding-left: 1rem;
   padding-right: 1rem;
   overflow-y: hidden;
   position: relative;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none; //drag 기능 추가
+
+  ${media.mobile`
+    // 767 < 
+    gap: 1.5rem;
+  `}
 `;
 
 const ToSelectBtnWrapper = styled.div`
@@ -162,6 +199,12 @@ const Screen = styled.div`
   height: 7rem;
   /* background: #fff; */
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #fff 100%);
+
+  ${media.mobile`
+    // 767 < 
+    height: 6rem;
+    top: 40%;
+  `}
 `;
 
 const RegisterBtn = styled.button`
@@ -184,4 +227,27 @@ const RegisterBtn = styled.button`
     background-color: ${({ theme }) => theme.colors.Primary500};
     transition: 0.5s;
   }
+
+  ${media.mobile`
+    // 767 < 
+    position: fixed;
+    bottom: 12%;
+
+    width:80%;
+    font-size:3.2rem;
+    font-weight:400;
+    height:10rem;
+    border-radius: 2.8rem;
+  `}
+`;
+
+const CheckIconBox = styled.div`
+  width: 4.5rem;
+  height: 4.5rem;
+
+  ${media.mobile`
+    // 767 < 
+    width: 6rem;
+    height: 6rem;
+  `}
 `;

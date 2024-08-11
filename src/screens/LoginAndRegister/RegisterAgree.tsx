@@ -108,6 +108,11 @@ const Container = styled.div`
   ${({ theme }) => theme.common.flexCenter};
   flex-direction: column;
   height: calc(100vh - 18rem);
+
+  ${media.mobile`
+    // 767 < 
+    height: calc(100vh - 32rem);
+  `}
 `;
 
 const RegisterAgreeWrapper = styled.div`

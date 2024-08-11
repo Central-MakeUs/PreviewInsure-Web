@@ -58,6 +58,11 @@ const Subtitle = styled.p`
   color: #000;
   line-height: 1.1;
   margin-bottom: 8.6rem;
+
+  ${media.mobile`
+    // 767 < 
+    margin-bottom: 10rem;
+  `}
 `;
 
 const SelectWrapper = styled.div`

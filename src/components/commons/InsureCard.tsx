@@ -41,13 +41,13 @@ function InsureCard({ text, rotate, SVG, getData }: InsueCardProps) {
           <Button onClick={() => setShowMenu(!showMenu)}>
             {insureCompany}{' '}
             {!showMenu ? (
-              <>
-                <DownSelector width={13} height={8} fill={'#fff'} />
-              </>
+              <IconBox>
+                <DownSelector width={'100%'} height={'100%'} fill={'#fff'} />
+              </IconBox>
             ) : (
-              <>
-                <UpSelector width={13} height={8} fill={'#fff'} />
-              </>
+              <IconBox>
+                <UpSelector width={'100%'} height={'100%'} fill={'#fff'} />
+              </IconBox>
             )}
           </Button>
           <InsureContents open={showMenu}>
@@ -72,7 +72,7 @@ const Card = styled.div<{ rotate: boolean }>`
   transform: perspective(800px) ${({ rotate }) => (rotate ? 'rotateY(180deg)' : 'rotateY(0)')};
   transition: transform 0.3s;
   transform-style: preserve-3d;
-  background: #fff;
+  /* background: #fff; */
   /* border: 1px solid ${({ theme }) => theme.colors.Primary500}; */
 
   & > * {
@@ -83,6 +83,12 @@ const Card = styled.div<{ rotate: boolean }>`
     position: absolute;
     /* background: linear-gradient(to bottom right, rgba(104, 121, 251, 0.4), rgba(255, 255, 255, 0)); */
   }
+
+  ${media.mobile`
+    // 767 < 
+    width: 31rem;
+    height: 34rem;
+  `}
 `;
 
 const CardFront = styled.div`
@@ -104,15 +110,17 @@ const InsueName = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.Primary500};
   font-weight: 600;
+
+  ${media.mobile`
+    // 767 < 
+    font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
+    margin-top:2rem;
+  `}
 `;
 
 const SVGWrapper = styled.div`
   position: absolute;
-  top: 10%;
-
-  ${media.large`
   top: 20%;
-    `}
 `;
 
 const SelectWrapper = styled.div`
@@ -123,6 +131,12 @@ const SelectWrapper = styled.div`
   /* align-items: flex-start; */
   position: absolute;
   top: 25%;
+
+  ${media.mobile`
+    top: 30%;
+    left:12%;
+    width: 24rem;
+  `}
 `;
 
 const Button = styled.button`
@@ -131,6 +145,7 @@ const Button = styled.button`
   margin-top: 6rem;
   outline: none;
   background-color: ${({ theme }) => theme.colors.Primary500};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   border: none;
   border-radius: 1.6rem;
   color: #fff;
@@ -139,6 +154,14 @@ const Button = styled.button`
   gap: 1rem;
   justify-content: center;
   transition: all 0.3s ease-in-out;
+
+  ${media.mobile`
+    width: 24rem;
+    height: 10rem;
+    border-radius: 8rem;
+    gap: 2rem;
+    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+  `}
 `;
 
 const InsureContents = styled.div<{ open: boolean }>`
@@ -151,11 +174,18 @@ const InsureContents = styled.div<{ open: boolean }>`
   transition: all 0.3s ease-in-out;
   overflow-y: scroll;
   overflow-x: hidden;
+
+  ${media.mobile`
+    margin-top: 0.8rem;
+    width: 100%;
+    border-radius: 3rem;
+  `}
 `;
 
 const InsureContent = styled.button`
   outline: none;
   background-color: ${({ theme }) => theme.colors.Primary500};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   border: none;
   color: #fff;
   width: 14rem;
@@ -165,9 +195,35 @@ const InsureContent = styled.button`
   margin-right: 1rem;
   align-items: center;
   justify-content: center;
+  border-bottom: 0.5px solid ${({ theme }) => theme.colors.Primary400};
   /* text-align: start; */
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.Primary400};
   }
+
+  ${media.mobile`
+    width: 24rem;
+    height: 7rem;
+    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+  `}
+`;
+
+const IconBox = styled.div`
+  width: 1.3rem;
+  height: 0.8rem;
+  position: relative;
+  bottom: 18%;
+
+  ${media.medium`
+    bottom: 27%;
+  `}
+  ${media.small`
+    bottom: 36%;
+  `}
+  ${media.mobile`
+    bottom: 8%;
+    width: 2.5rem;
+    height: 2.5rem;
+  `}
 `;
