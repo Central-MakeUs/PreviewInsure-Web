@@ -108,8 +108,9 @@ const Recommand = styled.div`
   width: 63%;
   margin-top: 6.9rem;
 
-  ${media.small`
+  ${media.mobile`
     width: 86%;
+    margin-top: 16rem;
   `};
 
   h1 {
@@ -119,8 +120,9 @@ const Recommand = styled.div`
     font-size: ${({ theme }) => theme.fontSizes.subtitle};
     color: ${({ theme }) => theme.colors.Primary500};
 
-    ${media.small`
-        white-space: pre-wrap;
+    ${media.mobile`
+      font-size: 20px;
+      white-space: pre-wrap;
     `};
   }
 
@@ -133,7 +135,8 @@ const Recommand = styled.div`
     line-height: normal;
 
     ${media.small`
-    margin: 10rem 0;
+      font-size: 18px;
+      margin: 10rem 0;
     `};
   }
 `;

@@ -1,3 +1,4 @@
+import media from '@styles/media';
 import styled from 'styled-components';
 
 /*
@@ -29,7 +30,11 @@ const Background = styled.div`
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   backdrop-filter: blur(1px);
-  /* filter: blur(1px); */
+
+  ${media.mobile`
+    padding: 2px;
+    border-radius: 5rem;
+  `};
 `;
 
 export default GradientBackground;

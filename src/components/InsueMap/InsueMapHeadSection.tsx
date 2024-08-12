@@ -24,17 +24,17 @@ function InsueMapHeadSection({ insueName, insueExplain, isSubscribe, handleSubsc
       <SubscribeBox>
         {isSubscribe ? (
           <AddBtn isAdded={true} onClick={() => handleSubscribe(false)}>
-            <Approve width={26} height={26} fill="white" />
+            <Approve width={23} height={23} fill="white" />
             <span>관심보험</span>
           </AddBtn>
         ) : (
           <AddBtn isAdded={false} onClick={() => handleSubscribe(true)}>
-            <Plus width={20} height={20} fill="white" />
+            <Plus width={23} height={23} fill="white" />
             <span>관심보험으로 저장</span>
           </AddBtn>
         )}
         <HelpBox>
-          <Info width={34} height={35} fill={Colors.Black100} onClick={() => handleHelpClick()} />
+          <Info width={'100%'} height={'100%'} fill={Colors.Black100} onClick={() => handleHelpClick()} />
 
           <SubscribeHelp visible={isSubscribeHelp}>
             {'관심보험으로 저장하면,\n인슈 플래너가 관련된 보험소식을 알림으로 전달해드려요.'}
@@ -50,20 +50,21 @@ const Head = styled.div`
   flex-direction: column;
   align-items: center;
   margin-bottom: 6.2rem;
-  color: ${({ theme }) => theme.colors.Black500};
   max-width: 60%;
 
-  ${media.small`
+  ${media.mobile`
     max-width: 80%
   `};
 
   h1 {
+    color: black;
     font-weight: 600;
     margin-bottom: 2.9rem;
     line-height: normal;
     font-size: ${({ theme }) => theme.fontSizes.title};
   }
   p {
+    color: ${({ theme }) => theme.colors.Black500};
     white-space: pre-wrap;
     text-align: center;
     font-weight: 400;
@@ -71,9 +72,10 @@ const Head = styled.div`
     margin-bottom: 3.5rem;
     font-size: ${({ theme }) => theme.fontSizes.paragraph};
 
-    ${media.small`
+    ${media.mobile`
       word-break: keep-all;
       white-space: normal;
+      font-size:15px;
     `};
   }
 `;
@@ -87,10 +89,12 @@ const SubscribeBox = styled.div`
 
 const AddBtn = styled.div<{ isAdded: boolean }>`
   padding: 1rem;
-  border-radius: 3.2rem;
+  border-radius: 32px;
   background-color: ${(props) => (props.isAdded ? props.theme.colors.Primary500 : props.theme.colors.Black100)};
+  width: fit-content;
   min-width: 22rem;
-  height: 6.4rem;
+  height: fit-content;
+  min-height: 6.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,20 +103,36 @@ const AddBtn = styled.div<{ isAdded: boolean }>`
     background-color 0.3s ease,
     transform 0.2s;
 
+  ${media.mobile`
+      padding: 2.5rem;
+    `};
+
   span {
     font-weight: 500;
     font-size: ${({ theme }) => theme.fontSizes.small};
     color: white;
     margin-left: 1rem;
     line-height: normal;
+
+    ${media.mobile`
+      font-size:14px;
+    `};
   }
 `;
 
 const HelpBox = styled.div`
+  width: 3.2rem;
+  height: 3.4rem;
   display: flex;
   align-items: center;
   position: absolute;
   left: calc(50% + 12rem);
+
+  ${media.mobile`
+    left: calc(50% + 20rem);
+    width: 4.5rem;
+    height: 4.8rem;
+    `};
 `;
 
 const fadeIn = keyframes`
@@ -152,12 +172,14 @@ const SubscribeHelp = styled.div<{ visible: boolean }>`
   opacity: ${({ visible }) => (visible ? 1 : 0)};
   animation: ${({ visible }) => (visible ? fadeIn : fadeOut)} 0.5s ease;
 
-  ${media.small`
+  ${media.mobile`
     position: fixed;
     left: 50%;
     transform: translate(-50%,110%);
     margin: 0;
-    z-index: 2;
+    z-index: 5;
+    font-size: 14px;
+    padding: 18px 18px 17px 16px;
   `};
 `;
 
