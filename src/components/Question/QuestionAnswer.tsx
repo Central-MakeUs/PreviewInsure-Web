@@ -6,7 +6,7 @@ import Colors from '@styles/Colors';
 import { useState } from 'react';
 import media from '@styles/media';
 function QuestionAnswer({ question, answer, tags }: QuestionAnswerProps) {
-  const isLongText = answer.length > 160;
+  const isLongText = answer.length > 150;
   const [viewLong, setViewLong] = useState(false);
 
   return (
@@ -31,7 +31,7 @@ function QuestionAnswer({ question, answer, tags }: QuestionAnswerProps) {
       </Line>
       <Flex>
         <span>A.&nbsp;</span>
-        {viewLong ? <Answer>{answer}</Answer> : <Preview>{answer}</Preview>}
+        {viewLong ? <Answer>{answer}</Answer> : <Preview onClick={() => setViewLong(true)}>{answer}</Preview>}
       </Flex>
       <TagGroup>
         {tags.map((tag) => (
