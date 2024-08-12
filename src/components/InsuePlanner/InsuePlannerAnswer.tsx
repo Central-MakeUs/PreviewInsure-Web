@@ -7,6 +7,7 @@ import SearchBar from '@components/commons/SearchBar';
 import HistoryItem from './InsuePlannerComponents/HistoryItem';
 import AnswerQuestionBox from './InsuePlannerComponents/QuestionBox';
 import AnswerBox from './InsuePlannerComponents/AnswerBox';
+import media from '@styles/media';
 
 //dummy data
 // 질문 리스트
@@ -142,6 +143,11 @@ const Container = styled.div`
   display: flex;
   padding: 5rem 14.4rem;
   gap: 2rem;
+
+  ${media.mobile`
+    // 767 < 
+    padding: 3rem 7.8rem;
+  `}
 `;
 
 //left

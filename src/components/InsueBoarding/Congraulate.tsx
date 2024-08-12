@@ -1,15 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as PartyPopper } from '@/assets/icons/PartyPopper.svg';
 import { useNavigate } from 'react-router-dom';
 
 function Congratulate() {
   const navigate = useNavigate();
+
+  let [count, setCount] = useState(3);
+  const interval = useRef<ReturnType<typeof setInterval>>();
+
   useEffect(() => {
-    setTimeout(() => {
-      navigate('/');
-    }, 3000);
+    interval.current = setInterval(() => {
+      setCount((prev) => prev - 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(interval.current);
+    };
   }, []);
+
+  useEffect(() => {
+    if (count < 0) {
+      navigate('/');
+    }
+  }, [count]);
+
   return (
     <>
       <Container>
@@ -20,8 +35,11 @@ function Congratulate() {
           </SubtitleP>
         </Subtitle>
         <SVGWrapper>
-          <PartyPopper width={686} height={686} />
-          <Explain>3초 뒤 메인화면으로 이동합니다.</Explain>
+          <IconBox>
+            <PartyPopper width={'100%'} height={'100%'} />
+          </IconBox>
+
+          <Explain>{count}초 뒤 메인화면으로 이동합니다.</Explain>
         </SVGWrapper>
       </Container>
     </>
@@ -78,4 +96,9 @@ const Explain = styled.p`
   line-height: 1.5;
   position: absolute;
   bottom: 15%;
+`;
+
+const IconBox = styled.div`
+  width: 68.6rem;
+  height: 68.6rem;
 `;

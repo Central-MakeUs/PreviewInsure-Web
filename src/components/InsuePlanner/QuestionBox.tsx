@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import type { QuestionBoxProps } from '@/types/InsuePlannerComponents';
+import media from '@styles/media';
 
 function QuestionBox({ svg, text, bottom, right, setQuestion, value, setCurrentScreen }: QuestionBoxProps) {
   return (
@@ -34,6 +35,13 @@ const QuestionBoxWrapper = styled.button`
   position: relative;
   background: ${({ theme }) => `linear-gradient(to bottom, ${theme.colors.Primary100}, #fff)`};
   cursor: pointer;
+  box-shadow: 0 0 9px rgba(0, 0, 0, 0.1);
+
+  ${media.mobile`
+    // 767 < 
+    width: 100%;
+    height: 42rem;
+  `}
 `;
 
 const QuestionBoxSvg = styled.div<{ bottom: string; right: string }>`
@@ -46,4 +54,10 @@ const QuestionBoxText = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.small};
   font-weight: 500;
   color: ${({ theme }) => theme.colors.Black500};
+  text-align: left;
+
+  ${media.mobile`
+    // 767 < 
+    font-size: 4rem;
+  `}
 `;

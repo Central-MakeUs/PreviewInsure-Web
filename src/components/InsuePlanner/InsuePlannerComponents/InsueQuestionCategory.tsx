@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ReactComponent as Down } from '@/assets/icons/Down.svg';
 import { ReactComponent as Up } from '@/assets/icons/Up.svg';
 import { insuranceCategories } from '@/static/insures';
+import media from '@styles/media';
 
 type InsueQuestionCategoryProps = {
   setInsureSearchCategory: (arg: string) => void;
@@ -67,6 +68,13 @@ const Button = styled.button`
   gap: 1rem;
   justify-content: space-around;
   transition: all 0.3s ease-in-out;
+
+  ${media.mobile`
+    // 767 < 
+    font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
+    height: 10rem;
+    border-radius: 4.5rem;
+  `}
 `;
 
 const InsureContents = styled.div<{ open: boolean }>`
@@ -83,6 +91,11 @@ const InsureContents = styled.div<{ open: boolean }>`
   &::-webkit-scrollbar {
     display: none;
   }
+
+  ${media.mobile`
+    // 767 < 
+    max-height: ${({ open }: any) => (open ? '50rem' : 0)};
+  `}
 `;
 
 const InsureContent = styled.button`
@@ -104,4 +117,10 @@ const InsureContent = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.colors.Black100};
   }
+
+  ${media.mobile`
+    // 767 < 
+    font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
+    height: 10rem;
+  `}
 `;

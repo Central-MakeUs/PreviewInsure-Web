@@ -166,7 +166,7 @@ const Button = styled.button`
 
 const InsureContents = styled.div<{ open: boolean }>`
   margin-top: 0.3rem;
-  width: 110%;
+  width: 100%;
   max-height: ${({ open }) => (open ? '25rem' : 0)};
   /* max-height: 25rem; */
   /* display: ${({ open }) => (open ? 'block' : 'none')}; */
@@ -174,6 +174,10 @@ const InsureContents = styled.div<{ open: boolean }>`
   transition: all 0.3s ease-in-out;
   overflow-y: scroll;
   overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   ${media.mobile`
     margin-top: 0.8rem;
@@ -195,7 +199,7 @@ const InsureContent = styled.button`
   margin-right: 1rem;
   align-items: center;
   justify-content: center;
-  border-bottom: 0.5px solid ${({ theme }) => theme.colors.Primary400};
+  border-bottom: 1.5px solid ${({ theme }) => theme.colors.Primary400};
   /* text-align: start; */
 
   &:hover {
