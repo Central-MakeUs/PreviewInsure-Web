@@ -71,7 +71,7 @@ const Left = styled.div`
   border-radius: 0 4rem 4rem 0;
   background-color: ${({ theme }) => theme.colors.Primary_W};
 
-  ${media.small`
+  ${media.mobile`
     display: none;
   `};
 `;
@@ -83,9 +83,10 @@ const Right = styled.div`
   background-color: ${({ theme }) => theme.colors.Primary_W};
   padding: 6.9rem 0 8.7rem 6.8rem;
 
-  ${media.small`
+  ${media.mobile`
     width: 100%;
-    padding: 7.8rem 4.9rem 6.1rem 3.6rem;
+    padding: 20% 9% 10% 9%;
+    border-radius: 15rem 0 0 15rem;
   `};
 `;
 
@@ -94,6 +95,11 @@ const Title = styled.h2`
   font-size: ${({ theme }) => theme.fontSizes.subtitle};
   color: ${({ theme }) => theme.colors.Primary500};
   margin-bottom: 3.1rem;
+
+  ${media.mobile`
+    font-size: 18px;
+    margin-bottom: 6.5rem;
+  `};
 `;
 
 const Explain = styled.p`
@@ -103,6 +109,11 @@ const Explain = styled.p`
   white-space: pre-wrap;
   line-height: normal;
   margin-bottom: 8.1rem;
+
+  ${media.mobile`
+    font-size: 14px;
+    margin-bottom: 13.5rem;
+  `};
 `;
 
 const Explain2 = styled.b`
@@ -113,6 +124,11 @@ const Explain2 = styled.b`
   white-space: pre-wrap;
   line-height: normal;
   margin-bottom: 2.5rem;
+
+  ${media.mobile`
+    font-size: 15px;
+    margin-bottom: 12rem;
+  `};
 `;
 
 const Btn = styled.button`
@@ -124,11 +140,17 @@ const Btn = styled.button`
   font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.Primary500};
   min-width: 29.5rem;
-  height: 6.4rem;
+  width: fit-content;
+  min-height: 6.4rem;
+  height: fit-content;
   padding: 1rem;
 
-  ${media.small`
+  ${media.mobile`
+  border-radius: 32px;
     margin: 0 auto;
+    font-size: 15px;
+    padding: 3rem;
+    min-width: 60rem;
   `};
 `;
 
@@ -139,14 +161,14 @@ const IconBox = styled.div`
   width: 30rem;
   height: 33rem;
 
-  ${media.small`
+  ${media.mobile`
     position: relative;
     top: 0;
     right: 0;
-    width: 24rem;
-    height: 26rem;
+    width: 49rem;
+    height: 52rem;
     margin: 0 auto;
-    margin-bottom: 3.5rem;
+    margin-bottom: 9rem;
     
   `};
 `;
@@ -159,7 +181,7 @@ const ShadowBox = styled.div`
   border-radius: 30rem;
   background: radial-gradient(50% 50% at 50% 50%, rgba(102, 102, 102, 0.4) 0%, rgba(115, 115, 115, 0) 100%);
 
-  ${media.small`
+  ${media.mobile`
   bottom: -1rem;
   `};
 `;

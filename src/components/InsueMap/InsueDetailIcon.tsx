@@ -119,6 +119,10 @@ const Front = styled.div<{ view: boolean }>`
       : css`
           animation: ${rotateFront1} 0.5s ease-in-out forwards;
         `}
+
+  ${media.mobile`
+    border-radius: 5rem;
+  `};
 `;
 
 const GrayGradientBackground = styled.div`
@@ -142,6 +146,11 @@ const GrayGradientBackground = styled.div`
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   backdrop-filter: blur(1px);
+
+  ${media.mobile`
+    padding: 2px;
+    border-radius: 5rem;
+  `};
 `;
 
 const Blur = styled.div`
@@ -187,12 +196,20 @@ const ColorBack = styled.div<{ view: boolean; colorActive: boolean }>`
       : css`
           animation: ${rotateBack1} 0.5s ease-in-out forwards;
         `}
+
+  ${media.mobile`
+    border-radius: 5rem;
+  `};
 `;
 
 const FrontContent = styled.div<{ iconActive: boolean }>`
   position: absolute;
   padding: 2.2rem 3.1rem 4rem 3.1rem;
   z-index: 2;
+
+  ${media.mobile`
+    padding: 4.4rem 6.1rem 8rem 6.2rem;
+  `}
 
   path {
     opacity: ${({ iconActive }) => (iconActive ? 1 : 0.3)};
@@ -204,6 +221,10 @@ const FrontContent = styled.div<{ iconActive: boolean }>`
     font-weight: 600;
     font-size: ${({ theme }) => theme.fontSizes.small};
     color: white;
+
+    ${media.mobile`
+    font-size: 11px;
+  `};
   }
 `;
 const BackContent = styled.div<{ view: boolean }>`
@@ -228,6 +249,10 @@ const Txt1 = styled.p<{ position: 'T' | 'M' }>`
   line-height: normal;
   white-space: pre-wrap;
   text-align: center;
+
+  ${media.mobile`
+    font-size: 11px;
+  `};
 `;
 
 const Txt2 = styled.p`
@@ -238,6 +263,10 @@ const Txt2 = styled.p`
   color: white;
   font-weight: 600;
   font-size: ${({ theme }) => theme.fontSizes.subtitle};
+
+  ${media.mobile`
+    font-size: 18px;
+  `};
 `;
 
 const BackBtn = styled.button`
@@ -248,10 +277,16 @@ const BackBtn = styled.button`
   background-color: white;
   border-radius: 2.7rem;
   border: 0px;
-  width: 12rem;
-  height: 4.4rem;
+  min-width: 12rem;
+  width: fit-content;
+  min-height: 4.4rem;
+  height: fit-content;
   color: ${({ theme }) => theme.colors.Primary500};
   font-weight: 600;
   font-size: ${({ theme }) => theme.fontSizes.small};
+
+  ${media.mobile`
+    font-size: 12px;
+  `};
 `;
 export default InsueDetailIcon;
