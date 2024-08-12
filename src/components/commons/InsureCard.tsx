@@ -11,9 +11,10 @@ type InsueCardProps = {
   rotate: boolean;
   SVG: any;
   getData?: any; //step5에서  보험종류, 보험회사  정보 가져올 때 사용
+  delay?: number; // 도미노 효과 부여
 };
 
-function InsureCard({ text, rotate, SVG, getData }: InsueCardProps) {
+function InsureCard({ text, rotate, SVG, getData, delay = 0 }: InsueCardProps) {
   const [insureCompany, setInsureCompany] = useState('KB손해보험');
   const [showMenu, setShowMenu] = useState(false);
 
@@ -28,7 +29,7 @@ function InsureCard({ text, rotate, SVG, getData }: InsueCardProps) {
   };
 
   return (
-    <Card rotate={rotate}>
+    <Card rotate={rotate} delay={delay}>
       <CardFront>
         <GradientBackground />
         <InsueName>{text}</InsueName>
@@ -63,7 +64,7 @@ function InsureCard({ text, rotate, SVG, getData }: InsueCardProps) {
 
 export default InsureCard;
 
-const Card = styled.div<{ rotate: boolean }>`
+const Card = styled.div<{ rotate: boolean; delay: number }>`
   position: relative;
   width: 18.4rem;
   height: 20rem;
@@ -71,6 +72,7 @@ const Card = styled.div<{ rotate: boolean }>`
   //뒤집기
   transform: perspective(800px) ${({ rotate }) => (rotate ? 'rotateY(180deg)' : 'rotateY(0)')};
   transition: transform 0.3s;
+  transition-delay: ${({ delay }) => `${delay * 0.3}s`};
   transform-style: preserve-3d;
   /* background: #fff; */
   /* border: 1px solid ${({ theme }) => theme.colors.Primary500}; */
@@ -166,7 +168,7 @@ const Button = styled.button`
 
 const InsureContents = styled.div<{ open: boolean }>`
   margin-top: 0.3rem;
-  width: 110%;
+  width: 100%;
   max-height: ${({ open }) => (open ? '25rem' : 0)};
   /* max-height: 25rem; */
   /* display: ${({ open }) => (open ? 'block' : 'none')}; */
@@ -174,6 +176,10 @@ const InsureContents = styled.div<{ open: boolean }>`
   transition: all 0.3s ease-in-out;
   overflow-y: scroll;
   overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   ${media.mobile`
     margin-top: 0.8rem;
@@ -195,7 +201,7 @@ const InsureContent = styled.button`
   margin-right: 1rem;
   align-items: center;
   justify-content: center;
-  border-bottom: 0.5px solid ${({ theme }) => theme.colors.Primary400};
+  border-bottom: 1.5px solid ${({ theme }) => theme.colors.Primary400};
   /* text-align: start; */
 
   &:hover {

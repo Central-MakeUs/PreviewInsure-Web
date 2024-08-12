@@ -62,7 +62,7 @@ function Step5({ selectedInsures, toSelectInsures, setInsures, setComplete }: St
         <Selected>
           {selectedInsures.map((card: any, index: number) => (
             <SelectedButtonWrapper>
-              <InsureCard text={card.text} rotate={cardRotate} SVG={card.SVG} getData={getData} />
+              <InsureCard text={card.text} rotate={cardRotate} SVG={card.SVG} getData={getData} delay={index} />
               <ButtonShadow></ButtonShadow>
             </SelectedButtonWrapper>
           ))}
