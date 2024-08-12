@@ -178,8 +178,9 @@ const CharacterBox = styled.div`
   /* transform: translate(0, -50%); */
   width: 60%;
   /* max-height: 100rem; */
-  height: 100vh;
-  margin-bottom: 10rem;
+  height: 100%;
+  /* margin-top: 5rem;
+  margin-bottom: 5rem; */
   /* max-height: 90rem; */
   /* overflow: hidden; */
 
@@ -217,7 +218,7 @@ const IconBox = styled.div`
   width: 20rem;
   height: 20rem;
   position: absolute;
-  bottom: 37%;
+  bottom: 50%;
   /* transform: translate(-200%, -50%); */
   left: 15%;
   z-index: 3;
@@ -237,7 +238,7 @@ const IconBox = styled.div`
 
   ${media.mobile`
     left:8%;
-    /* bottom: 70rem; */
+    bottom: 35%;
   `}
 
   transition:
@@ -284,11 +285,13 @@ const Icon = styled.div`
 
 const CharacterImg = styled.img`
   position: absolute;
-  bottom: 0;
+  bottom: 10rem;
+  left: 0;
   width: 100%;
   height: fit-content;
+  height: 100%;
   min-height: 90rem;
-  max-width: 125rem;
+  max-width: 120rem;
   object-fit: contain;
 
   ${media.small`
@@ -367,9 +370,9 @@ const SelectBox = styled.div`
 const ArrowBox = styled.div`
   z-index: 3;
   position: absolute;
-  bottom: 3%;
+  bottom: 6rem;
   right: 4rem;
-  height: 22%;
+  height: 20rem;
   ${media.mobile`
     display: none;
   `};
