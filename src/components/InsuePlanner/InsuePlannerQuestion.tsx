@@ -10,7 +10,17 @@ import FailAlarm from '@components/commons/FailAlarm';
 import InsueQuestionCategory from './InsuePlannerComponents/InsueQuestionCategory';
 import media from '@styles/media';
 
-function InsuePlannerQuestion({ setQuestion, setCurrentScreen }: InsuePlannerQuestionProps) {
+import { useInsuePlannerMutation } from '@apis/insuePlanner/insuePlanner';
+import type { link } from '@apis/insuePlanner/insuePlanner.d';
+import { plannerPOSTRequest } from '@apis/insuePlanner/insuePlanner.d';
+import { convertInsureType } from '@utils/common/convertInsureType';
+
+function InsuePlannerQuestion({
+  setQuestion,
+  setCurrentScreen,
+  setCurrentAnswer,
+  setCurrentAnswerLinks,
+}: InsuePlannerQuestionProps) {
   const [text, setText] = useState<string>('');
   const [canQuestion, setCanQuestion] = useState<boolean>(false);
   const [check, setCheck] = useState<boolean>(true);
@@ -18,7 +28,11 @@ function InsuePlannerQuestion({ setQuestion, setCurrentScreen }: InsuePlannerQue
   const [alarmShown, setAlarmShown] = useState(false);
   const [insureSearchCategory, setInsureSearchCategory] = useState('전체 카테고리');
 
+  //apis
+  const { insuePlannerMutation } = useInsuePlannerMutation();
+
   useEffect(() => {
+    // 4글자 이상
     if (text.length >= 4) {
       setCanQuestion(true);
       setVisible(false);
@@ -28,12 +42,36 @@ function InsuePlannerQuestion({ setQuestion, setCurrentScreen }: InsuePlannerQue
   }, [text]);
 
   useEffect(() => {
+    // 경고 없애기
     if (alarmShown) {
       setTimeout(() => {
         setAlarmShown(false);
       }, 2000);
     }
   }, [alarmShown]);
+
+  const postQuestion = () => {
+    //api
+    const questionData: plannerPOSTRequest = {
+      quesion: text,
+      isShare: check,
+      insuranceType: convertInsureType(insureSearchCategory) as string, // DE 일때 400 에러 뜸
+    };
+    console.log(questionData);
+    insuePlannerMutation.mutate(questionData, {
+      onSuccess: (data) => {
+        console.log('API 호출 성공:', data);
+        // 답변 저장
+        setCurrentAnswer(data.answer as string);
+        setCurrentAnswerLinks(data.links as link[]);
+        // 성공 후 이동
+        setCurrentScreen('A');
+      },
+      onError: (error) => {
+        console.error('API 호출 실패:', error);
+      },
+    });
+  };
 
   const questionBtnClickHandler = () => {
     if (!canQuestion) {
@@ -42,12 +80,10 @@ function InsuePlannerQuestion({ setQuestion, setCurrentScreen }: InsuePlannerQue
       return;
     }
 
-    console.log('questionClick');
-    console.log('current category', insureSearchCategory);
     setQuestion(text);
-    setCurrentScreen('A');
-    //api 처리
+    postQuestion(); //api 처리
   };
+
   return (
     <Container>
       <Wrapper>
@@ -91,6 +127,7 @@ function InsuePlannerQuestion({ setQuestion, setCurrentScreen }: InsuePlannerQue
           </InputBtn>
         </InputContainer>
       </Wrapper>
+
       <Line />
 
       <Wrapper>
@@ -109,6 +146,8 @@ function InsuePlannerQuestion({ setQuestion, setCurrentScreen }: InsuePlannerQue
               value={'10년 뒤 어떤보험이 필요할까요?'}
               setQuestion={setQuestion}
               setCurrentScreen={setCurrentScreen}
+              setCurrentAnswer={setCurrentAnswer}
+              setCurrentAnswerLinks={setCurrentAnswerLinks}
             />
             <QuestionBox
               svg={
@@ -122,6 +161,8 @@ function InsuePlannerQuestion({ setQuestion, setCurrentScreen }: InsuePlannerQue
               value={'보험에 대해 잘 모르겠어요.'}
               setQuestion={setQuestion}
               setCurrentScreen={setCurrentScreen}
+              setCurrentAnswer={setCurrentAnswer}
+              setCurrentAnswerLinks={setCurrentAnswerLinks}
             />
             <QuestionBox
               svg={
@@ -140,6 +181,8 @@ function InsuePlannerQuestion({ setQuestion, setCurrentScreen }: InsuePlannerQue
                   보험 가입이 필요할까요?
                 </>
               }
+              setCurrentAnswer={setCurrentAnswer}
+              setCurrentAnswerLinks={setCurrentAnswerLinks}
             />
           </QuestionBoxWrapper>
         </QuestionContainer>
