@@ -18,8 +18,12 @@ function Footer() {
               <NavItem>공지사항</NavItem>
             </Link>
             <VerticalLine />
-            <Link to="/">
-              <NavItem>이용약관</NavItem>
+            <Link to="/policy/service">
+              <NavItem>프리뷰인슈 이용약관</NavItem>
+            </Link>
+            <VerticalLine />
+            <Link to="/policy/privacy">
+              <NavItem>개인정보처리방침</NavItem>
             </Link>
             <VerticalLine />
             <Link to="/">
