@@ -41,7 +41,7 @@ function Step2({ goNextStep, goPreviousStep, setGender }: StepProps) {
         <WarningIconBox>
           <Warning width={'100%'} height={'100%'} fill={'#aaa'} />
         </WarningIconBox>
-        <p>닉네임은 설정 이후 변경할 수 없어요.</p>
+        <p>성별을 선택하지 않을경우, 보험추천이 정확하지 않을 수 있어요.</p>
       </Explain>
     </>
   );

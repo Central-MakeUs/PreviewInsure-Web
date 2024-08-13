@@ -31,12 +31,12 @@ function InsureCard({ text, rotate, SVG, getData, delay = 0 }: InsueCardProps) {
   return (
     <Card rotate={rotate} delay={delay}>
       <CardFront>
-        <GradientBackground />
+        <GradientBackground insueBoarding={true} />
         <InsueName>{text}</InsueName>
         <SVGWrapper>{SVG}</SVGWrapper>
       </CardFront>
       <CardBack>
-        <GradientBackground />
+        <GradientBackground insueBoarding={true} />
         <InsueName>{text}</InsueName>
         <SelectWrapper>
           <Button onClick={() => setShowMenu(!showMenu)}>

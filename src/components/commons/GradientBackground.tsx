@@ -1,15 +1,17 @@
 import media from '@styles/media';
 import styled from 'styled-components';
+import { GradientBackgroundProps } from '@/types/commonComponents';
 
 /*
   GradientBackground를 감싸는 요소에
     position: relative를 추가하여 사용
 */
-function GradientBackground() {
-  return <Background />;
+
+function GradientBackground({ insueBoarding = false }: GradientBackgroundProps) {
+  return <Background insueBoarding={insueBoarding} />;
 }
 
-const Background = styled.div`
+const Background = styled.div<{ insueBoarding: boolean }>`
   position: absolute;
   top: 0;
   width: 100%;
@@ -19,7 +21,7 @@ const Background = styled.div`
   box-sizing: border-box;
   background-clip: padding-box;
 
-  padding: 3px;
+  padding: ${({ insueBoarding }) => (insueBoarding ? '1.5px' : '3px')};
   background: linear-gradient(to bottom right, rgba(104, 121, 251, 0.6), rgba(104, 121, 251, 0)),
     radial-gradient(farthest-corner at 0% 100%, rgba(255, 255, 255, 0) 0%, rgba(104, 121, 251, 0.25) 100%),
     linear-gradient(to bottom right, rgba(255, 255, 255, 0.5), rgba(104, 121, 251, 0.3), rgba(255, 255, 255, 0.5));

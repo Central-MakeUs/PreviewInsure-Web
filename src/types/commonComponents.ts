@@ -61,3 +61,7 @@ export type FailAlarmProps = {
   text: string;
   alarmShown: boolean;
 };
+
+export type GradientBackgroundProps = {
+  insueBoarding?: boolean;
+};

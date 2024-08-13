@@ -1,29 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axiosInstance from '@utils/axios';
+import { AgeRequest, AgeResponse, BoardRequest, BoardResponse } from './insueboarding.d';
+import { ageKeys, boardKeys } from './insueboarding.keys';
 
 // age patch
-export interface AgeRequest {
-  year: number;
-  month: number;
-}
-
-export interface AgeResponse {
-  code: number;
-  message: string;
-}
 
 export async function patchAgeData(data: AgeRequest): Promise<AgeResponse> {
   const response = await axiosInstance.patch<APIResponse<AgeResponse>>('/register/age', data);
   console.log(response.data);
   return response.data;
 }
-
-const ageKeys = {
-  all: ['age'] as const,
-  info: () => [...ageKeys.all, 'info'] as const,
-  detail: () => [...ageKeys.all, 'detail'] as const,
-  list: (page: number) => [...ageKeys.all, 'list', page] as const,
-};
 
 export function useAgeMutation() {
   const queryClient = useQueryClient();
@@ -51,34 +37,11 @@ export function useAgeMutation() {
 
 // gender, insures patch
 
-type insures = {
-  insuranceType: string;
-  insuranceCompany: string;
-};
-
-export interface BoardRequest {
-  gender: 'M' | 'W' | null;
-  //   gender: string;
-  insureBoards: insures[];
-}
-
-export interface BoardResponse {
-  code: number;
-  message: string;
-}
-
 export async function patchBoardData(data: BoardRequest): Promise<BoardResponse> {
   const response = await axiosInstance.patch<APIResponse<BoardResponse>>('/register/board', data);
   console.log('board', response.data);
   return response.data;
 }
-
-const boardKeys = {
-  all: ['board'] as const,
-  info: () => [...boardKeys.all, 'info'] as const,
-  detail: () => [...boardKeys.all, 'detail'] as const,
-  list: (page: number) => [...boardKeys.all, 'list', page] as const,
-};
 
 export function useBoardMutation() {
   const queryClient = useQueryClient();
