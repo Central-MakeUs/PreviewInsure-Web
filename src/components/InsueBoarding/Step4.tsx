@@ -207,6 +207,7 @@ const ToSelect = styled.div`
   ${media.mobile`
     // 767 < 
     gap: 1.5rem;
+    margin-bottom:20rem;
   `}
 `;
 

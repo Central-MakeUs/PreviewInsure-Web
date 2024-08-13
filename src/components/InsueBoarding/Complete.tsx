@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Loading from '@components/commons/Loading';
-import {
-  useAgeMutation,
-  AgeRequest,
-  patchBoardData,
-  useBoardMutation,
-  BoardRequest,
-} from '@apis/insueboarding/insueboarding';
-import { convertInsureType } from '@utils/common/convertInsureType';
+import { useAgeMutation, useBoardMutation } from '@apis/insueboarding/insueboarding';
+import media from '@styles/media';
+import { ReactComponent as RightArrow } from '@/assets/icons/DownArrowRight.svg';
+import { useNavigate } from 'react-router-dom';
+import { AgeRequest, BoardRequest } from '@/apis/insueboarding/insueboarding.d';
 
 type insure = {
   insuranceType: string;
@@ -23,6 +20,7 @@ type CompleteProps = {
 };
 
 function Complete({ birthYear, birthMonth, gender, insures }: CompleteProps) {
+  const navigation = useNavigate();
   const [loading, setLoading] = useState(true);
   const nickname = '춤추는 부엉이';
   const { ageMutation } = useAgeMutation();
@@ -31,6 +29,7 @@ function Complete({ birthYear, birthMonth, gender, insures }: CompleteProps) {
   // console.log(convertInsureType('생명 보험'));
 
   const handleAPI = () => {
+    console.log('실행');
     const updateAgeData: AgeRequest = {
       year: birthYear,
       month: birthMonth,
@@ -56,6 +55,10 @@ function Complete({ birthYear, birthMonth, gender, insures }: CompleteProps) {
     }, 2000);
   }, []);
 
+  const goInsueMap = () => {
+    navigation('/');
+  };
+
   return (
     <Container>
       {loading ? (
@@ -73,6 +76,15 @@ function Complete({ birthYear, birthMonth, gender, insures }: CompleteProps) {
           <Subtitle>
             <SubtitleP>{nickname}님의 인슈 맵이 생성되었어요!</SubtitleP>
           </Subtitle>
+          <InsueMap></InsueMap>
+          <BtnWrapper>
+            <RegisterBtn onClick={goInsueMap}>
+              인슈 맵 보러가기
+              <IconBox>
+                <RightArrow width={'100%'} height={'100%'} fill={'#fff'} />
+              </IconBox>
+            </RegisterBtn>
+          </BtnWrapper>
         </>
       )}
     </Container>
@@ -83,6 +95,11 @@ export default Complete;
 
 const Container = styled.div`
   /* border: 1px solid #000; */
+
+  ${media.mobile`
+    // 767 < 
+    height:100rem;
+  `}
 `;
 
 //loading
@@ -96,6 +113,12 @@ const LoadingSubtitle = styled.p`
   line-height: 1.1;
   margin-bottom: 7rem;
   margin-top: 15rem;
+
+  ${media.mobile`
+    // 767 < 
+    margin-top: 5rem;
+    margin-bottom: 15rem;
+  `}
 `;
 
 const SubtitleP = styled.p``;
@@ -114,4 +137,82 @@ const Subtitle = styled.p`
   color: #000;
   line-height: 1.1;
   margin-bottom: 6.8rem;
+`;
+
+const InsueMap = styled.div`
+  /* border: 1px solid #000; */
+  width: 100%;
+  height: 44rem;
+`;
+
+const IconBox = styled.div`
+  width: 4.5rem;
+  height: 4.5rem;
+
+  ${media.mobile`
+    // 767 < 
+    width: 6rem;
+    height: 6rem;
+  `}
+`;
+
+const BtnWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+const RegisterBtn = styled.button`
+  width: 23rem;
+  height: 5.8rem;
+  border: none;
+  background-color: ${({ theme }) => theme.colors.Primary_W};
+  ${({ theme }) => theme.common.flexCenter};
+  color: ${({ theme }) => theme.colors.Primary500};
+  font-size: ${({ theme }) => theme.fontSizes.small};
+  font-weight: 400;
+  border-radius: 7.9rem;
+  cursor: pointer;
+  margin-bottom: 5rem;
+  transition: all 0.3s ease;
+  gap: 0.5rem;
+  z-index: 5;
+
+  ${IconBox} {
+    svg {
+      fill: ${({ theme }) => theme.colors.Primary500};
+    }
+  }
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.Primary500};
+    transition: 0.5s;
+    color: #fff;
+
+    ${IconBox} {
+      svg {
+        fill: #fff;
+      }
+    }
+  }
+
+  ${media.mobile`
+    // 767 < 
+    position: fixed;
+    bottom: 12%;
+    background-color: ${({ theme }: any) => theme.colors.Primary500};
+    color:#fff;
+    width:80%;
+    font-size:3.2rem;
+    font-weight:400;
+    height:10rem;
+    border-radius: 2.8rem;
+    gap: 3rem;
+
+    ${IconBox} {
+    svg {
+      fill: #fff;
+    }
+  }
+  `}
 `;

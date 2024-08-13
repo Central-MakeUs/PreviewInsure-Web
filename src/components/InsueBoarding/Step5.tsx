@@ -4,7 +4,6 @@ import InsureCard from '@components/commons/InsureCard';
 import { ReactComponent as Check } from '@/assets/icons/Approve.svg';
 import { convertInsureType } from '@utils/common/convertInsureType';
 import media from '@styles/media';
-import { relative } from 'path';
 
 type insure = {
   insuranceType: string;
@@ -121,7 +120,8 @@ const SelectedBox = styled.div`
   left: 50%;
   transform: translateX(-50%);
   max-width: 80%;
-  top: 40%;
+  /* top: 40%; */
+  top: 35%;
 
   overflow-x: auto;
   scrollbar-width: none;
@@ -129,9 +129,25 @@ const SelectedBox = styled.div`
 
   z-index: 4;
 
+  ${media.large`
+    top: 30%;
+    /* top: 38%; */
+  `}
+
+  ${media.medium`
+    top: 23%; 
+    /* top: 40%; */
+  `}
+
+  ${media.small`
+    // 767 < 
+    top: 20%;
+    /* top: 41%; */
+  `}
+
   ${media.mobile`
     // 767 < 
-    top: 42%;
+    top: 40%;
     max-width: 72%;
   `}
 `;
@@ -184,6 +200,7 @@ const ToSelect = styled.div`
   ${media.mobile`
     // 767 < 
     gap: 1.5rem;
+    margin-bottom:20rem;
   `}
 `;
 

@@ -87,8 +87,15 @@ function InsueBoardingScreen() {
 const Container = styled.div`
   padding: 7.6rem 0;
   height: calc(100vh - 18rem);
-  ${({ theme }) => theme.common.flexCenter};
+  display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  /* justify-content: center; */
+  align-items: center;
+
+  ${media.mobile`
+  justify-content: center;
+  `}
 `;
 
 const Title = styled.h1`

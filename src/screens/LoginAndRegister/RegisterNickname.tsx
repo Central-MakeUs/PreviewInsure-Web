@@ -1,19 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as Warning } from '@/assets/icons/Warning.svg';
 import { ReactComponent as Close } from '@/assets/icons/Close.svg';
 import { ReactComponent as Heart } from '@/assets/icons/Heart.svg';
 import media from '@styles/media';
+import { useGetRandomNicknameQuery } from '@apis/register/register';
 
 function RegisterNickname() {
-  const [nickname, setNickname] = useState('춤추는 부엉이');
+  const [nickname, setNickname] = useState('');
+  const { nickNameQuery } = useGetRandomNicknameQuery();
+  const { isLoading, isFetched, refetch } = nickNameQuery;
 
   const resetNickname = () => {
-    console.log('reset Nickname');
+    // console.log('reset Nickname');
+    getNickname();
   };
   const confirmNickname = () => {
     console.log('confirm Nickname');
+    // api POST
   };
+
+  const getNickname = () => {
+    refetch();
+  };
+
+  useEffect(() => {
+    // 최초 렌더링
+    // console.log(isLoading, nickNameQuery?.data?.nickName);
+    if (nickNameQuery.isFetched) {
+      setNickname(nickNameQuery?.data?.nickName as string);
+    }
+  }, [isFetched]);
+
+  useEffect(() => {
+    // refetch 되면 변경
+    setNickname(nickNameQuery?.data?.nickName as string);
+  }, [nickNameQuery?.data?.nickName]);
 
   return (
     <Container>
