@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import HomeScreen from '@screens/homeScreen';
 import TestScreen1 from '@screens/testScreen1';
 import TestScreen2 from '@screens/testScreen2';
@@ -21,6 +21,15 @@ import InsueMapScreen from '@screens/InsueMap/InsueMapScreen';
 import BottomNav from './BottomNav';
 import media from '@styles/media';
 import { useEffect, useState } from 'react';
+import { useStore } from '@stores/useStore';
+
+import PolicyPrivacyScreen from '@screens/Main/PolicyPrivacyScreen';
+import PolicyServiceScreen from '@screens/Main/PolicyServiceScreen';
+
+const PrivateRoute = () => {
+  const { isLogin } = useStore();
+  return isLogin ? <Outlet /> : <Navigate to="/login" />;
+};
 
 const rootRouter = () => {
   // 모바일 사이즈에서만 BottomNav를 랜더링 하도록 함.
@@ -55,10 +64,16 @@ const rootRouter = () => {
           <Route path="/congratulate" element={<Congratulate />} />
           <Route path="/insueMap" element={<InsueMapScreen />} />
 
-          {/* <Route path="/main" element={<MainScreen />} /> */}
           <Route path="/insuePlanner" element={<InsuePlannerScreen />} />
           <Route path="/question" element={<Question />} />
-          <Route path="/user" element={<UserInfoScreen />} />
+
+          <Route path="/policy/service" element={<PolicyServiceScreen />} />
+          <Route path="/policy/privacy" element={<PolicyPrivacyScreen />} />
+
+          {/* 로그인시에만 진입 가능 */}
+          <Route element={<PrivateRoute />}>
+            <Route path="/user" element={<UserInfoScreen />} />
+          </Route>
         </Routes>
       </WrapContent>
 
