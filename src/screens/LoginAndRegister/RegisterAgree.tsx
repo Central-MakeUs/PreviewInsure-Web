@@ -4,14 +4,12 @@ import Agree from '@components/LoginAndRegister/Agree';
 import { useNavigate } from 'react-router-dom';
 import FailAlarm from '@components/commons/FailAlarm';
 import media from '@styles/media';
+import { policyServiceContent } from '@screens/Main/PolicyServiceScreen';
+import { policyPrivacyContent } from '@screens/Main/PolicyPrivacyScreen';
 
-const sampleP = (
-  <>
-    sample <br />
-    sample <br /> sample <br /> sample <br />
-    sample text
-  </>
-);
+const sampleP = `
+${'광고성 수신동의?\n'.repeat(100)}
+`;
 
 function RegisterAgree() {
   const navigate = useNavigate();
@@ -70,7 +68,7 @@ function RegisterAgree() {
             setCheck={setCheck1}
             text={'프리뷰인슈 이용 약관에 동의합니다.'}
             type={'essential'}
-            detail={sampleP}
+            detail={policyServiceContent}
             registerBtnClicked={registerBtnClicked}
           />
           <Agree
@@ -78,7 +76,7 @@ function RegisterAgree() {
             setCheck={setCheck2}
             text={`개인정보 수집 및 이용에 동의합니다.`}
             type={'essential'}
-            detail={sampleP}
+            detail={policyPrivacyContent}
             registerBtnClicked={registerBtnClicked}
           />
           <Agree
@@ -105,13 +103,15 @@ function RegisterAgree() {
 
 const Container = styled.div`
   padding: 7.6rem 0;
-  ${({ theme }) => theme.common.flexCenter};
+  display: flex;
   flex-direction: column;
-  height: calc(100vh - 18rem);
+  justify-content: flex-start;
+  align-items: center;
+  min-height: calc(100vh - 18rem);
 
   ${media.mobile`
     // 767 < 
-    height: calc(100vh - 32rem);
+    min-height: calc(100vh - 32rem);
   `}
 `;
 
@@ -157,7 +157,7 @@ const AgreeGroup = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 5.5rem;
-  gap: 1.2rem;
+  gap: 0.2rem;
 `;
 
 const RegisterBtn = styled.button<{ registerable: boolean }>`
