@@ -74,8 +74,10 @@ function RegisterNickname() {
 
 const Container = styled.div`
   padding: 7.6rem 0;
-  ${({ theme }) => theme.common.flexCenter};
+  display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   height: calc(100vh - 18rem);
 `;
 

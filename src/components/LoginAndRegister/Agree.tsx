@@ -98,15 +98,23 @@ const AgreeRightText = styled.p`
 `;
 
 const AgreeContents = styled.div<{ open: boolean }>`
-  max-height: ${({ open }) => (open ? '80rem' : 0)};
-  overflow: hidden;
+  max-height: ${({ open }) => (open ? '30rem' : 0)};
+  overflow: scroll;
   transition: all 0.3s ease-in-out;
+  margin-bottom: 2rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const AgreeContentsP = styled.p`
-  font-size: 1.6rem;
+  width: 85rem;
   color: #535353;
-  padding: 4.5rem 0 2rem 0;
+  font-size: ${({ theme }) => theme.fontSizes.tiny};
+  margin-top: 4.5rem;
+  font-weight: 400;
+  white-space: pre-wrap;
 `;
 
 export default Agree;

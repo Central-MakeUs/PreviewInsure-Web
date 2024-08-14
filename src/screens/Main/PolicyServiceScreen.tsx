@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const content = `제1조 (목적)
+export const policyServiceContent = `제1조 (목적)
 
 본 약관은 프리뷰인슈 (이하 "회사" 또는 "프리뷰인슈"라 함)가 인터넷 상에서 제공하는 모든 서비스의 이용 조건 및 절차에 관한 기본적인 사항을 규정함을 목적으로 합니다.
 
@@ -120,7 +120,7 @@ const PolicyServiceScreen = () => {
 
       <Subtitle>|ㅤ서비스 이용 약관</Subtitle>
 
-      <Content>{content}</Content>
+      <Content>{policyServiceContent}</Content>
     </>
   );
 };
