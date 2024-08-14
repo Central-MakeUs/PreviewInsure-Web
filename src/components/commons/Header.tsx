@@ -45,7 +45,7 @@ function Header() {
             <span className={`${current === 'question' ? 'active' : ''}`}>Q&A</span>
           </Link>
         </LinkBox>
-        {isLogin() ? (
+        {isLogin ? (
           <Nickname onClick={goToMypage} colorWhite={isHome}>
             {nickName} 님
           </Nickname>
@@ -138,6 +138,7 @@ const Nickname = styled.span<{ colorWhite: boolean }>`
   background-color: ${(props) => (props.colorWhite ? props.theme.colors.Primary400 : props.theme.colors.Primary500)};
   font-size: ${({ theme }) => theme.fontSizes.paragraph};
   font-weight: 500;
+  cursor: pointer;
 `;
 
 const Login = styled.span<{ colorWhite: boolean }>`
