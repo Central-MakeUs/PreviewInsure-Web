@@ -1,8 +1,13 @@
+import Loading from '@components/commons/Loading';
+import { useStore } from '@stores/useStore';
+import axiosInstance from '@utils/axios';
+import { platform } from 'os';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const GoogleLoginCallback = () => {
   const navigate = useNavigate();
+  const { setAccessToken, setNickName } = useStore();
 
   // 이미 가입한 유저일 시 : 메인 페이지로 이동
   const handleHome = () => {
@@ -21,25 +26,35 @@ const GoogleLoginCallback = () => {
   const code = params.get('code');
 
   const handleLoginPost = async (code: string) => {
+    //코드 받아와지는 거 확인됐음.
+    // console.log(code);
+
     const data = {
+      platform: 'GOOGLE',
       code: code,
     };
-    //코드 받아와지는 거 확인됐음.
-    console.log(code);
-    handleRegist();
-    // try {
-    //   // 토큰 서버에 전송
-    //   const res = await axios.post('https://server.bageasy.net/auth/login', data);
-    //   // 토큰 localstorage에 저장
-    //   const accessToken = res.data.accessToken;
 
-    //   localStorage.setItem('bagtoken', accessToken);
-    //   // 신규/기존 회원 여부에 따라 페이지 이동
-    //   res.data.isExistingMember ? handleHome() : handleRegist();
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      // 토큰 서버에 전송. 로그인 요청.
+      const res = await axiosInstance.post('/oauth', data);
+
+      // 토큰 zustand 저장
+      // TODO : api 반환값에 따른 처리
+      const accessToken = res.data.accessToken;
+      setAccessToken(accessToken);
+
+      // 신규/기존 회원 여부에 따라 페이지 이동
+      res.data.isExistingMember ? handleHome() : handleRegist();
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  function handleCriticalLogin() {
+    setAccessToken('aaaaaaaaaaaaaaaa');
+    setNickName('춤추는 부엉이');
+    navigate('/');
+  }
 
   useEffect(() => {
     if (code) {
@@ -49,7 +64,23 @@ const GoogleLoginCallback = () => {
     }
   }, [code, navigate]);
 
-  return <div>{code ? <h1>로그인 중입니다.</h1> : <h1>로그인에 실패하였습니다.</h1>}</div>;
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '80vh',
+      }}
+    >
+      <Loading type={'spinningBubbles'} color={'#6879FB'} width={69.33} height={69.33} />
+      <br />
+      {code ? <h1>로그인 중입니다.</h1> : <h1>로그인에 실패하였습니다.</h1>}
+
+      <button onClick={handleCriticalLogin}>일단 로그인하기</button>
+    </div>
+  );
 };
 
 export default GoogleLoginCallback;
