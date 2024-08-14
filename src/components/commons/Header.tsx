@@ -19,6 +19,9 @@ function Header() {
   const goToLogin = () => {
     navigate('/login');
   };
+  const goToMypage = () => {
+    navigate('/user');
+  };
 
   useEffect(() => {
     location.pathname === '/' ? setIsHome(true) : setIsHome(false);
@@ -42,8 +45,10 @@ function Header() {
             <span className={`${current === 'question' ? 'active' : ''}`}>Q&A</span>
           </Link>
         </LinkBox>
-        {isLogin ? (
-          <Nickname colorWhite={isHome}>{nickName} 님</Nickname>
+        {isLogin() ? (
+          <Nickname onClick={goToMypage} colorWhite={isHome}>
+            {nickName} 님
+          </Nickname>
         ) : (
           <Login onClick={goToLogin} colorWhite={isHome}>
             로그인
