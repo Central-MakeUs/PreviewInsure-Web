@@ -6,14 +6,14 @@ export interface State {
   logOut: () => void;
   nickName: string;
   setNickName: (nickname: string) => void;
-  isLogin: boolean;
+  isLogin: () => boolean;
 }
 
-export const useStore = create<State>((set) => ({
+export const useStore = create<State>((set, get) => ({
   accessToken: '',
   setAccessToken: (token: string) => set({ accessToken: token }),
   logOut: () => set({ accessToken: '' }),
   nickName: 'asdfa',
   setNickName: (arg: string) => set({ nickName: arg }),
-  isLogin: false,
+  isLogin: () => get().accessToken !== '',
 }));
