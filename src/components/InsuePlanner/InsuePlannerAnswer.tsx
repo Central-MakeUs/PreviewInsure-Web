@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { InsuePlannerAnswerProps } from '@/types/InsuePlannerComponents';
 import { ReactComponent as Chatting } from '@/assets/icons/Chatting.svg';
-import { ReactComponent as Magnifier } from '@/assets/icons/Magnifier.svg';
-import SearchBar from '@components/commons/SearchBar';
-import HistoryItem from './InsuePlannerComponents/HistoryItem';
+import { ReactComponent as Menu } from '@/assets/icons/InsuePlanner/Menu.svg';
 import AnswerQuestionBox from './InsuePlannerComponents/QuestionBox';
 import AnswerBox from './InsuePlannerComponents/AnswerBox';
 import media from '@styles/media';
+import HistoryListContainer from './InsuePlannerComponents/HistoryListContainer';
+import InsuePlannerAnswerMobileModal from './InsuePlannerComponents/InsuePlannerAnswerMobileModal';
 
 import {
   useGetQuestionTitleQuery,
@@ -32,10 +32,6 @@ function InsuePlannerAnswer({
   const { questionTitleQuery } = useGetQuestionTitleQuery();
   // const { questionDetailQuery } = useGetQuestionDetailQuery(historyQuestionId!);  // 최초 패칭 문제(null값 패칭), 캐싱 문제 (데이터 로드가 안됨)
 
-  const historySearchHandler = () => {
-    console.log('history Search Click');
-  };
-
   const goBack = () => {
     setCurrentScreen('Q');
   };
@@ -47,16 +43,6 @@ function InsuePlannerAnswer({
   //apis
   useEffect(() => {
     // 최초 실행 시 히스토리 목록 조회
-    // console.log(
-    //   'Fetched:',
-    //   questionTitleQuery.isFetched,
-    //   'Loading:',
-    //   questionTitleQuery.isLoading,
-    //   'Refetching:',
-    //   questionTitleQuery.isRefetching,
-    //   'Data:',
-    //   questionTitleQuery?.data,
-    // );
     if (questionTitleQuery.isFetched) {
       setHistory([...(questionTitleQuery.data ?? [])].reverse() as QuestionTitle[]);
     }
@@ -67,6 +53,7 @@ function InsuePlannerAnswer({
     const res = await getQuestionDetail(id);
     console.log(res);
     setCurrentAnswer(res.answer);
+    setCurrentAnswerLinks(res.links);
   };
 
   useEffect(() => {
@@ -92,45 +79,65 @@ function InsuePlannerAnswer({
   //   }
   // }, [questionDetailQuery.isFetched]);
 
+  //mobile design
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+  window.addEventListener('resize', function (e: any) {
+    if (e.currentTarget.innerWidth <= 767) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  });
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <Container>
       <HistoryContainer>
-        <Title>
-          <p>안녕하세요!</p>
-          <TitleP>
-            AI 상담사, 인슈플래너에요.
-            <Chatting width={36} height={36} fill="#6879FB" />
-          </TitleP>
-        </Title>
+        <TitleWrapper>
+          <Title>
+            <p>안녕하세요!</p>
+            <TitleP>
+              AI 상담사, 인슈플래너에요.
+              <ChattingIConBox>
+                {' '}
+                <Chatting width={'100%'} height={'100%'} fill="#6879FB" />
+              </ChattingIConBox>
+            </TitleP>
+          </Title>
+          <MenuIconBox onClick={() => setOpenModal(true)}>
+            <Menu width={'100%'} height={'100%'} />
+          </MenuIconBox>
+        </TitleWrapper>
+
         <Paragraph>
           <p>가벼운 질문을 하기에 부담스러웠나요?</p>
           <p>AI 상담사 인슈플래너가 자세히 알려줄게요.</p>
           <p>궁금한 모든 것을 질문 해 보세요!</p>
         </Paragraph>
-        <TitleHistory>History</TitleHistory>
-        <SearchBarWrapper>
-          <SearchBar
-            backgroundColor={'#f8f8f8'}
-            icon={<Magnifier width={27} height={29} fill={'#000'} />}
-            handler={historySearchHandler}
-            height={7.7}
-            placeholder={'질문내역 검색'}
-          />
-        </SearchBarWrapper>
-        <HistoryList>
-          {history &&
-            history.map((e, i) => (
-              <HistoryItem
-                key={i}
-                qnaBoardId={e.qnaBoardId}
-                selected={false}
-                title={e.insuranceType}
-                contents={e.title}
+        {isMobile ? (
+          // mobile
+          <InsuePlannerAnswerMobileModal
+            element={
+              <HistoryListContainer
+                history={history}
                 setCurrentQuestion={setCurrentQuestion}
                 setHistoryQuestionId={setHistoryQuestionId}
+                setOpenModal={setOpenModal}
+                historyQId={historyQuestionId}
               />
-            ))}
-        </HistoryList>
+            }
+            openModal={openModal}
+            setOpenModal={setOpenModal}
+          />
+        ) : (
+          // web
+          <HistoryListContainer
+            history={history}
+            setCurrentQuestion={setCurrentQuestion}
+            setHistoryQuestionId={setHistoryQuestionId}
+            historyQId={historyQuestionId}
+          />
+        )}
       </HistoryContainer>
       <TextContainer>
         <TextWrapper>
@@ -160,7 +167,9 @@ const Container = styled.div`
 
   ${media.mobile`
     // 767 < 
+    flex-direction:column;
     padding: 3rem 7.8rem;
+    height: calc(100vh - 40rem);
   `}
 `;
 
@@ -174,6 +183,29 @@ const HistoryContainer = styled.div`
   padding-left: 2.9rem;
   padding-right: 2.9rem;
   padding-top: 5.8rem;
+
+  ${media.mobile`
+    // 767 < 
+    width: 100%;
+    height:fit-content;
+    background-color: #fff;
+  `}
+`;
+
+const TitleWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+`;
+
+const MenuIconBox = styled.div`
+  display: none;
+
+  ${media.mobile`
+    display:block;
+    width:6rem;
+    height:3rem;
+  `}
 `;
 
 const Title = styled.p`
@@ -184,6 +216,13 @@ const Title = styled.p`
   line-height: 1.5;
   margin-bottom: 2.4rem;
   text-align: start;
+
+  ${media.mobile`
+    // 767 < 
+    font-size: 4.5rem;
+    line-height: 1;
+    margin-bottom: 6rem;
+  `}
 `;
 
 const TitleP = styled.p`
@@ -201,26 +240,12 @@ const Paragraph = styled.p`
   margin-bottom: 2.4rem;
   text-align: start;
   margin-bottom: 7.3rem;
-`;
 
-const TitleHistory = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.paragraph};
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.Black500};
-  line-height: 1.5;
-  margin-bottom: 2.4rem;
-`;
-
-const SearchBarWrapper = styled.div`
-  margin-bottom: 2.4rem;
-`;
-
-const HistoryList = styled.div`
-  height: 28rem;
-  overflow-y: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  ${media.mobile`
+    // 767 < 
+    font-size: 4rem;
+    line-height: 1.3;
+  `}
 `;
 
 //right
@@ -228,11 +253,16 @@ const HistoryList = styled.div`
 const TextContainer = styled.div`
   width: 70%;
   height: 79.4rem;
+
+  ${media.mobile`
+    width: 100%;
+    /* height: 79.4rem; */
+    flex-grow:1;
+  `}
 `;
 
 const TextWrapper = styled.div`
   width: 100%;
-  /* border: 1px solid #000; */
   background-color: #fafbff;
   border-radius: 2.4rem;
   height: 85%;
@@ -248,6 +278,10 @@ const QuestionWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-bottom: 1rem;
+
+  ${media.mobile`
+  margin-bottom: 3rem;
+  `}
 `;
 
 const AnswerWrapper = styled.div``;
@@ -270,4 +304,20 @@ const Btn = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.colors.Black200};
   }
+
+  ${media.mobile`
+      border-radius: 5.2rem;
+      padding: 3rem 3.6rem;
+  `}
+`;
+
+const ChattingIConBox = styled.div`
+  width: 3.6rem;
+  height: 3.6rem;
+
+  ${media.mobile`
+    // 767 < 
+    width: 6rem;
+    height: 6rem;
+  `}
 `;

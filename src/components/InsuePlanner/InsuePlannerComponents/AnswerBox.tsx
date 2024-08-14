@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { ReactTyped } from 'react-typed';
+import media from '@styles/media';
 
 type link = {
   insuranceCompany: string;
@@ -65,6 +66,12 @@ const TextContainer = styled.div`
   font-weight: 400;
   border-radius: 1.2rem;
   margin-bottom: 1.2rem;
+
+  ${media.mobile`
+    // ~ 767 
+    max-width: 70rem;
+    font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
+  `}
 `;
 
 const LinkContainer = styled.div`
@@ -91,6 +98,10 @@ const LinksTextContainer = styled.div`
   color: ${({ theme }) => theme.colors.Black500};
   display: inline-block;
   animation: ${fadeIn} 1s ease-in-out;
+
+  ${media.mobile`
+    font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
+  `}
 `;
 
 const LinkBtnGroup = styled.div`
@@ -111,4 +122,10 @@ const LinkBtn = styled.button`
   display: inline-block;
   font-size: ${({ theme }) => theme.fontSizes.small};
   border-radius: 1.2rem;
+  cursor: pointer;
+
+  ${media.mobile`
+    font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
+    border-radius: 3rem;
+  `}
 `;
