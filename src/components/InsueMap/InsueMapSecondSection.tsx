@@ -2,6 +2,8 @@ import styled, { keyframes } from 'styled-components';
 
 import media from '@styles/media';
 import InsueDetailIcon from './InsueDetailIcon';
+import { useStore } from '@stores/useStore';
+import { useNavigate } from 'react-router-dom';
 
 function InsueMapSecondSection({
   insueName,
@@ -11,21 +13,27 @@ function InsueMapSecondSection({
   registInsueCompany,
   registInsueLink,
 }: InsueMapSecondPorps) {
-  const nickname = '춤추는 부엉이';
+  const navigate = useNavigate();
   const isRegist = registInsueCompany !== undefined;
 
+  // 닉네임
+  const { nickName, isLogin } = useStore();
+
   // content
-  const myInsueTxt = isRegist
-    ? `${nickname}님은 ${registInsueCompany}에 현재 가입되어 있어요!\n해당 사이트에 들어가서 정보를 확인할 수 있어요.`
-    : `${nickname}님은 아직 ${insueName}을 보유하지 않았네요.\n차량을 보유하고 계신다면, 운전 보험에 가입하여 안전한 운전 생활을 경험해보아요!`;
+  const myInsueTxt = !isLogin
+    ? `로그인 후 가입한 보험 정보를 입력해 주세요.`
+    : isRegist
+      ? `${nickName}님은 ${registInsueCompany}에 현재 가입되어 있어요!\n해당 사이트에 들어가서 정보를 확인할 수 있어요.`
+      : `${nickName}님은 아직 ${insueName}을 보유하지 않았네요.\n차량을 보유하고 계신다면, 운전 보험에 가입하여 안전한 운전 생활을 경험해보아요!`;
 
   const btnTxt = registInsueCompany ? `${registInsueCompany} 바로가기` : '가입한 보험 정보 입력하기';
 
   // icon
   const iconTxt = isSubscribe ? '관심보험 등록 완료!' : isRegist ? '관심보험 미등록' : `${insueName} 미등록`;
-  const backTxt = isRegist ? `${nickname}님의\n운전자 보험` : `아직 ${insueName}에\n가입하지 않았어요!`;
+  const backTxt = isRegist ? `${nickName}님의\n운전자 보험` : `아직 ${insueName}에\n가입하지 않았어요!`;
 
   const handleMoveBtn = () => {
+    if (!isLogin) navigate('/login');
     if (registInsueCompany) {
       window.open(registInsueLink, '_blank', 'noopener, noreferrer');
     } else {
@@ -33,9 +41,15 @@ function InsueMapSecondSection({
     }
   };
 
+  const goToMap = () => {
+    navigate('/');
+  };
+
   return (
     <Container>
-      <Left />
+      <Left onClick={goToMap}>
+        <p>{`맵으로\n돌아가기`}</p>
+      </Left>
       <Right>
         <IconBox>
           <InsueDetailIcon
@@ -70,10 +84,23 @@ const Left = styled.div`
   width: 11%;
   border-radius: 0 4rem 4rem 0;
   background-color: ${({ theme }) => theme.colors.Primary_W};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   ${media.mobile`
     display: none;
   `};
+
+  p {
+    font-size: ${({ theme }) => theme.fontSizes.subtitle};
+    color: ${({ theme }) => theme.colors.Primary500};
+    font-weight: 600;
+    white-space: pre;
+    text-align: center;
+    line-height: normal;
+    cursor: pointer;
+  }
 `;
 const Right = styled.div`
   position: relative;

@@ -40,4 +40,6 @@ export const convertInsureType = (name: string) => {
   if (code === '') {
     return 'DE'; // 그 외
   }
+
+  return 'ERROR';
 };

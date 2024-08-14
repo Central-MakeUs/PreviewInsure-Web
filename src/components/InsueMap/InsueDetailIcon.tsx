@@ -3,7 +3,14 @@ import media from '@styles/media';
 import { useEffect, useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 
-function InsueDetailIcon({ frontTxt, backTxt, backTitle, Icon, frontActive, backActive }: InsueDetailIconProps) {
+function InsueDetailIcon({
+  frontTxt,
+  backTxt,
+  backTitle,
+  Icon,
+  frontActive = false,
+  backActive,
+}: InsueDetailIconProps) {
   const [view, setView] = useState<'Front' | 'Back'>('Front');
 
   const handleView = () => {
@@ -22,7 +29,7 @@ function InsueDetailIcon({ frontTxt, backTxt, backTitle, Icon, frontActive, back
   return (
     <Container onClick={handleView}>
       <MiniCircle />
-      <ColorBack view={view === 'Back'} colorActive={backActive}>
+      <ColorBack view={view === 'Back'} coloractive={backActive}>
         <BackContent view={view === 'Back'}>
           <Txt1 position={backTitle ? 'T' : 'M'}>{backTxt}</Txt1>
           <Txt2>{backTitle}</Txt2>
@@ -33,7 +40,7 @@ function InsueDetailIcon({ frontTxt, backTxt, backTitle, Icon, frontActive, back
         <Blur />
         {frontActive ? <GradientBackground /> : <GrayGradientBackground />}
 
-        <FrontContent iconActive={frontActive}>
+        <FrontContent iconactive={frontActive}>
           <Icon width={'100%'} height={'100%'} />
           <span>{frontTxt}</span>
         </FrontContent>
@@ -180,13 +187,13 @@ const rotateBack2 = keyframes`
     z-index: 3;
   }
 `;
-const ColorBack = styled.div<{ view: boolean; colorActive: boolean }>`
+const ColorBack = styled.div<{ view: boolean; coloractive: boolean }>`
   width: 100%;
   height: 100%;
   border-radius: 3.3rem;
   position: absolute;
 
-  background-color: ${(props) => (props.colorActive ? props.theme.colors.Primary500 : props.theme.colors.Black200)};
+  background-color: ${(props) => (props.coloractive ? props.theme.colors.Primary500 : props.theme.colors.Black200)};
 
   ${({ view }) =>
     view
@@ -202,7 +209,7 @@ const ColorBack = styled.div<{ view: boolean; colorActive: boolean }>`
   `};
 `;
 
-const FrontContent = styled.div<{ iconActive: boolean }>`
+const FrontContent = styled.div<{ iconactive: boolean }>`
   position: absolute;
   padding: 2.2rem 3.1rem 4rem 3.1rem;
   z-index: 2;
@@ -212,7 +219,7 @@ const FrontContent = styled.div<{ iconActive: boolean }>`
   `}
 
   path {
-    opacity: ${({ iconActive }) => (iconActive ? 1 : 0.3)};
+    opacity: ${({ iconactive }) => (iconactive ? 1 : 0.3)};
   }
 
   span {
