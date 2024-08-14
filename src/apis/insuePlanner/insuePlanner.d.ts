@@ -11,24 +11,29 @@ interface link {
   insuranceLink: string;
 }
 
-// export interface plannerPOSTResponse {
-//   code: number;
-//   message: string;
-//   data: {
-//     qnaBoardId: string;
-//     quesion: string;
-//     answer: string;
-//     isShare: boolean;
-//     insuranceType: string;
-//     links: link[];
-//   };
-//}
-
 export interface plannerPOSTResponse {
   qnaBoardId: string;
   quesion: string;
   answer: string;
   isShare: boolean;
   insuranceType: string;
+  links: link[];
+}
+
+//get question titles
+export interface QuestionTitle {
+  qnaBoardId: number;
+  title: string;
+  insuranceType: string;
+}
+
+export type QuestionTitleData = QuestionTitle[];
+
+//get question detail
+
+export interface QuestionDetailData {
+  qnaBoardId: number;
+  question: string;
+  answer: string;
   links: link[];
 }

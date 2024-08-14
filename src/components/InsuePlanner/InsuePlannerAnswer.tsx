@@ -9,30 +9,12 @@ import AnswerQuestionBox from './InsuePlannerComponents/QuestionBox';
 import AnswerBox from './InsuePlannerComponents/AnswerBox';
 import media from '@styles/media';
 
-//dummy data
-// 질문 리스트
-const data = [
-  {
-    qnaBoardId: 0,
-    title: '난 지금 운전자 보험에 가입하고 싶어. 이번에 처음 가입하는거야.',
-    insuranceType: '운전자 보험',
-  },
-  {
-    qnaBoardId: 1,
-    title: '안녕하세요!',
-    insuranceType: '운전자 보험',
-  },
-  {
-    qnaBoardId: 2,
-    title: '질문입니다',
-    insuranceType: '상해 보험',
-  },
-  {
-    qnaBoardId: 3,
-    title: '배가고파요',
-    insuranceType: '교육 보험',
-  },
-];
+import {
+  useGetQuestionTitleQuery,
+  useGetQuestionDetailQuery,
+  getQuestionDetail,
+} from '@apis/insuePlanner/insuePlanner';
+import type { QuestionTitle } from '@apis/insuePlanner/insuePlanner.d';
 
 function InsuePlannerAnswer({
   question,
@@ -42,24 +24,13 @@ function InsuePlannerAnswer({
   setCurrentAnswer,
   setCurrentAnswerLinks,
 }: InsuePlannerAnswerProps) {
-  const [currentQuestionId, setCurrentQuestionId] = useState(1); //api 연동 후 사용
   const [currentQuestion, setCurrentQuestion] = useState(question);
+  const [history, setHistory] = useState<QuestionTitle[]>([]);
+  const [historyQuestionId, setHistoryQuestionId] = useState<number | null>();
 
-  // const [currentAnswer, setCurrentAnswer] = useState(answer.text);
-  // const [currentAnswerLinks, setCurrentAnswerLinks] = useState(answer.links);
-
-  // 히스토리 로직
-  // useEffect(() => {
-  //   //질문이 바뀌면 answer 초기화
-  //   console.log('currentQuestion:', currentQuestion);
-  //   setCurrentAnswer('');
-  //   // setCurrentAnswer(answer.text);
-  // }, [currentQuestion]);
-
-  // useEffect(() => {
-  //   // answer 가  ''가 되면 다시 answer 리로딩
-  //   // setCurrentAnswer(answer.text);
-  // }, [currentAnswer]);
+  // query
+  const { questionTitleQuery } = useGetQuestionTitleQuery();
+  // const { questionDetailQuery } = useGetQuestionDetailQuery(historyQuestionId!);  // 최초 패칭 문제(null값 패칭), 캐싱 문제 (데이터 로드가 안됨)
 
   const historySearchHandler = () => {
     console.log('history Search Click');
@@ -72,6 +43,54 @@ function InsuePlannerAnswer({
   const anotherPlannerAsk = () => {
     console.log('anotherPlannerAsk click');
   };
+
+  //apis
+  useEffect(() => {
+    // 최초 실행 시 히스토리 목록 조회
+    // console.log(
+    //   'Fetched:',
+    //   questionTitleQuery.isFetched,
+    //   'Loading:',
+    //   questionTitleQuery.isLoading,
+    //   'Refetching:',
+    //   questionTitleQuery.isRefetching,
+    //   'Data:',
+    //   questionTitleQuery?.data,
+    // );
+    if (questionTitleQuery.isFetched) {
+      setHistory([...(questionTitleQuery.data ?? [])].reverse() as QuestionTitle[]);
+    }
+  }, [questionTitleQuery.isFetched, questionTitleQuery.isRefetching]); // isRefetching도 추가해주어서 post후 invalidateQueries 되었을 때, 다시 초기화하는 과정 트래킹
+
+  // axios question detail 조회
+  const getQuestionDetailAPI = async (id: number) => {
+    const res = await getQuestionDetail(id);
+    console.log(res);
+    setCurrentAnswer(res.answer);
+  };
+
+  useEffect(() => {
+    console.log('historyId', historyQuestionId);
+    if (historyQuestionId) {
+      getQuestionDetailAPI(historyQuestionId as number);
+    }
+  }, [historyQuestionId]);
+
+  //reqct query question detail 조회
+  // useEffect(() => {
+  //   console.log(historyQuestionId, questionDetailQuery);
+  //   if (historyQuestionId !== -1) {
+  //     questionDetailQuery.refetch();
+  //   }
+  // }, [historyQuestionId]);
+
+  // useEffect(() => {
+  //   if (questionDetailQuery.isFetched && questionDetailQuery?.data) {
+  //     console.log(questionDetailQuery.isLoading, questionDetailQuery?.data);
+  //     // const resData = questionDetailQuery?.data;
+  //     setCurrentAnswer(questionDetailQuery?.data?.answer as string);
+  //   }
+  // }, [questionDetailQuery.isFetched]);
 
   return (
     <Container>
@@ -99,15 +118,18 @@ function InsuePlannerAnswer({
           />
         </SearchBarWrapper>
         <HistoryList>
-          {data.map((e, i) => (
-            <HistoryItem
-              key={i}
-              selected={false}
-              title={e.insuranceType}
-              contents={e.title}
-              setCurrentQuestion={setCurrentQuestion}
-            />
-          ))}
+          {history &&
+            history.map((e, i) => (
+              <HistoryItem
+                key={i}
+                qnaBoardId={e.qnaBoardId}
+                selected={false}
+                title={e.insuranceType}
+                contents={e.title}
+                setCurrentQuestion={setCurrentQuestion}
+                setHistoryQuestionId={setHistoryQuestionId}
+              />
+            ))}
         </HistoryList>
       </HistoryContainer>
       <TextContainer>

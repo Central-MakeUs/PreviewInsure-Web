@@ -58,6 +58,7 @@ function InsuePlannerQuestion({
       insuranceType: convertInsureType(insureSearchCategory) as string, // DE 일때 400 에러 뜸
     };
     console.log(questionData);
+
     insuePlannerMutation.mutate(questionData, {
       onSuccess: (data) => {
         console.log('API 호출 성공:', data);

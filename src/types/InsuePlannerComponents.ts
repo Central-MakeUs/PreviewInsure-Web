@@ -37,7 +37,9 @@ export type InsuePlannerAnswerProps = {
 
 export type HistoryItemProps = {
   selected: boolean;
+  qnaBoardId: number;
   title: string;
   contents: string;
   setCurrentQuestion: (arg: string) => void;
+  setHistoryQuestionId: (arg: number) => void;
 };
