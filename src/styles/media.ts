@@ -3,7 +3,7 @@ import { css, type CSSObject, type Interpolation } from 'styled-components';
 export type Breakpoints = 'mobile' | 'small' | 'medium' | 'large' | 'xlarge';
 
 export const breakpoints: Record<Breakpoints, string> = {
-  mobile: '@media (max-width: 767px)', // 767 <
+  mobile: '@media (max-width: 767px)', // ~ 767
   small: '@media (max-width: 991px)', // 768 ~ 990
   medium: '@media (max-width: 1200px)', // 992 ~ 1199
   large: '@media (max-width: 1609px)', // 1201~ 1609

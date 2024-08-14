@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import type { QuestionTitle } from '@apis/insuePlanner/insuePlanner.d';
 
 interface link {
   insuranceCompany: string;
@@ -36,10 +37,20 @@ export type InsuePlannerAnswerProps = {
 };
 
 export type HistoryItemProps = {
-  selected: boolean;
   qnaBoardId: number;
   title: string;
   contents: string;
   setCurrentQuestion: (arg: string) => void;
   setHistoryQuestionId: (arg: number) => void;
+  setOpenModal?: (arg: boolean) => void;
+  historyQId: number | null | undefined;
+  idx: number;
 };
+
+export interface HistoryListContainerProps {
+  history: QuestionTitle[];
+  setCurrentQuestion: (arg: string) => void;
+  setHistoryQuestionId: (arg: number) => void;
+  setOpenModal?: (arg: boolean) => void;
+  historyQId: number | null | undefined;
+}

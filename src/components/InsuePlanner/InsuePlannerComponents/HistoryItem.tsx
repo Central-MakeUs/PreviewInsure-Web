@@ -1,19 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import type { HistoryItemProps } from '@/types/InsuePlannerComponents';
+import media from '@styles/media';
 
 function HistoryItem({
-  selected,
+  idx,
   title,
   contents,
   setCurrentQuestion,
   qnaBoardId,
   setHistoryQuestionId,
+  setOpenModal,
+  historyQId,
 }: HistoryItemProps) {
+  const [selected, setSelected] = useState(idx === 0);
+
   const historyItemClickHandler = () => {
     setCurrentQuestion(contents);
     setHistoryQuestionId(qnaBoardId);
+    setOpenModal?.(false);
   };
+
+  useEffect(() => {
+    if (historyQId) {
+      setSelected(historyQId === qnaBoardId);
+    }
+  }, [historyQId]);
 
   return (
     <Container selected={selected} onClick={historyItemClickHandler}>
@@ -40,12 +52,18 @@ const Container = styled.button<{ selected: boolean }>`
   color: ${({ theme, selected }) => (selected ? '#fff' : theme.colors.Black500)};
   padding-left: 2.4rem;
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
 
   &:hover {
     border-left: 9px solid ${({ theme }) => theme.colors.Secondary500};
     background-color: ${({ theme }) => theme.colors.Primary500};
-    color: ${({ theme }) => '#fff'};
+    color: #fff;
   }
+  ${media.mobile`
+    // 767 < 
+    padding-left: 4rem;
+    height: 16rem;
+  `}
 `;
 
 const Title = styled.p`
@@ -56,6 +74,11 @@ const Title = styled.p`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+
+  ${media.mobile`
+    // 767 < 
+    font-size: 4rem;
+  `}
 `;
 
 const Contents = styled.p`
@@ -66,4 +89,9 @@ const Contents = styled.p`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+
+  ${media.mobile`
+    // 767 < 
+    font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
+  `}
 `;

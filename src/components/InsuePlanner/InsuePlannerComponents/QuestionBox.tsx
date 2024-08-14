@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactTyped } from 'react-typed';
+import media from '@styles/media';
 
 type AnswerQuestionBoxProps = {
   text: string;
@@ -19,4 +19,10 @@ const Container = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.small};
   color: #fff;
   border-radius: 1.2rem;
+  font-weight: 400;
+
+  ${media.mobile`
+    // 767 < 
+    font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
+  `}
 `;
