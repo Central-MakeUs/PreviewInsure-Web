@@ -2,18 +2,36 @@ import { create } from 'zustand';
 
 export interface State {
   accessToken: string;
-  setAccessToken: (token: string) => void;
+  login: (token: string, nickName: string) => void;
   logOut: () => void;
   nickName: string;
-  setNickName: (nickname: string) => void;
-  isLogin: () => boolean;
+  isLogin: boolean;
 }
 
+const getInitialState = (): State => {
+  const storedAccessToken = localStorage.getItem('accessToken');
+  const storedNickName = localStorage.getItem('nickName');
+  const isLogin = !!storedAccessToken;
+
+  return {
+    accessToken: storedAccessToken || '',
+    nickName: storedNickName || '',
+    isLogin,
+    login: () => {},
+    logOut: () => {},
+  };
+};
+
 export const useStore = create<State>((set, get) => ({
-  accessToken: '',
-  setAccessToken: (token: string) => set({ accessToken: token }),
-  logOut: () => set({ accessToken: '' }),
-  nickName: 'asdfa',
-  setNickName: (arg: string) => set({ nickName: arg }),
-  isLogin: () => get().accessToken !== '',
+  ...getInitialState(),
+  login: (token, nickName) => {
+    localStorage.setItem('accessToken', token);
+    localStorage.setItem('nickName', nickName);
+    set({ accessToken: token, nickName, isLogin: true });
+  },
+  logOut: () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('nickName');
+    set({ accessToken: '', nickName: '', isLogin: false });
+  },
 }));
