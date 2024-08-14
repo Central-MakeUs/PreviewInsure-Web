@@ -9,17 +9,18 @@ type link = {
 
 type AnswerAnswerBoxProps = {
   text: string;
-  links: link[] | null;
+  links: link[];
 };
 
 function AnswerBox({ text, links }: AnswerAnswerBoxProps) {
   const [complete, setComplete] = useState(false);
 
+  const textWithHtml = text.replace(/\n/g, '<br>');
   return (
     <Container>
       <TextContainer>
         <ReactTyped
-          strings={[text]}
+          strings={[textWithHtml]}
           typeSpeed={20}
           showCursor={false}
           onComplete={() => setComplete(true)}
@@ -30,8 +31,8 @@ function AnswerBox({ text, links }: AnswerAnswerBoxProps) {
         />
       </TextContainer>
 
-      {complete && links && (
-        <>
+      {complete && links.length > 0 && (
+        <LinkContainer>
           <LinksTextContainer>해당 보험에 대한 링크를 전달드릴게요!</LinksTextContainer>
           <LinkBtnGroup>
             {links.map((e, i) => (
@@ -44,7 +45,7 @@ function AnswerBox({ text, links }: AnswerAnswerBoxProps) {
               </LinkBtn>
             ))}
           </LinkBtnGroup>
-        </>
+        </LinkContainer>
       )}
     </Container>
   );
@@ -66,6 +67,11 @@ const TextContainer = styled.div`
   margin-bottom: 1.2rem;
 `;
 
+const LinkContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -76,6 +82,7 @@ const fadeIn = keyframes`
 `;
 
 const LinksTextContainer = styled.div`
+  width: fit-content;
   border-radius: 1.2rem;
   margin-bottom: 1.2rem;
   padding: 2rem 3rem;

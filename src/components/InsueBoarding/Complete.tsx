@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Loading from '@components/commons/Loading';
-import { useAgeMutation, useBoardMutation } from '@apis/insueboarding/insueboarding';
 import media from '@styles/media';
 import { ReactComponent as RightArrow } from '@/assets/icons/DownArrowRight.svg';
 import { useNavigate } from 'react-router-dom';
+import { useAgeMutation, useBoardMutation } from '@apis/insueboarding/insueboarding';
 import { AgeRequest, BoardRequest } from '@/apis/insueboarding/insueboarding.d';
 
 type insure = {
@@ -29,7 +29,6 @@ function Complete({ birthYear, birthMonth, gender, insures }: CompleteProps) {
   // console.log(convertInsureType('생명 보험'));
 
   const handleAPI = () => {
-    console.log('실행');
     const updateAgeData: AgeRequest = {
       year: birthYear,
       month: birthMonth,

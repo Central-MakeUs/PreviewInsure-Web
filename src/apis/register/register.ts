@@ -7,7 +7,7 @@ import { registKeys } from './register.keys';
   회원가입에서 사용.
   연속해서 요청할 수 있으므로 캐싱 하면 안됨.
  */
-async function getRandomNickname() {
+export async function getRandomNickname() {
   const response = await axiosInstance.get<APIResponse<NickNameData>>('/register/nickname');
   return response.data.data;
 }

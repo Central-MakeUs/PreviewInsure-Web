@@ -9,66 +9,28 @@ import AnswerQuestionBox from './InsuePlannerComponents/QuestionBox';
 import AnswerBox from './InsuePlannerComponents/AnswerBox';
 import media from '@styles/media';
 
-//dummy data
-// 질문 리스트
-const data = [
-  {
-    qnaBoardId: 0,
-    title: '난 지금 운전자 보험에 가입하고 싶어. 이번에 처음 가입하는거야.',
-    insuranceType: '운전자 보험',
-  },
-  {
-    qnaBoardId: 1,
-    title: '안녕하세요!',
-    insuranceType: '운전자 보험',
-  },
-  {
-    qnaBoardId: 2,
-    title: '질문입니다',
-    insuranceType: '상해 보험',
-  },
-  {
-    qnaBoardId: 3,
-    title: '배가고파요',
-    insuranceType: '교육 보험',
-  },
-];
+import {
+  useGetQuestionTitleQuery,
+  useGetQuestionDetailQuery,
+  getQuestionDetail,
+} from '@apis/insuePlanner/insuePlanner';
+import type { QuestionTitle } from '@apis/insuePlanner/insuePlanner.d';
 
-const answer = {
-  text: '안녕하세요! 운전자 보험에 대해 상담해드리겠습니다. 운전자 보험은 사고 시 법률 비용, 벌금, 치료비 등을 보장해주는 보험입니다. 고객님의 요청사항을 바탕으로 가격이 저렴하고 실속 있는 운전자 보험 상품 세 가지를 추천드립니다.<br/><br/> 1. 삼성화재 운전자보험 특징: 교통사고 처리 지원금 변호사 선임비용 교통사고 벌금 지원 입원비 및 상해 치료비 보장 <br/><br/>2. 현대해상 운전자보험 특징: 자동차 사고 벌금 및 변호사 비용 보장 교통사고 처리 지원금 중상해 치료비 보장',
-  links: [
-    {
-      insuranceCompany: '삼성화재 운전자보험',
-      insuranceLink: 'https://www.hanwhalife.com/index.jsp',
-    },
-    {
-      insuranceCompany: '현대해상 운전자보험',
-      insuranceLink: 'https://www.hanwhalife.com/index.jsp',
-    },
-    {
-      insuranceCompany: 'KB손해보험 운전자보험',
-      insuranceLink: 'https://www.hanwhalife.com/index.jsp',
-    },
-  ],
-};
-
-function InsuePlannerAnswer({ question, setCurrentScreen }: InsuePlannerAnswerProps) {
-  const [currentQuestionId, setCurrentQuestionId] = useState(1); //api 연동 후 사용
+function InsuePlannerAnswer({
+  question,
+  setCurrentScreen,
+  currentAnswer,
+  currentAnswerLinks,
+  setCurrentAnswer,
+  setCurrentAnswerLinks,
+}: InsuePlannerAnswerProps) {
   const [currentQuestion, setCurrentQuestion] = useState(question);
-  const [currentAnswer, setCurrentAnswer] = useState(answer.text);
-  const [currentAnswerLinks, setCurrentAnswerLinks] = useState(answer.links);
+  const [history, setHistory] = useState<QuestionTitle[]>([]);
+  const [historyQuestionId, setHistoryQuestionId] = useState<number | null>();
 
-  useEffect(() => {
-    //질문이 바뀌면 answer 초기화
-    console.log('currentQuestion:', currentQuestion);
-    setCurrentAnswer('');
-    // setCurrentAnswer(answer.text);
-  }, [currentQuestion]);
-
-  useEffect(() => {
-    // answer 가  ''가 되면 다시 answer 리로딩
-    setCurrentAnswer(answer.text);
-  }, [currentAnswer]);
+  // query
+  const { questionTitleQuery } = useGetQuestionTitleQuery();
+  // const { questionDetailQuery } = useGetQuestionDetailQuery(historyQuestionId!);  // 최초 패칭 문제(null값 패칭), 캐싱 문제 (데이터 로드가 안됨)
 
   const historySearchHandler = () => {
     console.log('history Search Click');
@@ -81,6 +43,54 @@ function InsuePlannerAnswer({ question, setCurrentScreen }: InsuePlannerAnswerPr
   const anotherPlannerAsk = () => {
     console.log('anotherPlannerAsk click');
   };
+
+  //apis
+  useEffect(() => {
+    // 최초 실행 시 히스토리 목록 조회
+    // console.log(
+    //   'Fetched:',
+    //   questionTitleQuery.isFetched,
+    //   'Loading:',
+    //   questionTitleQuery.isLoading,
+    //   'Refetching:',
+    //   questionTitleQuery.isRefetching,
+    //   'Data:',
+    //   questionTitleQuery?.data,
+    // );
+    if (questionTitleQuery.isFetched) {
+      setHistory([...(questionTitleQuery.data ?? [])].reverse() as QuestionTitle[]);
+    }
+  }, [questionTitleQuery.isFetched, questionTitleQuery.isRefetching]); // isRefetching도 추가해주어서 post후 invalidateQueries 되었을 때, 다시 초기화하는 과정 트래킹
+
+  // axios question detail 조회
+  const getQuestionDetailAPI = async (id: number) => {
+    const res = await getQuestionDetail(id);
+    console.log(res);
+    setCurrentAnswer(res.answer);
+  };
+
+  useEffect(() => {
+    console.log('historyId', historyQuestionId);
+    if (historyQuestionId) {
+      getQuestionDetailAPI(historyQuestionId as number);
+    }
+  }, [historyQuestionId]);
+
+  //reqct query question detail 조회
+  // useEffect(() => {
+  //   console.log(historyQuestionId, questionDetailQuery);
+  //   if (historyQuestionId !== -1) {
+  //     questionDetailQuery.refetch();
+  //   }
+  // }, [historyQuestionId]);
+
+  // useEffect(() => {
+  //   if (questionDetailQuery.isFetched && questionDetailQuery?.data) {
+  //     console.log(questionDetailQuery.isLoading, questionDetailQuery?.data);
+  //     // const resData = questionDetailQuery?.data;
+  //     setCurrentAnswer(questionDetailQuery?.data?.answer as string);
+  //   }
+  // }, [questionDetailQuery.isFetched]);
 
   return (
     <Container>
@@ -108,14 +118,18 @@ function InsuePlannerAnswer({ question, setCurrentScreen }: InsuePlannerAnswerPr
           />
         </SearchBarWrapper>
         <HistoryList>
-          {data.map((e, i) => (
-            <HistoryItem
-              selected={false}
-              title={e.insuranceType}
-              contents={e.title}
-              setCurrentQuestion={setCurrentQuestion}
-            />
-          ))}
+          {history &&
+            history.map((e, i) => (
+              <HistoryItem
+                key={i}
+                qnaBoardId={e.qnaBoardId}
+                selected={false}
+                title={e.insuranceType}
+                contents={e.title}
+                setCurrentQuestion={setCurrentQuestion}
+                setHistoryQuestionId={setHistoryQuestionId}
+              />
+            ))}
         </HistoryList>
       </HistoryContainer>
       <TextContainer>

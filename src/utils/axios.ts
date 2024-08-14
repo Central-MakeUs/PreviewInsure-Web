@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
     'Content-Type': 'application/json',
     Authorization: `Bearer ${JWT_TOKEN}`,
   },
-  timeout: 1000,
+  timeout: 10000,
 });
 
 export default axiosInstance;

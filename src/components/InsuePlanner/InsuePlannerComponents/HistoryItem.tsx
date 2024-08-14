@@ -2,9 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import type { HistoryItemProps } from '@/types/InsuePlannerComponents';
 
-function HistoryItem({ selected, title, contents, setCurrentQuestion }: HistoryItemProps) {
+function HistoryItem({
+  selected,
+  title,
+  contents,
+  setCurrentQuestion,
+  qnaBoardId,
+  setHistoryQuestionId,
+}: HistoryItemProps) {
+  const historyItemClickHandler = () => {
+    setCurrentQuestion(contents);
+    setHistoryQuestionId(qnaBoardId);
+  };
+
   return (
-    <Container selected={selected} onClick={() => setCurrentQuestion(contents)}>
+    <Container selected={selected} onClick={historyItemClickHandler}>
       <Title>{title}</Title>
       <Contents>{contents}</Contents>
     </Container>
