@@ -88,7 +88,7 @@ const SubscribeBox = styled.div`
 `;
 
 const AddBtn = styled.div<{ isadded: boolean }>`
-  padding: 1rem;
+  padding: 1rem 3rem;
   border-radius: 32px;
   background-color: ${(props) => (props.isadded ? props.theme.colors.Primary500 : props.theme.colors.Black100)};
   width: fit-content;
@@ -104,7 +104,7 @@ const AddBtn = styled.div<{ isadded: boolean }>`
     transform 0.2s;
 
   ${media.mobile`
-      padding: 2.5rem;
+      padding: 2.5rem 4rem;
     `};
 
   span {
