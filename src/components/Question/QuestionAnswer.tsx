@@ -1,5 +1,5 @@
-import { QuestionAnswerProps } from '@/types/QuestionComponents';
-import styled from 'styled-components';
+import { QuestionAnswerProps, TagItem } from '@/types/QuestionComponents';
+import styled, { keyframes } from 'styled-components';
 import { ReactComponent as Up } from '@assets/icons/Up.svg';
 
 import Colors from '@styles/Colors';
@@ -9,6 +9,10 @@ function QuestionAnswer({ question, answer, tags }: QuestionAnswerProps) {
   const isLongText = answer.length > 150;
   const [viewLong, setViewLong] = useState(false);
 
+  function handleTag(item: TagItem) {
+    window.open(item.insuranceLink, '_blank');
+  }
+
   return (
     <Container>
       <Line>
@@ -16,28 +20,26 @@ function QuestionAnswer({ question, answer, tags }: QuestionAnswerProps) {
           <span>Q.&nbsp;</span>
           <span>{question}</span>
         </Question>
-        {isLongText &&
-          (viewLong ? (
-            <DetailBtn onClick={() => setViewLong(false)}>
-              <span>접기</span>
-              <Up width={38} height={30} fill={Colors.Black500} />
-            </DetailBtn>
-          ) : (
-            <DetailBtn onClick={() => setViewLong(true)}>
-              <span>상세보기</span>
-              <Up width={38} height={30} fill={Colors.Black500} style={{ transform: 'rotate(180deg)' }} />
-            </DetailBtn>
-          ))}
+        {isLongText && (
+          <DetailBtn viewLong={viewLong} onClick={() => setViewLong((prev) => !prev)}>
+            <span>{viewLong ? '접기' : '상세보기'}</span>
+            <Up width={38} height={30} fill={Colors.Black500} />
+          </DetailBtn>
+        )}
       </Line>
       <Flex>
         <span>A.&nbsp;</span>
         {viewLong ? <Answer>{answer}</Answer> : <Preview onClick={() => setViewLong(true)}>{answer}</Preview>}
       </Flex>
-      <TagGroup>
-        {tags.map((tag) => (
-          <TagItem key={tag}>{tag}</TagItem>
-        ))}
-      </TagGroup>
+      {tags.length !== 0 && (
+        <TagGroup>
+          {tags.map((tag) => (
+            <TItem onClick={() => handleTag(tag)} key={tag.insuranceCompany}>
+              {tag.insuranceCompany}
+            </TItem>
+          ))}
+        </TagGroup>
+      )}
       <GapLine />
     </Container>
   );
@@ -64,16 +66,27 @@ const Line = styled.div`
     align-items: flex-start;
   `}
 `;
-const DetailBtn = styled.div`
+
+const DetailBtn = styled.div<{ viewLong: boolean }>`
   display: flex;
   align-items: center;
   flex-shrink: 0;
   font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.Black500};
+  cursor: pointer;
+
+  svg {
+    transform: ${({ viewLong }) => (viewLong ? 'rotate(0deg)' : 'rotate(180deg)')};
+    transition: transform 0.3s ease;
+  }
 
   ${({ theme }) => media.mobile`
     span {
         display: none;
+    }
+    svg {
+      width: 26px;
+      height: 27px;
     }
     path {
         fill: ${theme.colors.Primary500};
@@ -84,14 +97,19 @@ const DetailBtn = styled.div`
 
 const Flex = styled.div`
   display: flex;
-  font-weight: 400;
+  margin-bottom: 2.5rem;
 
-  font-size: ${({ theme }) => theme.fontSizes.paragraph};
-  color: ${({ theme }) => theme.colors.Black500};
+  span {
+    font-size: ${({ theme }) => theme.fontSizes.paragraph};
+    color: ${({ theme }) => theme.colors.Black500};
+    font-weight: 400;
 
-  ${media.small`
+    ${media.small`
     font-size: 14px;
-    margin-bottom: 4rem;
+  `}
+  }
+  ${media.small`
+      margin-bottom:4rem;
   `}
 `;
 
@@ -103,7 +121,7 @@ const Question = styled.div`
   display: flex;
 
   ${media.small`
-    font-size: 16px;
+    font-size: 14px;
   `}
 `;
 const Preview = styled.p`
@@ -111,7 +129,6 @@ const Preview = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.paragraph};
   color: ${({ theme }) => theme.colors.Black500};
   line-height: normal;
-  margin-bottom: 2.4rem;
   flex-direction: column;
 
   display: -webkit-box;
@@ -122,7 +139,6 @@ const Preview = styled.p`
 
   ${media.small`
     font-size: 14px;
-    margin-bottom: 4rem;
   `}
 `;
 const Answer = styled.p`
@@ -130,12 +146,10 @@ const Answer = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.paragraph};
   color: ${({ theme }) => theme.colors.Black500};
   line-height: normal;
-  margin-bottom: 2.4rem;
   white-space: pre-line;
 
   ${media.small`
     font-size: 14px;
-    margin-bottom: 4rem;
   `}
 `;
 const TagGroup = styled.div`
@@ -143,13 +157,14 @@ const TagGroup = styled.div`
   gap: 1.2rem;
   flex-wrap: wrap;
 `;
-const TagItem = styled.div`
+const TItem = styled.div`
   background-color: ${({ theme }) => theme.colors.Black_W};
   border-radius: 12px;
   padding: 2rem;
   font-weight: 500;
   font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.Primary500};
+  cursor: pointer;
 
   ${media.small`
     padding: 10px;
