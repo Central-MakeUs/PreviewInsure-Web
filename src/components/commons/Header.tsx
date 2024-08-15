@@ -29,8 +29,21 @@ function Header() {
     setCurrent(cur);
   }, [location.pathname, setIsHome]);
 
+  // 스크롤 확인
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <Container className={`${isHome ? 'primary' : ''}`}>
+    <Container className={`${isHome ? 'primary' : ''}`} isScrolled={isScrolled}>
       <LogoImg src={isHome ? LogoWhite : Logo} onClick={goToMain} />
 
       <PC>
@@ -59,9 +72,13 @@ function Header() {
   );
 }
 
-const Container = styled.header`
+const Container = styled.header<{ isScrolled: boolean }>`
+  position: relative;
   width: 100%;
   height: 18rem;
+  background-color: white;
+
+  ${({ isScrolled }) => (isScrolled ? `box-shadow: 0px 4px 12px 0px rgba(67, 67, 67, 0.2);` : `box-shadow: none;`)}
 
   &.primary {
     background-color: ${({ theme }) => theme.colors.Primary500};

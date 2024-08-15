@@ -39,45 +39,45 @@ function BottomNav() {
     }
   };
 
-  // 스크롤 이벤트 감지
-  const handleScroll = useCallback(
-    _.throttle(() => {
-      const currentScrollTop = window.scrollY;
-      if (currentScrollTop > lastScrollTop) {
-        //  down
-        setShowNav(false);
-      } else {
-        // up
-        setShowNav(true);
-      }
-      lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; //  Mobile, negative scrolling
-    }, 200), // 쓰로틀 간격을 200ms로 설정
-    [],
-  );
+  // // 스크롤 이벤트 감지
+  // const handleScroll = useCallback(
+  //   _.throttle(() => {
+  //     const currentScrollTop = window.scrollY;
+  //     if (currentScrollTop > lastScrollTop) {
+  //       //  down
+  //       setShowNav(false);
+  //     } else {
+  //       // up
+  //       setShowNav(true);
+  //     }
+  //     lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; //  Mobile, negative scrolling
+  //   }, 200), // 쓰로틀 간격을 200ms로 설정
+  //   [],
+  // );
 
-  // 300ms동안 스크롤이 일어나지 않을 때
-  const handleScrollEnd = useCallback(
-    _.debounce(() => {
-      setShowNav(true);
-    }, 300),
-    [],
-  );
+  // // 300ms동안 스크롤이 일어나지 않을 때
+  // const handleScrollEnd = useCallback(
+  //   _.debounce(() => {
+  //     setShowNav(true);
+  //   }, 300),
+  //   [],
+  // );
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('scroll', handleScrollEnd);
+  // useEffect(() => {
+  //   window.addEventListener('scroll', handleScroll);
+  //   window.addEventListener('scroll', handleScrollEnd);
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('scroll', handleScrollEnd);
-    };
-  }, [handleScroll, handleScrollEnd]);
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //     window.removeEventListener('scroll', handleScrollEnd);
+  //   };
+  // }, [handleScroll, handleScrollEnd]);
 
   return (
     <Container show={showNav}>
       <Nav>
         <NavItem isActive={activeNav === '/'} onClick={() => handleNavClick('/')}>
-          <HomeIcon width={17} height={18} style={{ marginBottom: '17.38px' }} />
+          <HomeIcon width={18} height={19} style={{ marginBottom: '17.38px' }} />
           <span>맵</span>
         </NavItem>
         <NavItem isActive={activeNav === '/insuePlanner'} onClick={() => handleNavClick('/insuePlanner')}>
@@ -110,8 +110,8 @@ const Container = styled.div<{ show: boolean }>`
   z-index: 6;
   position: fixed;
   bottom: 0;
-  transform: ${({ show }) => (show ? 'translateY(0)' : 'translateY(100%)')};
-  transition: transform 0.3s ease;
+  /* transform: ${({ show }) => (show ? 'translateY(0)' : 'translateY(100%)')}; */
+  /* transition: transform 0.3s ease; */
 `;
 
 const Nav = styled.nav`
@@ -142,6 +142,7 @@ const NavItem = styled.div<{ isActive: boolean }>`
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+  overflow: visible;
   span {
     font-weight: 400;
     color: ${({ isActive, theme }) => (isActive ? theme.colors.Primary500 : theme.colors.Black300)};
@@ -149,7 +150,8 @@ const NavItem = styled.div<{ isActive: boolean }>`
   }
 
   svg {
-    color: ${({ isActive, theme }) => (isActive ? theme.colors.Primary500 : theme.colors.Black300)};
+    color: ${({ isActive, theme }) => (isActive ? 'transparent' : theme.colors.Black200)};
+    fill: ${({ isActive, theme }) => (isActive ? theme.colors.Primary500 : 'transparent')};
     animation: ${({ isActive }) =>
       isActive
         ? css`

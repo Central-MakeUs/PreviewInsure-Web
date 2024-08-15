@@ -48,7 +48,9 @@ const rootRouter = () => {
   return (
     <BrowserRouter>
       <WrapContent>
-        <Header />
+        <HeadBox>
+          <Header />
+        </HeadBox>
 
         <Routes>
           <Route path="/" element={<MainScreen />} />
@@ -82,10 +84,19 @@ const rootRouter = () => {
   );
 };
 
+const HeadBox = styled.div`
+  position: fixed;
+  top: 0;
+  z-index: 6;
+  width: 100%;
+  height: fit-content;
+`;
+
 const WrapContent = styled.div`
   height: auto;
   min-height: 100%;
   position: relative;
+  padding-top: 18rem; // header
   padding-bottom: 19rem; //footer
 
   ${media.mobile`
