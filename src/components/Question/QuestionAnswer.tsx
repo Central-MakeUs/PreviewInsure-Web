@@ -31,7 +31,7 @@ function QuestionAnswer({ question, answer, tags }: QuestionAnswerProps) {
         <span>A.&nbsp;</span>
         {viewLong ? <Answer>{answer}</Answer> : <Preview onClick={() => setViewLong(true)}>{answer}</Preview>}
       </Flex>
-      {tags.length !== 0 && (
+      {tags && tags.length !== 0 && (
         <TagGroup>
           {tags.map((tag) => (
             <TItem onClick={() => handleTag(tag)} key={tag.insuranceCompany}>
