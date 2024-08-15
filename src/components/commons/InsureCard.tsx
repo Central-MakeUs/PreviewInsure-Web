@@ -172,7 +172,7 @@ const InsureContents = styled.div<{ open: boolean }>`
   max-height: ${({ open }) => (open ? '25rem' : 0)};
   /* max-height: 25rem; */
   /* display: ${({ open }) => (open ? 'block' : 'none')}; */
-  border-radius: 0.5rem;
+  border-radius: 1.6rem;
   transition: all 0.3s ease-in-out;
   overflow-y: scroll;
   overflow-x: hidden;
