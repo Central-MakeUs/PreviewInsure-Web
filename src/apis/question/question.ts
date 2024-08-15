@@ -1,52 +1,32 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-
-const dummyData = [
-  {
-    question: '저는 운전자 보험에 대해 잘 몰라요. 설명해주세요.',
-    answer:
-      '그랬군요, 운전자 보험에 대해 상담해 드리겠습니다. 운전자 보험은 사고 시 법률 비용, 벌금, 치료비 등을 보장해주는 보험입니다. 고객님의 요청사항을 바탕으로 저렴하고 실속있는 운전자 보험 상품 세가지를 추천드립니다.',
-    tags: ['삼성화재 운전자보험', '현대해상 운전자보험', 'KB손해보험 운전자보험'],
-  },
-  {
-    question: '화재 보험에 가입했는데, 너무 가입 비용이 큰 거 같아요.. 월에 얼마정도 내는게 적당할까요?',
-    answer:
-      '화재 보험 비용은 보장 범위, 건물의 가치, 위치, 소유자의 신용도 등에 따라 달라집니다. 일반적으로 월 보험료는 주택 가치의 약 0.1% 정도로 계산할 수 있습니다. 예를 들어, 3억 원짜리 주택이라면 월 3만 원 정도가 적정할 수 있습니다. 너무 비싸다고 느껴지시면, 보장 범위를 조정하거나 여러 보험사의 견적을 비교해보세요. 추가로, 자주 발생하지 않는 위험',
-    tags: ['삼성화재 운전자보험', '현대해상 운전자보험', 'KB손해보험 운전자보험'],
-  },
-  {
-    question: '재산보험이 꼭 필요할까요?',
-    answer:
-      '재산보험은 고객님의 소중한 자산을 보호해 주는 보험입니다. 불의의 사고로 인해 자산이 소실 되었을 경우를 대비하 여 현재의 가치를 지키고자 합니다. 춤추는 부엉이님에게 맞는 보험을 추천드리겠습니다.',
-    tags: ['삼성화재 운전자보험', '현대해상 운전자보험', 'KB손해보험 운전자보험'],
-  },
-  {
-    question: '나 지금 충치 생겼는데, 치아 보험으로 보상을 받을 수 있을까?',
-    answer:
-      '충치 치료는 치아 보험으로 보상받을 수 있는 경우가 많습니다. 다만, 보험의 보장 범위와 조건에 따라 다를 수 있습니다.\n 일반적으로 치아 보험은 충치 치료, 크라운, 임플란트 등 다양한 치과 치료를 보장하지만, 특정 조건이나 대기 기간이 있을 수 있습니다. 가입한 치아 보험의 약관을 확인해 보시고, 보험사에 문의하여 정확한 보장 내용을 확인하는 것을 추천드립니다. 충치 치료는 치아 보험으로 보상받을 수 있는 경우가 많습니다. 다만, 보험의 보장 범위와 조건에 따라 다를 수 있습니다. 일반적으로 치아 보험은 충치 치료, 크라운, 임플란트 등 다양한 치과 치료를 보장하지만, 특정 조건이나 대기 기간이 있을 수 있습니다. 가입한 치아 보험의 약관을 확인해 보시고, 보험사에 문의하여 정확한 보장 내용을 확인하는 것을 추천드립니다.',
-    tags: ['삼성화재 운전자보험', '현대해상 운전자보험', 'KB손해보험 운전자보험'],
-  },
-];
-
-const dummy = {
-  data: dummyData,
-  page: 1,
-  nextCursor: 2,
-};
+import axiosInstance from '@utils/axios';
+import { questionRequest, questionResponse } from './question.d';
 
 /*
     QNA 게시판 질문 리스트 (GET)
-    필터링 필요
+    필터링 : 카테고리 ( 1개만 선택 가능 )
 */
-async function getQuestionList() {
-  return dummy;
+async function getQuestionList({ pageParam = 1 }: { pageParam?: number }, data: questionRequest) {
+  const response = await axiosInstance.get<APIResponse<questionResponse>>('/questions', {
+    params: {
+      ...data,
+      page: pageParam,
+    },
+  });
+  return response.data.data;
 }
 
-export const useQuestionInfiniteQuery = () => {
+export const useQuestionInfiniteQuery = (data: questionRequest) => {
   const query = useInfiniteQuery({
-    queryKey: ['pna'],
-    queryFn: getQuestionList,
+    queryKey: ['qna', data],
+    queryFn: ({ pageParam = 0 }) => getQuestionList({ pageParam }, data),
     initialPageParam: 0,
-    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    getNextPageParam: (lastPage) => {
+      if (!lastPage.last) {
+        return lastPage.number + 1; // 다음 페이지
+      }
+      return undefined; // 마지막 페이지
+    },
   });
 
   return { questionQuery: query };

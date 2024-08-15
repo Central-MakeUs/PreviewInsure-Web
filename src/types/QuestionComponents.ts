@@ -4,8 +4,13 @@ export type CategoryProps = {
   isSelected: boolean;
 };
 
+export type TagItem = {
+  insuranceCompany: string;
+  insuranceLink: string;
+};
+
 export type QuestionAnswerProps = {
   question: string;
   answer: string;
-  tags: string[];
+  tags: TagItem[];
 };
