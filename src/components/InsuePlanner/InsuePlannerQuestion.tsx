@@ -338,6 +338,11 @@ const InputShareLeft = styled.p<{ visible: boolean }>`
   font-size: ${({ theme }) => theme.fontSizes.small};
   color: #ff6f6f;
   opacity: ${({ visible }) => (visible ? 1 : 0)};
+
+  ${media.mobile`
+    // 767 < 
+    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+  `}
 `;
 
 const InputShareRight = styled.div`

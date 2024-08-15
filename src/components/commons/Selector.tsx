@@ -39,6 +39,12 @@ const SelectorContainer = styled.button<{ check: boolean; type: string; redFlag:
     height: ${({ type }: any) => (type === 'circle' ? '4.5rem' : '5rem')};
     border-radius: ${({ type }: any) => (type === 'circle' ? '50%' : '1.5rem')};
     border-width:2px;
+
+    /* width: 20px;  */
+    /* height: 20px; */
+    /* border-radius: ${({ type }: any) => (type === 'circle' ? '50%' : '1.5rem')}; */
+
+
   `}
 `;
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import InsureCard from '@components/commons/InsureCard';
 
@@ -20,6 +20,10 @@ function Step4({ goNextStep, goPreviousStep, setSelectedInsures, setToSelectInsu
   const [selectedCards, setSelectedCards] = useState<any>([]);
   const [toSelectCards, setToSelectCards] = useState(initialCards);
 
+  useEffect(() => {
+    setSelectedCards([]);
+  }, []);
+
   const handleSelectCardClick = (card: any) => {
     setSelectedCards(selectedCards.filter((c: any) => c.text !== card.text));
     const index = initialCards.findIndex((c: any) => c.text === card.text);
@@ -29,8 +33,8 @@ function Step4({ goNextStep, goPreviousStep, setSelectedInsures, setToSelectInsu
   const handleToSelectedCardClick = (card: any) => {
     const index = toSelectCards.findIndex((c: any) => c.text === card.text);
     setSelectedCards([...selectedCards, { ...card }]);
-    // setToSelectCards((prevState) => prevState.filter((_, i) => i !== index));
-    setToSelectCards(toSelectCards.filter((c: any) => c.text !== card.text));
+    setToSelectCards((prevState) => prevState.filter((_, i) => i !== index));
+    // setToSelectCards(toSelectCards.filter((c: any) => c.text !== card.text));
   };
 
   const registerInsures = () => {
@@ -97,7 +101,7 @@ const Subtitle = styled.p`
 
 const SubtitleP = styled.p``;
 
-const CardButton = styled.button`
+const CardButton = styled.div`
   border: none;
   padding: 0;
   background-color: inherit;
@@ -167,7 +171,7 @@ const ButtonShadow = styled.div`
 const ToSelect = styled.div`
   max-width: 100%;
   height: 10rem;
-  /* border: 1px solid #000; */
+  /* height: 50rem; */
   display: flex;
   justify-content: flex-start;
   gap: 1rem;
