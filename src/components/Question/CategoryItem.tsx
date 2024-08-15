@@ -6,7 +6,7 @@ import media from '@styles/media';
 
 function CategoryItem({ name, Icon, isSelected = false }: CategoryProps) {
   return (
-    <Container isSelected={isSelected}>
+    <Container isselected={isSelected.toString()}>
       <IconSize>
         <Icon width={'100%'} height={'100%'} color={isSelected ? 'white' : Colors.Black500} />
       </IconSize>
@@ -15,15 +15,16 @@ function CategoryItem({ name, Icon, isSelected = false }: CategoryProps) {
   );
 }
 
-const Container = styled.div<{ isSelected: boolean }>`
+const Container = styled.div<{ isselected: string }>`
   padding: 1.9rem 3.8rem;
   border-radius: 4.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  background-color: ${(props) => (props.isSelected ? props.theme.colors.Primary500 : props.theme.colors.Primary_W)};
-  color: ${(props) => (props.isSelected ? 'white' : props.theme.colors.Black500)};
+  background-color: ${({ isselected, theme }) =>
+    isselected === 'true' ? theme.colors.Primary500 : theme.colors.Primary_W};
+  color: ${({ isselected, theme }) => (isselected === 'true' ? 'white' : theme.colors.Black500)};
   transition: 0.2s;
 `;
 
