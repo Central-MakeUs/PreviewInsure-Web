@@ -7,7 +7,7 @@ import Colors from '@styles/Colors';
 import { useState } from 'react';
 import media from '@styles/media';
 
-function InsueMapHeadSection({ insueName, insueExplain, isSubscribe, handleSubscribe }: InsueMapHeadPorps) {
+function InsueMapHeadSection({ insueName, insueExplain, isSubscribe = false, handleSubscribe }: InsueMapHeadPorps) {
   const [isSubscribeHelp, setIsSubscribeHelp] = useState<boolean>(false);
 
   const handleHelpClick = () => {
@@ -23,12 +23,12 @@ function InsueMapHeadSection({ insueName, insueExplain, isSubscribe, handleSubsc
       <p>{insueExplain}</p>
       <SubscribeBox>
         {isSubscribe ? (
-          <AddBtn isAdded={true} onClick={() => handleSubscribe(false)}>
+          <AddBtn isadded={true} onClick={() => handleSubscribe(false)}>
             <Approve width={23} height={23} fill="white" />
             <span>관심보험</span>
           </AddBtn>
         ) : (
-          <AddBtn isAdded={false} onClick={() => handleSubscribe(true)}>
+          <AddBtn isadded={false} onClick={() => handleSubscribe(true)}>
             <Plus width={23} height={23} fill="white" />
             <span>관심보험으로 저장</span>
           </AddBtn>
@@ -87,10 +87,10 @@ const SubscribeBox = styled.div`
   width: 100%;
 `;
 
-const AddBtn = styled.div<{ isAdded: boolean }>`
+const AddBtn = styled.div<{ isadded: boolean }>`
   padding: 1rem;
   border-radius: 32px;
-  background-color: ${(props) => (props.isAdded ? props.theme.colors.Primary500 : props.theme.colors.Black100)};
+  background-color: ${(props) => (props.isadded ? props.theme.colors.Primary500 : props.theme.colors.Black100)};
   width: fit-content;
   min-width: 22rem;
   height: fit-content;
@@ -158,7 +158,9 @@ const fadeOut = keyframes`
 `;
 
 const SubscribeHelp = styled.div<{ visible: boolean }>`
+  position: absolute;
   width: max-content;
+  left: 3.3rem;
   display: block;
   white-space: pre-line;
   font-weight: 400;
@@ -167,16 +169,16 @@ const SubscribeHelp = styled.div<{ visible: boolean }>`
   background-color: ${({ theme }) => theme.colors.Black_W};
   border: 1px solid ${({ theme }) => theme.colors.Black100};
   border-radius: 2.2rem;
-  margin-left: 0.9rem;
   padding: 2.4rem 3rem 2.3rem 3.1rem;
   opacity: ${({ visible }) => (visible ? 1 : 0)};
   animation: ${({ visible }) => (visible ? fadeIn : fadeOut)} 0.5s ease;
 
   ${media.mobile`
+    width: 80vw;
     position: fixed;
-    left: 50%;
-    transform: translate(-50%,110%);
-    margin: 0;
+    left: 50vw;
+    margin-left: calc(-40vw);
+    margin-top: 35%;
     z-index: 5;
     font-size: 14px;
     padding: 18px 18px 17px 16px;

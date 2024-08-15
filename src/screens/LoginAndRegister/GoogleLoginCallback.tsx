@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const GoogleLoginCallback = () => {
   const navigate = useNavigate();
-  const { setAccessToken, setNickName } = useStore();
+  const { login } = useStore();
 
   // 이미 가입한 유저일 시 : 메인 페이지로 이동
   const handleHome = () => {
@@ -41,7 +41,7 @@ const GoogleLoginCallback = () => {
       // 토큰 zustand 저장
       // TODO : api 반환값에 따른 처리
       const accessToken = res.data.accessToken;
-      setAccessToken(accessToken);
+      // setAccessToken(accessToken);
 
       // 신규/기존 회원 여부에 따라 페이지 이동
       res.data.isExistingMember ? handleHome() : handleRegist();
@@ -51,8 +51,7 @@ const GoogleLoginCallback = () => {
   };
 
   function handleCriticalLogin() {
-    setAccessToken('aaaaaaaaaaaaaaaa');
-    setNickName('춤추는 부엉이');
+    login('aaaaaaaaaaaaa', '춤추는 부엉이');
     navigate('/');
   }
 

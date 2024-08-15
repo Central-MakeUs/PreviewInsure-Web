@@ -9,29 +9,41 @@ import { useQuestionInfiniteQuery } from '@apis/question/question';
 import { useInView } from 'react-intersection-observer';
 import Loading from '@components/commons/Loading';
 import media from '@styles/media';
+import { convertInsureType } from '@utils/common/convertInsureType';
+import { useStore } from '@stores/useStore';
 
 function Question() {
   const [alarmShown, setAlarmShown] = useState(false);
+  const [alarmMessage, setAlarmMessage] = useState<string>('');
   const [viewType, setViewType] = useState('all');
-  const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
 
-  const myInsueCategory = ['', '연금보험', '상해보험']; // GET요청으로 변경 필요. includes 연산을 위해 빈배열X
+  const { isLogin } = useStore();
+  const myInsueCategory = ['']; // GET요청으로 변경 필요. includes 연산을 위해 빈배열X
+  // const myInsueCategory = ['', '연금보험', '상해보험'];
   const [categorys, setCategorys] = useState(Categorys); //view에 보여질 category
   const myCategorys = Categorys.filter((category) => myInsueCategory.includes(category.name));
 
   const [ref, inView] = useInView({ rootMargin: '0px' }); // 무한스크롤 감지
-  const { questionQuery } = useQuestionInfiniteQuery();
+  const { questionQuery } = useQuestionInfiniteQuery({ insuranceType: convertType() });
+
+  function convertType() {
+    if (selectedCategory === '') return null;
+    return convertInsureType(selectedCategory);
+  }
 
   // 전체보기, 가입한 보험 보기
   function handleView(type: string) {
     // 변경없음
     if (type === viewType) return;
     // all -> my 이동 시 현재 가입한 보험이 없다면 fail
-    if (type === 'my' && myInsueCategory.length === 0) {
+    if (type === 'my' && myInsueCategory.length === 1) {
+      if (!isLogin) setAlarmMessage('로그인이 필요한 기능입니다.');
+      else setAlarmMessage('현재 가입한 보험이 없습니다.');
       setAlarmShown(true);
     }
     setViewType(type);
-    setSelectedCategory([]);
+    setSelectedCategory('');
     if (type === 'all') setCategorys(Categorys);
     else setCategorys(myCategorys);
   }
@@ -40,29 +52,22 @@ function Question() {
   function hanldeSelect(item: CategoryType) {
     //삭제로직
     if (selectedCategory.includes(item.name)) {
-      const deleted = selectedCategory.filter((e) => e !== item.name);
-      setSelectedCategory(deleted);
+      setSelectedCategory('');
     }
     //추가로직
     else {
-      const update = [...selectedCategory, item.name];
-      setSelectedCategory(update);
+      setSelectedCategory(item.name);
     }
   }
-
-  // 카테고리가 바뀌면 검색 요청
-  useEffect(() => {
-    console.log('새로 filter 요청');
-  }, [selectedCategory]);
 
   // 무한 스크롤 감지시 페이지 추가 요청
   useEffect(() => {
     if (inView) {
-      console.log('data 추가');
       questionQuery.fetchNextPage();
     }
   }, [inView]);
 
+  // 알림창
   useEffect(() => {
     if (alarmShown) {
       setTimeout(() => {
@@ -73,6 +78,10 @@ function Question() {
 
   return (
     <Container>
+      <div style={{ display: 'flex', justifyContent: 'center', zIndex: 2 }}>
+        <FailAlarm text={alarmMessage} alarmShown={alarmShown} />
+      </div>
+
       <Head>
         <BackImg src={backgroundimg} />
         <TextBox>
@@ -91,7 +100,6 @@ function Question() {
               가입한 보험 보기
             </ViewBtn>
           </ViewGroup>
-          <FailAlarm text={'현재 가입한 보험이 없습니다.'} alarmShown={alarmShown} />
           <ScrollGroup>
             <CategoryGroup>
               {categorys.map((category, index) => (
@@ -103,7 +111,7 @@ function Question() {
                   <CategoryItem
                     name={category.name}
                     Icon={category.miniIcon}
-                    isSelected={selectedCategory.includes(category.name)}
+                    isSelected={selectedCategory === category.name}
                   />
                 </div>
               ))}
@@ -116,8 +124,8 @@ function Question() {
         <ListTitle>질문보기</ListTitle>{' '}
         <QList>
           {questionQuery.data?.pages.map((page, pageIndex) =>
-            page.data.map((q, index) => (
-              <QuestionAnswer key={`${pageIndex}-${index}`} question={q.question} answer={q.answer} tags={q.tags} />
+            page.content.map((q, index) => (
+              <QuestionAnswer key={`${pageIndex}-${index}`} question={q.question} answer={q.answer} tags={q.links} />
             )),
           )}
         </QList>
@@ -131,10 +139,11 @@ function Question() {
 }
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   justify-content: center;
 `;
 const Head = styled.div`
-  background-color: ${({ theme }) => theme.colors.Primary500};
   height: 54.2rem;
   position: relative;
   width: 100%;
@@ -147,7 +156,6 @@ const BackImg = styled.img`
   width: 100%;
   height: 100%;
   /* transform: 'rotate(-90deg)'; */
-  opacity: 0.4;
   object-position: center;
   object-fit: cover;
 `;
@@ -248,6 +256,7 @@ const CategoryGroup = styled.div`
   flex-wrap: wrap;
   margin: 4.7rem 17.6rem 4.4rem 17.6rem;
   justify-content: center;
+  min-height: 4rem;
 
   ${({ theme }) => media.mobile`
     width: 100%;

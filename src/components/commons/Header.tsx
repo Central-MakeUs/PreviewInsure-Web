@@ -29,8 +29,21 @@ function Header() {
     setCurrent(cur);
   }, [location.pathname, setIsHome]);
 
+  // 스크롤 확인
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <Container className={`${isHome ? 'primary' : ''}`}>
+    <Container className={`${isHome ? 'primary' : ''}`} isScrolled={isScrolled}>
       <LogoImg src={isHome ? LogoWhite : Logo} onClick={goToMain} />
 
       <PC>
@@ -45,7 +58,7 @@ function Header() {
             <span className={`${current === 'question' ? 'active' : ''}`}>Q&A</span>
           </Link>
         </LinkBox>
-        {isLogin() ? (
+        {isLogin ? (
           <Nickname onClick={goToMypage} colorWhite={isHome}>
             {nickName} 님
           </Nickname>
@@ -59,9 +72,13 @@ function Header() {
   );
 }
 
-const Container = styled.header`
+const Container = styled.header<{ isScrolled: boolean }>`
+  position: relative;
   width: 100%;
   height: 18rem;
+  background-color: white;
+
+  ${({ isScrolled }) => (isScrolled ? `box-shadow: 0px 4px 12px 0px rgba(67, 67, 67, 0.2);` : `box-shadow: none;`)}
 
   &.primary {
     background-color: ${({ theme }) => theme.colors.Primary500};
@@ -138,6 +155,7 @@ const Nickname = styled.span<{ colorWhite: boolean }>`
   background-color: ${(props) => (props.colorWhite ? props.theme.colors.Primary400 : props.theme.colors.Primary500)};
   font-size: ${({ theme }) => theme.fontSizes.paragraph};
   font-weight: 500;
+  cursor: pointer;
 `;
 
 const Login = styled.span<{ colorWhite: boolean }>`
