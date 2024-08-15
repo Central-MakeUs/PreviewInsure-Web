@@ -11,19 +11,24 @@ import { useEffect, useRef, useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 function MainScreen() {
-  const [selected, setSelected] = useState<number>(0);
+  const [selected, setSelected] = useState<number>(-1);
   const scrollWrapperRef = useRef<HTMLDivElement>(null);
-  const SelectedIcon = CategoryImg[selected].img;
+  const SelectedIcon = selected >= 0 && CategoryImg[selected].img;
 
   const hanldeSelected = (plus: 1 | -1) => {
-    if (selected + plus === CategoryImg.length) setSelected(0);
-    else if (selected + plus === -1) setSelected(CategoryImg.length - 1);
+    if (selected + plus >= CategoryImg.length) setSelected(0);
+    else if (selected + plus < 0) setSelected(CategoryImg.length - 1);
     else setSelected((s) => s + plus);
   };
 
   useEffect(() => {
     muCenter(selected);
   }, [selected]);
+
+  // 첫 랜더링시 0번 아이템 선택
+  useEffect(() => {
+    setSelected(0);
+  }, []);
 
   // 선택된 item 가운데로
   const muCenter = (targetIndex: number) => {
@@ -71,19 +76,19 @@ function MainScreen() {
         <TextBig>보험의 새로운 경험</TextBig>
       </TextBox>
 
-      <CharacterBox>
-        <TransitionGroup>
-          <CSSTransition key={selected} in={true} timeout={300} classNames="icon-transition" unmountOnExit>
-            <IconBox>
-              <IconTxt>{CategoryImg[selected].name}</IconTxt>
-              <Icon>
-                <SelectedIcon width={'100%'} height={'100%'} />
-              </Icon>
-            </IconBox>
-          </CSSTransition>
-        </TransitionGroup>
-        <CharacterImg src={character} />
-      </CharacterBox>
+      {selected >= 0 && (
+        <CharacterBox>
+          <TransitionGroup>
+            <CSSTransition key={selected} in={true} timeout={300} classNames="icon-transition" unmountOnExit>
+              <IconBox>
+                <IconTxt>{CategoryImg[selected].name}</IconTxt>
+                <Icon>{SelectedIcon && <SelectedIcon width={'100%'} height={'100%'} />}</Icon>
+              </IconBox>
+            </CSSTransition>
+          </TransitionGroup>
+          <CharacterImg src={character} />
+        </CharacterBox>
+      )}
 
       <GradientImgBackground />
       <ColorBackground />
@@ -350,6 +355,7 @@ const ScrollBox = styled.div`
   bottom: 0;
   width: 100%;
   overflow-x: auto;
+  overflow-y: hidden;
 
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
