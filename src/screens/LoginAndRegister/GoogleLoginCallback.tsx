@@ -45,7 +45,7 @@ const GoogleLoginCallback = () => {
       // setAccessToken(accessToken);
 
       // 신규/기존 회원 여부에 따라 페이지 이동
-      res.data.isExistingMember ? handleHome() : handleRegist();
+      // res.data.isExistingMember ? handleHome() : handleRegist();
     } catch (error) {
       console.log(error);
     }
