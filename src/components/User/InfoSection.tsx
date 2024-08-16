@@ -74,7 +74,13 @@ function InfoSection() {
         {view === 'VIEW' ? (
           <Flex>
             <p>{accountQuery.data?.age} 세</p>
-            <p>{accountQuery.data?.gender}</p>
+            <p>
+              {accountQuery.data?.gender === 'W'
+                ? `여성`
+                : accountQuery.data?.gender === 'M'
+                  ? `남성`
+                  : accountQuery.data?.gender}
+            </p>
           </Flex>
         ) : (
           <>

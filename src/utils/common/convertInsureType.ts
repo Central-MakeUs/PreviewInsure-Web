@@ -43,3 +43,17 @@ export const convertInsureType = (name: string) => {
 
   return 'ERROR';
 };
+
+export const convertInsureString = (type: string) => {
+  let txt = '';
+  for (let i = 0; i < insuranceTypes.length; i++) {
+    if (type === insuranceTypes[i].code) {
+      return insuranceTypes[i].name;
+    }
+  }
+  if (txt === '') {
+    return '그 외'; // 그 외
+  }
+
+  return 'ERROR';
+};

@@ -37,17 +37,17 @@ const Categorys = [
 ];
 
 export const CategoryImg = [
-  { name: '생명보험', value: 1, img: LifeImg, nav: 'life' },
-  { name: '저축보험', value: 2, img: SavingImg, nav: 'saving' },
-  { name: '건강보험', value: 3, img: HealthImg, nav: 'health' },
-  { name: '상해보험', value: 4, img: AccidentImg, nav: 'accident' },
-  { name: 'CI보험', value: 5, img: CIImg, nav: 'ci' },
-  { name: '치아보험', value: 6, img: DentalImg, nav: 'dantal' },
-  { name: '연금보험', value: 7, img: PensionImg, nav: 'pension' },
-  { name: '교육보험', value: 8, img: EducationImg, nav: 'education' },
-  { name: '애견보험', value: 9, img: PetImg, nav: 'pet' },
-  { name: '간병/치매보험', value: 10, img: NursingCareImg, nav: 'nursingcare' },
-  { name: '운전자보험', value: 11, img: DriverImg, nav: 'driver' },
+  { name: '생명보험', value: 'LF', img: LifeImg, nav: 'life' },
+  { name: '저축보험', value: 'SI', img: SavingImg, nav: 'saving' },
+  { name: '건강보험', value: 'HE', img: HealthImg, nav: 'health' },
+  { name: '상해보험', value: 'PA', img: AccidentImg, nav: 'accident' },
+  { name: 'CI보험', value: 'CI', img: CIImg, nav: 'ci' },
+  { name: '치아보험', value: 'TE', img: DentalImg, nav: 'dantal' },
+  { name: '연금보험', value: 'PI', img: PensionImg, nav: 'pension' },
+  { name: '교육보험', value: 'ED', img: EducationImg, nav: 'education' },
+  { name: '애견보험', value: 'PE', img: PetImg, nav: 'pet' },
+  { name: '간병/치매보험', value: 'TD', img: NursingCareImg, nav: 'nursingcare' },
+  { name: '운전자보험', value: 'DR', img: DriverImg, nav: 'driver' },
 ];
 
 export const InsueMapCategorys = [
