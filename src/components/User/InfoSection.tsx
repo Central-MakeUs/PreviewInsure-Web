@@ -3,9 +3,11 @@ import { useState } from 'react';
 import media from '@styles/media';
 import { ReactComponent as Pencle } from '@assets/icons/Pencle.svg';
 import { useStore } from '@stores/useStore';
+import { useAccountInfoQuery } from '@apis/account/account';
 
 function InfoSection() {
   // TODO: GET요청
+  const { accountQuery } = useAccountInfoQuery();
   const { nickName } = useStore();
   const userInfo = { ninkname: nickName, year: '1998', month: '12', gender: '여성', email: 'qwer@qwerty.com' };
   const [editInfo, setEditInfo] = useState(userInfo);
@@ -50,18 +52,16 @@ function InfoSection() {
       <SubTitle>| 내 정보</SubTitle>
       <InfoBoxPC>
         <p>닉네임</p>
-        <b>{userInfo.ninkname}</b>
-        <p>생년월일</p>
-        <b>
-          {userInfo.year}-{userInfo.month}
-        </b>
+        <b>{nickName}</b>
+        <p>나이</p>
+        <b>{accountQuery.data?.age}</b>
         <p>성별</p>
         <b>{userInfo.gender}</b>
       </InfoBoxPC>
       <InfoBoxMobile>
         <Flex>
           <b>
-            <span style={{ fontWeight: '600', fontSize: '18px' }}>{userInfo.ninkname}</span> 님
+            <span style={{ fontWeight: '600', fontSize: '18px' }}>{nickName}</span> 님
           </b>
           <EditIcon>
             {view === 'VIEW' ? (
@@ -73,10 +73,8 @@ function InfoSection() {
         </Flex>
         {view === 'VIEW' ? (
           <Flex>
-            <p>
-              {userInfo.year}-{userInfo.month}
-            </p>
-            <p>{userInfo.gender}</p>
+            <p>{accountQuery.data?.age} 세</p>
+            <p>{accountQuery.data?.gender}</p>
           </Flex>
         ) : (
           <>
@@ -101,7 +99,7 @@ function InfoSection() {
           </>
         )}
 
-        <Email>{userInfo.email}</Email>
+        <Email>{accountQuery.data?.email}</Email>
       </InfoBoxMobile>
     </Info>
   );
@@ -197,6 +195,9 @@ const Input = styled.input`
 const EditIcon = styled.div`
   margin-left: auto;
   cursor: pointer;
+
+  //현재 배포에서 수정X
+  display: none;
 
   span {
     font-size: 12px;

@@ -1,5 +1,8 @@
+import { UserInfoResponse } from './account.d';
+
 // 회원 탈퇴
 import { useStore } from '@stores/useStore';
+import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '@utils/axios';
 
 export async function deleteAccount() {
@@ -12,3 +15,32 @@ export async function deleteAccount() {
   console.log('회원 탈퇴');
   return response.data;
 }
+
+// 회원 정보 GET
+async function getAccountInfo() {
+  const { accessToken } = useStore.getState();
+  const response = await axiosInstance.get<APIResponse<UserInfoResponse>>('/account', {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return response.data.data;
+}
+
+export const useAccountInfoQuery = () => {
+  // const queryClient = useQueryClient();
+  const query = useQuery<UserInfoResponse>({
+    queryKey: ['account', 'info'],
+    queryFn: () => getAccountInfo(),
+    // staleTime: 10 * 1000, // 10초
+    // gcTime: 30 * 1000, // 30초
+    // enabled: false,
+    //   initialData: () => {
+    //     const cachedHealth = queryClient.getQueryData<HealthTestResponse>(['health']);
+
+    //     return cachedHealth;
+    //   },
+  });
+
+  return { accountQuery: query };
+};
