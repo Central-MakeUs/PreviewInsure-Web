@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 function InsueMapSecondSection({
   insueName,
+  insueRecommandPerson,
   insueRecommandExplain,
   insueIcon,
   isSubscribe,
@@ -24,7 +25,7 @@ function InsueMapSecondSection({
     ? `로그인 후 가입한 보험 정보를 입력해 주세요.`
     : isRegist
       ? `${nickName}님은 ${registInsueCompany}에 현재 가입되어 있어요!\n해당 사이트에 들어가서 정보를 확인할 수 있어요.`
-      : `${nickName}님은 아직 ${insueName}을 보유하지 않았네요.\n차량을 보유하고 계신다면, 운전 보험에 가입하여 안전한 운전 생활을 경험해보아요!`;
+      : `${nickName}님은 아직 ${insueName}을 보유하지 않았네요.\n${insueRecommandExplain}`;
 
   const btnTxt = registInsueCompany ? `${registInsueCompany} 바로가기` : '가입한 보험 정보 입력하기';
 
@@ -38,6 +39,7 @@ function InsueMapSecondSection({
       window.open(registInsueLink, '_blank', 'noopener, noreferrer');
     } else {
       // TODO : 보험 정보 입력하기 화면으로 이동
+      navigate('/myInsue');
     }
   };
 
@@ -64,7 +66,7 @@ function InsueMapSecondSection({
           <ShadowBox />
         </IconBox>
         <Title>이런 분들에게 추천드려요!</Title>
-        <Explain>{insueRecommandExplain}</Explain>
+        <Explain>{insueRecommandPerson}</Explain>
         <Explain2>{myInsueTxt}</Explain2>
         <Btn onClick={handleMoveBtn}>{btnTxt}</Btn>
       </Right>

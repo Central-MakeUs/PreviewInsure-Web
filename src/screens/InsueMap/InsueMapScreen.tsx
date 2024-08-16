@@ -46,7 +46,8 @@ function InsueMapScreen() {
       {/* 현재 등록한 보험, 관심 유무 */}
       <InsueMapSecondSection
         insueName={insueItem.name}
-        insueRecommandExplain={insueItem.recommand}
+        insueRecommandPerson={insueItem.recommand}
+        insueRecommandExplain={insueItem.recomtxt}
         insueIcon={insueItem.img}
         isSubscribe={detailQuery.data?.isSubscribed}
         registInsueCompany={detailQuery.data?.insuranceCompany}
@@ -54,7 +55,11 @@ function InsueMapScreen() {
       />
 
       {/* 추천 리스트 */}
-      <RecommendSection isLoading={detailQuery.isLoading} insuranceRecommends={detailQuery.data?.insuranceRecommends} />
+      <RecommendSection
+        isLoading={detailQuery.isLoading}
+        isError={detailQuery.isError}
+        insuranceRecommends={detailQuery.data?.insuranceRecommends}
+      />
     </Container>
   );
 }
