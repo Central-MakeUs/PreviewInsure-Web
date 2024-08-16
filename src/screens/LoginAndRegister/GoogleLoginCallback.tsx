@@ -2,12 +2,14 @@ import Loading from '@components/commons/Loading';
 import { useStore } from '@stores/useStore';
 import axiosInstance from '@utils/axios';
 import { platform } from 'os';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const GoogleLoginCallback = () => {
   const navigate = useNavigate();
   const { login, setTempToken } = useStore();
+  const [accessToken, setAccessToken] = useState<string>('');
+  const [accessNickname, setAccessNickname] = useState<string>('');
 
   // 이미 가입한 유저일 시 : 메인 페이지로 이동
   const handleHome = () => {
@@ -40,23 +42,13 @@ const GoogleLoginCallback = () => {
       console.log(res);
       // 토큰 zustand 저장
       // TODO : api 반환값에 따른 처리
-      const accessToken = res.data.atk;
-      const accessNickname = res.data.nickname;
-      // setAccessToken(accessToken);
+      // const accessToken = res.data.data.atk;
+      // const accessNickname = res.data.data.nickname;
+      setAccessToken(res.data.atk);
+      setAccessNickname(res.data.nickname);
 
       // 신규/기존 회원 여부에 따라 페이지 이동
       // res.data.isExistingMember ? handleHome() : handleRegist();
-      if (accessToken && accessNickname === 'null') {
-        //register
-        console.log('register');
-        setTempToken(accessToken); //temp token 저장
-        navigate('/registerAgree');
-      } else if (accessToken) {
-        // login
-        console.log('login');
-        login(accessToken, accessNickname);
-        navigate('/');
-      }
     } catch (error) {
       console.log(error);
     }
@@ -74,6 +66,25 @@ const GoogleLoginCallback = () => {
       console.log('로그인 재시도하세요.');
     }
   }, [code, navigate]);
+
+  useEffect(() => {
+    if (accessToken) {
+      console.log('accessToken', accessToken);
+      console.log('accessNickname', accessNickname);
+
+      if (accessToken && accessNickname === 'null') {
+        //register
+        console.log('register');
+        setTempToken(accessToken); //temp token 저장
+        navigate('/registerAgree');
+      } else if (accessToken) {
+        // login
+        console.log('login');
+        login(accessToken, accessNickname);
+        navigate('/');
+      }
+    }
+  }, [accessToken, accessNickname]);
 
   return (
     <div
