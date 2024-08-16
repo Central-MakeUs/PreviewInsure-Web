@@ -20,6 +20,9 @@ function BottomNav() {
   useEffect(() => {
     const cur = location.pathname.split('/')[1];
     setActiveNav('/' + cur);
+
+    if (cur === 'insueBording') setShowNav(false);
+    else setShowNav(true);
   }, [location.pathname]);
 
   const handleNavClick = (path: string) => {
@@ -74,7 +77,7 @@ function BottomNav() {
   // }, [handleScroll, handleScrollEnd]);
 
   return (
-    <Container show={showNav}>
+    <Container style={{ display: showNav ? 'block' : 'none' }}>
       <Nav>
         <NavItem isActive={activeNav === '/'} onClick={() => handleNavClick('/')}>
           <HomeIcon width={18} height={19} style={{ marginBottom: '17.38px' }} />
@@ -101,7 +104,7 @@ function BottomNav() {
   );
 }
 
-const Container = styled.div<{ show: boolean }>`
+const Container = styled.div`
   width: 100%;
   height: fit-content; //78px
   padding: 15px 40px;
@@ -110,8 +113,6 @@ const Container = styled.div<{ show: boolean }>`
   z-index: 6;
   position: fixed;
   bottom: 0;
-  /* transform: ${({ show }) => (show ? 'translateY(0)' : 'translateY(100%)')}; */
-  /* transition: transform 0.3s ease; */
 `;
 
 const Nav = styled.nav`

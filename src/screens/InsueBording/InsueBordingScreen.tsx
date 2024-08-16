@@ -94,7 +94,8 @@ const Container = styled.div`
   align-items: center;
 
   ${media.mobile`
-  justify-content: center;
+    padding-top: 30rem;
+    height: calc(100vh - 18rem - 78px); // header + nav
   `}
 `;
 

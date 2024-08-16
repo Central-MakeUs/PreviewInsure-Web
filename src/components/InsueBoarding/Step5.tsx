@@ -147,7 +147,7 @@ const SelectedBox = styled.div`
 
   ${media.mobile`
     // 767 < 
-    top: 40%;
+    top: 36%;
     max-width: 72%;
   `}
 `;
