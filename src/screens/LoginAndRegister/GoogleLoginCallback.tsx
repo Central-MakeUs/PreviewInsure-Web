@@ -44,8 +44,8 @@ const GoogleLoginCallback = () => {
       // TODO : api 반환값에 따른 처리
       // const accessToken = res.data.data.atk;
       // const accessNickname = res.data.data.nickname;
-      setAccessToken(res.data.atk);
-      setAccessNickname(res.data.nickname);
+      setAccessToken(res.data.data.atk);
+      setAccessNickname(res.data.data.nickname);
 
       // 신규/기존 회원 여부에 따라 페이지 이동
       // res.data.isExistingMember ? handleHome() : handleRegist();
