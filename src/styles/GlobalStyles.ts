@@ -36,6 +36,13 @@ const GlobalStyle = styled.createGlobalStyle`
     height: 100%;
   }
 
+  // 전체 모바일 화면 작업
+  #root {
+    min-width: 340px;
+    max-width: 750px;
+    margin: 0 auto;
+    position: relative;
+  }
   *,
   *::before,
   *::after {

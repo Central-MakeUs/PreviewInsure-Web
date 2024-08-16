@@ -74,6 +74,7 @@ function Header() {
 
 const Container = styled.header<{ isScrolled: boolean }>`
   position: relative;
+  top: 0;
   width: 100%;
   height: 18rem;
   background-color: white;

@@ -108,11 +108,12 @@ const Container = styled.div`
   width: 100%;
   height: fit-content; //78px
   padding: 15px 40px;
-  bottom: 0;
   background-color: white;
   z-index: 6;
   position: fixed;
   bottom: 0;
+  left: 0;
+  right: 0;
 `;
 
 const Nav = styled.nav`
