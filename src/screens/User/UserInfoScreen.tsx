@@ -1,9 +1,10 @@
-import Switch from '@components/commons/Switch';
-import InsureCard from '@components/User/InsueCard';
 import styled from 'styled-components';
-import { CategoryImg } from '@utils/common/InsurCategory';
 import { useState } from 'react';
 import media from '@styles/media';
+import InsueSection from '@components/User/InsueSection';
+import { useNavigate } from 'react-router-dom';
+import { useStore } from '@stores/useStore';
+import InfoSection from '@components/User/InfoSection';
 
 type NotiInfo = {
   alarm: boolean;
@@ -11,62 +12,49 @@ type NotiInfo = {
 };
 
 function UserInfoScreen() {
-  // TODO: GET요청
-  const userInfo = { ninkname: '춤추는 부엉이', year: '1998', month: '12', gender: '여성' };
-  const [notiInfo, setNotiInfo] = useState<NotiInfo>({ alarm: true, advertise: false });
-  const myinsue = [
-    { type: '생명보험', insueCompany: 'KB손해보험' },
-    { type: '건강보험', insueCompany: 'KB손해보험' },
-    { type: '상해보험', insueCompany: 'KB손해보험' },
-    { type: 'CI보험', insueCompany: 'KB손해보험' },
-    { type: '운전자보험', insueCompany: 'KB손해보험' },
-    { type: '연금보험', insueCompany: 'KB손해보험' },
-    { type: '애견보험', insueCompany: 'KB손해보험' },
-    { type: '건강보험', insueCompany: 'KB손해보험' },
-  ];
+  const navigate = useNavigate();
+  const { logOut } = useStore();
+  const [view, setView] = useState<'VIEW' | 'EDIT'>('VIEW');
 
-  function handleNoti(change: 'alarm' | 'adv') {
-    if (change === 'alarm') {
-      setNotiInfo((cur) => ({
-        alarm: !cur.alarm,
-        advertise: cur.advertise,
-      }));
-    } else {
-      setNotiInfo((cur) => ({
-        alarm: cur.alarm,
-        advertise: !cur.advertise,
-      }));
+  function goToInsueBording() {
+    navigate('/insueBording');
+  }
+
+  function handleDeleteAccount() {
+    const confirmed = window.confirm('계정을 탈퇴하시겠습니까?');
+    if (confirmed) {
+      console.log('작업을 수행합니다!');
     }
+  }
+
+  function handleReportFraud() {
+    window.open('https://www.fss.or.kr/fss/main/contents.do?menuNo=200647', '_blank');
   }
 
   return (
     <Container>
       <Title>마이페이지</Title>
-      <EditBtn>수정하기</EditBtn>
-      <Info>
-        <SubTitle>| 내 정보</SubTitle>
-        <InfoBox>
-          <p>닉네임</p>
-          <b>{userInfo.ninkname}</b>
-          <p>생년월일</p>
-          <b>
-            {userInfo.year}-{userInfo.month}
-          </b>
-          <p>성별</p>
-          <b>{userInfo.gender}</b>
-        </InfoBox>
-      </Info>
-      <Noti>
-        <SubTitle>| 알림.광고 설정</SubTitle>
-        <NotiBox>
-          <p>알림</p>
-          <b>{notiInfo.alarm ? '켬' : '끔'}</b>
-          <Switch check={notiInfo.alarm} setCheck={() => handleNoti('alarm')} redFlag={false} type="circle" />
-          <p>광고</p>
-          <b>{notiInfo.advertise ? '켬' : '끔'}</b>
-          <Switch check={notiInfo.advertise} setCheck={() => handleNoti('adv')} redFlag={false} type="circle" />
-        </NotiBox>
-      </Noti>
+      {view === 'VIEW' ? <EditBtn onClick={() => setView('EDIT')}>수정하기</EditBtn> : <EditBtn>수정완료</EditBtn>}
+
+      <InfoSection />
+
+      <SeparateLine />
+
+      <Setting>
+        <SubTitle>| 계정 설정</SubTitle>
+        <SettingBox>
+          <p className="black" onClick={goToInsueBording}>
+            인슈보딩 다시하기
+          </p>
+          <p onClick={logOut}>로그아웃</p>
+          <p onClick={handleDeleteAccount}>탈퇴하기</p>
+          <p className="only_mobile" onClick={handleReportFraud}>
+            보험사기 신고하기
+          </p>
+        </SettingBox>
+      </Setting>
+
+      {/* PC */}
       <Insue>
         <SubTitle>| 인슈 정보</SubTitle>
         <Tip1>
@@ -75,11 +63,10 @@ function UserInfoScreen() {
         <Tip2>
           Tip! 가입한 보험의 <span>정보</span>는 해당 보험의 상세페이지에서 변경 가능해요.
         </Tip2>
-        <InsueBox>
-          {myinsue.map((insue) => (
-            <InsureCard text={insue.type} SVG={CategoryImg.find((item) => item.name === insue.type)?.img} />
-          ))}
-        </InsueBox>
+
+        <div style={{ width: '100%', marginTop: '5.6rem' }}>
+          <InsueSection />
+        </div>
       </Insue>
     </Container>
   );
@@ -95,11 +82,9 @@ const Container = styled.div`
     '   .    main    main  ';
 
   ${media.mobile`
-    grid-template-areas:
-      ' header    button'
-      '   a    a  '
-      '   b    b'
-      '  main   main ';
+    display: flex;
+    flex-direction: column;
+    margin: 0 6%;
   `}
 `;
 
@@ -108,11 +93,20 @@ const Title = styled.h1`
   color: ${({ theme }) => theme.colors.Primary500};
   font-size: ${({ theme }) => theme.fontSizes.subtitle};
   font-weight: 600;
+
+  ${({ theme }) => media.mobile`
+    color: ${theme.colors.Black500};
+    font-size: 18px;
+  `}
 `;
 const SubTitle = styled.h2`
   color: ${({ theme }) => theme.colors.Primary500};
   font-size: ${({ theme }) => theme.fontSizes.paragraph};
   font-weight: 600;
+
+  ${media.mobile`
+    display: none;
+  `}
 `;
 
 const EditBtn = styled.button`
@@ -126,61 +120,72 @@ const EditBtn = styled.button`
   background-color: ${({ theme }) => theme.colors.Primary_W};
   color: ${({ theme }) => theme.colors.Primary500};
   font-weight: 500;
+
+  ${media.mobile`
+    display:none;
+  `}
 `;
 
-const Info = styled.div`
-  grid-area: a;
-  width: fit-content;
-  background-color: ${({ theme }) => theme.colors.Black_W};
-  padding: 5.2rem 5.2rem 9.1rem 5.2rem;
-  margin-bottom: 2.4rem;
-  border-radius: 3.2rem;
+const SeparateLine = styled.div`
+  display: none;
+  position: relative;
+  left: -7%;
+  width: 100vw;
+  border-top: 5px solid ${({ theme }) => theme.colors.Black_W};
+  margin: 4rem 0;
+
+  ${media.mobile`
+    display: block;
+  `}
 `;
 
-const InfoBox = styled.div`
-  margin-top: 3.2rem;
-  display: grid;
-  grid-template-columns: 10rem 18rem;
-  row-gap: 4rem;
-
-  p {
-    font-size: ${({ theme }) => theme.fontSizes.small};
-    font-weight: 500;
-    color: ${({ theme }) => theme.colors.Black300};
-  }
-
-  b {
-    font-size: ${({ theme }) => theme.fontSizes.small};
-    font-weight: 500;
-    color: ${({ theme }) => theme.colors.Black500};
-  }
-`;
-const Noti = styled.div`
+const Setting = styled.div`
   grid-area: b;
-  width: fit-content;
+  width: 100%;
   background-color: ${({ theme }) => theme.colors.Black_W};
   padding: 5.2rem;
   border-radius: 3.2rem;
   margin-bottom: 2.4rem;
   grid: 1 1 0;
+
+  ${media.mobile`
+    width: 100%;
+    background-color: transparent;
+    padding: 0;
+
+  `}
 `;
-const NotiBox = styled.div`
-  display: grid;
-  grid-template-columns: 10rem 4rem 14rem;
-  row-gap: 4rem;
+const SettingBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
   margin-top: 2rem;
-  align-items: center;
+  align-items: left;
 
   p {
     font-size: ${({ theme }) => theme.fontSizes.small};
     font-weight: 500;
     color: ${({ theme }) => theme.colors.Black300};
+
+    ${({ theme }) => media.mobile`
+      font-size: 16px;
+      background-color: ${theme.colors.Black_W};
+      padding: 30px 35px;
+      border-radius: 24px;
+    `}
   }
 
-  b {
-    font-size: ${({ theme }) => theme.fontSizes.small};
-    font-weight: 500;
-    color: ${({ theme }) => theme.colors.Black500};
+  .black {
+    ${({ theme }) => media.mobile`
+      color: ${theme.colors.Black500};
+    `}
+  }
+
+  .only_mobile {
+    display: none;
+    ${media.mobile`
+      display: block;
+    `}
   }
 `;
 
@@ -191,6 +196,10 @@ const Insue = styled.div`
   margin-left: 3.2rem;
   margin-bottom: 5rem;
   border-radius: 3.2rem;
+
+  ${media.mobile`
+    display: none;
+  `}
 `;
 
 const Tip1 = styled.p`
@@ -217,19 +226,4 @@ const Tip2 = styled.p`
   }
 `;
 
-const InsueBox = styled.div`
-  display: grid;
-  margin: 2rem 2.5rem;
-  row-gap: 5.2rem;
-  column-gap: 2.4rem;
-  grid-template-columns: repeat(5, 18.3rem);
-
-  ${media.small`
-    grid-template-columns: repeat(4, 22rem);
-  `}
-
-  ${media.mobile`
-    grid-template-columns: repeat(2, 30rem);
-  `}
-`;
 export default UserInfoScreen;
