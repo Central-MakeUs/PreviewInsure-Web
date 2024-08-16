@@ -39,10 +39,11 @@ function RegisterNickname() {
     nicknameMutation.mutate(nicknameData, {
       onSuccess: (data) => {
         console.log('confirm nickname success');
+        login(temporaryToken, nickname);
+        navigate('/insueBording');
       },
     });
-    login(temporaryToken, nickname);
-    //
+    // login(temporaryToken, nickname);
     // navigate('/insueBording');
   };
 

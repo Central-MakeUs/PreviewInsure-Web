@@ -5,6 +5,7 @@ import { ReactComponent as Up } from '@assets/icons/Up.svg';
 import { ReactComponent as Down } from '@assets/icons/Down.svg';
 import type { AgreeProps } from '@/types/LoginAndRegisterComponents';
 import media from '@styles/media';
+import ReactMarkdown from 'react-markdown';
 
 function Agree({ check, setCheck, text, type, detail, registerBtnClicked }: AgreeProps) {
   const [showDetail, setShowDetail] = useState(false);
@@ -35,7 +36,8 @@ function Agree({ check, setCheck, text, type, detail, registerBtnClicked }: Agre
         </AgreeRight>
       </AgreeContainer>
       <AgreeContents open={showDetail}>
-        <AgreeContentsP>{detail}</AgreeContentsP>
+        {/* <AgreeContentsP>{detail}</AgreeContentsP> */}
+        <AgreeContentsP dangerouslySetInnerHTML={{ __html: detail }} />
       </AgreeContents>
     </>
   );

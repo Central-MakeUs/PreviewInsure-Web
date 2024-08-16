@@ -30,7 +30,7 @@ const GoogleLoginCallback = () => {
     // console.log(code);
 
     const data = {
-      // platform: 'GOOGLE',
+      platform: 'GOOGLE',
       code: code,
     };
 

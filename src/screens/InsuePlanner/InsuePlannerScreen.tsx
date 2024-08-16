@@ -6,6 +6,7 @@ import InsuePlannerAnswer from '@components/InsuePlanner/InsuePlannerAnswer';
 import type { link } from '@apis/insuePlanner/insuePlanner.d';
 import { useStore } from '@stores/useStore';
 import { useNavigate } from 'react-router-dom';
+import { deleteAccount } from '@apis/account/account';
 
 //dummy
 const dummyAnswer = {
@@ -46,14 +47,6 @@ function InsuePlannerScreen() {
   }, [currentAnswer]);
   return (
     <>
-      <div
-        onClick={() => {
-          logOut();
-          navigate('/');
-        }}
-      >
-        로그아웃
-      </div>
       {currentScreen === 'Q' && (
         <InsuePlannerQuestion
           setQuestion={setQuestion}
