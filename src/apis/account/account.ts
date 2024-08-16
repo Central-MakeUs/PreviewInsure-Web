@@ -3,7 +3,7 @@ import { useStore } from '@stores/useStore';
 import axiosInstance from '@utils/axios';
 
 export async function deleteAccount() {
-  const { accessToken } = useStore();
+  const { accessToken } = useStore.getState();
   const response = await axiosInstance.delete('/account', {
     headers: {
       Authorization: `Bearer ${accessToken}`,
