@@ -56,8 +56,19 @@ function Step5({ selectedInsures, toSelectInsures, setInsures, setComplete }: St
         <SubtitleP>현재 사용중인 보험사를 선택해 주세요</SubtitleP>
       </Subtitle>
 
-      <SelectedBoxBlock />
-      <SelectedBox>
+      <SelectedBoxBlock>
+        <SelectedBox>
+          <Selected>
+            {selectedInsures.map((card: any, index: number) => (
+              <SelectedButtonWrapper>
+                <InsureCard text={card.text} rotate={cardRotate} SVG={card.SVG} getData={getData} delay={index} />
+                <ButtonShadow></ButtonShadow>
+              </SelectedButtonWrapper>
+            ))}
+          </Selected>
+        </SelectedBox>
+      </SelectedBoxBlock>
+      {/* <SelectedBox>
         <Selected>
           {selectedInsures.map((card: any, index: number) => (
             <SelectedButtonWrapper>
@@ -66,7 +77,7 @@ function Step5({ selectedInsures, toSelectInsures, setInsures, setComplete }: St
             </SelectedButtonWrapper>
           ))}
         </Selected>
-      </SelectedBox>
+      </SelectedBox> */}
 
       <ToSelect>
         {toSelectInsures.map((card: any, index: number) => (
@@ -102,7 +113,7 @@ const Subtitle = styled.p`
 const SubtitleP = styled.p``;
 
 const SelectedBoxBlock = styled.div`
-  /* position: relative; */
+  position: relative;
   width: 100%;
   height: 23rem;
   margin-bottom: 4.4rem;
@@ -110,7 +121,7 @@ const SelectedBoxBlock = styled.div`
   ${media.mobile`
     // 767 < 
     margin-bottom: 5rem;
-    width:70%;
+    width:100%;
     height: 40rem;
   `}
 `;
@@ -121,7 +132,7 @@ const SelectedBox = styled.div`
   transform: translateX(-50%);
   max-width: 80%;
   /* top: 40%; */
-  top: 35%;
+  top: 0%;
 
   overflow-x: auto;
   scrollbar-width: none;
@@ -130,25 +141,26 @@ const SelectedBox = styled.div`
   z-index: 4;
 
   ${media.large`
-    top: 30%;
-    /* top: 38%; */
+    top: -15%;
   `}
 
   ${media.medium`
-    top: 23%; 
-    /* top: 40%; */
+    top: 1%; 
   `}
 
   ${media.small`
     // 767 < 
-    top: 20%;
-    /* top: 41%; */
+    /* top: 19%; */
   `}
 
   ${media.mobile`
     // 767 < 
-    top: 36%;
-    max-width: 72%;
+    /* top: 36%; */
+    top: 0%;
+    /* max-width: 72%; */
+    max-width: 100%;
+    padding-right: 1rem;
+    padding-left: 1rem;
   `}
 `;
 

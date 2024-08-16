@@ -31,7 +31,7 @@ function Congratulate() {
         <Title>회원가입</Title>
         <Subtitle>
           <SubtitleP>
-            <SubTitleTitle>프리뷰인슈</SubTitleTitle>의 회원이 되신것을 환영해요!
+            <SubTitleTitle>프리뷰인슈</SubTitleTitle>와 내 보험을 그려보세요!
           </SubtitleP>
         </Subtitle>
         <SVGWrapper>

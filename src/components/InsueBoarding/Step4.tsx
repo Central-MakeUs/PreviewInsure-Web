@@ -22,6 +22,12 @@ function Step4({ goNextStep, goPreviousStep, setSelectedInsures, setToSelectInsu
 
   useEffect(() => {
     setSelectedCards([]);
+
+    //ios 렌더링 오류 대응
+    window.addEventListener('message', (e: any) => {
+      const data = JSON.parse(e.data);
+      console.log('webviewData', data);
+    });
   }, []);
 
   const handleSelectCardClick = (card: any) => {
@@ -148,9 +154,13 @@ const Selected = styled.div`
   ${media.mobile`
     // 767 < 
     margin-bottom: 5rem;
-    max-width:72%;
+    /* max-width:72%; */
     gap: 5rem;
     height: 40rem;
+
+    max-width: 100%;
+    padding-right: 1rem;
+    padding-left: 1rem;
   `}
 `;
 
