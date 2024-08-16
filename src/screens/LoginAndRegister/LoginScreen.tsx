@@ -68,7 +68,7 @@ const Container = styled.div`
 
   ${media.mobile`
     // 767 < 
-    height: calc(100vh - 32rem);
+    height: calc(100vh - 16rem - 22rem);
   `}
 `;
 

@@ -99,6 +99,7 @@ const AddBtn = styled.div<{ isadded: boolean }>`
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  cursor: pointer;
   transition:
     background-color 0.3s ease,
     transform 0.2s;

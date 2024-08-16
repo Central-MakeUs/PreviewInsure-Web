@@ -10,8 +10,13 @@ import { convertInsureType } from '@utils/common/convertInsureType';
 import { useInsueDetailQuery } from '@apis/insuemap/insuemap';
 import { recommendRequest } from '@apis/insuemap/insuemap.d';
 import RecommendSection from '@components/InsueMap/RecommendSection';
+import { useEffect, useState } from 'react';
+import FailAlarm from '@components/commons/FailAlarm';
+import { useStore } from '@stores/useStore';
 
 function InsueMapScreen() {
+  const { isLogin } = useStore();
+  const [alarmShown, setAlarmShown] = useState(false);
   // 첫 진입시 현재 선택된 보험 종류 판단
   const location = useLocation();
   const insue = { ...location.state };
@@ -30,11 +35,28 @@ function InsueMapScreen() {
 
   // TODO: 관심 보험 등록 및 취소 PATCH API. 요청에 따라 현재 값도 달라져야함.
   function handleSubscribe() {
+    if (!isLogin) {
+      setAlarmShown(true);
+      return;
+    }
     console.log('Subscribe변경 요청: ', !detailQuery.data?.isSubscribed);
   }
 
+  // 알림창
+  useEffect(() => {
+    if (alarmShown) {
+      setTimeout(() => {
+        setAlarmShown(false);
+      }, 2000);
+    }
+  }, [alarmShown]);
+
   return (
     <Container>
+      <div style={{ display: 'flex', justifyContent: 'center', zIndex: 2 }}>
+        <FailAlarm text={'로그인이 필요한 서비스입니다.'} alarmShown={alarmShown} />
+      </div>
+
       {/* 보험 설명, 관심보험 */}
       <InsueMapHeadSection
         insueName={insueItem.name}
