@@ -29,7 +29,7 @@ const Container = styled.div<{ shown: boolean }>`
   padding: 4.5rem 6.5rem;
   border-radius: 1.2rem;
   position: absolute;
-  top: 11%;
+  top: 13%;
   opacity: ${({ shown }) => (shown ? '100%' : '0%')};
   transition: all 1s ease;
 `;

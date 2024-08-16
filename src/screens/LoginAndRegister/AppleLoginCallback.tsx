@@ -1,52 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loading from '@components/commons/Loading';
-import axiosInstance from '@utils/axios';
-import axios from 'axios';
+import { useStore } from '@stores/useStore';
 
 const SERVER_URL = import.meta.env.VITE_APP_SERVER_URL;
 
 function AppleLoginCallback() {
   const navigate = useNavigate();
-  const [idToken, setIdToken] = useState(null);
-  const [code, setCode] = useState(null);
-  const [state, setState] = useState(null);
+  const { login, setTempToken } = useStore();
 
-  useEffect(() => {
-    const hash = window.location.hash.substring(1);
-    const queryParams: any = new URLSearchParams(hash);
-    setIdToken(queryParams.get('id_token'));
-    setCode(queryParams.get('code'));
-    setState(queryParams.get('state'));
-  }, []);
+  const [accessToken, setAccessToken] = useState<string>('');
+  const [accessNickname, setAccessNickname] = useState<string>('');
 
-  const handleSign = async () => {
-    const data = {
-      platform: 'APPLE',
-      appleToken: idToken,
-      code: code,
-      // state: state,
-    };
-    console.log('RequestData', data);
-
-    // api 통신
-    try {
-      // const response = await axiosInstance.post('/oauth', data);
-      const response = await axios.post(`${SERVER_URL}/oauth`, data);
-      console.log('res', response);
-    } catch (error) {
-      console.log(error);
-    }
+  let getParameter = (key: string) => {
+    return new URLSearchParams(location.search).get(key) as string;
   };
 
   useEffect(() => {
-    if (state && idToken && code) {
-      // console.log('state:', state);
-      // console.log('id_token:', idToken);
-      // console.log('code:', code);
-      handleSign();
+    // token 저장
+    setAccessToken(getParameter('token'));
+    setAccessNickname(getParameter('nickname'));
+    // if (getParameter('nickname') !== 'null') {
+    //   // 닉네임이 decoding 된 형태
+    //   setAccessNickname(decodeURIComponent(getParameter('nickname'))); // decoding
+    // } else {
+    //   // nickname => null
+    //   setAccessNickname(getParameter('nickname'));
+    // }
+  }, []);
+
+  useEffect(() => {
+    if (accessToken) {
+      console.log('accessToken', accessToken);
+      console.log('accessNickname', accessNickname);
+
+      if (accessToken && accessNickname === 'null') {
+        //register
+        console.log('register');
+        setTempToken(accessToken); //temp token 저장
+        navigate('/registerAgree');
+      } else if (accessToken) {
+        // login
+        console.log('login');
+        login(accessToken, accessNickname);
+        navigate('/');
+      }
     }
-  }, [state, idToken, code]);
+  }, [accessToken, accessNickname]);
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>

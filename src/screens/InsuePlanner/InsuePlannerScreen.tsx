@@ -4,6 +4,8 @@ import InsuePlannerQuestion from '@components/InsuePlanner/InsuePlannerQuestion'
 import InsuePlannerLoading from '@components/InsuePlanner/InsuePlannerLoading';
 import InsuePlannerAnswer from '@components/InsuePlanner/InsuePlannerAnswer';
 import type { link } from '@apis/insuePlanner/insuePlanner.d';
+import { useStore } from '@stores/useStore';
+import { useNavigate } from 'react-router-dom';
 
 //dummy
 const dummyAnswer = {
@@ -25,6 +27,8 @@ const dummyAnswer = {
 };
 
 function InsuePlannerScreen() {
+  const { logOut } = useStore();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const [question, setQuestion] = useState<string>(''); // 질문
   const [currentScreen, setCurrentScreen] = useState<'Q' | 'A'>('Q');
@@ -42,6 +46,14 @@ function InsuePlannerScreen() {
   }, [currentAnswer]);
   return (
     <>
+      <div
+        onClick={() => {
+          logOut();
+          navigate('/');
+        }}
+      >
+        로그아웃
+      </div>
       {currentScreen === 'Q' && (
         <InsuePlannerQuestion
           setQuestion={setQuestion}

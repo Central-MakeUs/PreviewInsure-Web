@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
   baseURL: `${SERVER_URL}`,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${JWT_TOKEN}`,
+    // Authorization: `Bearer ${JWT_TOKEN}`,
   },
   timeout: 10000,
 });
