@@ -21,11 +21,13 @@ function UserInfoScreen() {
     navigate('/insueBording');
   }
 
-  function handleDeleteAccount() {
+  async function handleDeleteAccount() {
     const confirmed = window.confirm('계정을 탈퇴하시겠습니까?');
     if (confirmed) {
       console.log('작업을 수행합니다!');
-      deleteAccount();
+      await deleteAccount();
+      logOut();
+      navigate('/');
     }
   }
 

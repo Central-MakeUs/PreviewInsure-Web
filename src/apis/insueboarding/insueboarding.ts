@@ -5,8 +5,9 @@ import { ageKeys, boardKeys } from './insueboarding.keys';
 import { useStore } from '@stores/useStore';
 
 // age patch
-const { accessToken } = useStore.getState();
+
 export async function patchAgeData(data: AgeRequest): Promise<AgeResponse> {
+  const { accessToken } = useStore.getState();
   const response = await axiosInstance.patch<APIResponse<AgeResponse>>('/register/age', data, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -43,6 +44,7 @@ export function useAgeMutation() {
 // gender, insures patch
 
 export async function patchBoardData(data: BoardRequest): Promise<BoardResponse> {
+  const { accessToken } = useStore.getState();
   const response = await axiosInstance.patch<APIResponse<BoardResponse>>('/register/board', data, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
