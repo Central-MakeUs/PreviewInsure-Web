@@ -29,15 +29,13 @@ function InsueBarItem({ text, SVG, company, handleInsue }: InsueCardProps) {
         <SelectWrapper>
           <Button onClick={() => setShowMenu(!showMenu)}>
             <span>{company} </span>
-            {!showMenu ? (
-              <IconBox>
+            <IconBox>
+              {!showMenu ? (
                 <DownSelector width={'100%'} height={'100%'} fill={'#fff'} />
-              </IconBox>
-            ) : (
-              <IconBox>
+              ) : (
                 <UpSelector width={'100%'} height={'100%'} fill={'#fff'} />
-              </IconBox>
-            )}
+              )}
+            </IconBox>
           </Button>
 
           <InsureContents open={showMenu}>
@@ -54,30 +52,37 @@ function InsueBarItem({ text, SVG, company, handleInsue }: InsueCardProps) {
 export default InsueBarItem;
 
 const Card = styled.div`
+  width: 43rem;
   position: relative;
+
+  ${media.mobile`
+  width: 100%;
+  `}
 `;
 
 const Bar = styled.div`
   background-color: ${({ theme }) => theme.colors.Primary_W};
   position: relative;
   display: flex;
-  padding: 2rem;
   align-items: center;
   justify-content: center;
 
+  padding: 1rem 3rem 1rem 1rem;
   width: 100%;
-  height: 10rem;
+  height: 12rem;
   border-radius: 2.4rem;
 
   ${media.mobile`
+    padding: 2rem;
     height: 22rem;
     border-radius: 6rem;
   `}
 `;
 
 const InsueName = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.tiny};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.Primary500};
+  min-width: fit-content;
   font-weight: 500;
   margin-right: auto;
 
@@ -88,8 +93,10 @@ const InsueName = styled.p`
 `;
 
 const SelectWrapper = styled.div`
-  width: 17.5rem;
+  position: relative;
+  width: 15rem;
   margin-left: auto;
+  height: 5rem;
 
   ${media.mobile`
     width: 32rem;
@@ -104,12 +111,16 @@ const Button = styled.button`
   border-radius: 1.6rem;
   color: #fff;
   display: flex;
-  align-items: center;
+  padding: 1.4rem 2.4rem;
+
   gap: 1rem;
+  align-items: baseline;
   justify-content: center;
   transition: all 0.3s ease-in-out;
 
   ${media.mobile`
+  padding: 0;
+  align-items: center;
     width: 90%;
     height: 10rem;
     border-radius: 4rem;
@@ -130,11 +141,11 @@ const InsureContents = styled.div<{ open: boolean }>`
   position: relative;
   z-index: 4;
   margin-top: 0.3rem;
-  width: 90%;
+  width: 95%;
   max-height: ${({ open }) => (open ? '25rem' : 0)};
   /* max-height: 25rem; */
   /* display: ${({ open }) => (open ? 'block' : 'none')}; */
-  border-radius: 0.5rem;
+  border-radius: 2rem;
   transition: all 0.3s ease-in-out;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -156,7 +167,7 @@ const InsureContent = styled.button`
   font-size: ${({ theme }) => theme.fontSizes.small};
   border: none;
   color: #fff;
-  width: 80%;
+  width: 100%;
   height: 4.8rem;
   cursor: pointer;
   display: flex;
@@ -170,7 +181,6 @@ const InsureContent = styled.button`
   }
 
   ${media.mobile`
-    width: 100%;
     height: 7rem;
     font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
   `}
@@ -179,8 +189,6 @@ const InsureContent = styled.button`
 const IconBox = styled.div`
   width: 1.3rem;
   height: 0.8rem;
-  position: relative;
-  bottom: 18%;
 
   ${media.medium`
     bottom: 27%;
@@ -189,7 +197,6 @@ const IconBox = styled.div`
     bottom: 36%;
   `}
   ${media.mobile`
-    bottom: 8%;
     width: 2.5rem;
     height: 2.5rem;
   `}
