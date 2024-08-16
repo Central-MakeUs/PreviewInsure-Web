@@ -35,6 +35,10 @@ function UserInfoScreen() {
     window.open('https://www.fss.or.kr/fss/main/contents.do?menuNo=200647', '_blank');
   }
 
+  function goTO(link: string) {
+    navigate(link);
+  }
+
   return (
     <Container>
       <Title>마이페이지</Title>
@@ -54,6 +58,12 @@ function UserInfoScreen() {
           <p onClick={handleDeleteAccount}>탈퇴하기</p>
           <p className="only_mobile" onClick={handleReportFraud}>
             보험사기 신고하기
+          </p>
+          <p className="only_mobile" onClick={() => goTO('/policy/service')}>
+            프리뷰인슈 이용약관
+          </p>
+          <p className="only_mobile" onClick={() => goTO('/policy/privacy')}>
+            프리뷰인슈 개인정보 처리방침
           </p>
         </SettingBox>
       </Setting>
