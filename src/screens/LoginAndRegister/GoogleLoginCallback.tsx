@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const GoogleLoginCallback = () => {
   const navigate = useNavigate();
-  const { login } = useStore();
+  const { login, setTempToken } = useStore();
 
   // 이미 가입한 유저일 시 : 메인 페이지로 이동
   const handleHome = () => {
@@ -36,16 +36,27 @@ const GoogleLoginCallback = () => {
 
     try {
       // 토큰 서버에 전송. 로그인 요청.
-      console.log(data);
       const res = await axiosInstance.post(`/oauth?platform=GOOGLE&code=${code}`);
       console.log(res);
       // 토큰 zustand 저장
       // TODO : api 반환값에 따른 처리
       const accessToken = res.data.accessToken;
+      const accessNickname = res.data.nickname;
       // setAccessToken(accessToken);
 
       // 신규/기존 회원 여부에 따라 페이지 이동
       // res.data.isExistingMember ? handleHome() : handleRegist();
+      if (accessToken && accessNickname === 'null') {
+        //register
+        console.log('register');
+        setTempToken(accessToken); //temp token 저장
+        navigate('/registerAgree');
+      } else if (accessToken) {
+        // login
+        console.log('login');
+        login(accessToken, accessNickname);
+        navigate('/');
+      }
     } catch (error) {
       console.log(error);
     }
