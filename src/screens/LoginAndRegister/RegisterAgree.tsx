@@ -5,11 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import FailAlarm from '@components/commons/FailAlarm';
 import media from '@styles/media';
 import { policyServiceContent } from '@screens/Main/PolicyServiceScreen';
-import { policyPrivacyContent } from '@screens/Main/PolicyPrivacyScreen';
-
-const sampleP = `
-${'광고성 수신동의?\n'.repeat(100)}
-`;
+import { privacyContent, advertiseAgreeContent } from '@components/LoginAndRegister/registerContent';
 
 function RegisterAgree() {
   const navigate = useNavigate();
@@ -76,7 +72,7 @@ function RegisterAgree() {
             setCheck={setCheck2}
             text={`개인정보 수집 및 이용에 동의합니다.`}
             type={'essential'}
-            detail={policyPrivacyContent}
+            detail={privacyContent}
             registerBtnClicked={registerBtnClicked}
           />
           <Agree
@@ -84,7 +80,7 @@ function RegisterAgree() {
             setCheck={setCheck3}
             text={'마케팅 활용 및 광고성 정보 수신에 동의합니다.'}
             type={'selectable'}
-            detail={sampleP}
+            detail={advertiseAgreeContent}
             registerBtnClicked={false}
           />
         </AgreeGroup>

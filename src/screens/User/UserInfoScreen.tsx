@@ -5,6 +5,7 @@ import InsueSection from '@components/User/InsueSection';
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '@stores/useStore';
 import InfoSection from '@components/User/InfoSection';
+import { deleteAccount } from '@apis/account/account';
 
 type NotiInfo = {
   alarm: boolean;
@@ -24,6 +25,7 @@ function UserInfoScreen() {
     const confirmed = window.confirm('계정을 탈퇴하시겠습니까?');
     if (confirmed) {
       console.log('작업을 수행합니다!');
+      deleteAccount();
     }
   }
 

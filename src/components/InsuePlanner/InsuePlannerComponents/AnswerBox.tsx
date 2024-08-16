@@ -32,7 +32,7 @@ function AnswerBox({ text, links }: AnswerAnswerBoxProps) {
         />
       </TextContainer>
 
-      {complete && links.length > 0 && (
+      {complete && (links ? links.length > 0 : '') && (
         <LinkContainer>
           <LinksTextContainer>해당 보험에 대한 링크를 전달드릴게요!</LinksTextContainer>
           <LinkBtnGroup>
