@@ -277,6 +277,9 @@ const Txt2 = styled.p`
 `;
 
 const BackBtn = styled.button`
+  // 이번 배포때는 안보이게
+  display: none;
+
   position: absolute;
   bottom: 2.5rem;
   left: 50%;
