@@ -28,10 +28,12 @@ const Container = styled.div<{ shown: boolean }>`
   align-items: center;
   padding: 4.5rem 6.5rem;
   border-radius: 1.2rem;
-  position: absolute;
-  top: 13%;
+  position: fixed;
+  top: 10%;
   opacity: ${({ shown }) => (shown ? '100%' : '0%')};
   transition: all 1s ease;
+  z-index: 10;
+  overflow: visible;
 `;
 
 const IconBox = styled.div`
@@ -42,4 +44,5 @@ const IconBox = styled.div`
 const Text = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.paragraph};
   color: ${({ theme }) => theme.colors.AlertT};
+  white-space: pre-line;
 `;

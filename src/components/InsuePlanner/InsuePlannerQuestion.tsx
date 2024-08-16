@@ -15,6 +15,7 @@ import { useInsuePlannerMutation } from '@apis/insuePlanner/insuePlanner';
 import type { link } from '@apis/insuePlanner/insuePlanner.d';
 import { plannerPOSTRequest } from '@apis/insuePlanner/insuePlanner.d';
 import { convertInsureType } from '@utils/common/convertInsureType';
+import InsuePlannerLoading from './InsuePlannerLoading';
 
 function InsuePlannerQuestion({
   setQuestion,
@@ -28,8 +29,10 @@ function InsuePlannerQuestion({
   const [check, setCheck] = useState<boolean>(true);
   const [visible, setVisible] = useState<boolean>(false);
   const [alarmShown, setAlarmShown] = useState(false);
-  const [insureSearchCategory, setInsureSearchCategory] = useState('전체 카테고리');
   const [loginAlarmShown, setLoginAlarmShown] = useState(false);
+  const [errorAlarmShown, setErrorAlarmShown] = useState(false);
+  const [insureSearchCategory, setInsureSearchCategory] = useState('전체 카테고리');
+  const [loading, setLoading] = useState(false);
 
   //apis
   const { insuePlannerMutation } = useInsuePlannerMutation();
@@ -54,7 +57,7 @@ function InsuePlannerQuestion({
   }, [alarmShown]);
 
   useEffect(() => {
-    // 글자 수 부족 경고 없애기
+    // 로그인 경고 없애기
     if (loginAlarmShown) {
       setTimeout(() => {
         setLoginAlarmShown(false);
@@ -62,18 +65,29 @@ function InsuePlannerQuestion({
     }
   }, [loginAlarmShown]);
 
+  useEffect(() => {
+    // 질문 오류 알람 없애기
+    if (errorAlarmShown) {
+      setTimeout(() => {
+        setErrorAlarmShown(false);
+      }, 2000);
+    }
+  }, [errorAlarmShown]);
+
   const postQuestion = () => {
     //api
+    setLoading(true);
     const questionData: plannerPOSTRequest = {
       quesion: text,
       isShare: check,
       insuranceType: convertInsureType(insureSearchCategory) as string, // DE 일때 400 에러 뜸
     };
-    console.log(questionData);
+    console.log('questionData', questionData);
 
     insuePlannerMutation.mutate(questionData, {
       onSuccess: (data) => {
         console.log('API 호출 성공:', data);
+        setLoading(false);
         // 답변 저장
         setCurrentAnswer(data.answer as string);
         setCurrentAnswerLinks(data.links as link[]);
@@ -82,6 +96,8 @@ function InsuePlannerQuestion({
       },
       onError: (error) => {
         console.error('API 호출 실패:', error);
+        setLoading(false);
+        setErrorAlarmShown(true);
       },
     });
   };
@@ -103,112 +119,120 @@ function InsuePlannerQuestion({
   };
 
   return (
-    <Container>
-      <Wrapper>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <FailAlarm text={'질문 내용을 입력해 주세요.'} alarmShown={alarmShown} />
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <FailAlarm text={'로그인이 필요한 서비스입니다'} alarmShown={loginAlarmShown} />
-        </div>
-        <Title>
-          <TitleP>보험에 대한 고민,</TitleP>
-          <TitleP>
-            먼저 AI <TitleTitle>인슈플래너</TitleTitle>가 도와줄게요!
-          </TitleP>
-        </Title>
-        <Subtitle>궁금한점을 물어보세요!</Subtitle>
-        <InputContainer>
-          <InputCategory>
-            <InsueQuestionCategory setInsureSearchCategory={setInsureSearchCategory} />
-          </InputCategory>
+    <>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <FailAlarm text={'오류가 발생했습니다.\n다시 시도해주세요.'} alarmShown={errorAlarmShown} />
+      </div>
+      {loading && <InsuePlannerLoading />}
+      {!loading && (
+        <Container>
+          <Wrapper>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <FailAlarm text={'질문 내용을 입력해 주세요.'} alarmShown={alarmShown} />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <FailAlarm text={'로그인이 필요한 서비스입니다.'} alarmShown={loginAlarmShown} />
+            </div>
+            <Title>
+              <TitleP>보험에 대한 고민,</TitleP>
+              <TitleP>
+                먼저 AI <TitleTitle>인슈플래너</TitleTitle>가 도와줄게요!
+              </TitleP>
+            </Title>
+            <Subtitle>궁금한점을 물어보세요!</Subtitle>
+            <InputContainer>
+              <InputCategory>
+                <InsueQuestionCategory setInsureSearchCategory={setInsureSearchCategory} />
+              </InputCategory>
 
-          <InputWrapperWrapper>
-            <InputWrapper>
-              <Input
-                onChange={(e) => {
-                  setText(e.currentTarget.value);
-                }}
-                value={text}
-                placeholder="보험에 대한 고민을 최대한 자세히 적어주세요.&#10;단, 개인정보는 외부 유출의 위험이 있어 제외하고 작성해주세요."
-                maxLength={300}
-              />
-              <InputNumber>{text.length} / 300</InputNumber>
-            </InputWrapper>
-            <InputShareWrapper>
-              <InputShareLeft visible={visible}>질문 내용을 입력해 주세요.</InputShareLeft>
-              <InputShareRight>
-                <Selector type={'square'} check={check} setCheck={setCheck} redFlag={false} />
-                <InputShareWrapperP>전체 게시판에 질문 내용 공유하기</InputShareWrapperP>
-              </InputShareRight>
-            </InputShareWrapper>
-          </InputWrapperWrapper>
-          <InputBtn onClick={questionBtnClickHandler} canquestion={canQuestion}>
-            질문하기
-          </InputBtn>
-        </InputContainer>
-      </Wrapper>
+              <InputWrapperWrapper>
+                <InputWrapper>
+                  <Input
+                    onChange={(e) => {
+                      setText(e.currentTarget.value);
+                    }}
+                    value={text}
+                    placeholder="보험에 대한 고민을 최대한 자세히 적어주세요.&#10;단, 개인정보는 외부 유출의 위험이 있어 제외하고 작성해주세요."
+                    maxLength={300}
+                  />
+                  <InputNumber>{text.length} / 300</InputNumber>
+                </InputWrapper>
+                <InputShareWrapper>
+                  <InputShareLeft visible={visible}>질문 내용을 입력해 주세요.</InputShareLeft>
+                  <InputShareRight>
+                    <Selector type={'square'} check={check} setCheck={setCheck} redFlag={false} />
+                    <InputShareWrapperP>전체 게시판에 질문 내용 공유하기</InputShareWrapperP>
+                  </InputShareRight>
+                </InputShareWrapper>
+              </InputWrapperWrapper>
+              <InputBtn onClick={questionBtnClickHandler} canquestion={canQuestion}>
+                질문하기
+              </InputBtn>
+            </InputContainer>
+          </Wrapper>
 
-      <Line />
+          <Line />
 
-      <Wrapper>
-        <QuestionContainer>
-          <QuestionText>이런 고민이 궁금하지 않나요?</QuestionText>
-          <QuestionBoxWrapper>
-            <QuestionBox
-              svg={
-                <GraphicIconBox>
-                  <GraphicChart width={'100%'} height={'100%'} />
-                </GraphicIconBox>
-              }
-              bottom={'20'}
-              right={'5'}
-              text={'10년 뒤 어떤보험이 필요할까요?'}
-              value={'10년 뒤 어떤보험이 필요할까요?'}
-              setQuestion={setQuestion}
-              setCurrentScreen={setCurrentScreen}
-              setCurrentAnswer={setCurrentAnswer}
-              setCurrentAnswerLinks={setCurrentAnswerLinks}
-            />
-            <QuestionBox
-              svg={
-                <InsuranceIconBox>
-                  <Insurance width={'100%'} height={'100%'} />
-                </InsuranceIconBox>
-              }
-              bottom={'25'}
-              right={'5'}
-              text={'보험에 대해 잘 모르겠어요.'}
-              value={'보험에 대해 잘 모르겠어요.'}
-              setQuestion={setQuestion}
-              setCurrentScreen={setCurrentScreen}
-              setCurrentAnswer={setCurrentAnswer}
-              setCurrentAnswerLinks={setCurrentAnswerLinks}
-            />
-            <QuestionBox
-              svg={
-                <AirplaneIconBox>
-                  <Airplane width={'100%'} height={'100%'} />
-                </AirplaneIconBox>
-              }
-              bottom={'-4'}
-              right={'-6'}
-              value={'해외여행 가기 전 보험 가입이 필요할까요?'}
-              setQuestion={setQuestion}
-              setCurrentScreen={setCurrentScreen}
-              text={
-                <>
-                  해외여행 가기 전<br />
-                  보험 가입이 필요할까요?
-                </>
-              }
-              setCurrentAnswer={setCurrentAnswer}
-              setCurrentAnswerLinks={setCurrentAnswerLinks}
-            />
-          </QuestionBoxWrapper>
-        </QuestionContainer>
-      </Wrapper>
-    </Container>
+          <Wrapper>
+            <QuestionContainer>
+              <QuestionText>이런 고민이 궁금하지 않나요?</QuestionText>
+              <QuestionBoxWrapper>
+                <QuestionBox
+                  svg={
+                    <GraphicIconBox>
+                      <GraphicChart width={'100%'} height={'100%'} />
+                    </GraphicIconBox>
+                  }
+                  bottom={'20'}
+                  right={'5'}
+                  text={'10년 뒤 어떤보험이 필요할까요?'}
+                  value={'10년 뒤 어떤보험이 필요할까요?'}
+                  setQuestion={setQuestion}
+                  setCurrentScreen={setCurrentScreen}
+                  setCurrentAnswer={setCurrentAnswer}
+                  setCurrentAnswerLinks={setCurrentAnswerLinks}
+                />
+                <QuestionBox
+                  svg={
+                    <InsuranceIconBox>
+                      <Insurance width={'100%'} height={'100%'} />
+                    </InsuranceIconBox>
+                  }
+                  bottom={'25'}
+                  right={'5'}
+                  text={'보험에 대해 잘 모르겠어요.'}
+                  value={'보험에 대해 잘 모르겠어요.'}
+                  setQuestion={setQuestion}
+                  setCurrentScreen={setCurrentScreen}
+                  setCurrentAnswer={setCurrentAnswer}
+                  setCurrentAnswerLinks={setCurrentAnswerLinks}
+                />
+                <QuestionBox
+                  svg={
+                    <AirplaneIconBox>
+                      <Airplane width={'100%'} height={'100%'} />
+                    </AirplaneIconBox>
+                  }
+                  bottom={'-4'}
+                  right={'-6'}
+                  value={'해외여행 가기 전 보험 가입이 필요할까요?'}
+                  setQuestion={setQuestion}
+                  setCurrentScreen={setCurrentScreen}
+                  text={
+                    <>
+                      해외여행 가기 전<br />
+                      보험 가입이 필요할까요?
+                    </>
+                  }
+                  setCurrentAnswer={setCurrentAnswer}
+                  setCurrentAnswerLinks={setCurrentAnswerLinks}
+                />
+              </QuestionBoxWrapper>
+            </QuestionContainer>
+          </Wrapper>
+        </Container>
+      )}
+    </>
   );
 }
 

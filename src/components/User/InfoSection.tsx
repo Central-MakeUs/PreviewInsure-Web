@@ -2,10 +2,12 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import media from '@styles/media';
 import { ReactComponent as Pencle } from '@assets/icons/Pencle.svg';
+import { useStore } from '@stores/useStore';
 
 function InfoSection() {
   // TODO: GET요청
-  const userInfo = { ninkname: '춤추는 부엉이', year: '1998', month: '12', gender: '여성', email: 'qwer@qwerty.com' };
+  const { nickName } = useStore();
+  const userInfo = { ninkname: nickName, year: '1998', month: '12', gender: '여성', email: 'qwer@qwerty.com' };
   const [editInfo, setEditInfo] = useState(userInfo);
   const [view, setView] = useState<'VIEW' | 'EDIT'>('VIEW');
 
