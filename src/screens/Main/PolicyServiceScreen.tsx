@@ -1,3 +1,4 @@
+import media from '@styles/media';
 import styled from 'styled-components';
 
 export const policyServiceContent = `제1조 (목적)
@@ -139,6 +140,10 @@ const Subtitle = styled.h2`
   color: ${({ theme }) => theme.colors.Primary500};
   font-size: 3rem;
   font-weight: 600;
+
+  ${media.mobile`
+    font-size: 16px;
+  `}
 `;
 
 const Content = styled.p`
@@ -148,6 +153,11 @@ const Content = styled.p`
   font-size: 2.5rem;
   font-weight: 400;
   white-space: pre-wrap;
+  line-height: normal;
+
+  ${media.mobile`
+    font-size: 14px;
+  `}
 `;
 
 export default PolicyServiceScreen;

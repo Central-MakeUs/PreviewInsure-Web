@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 import Markdown from 'react-markdown';
+import media from '@styles/media';
 
 export const policyPrivacyContent = `프리뷰인슈(이하 "회사" 또는 "프리뷰인슈"라 함)는 개인정보보호를 매우 중요시하며, 개인 회원 정보의 이용 및 보호에 관한 법률, 정보보호 등에 관한 법률, 개인정보보호법 등 관계법령의 규정을 준수하여 개인정보를 최선을 다합니다. 개인정보를 보호함은 물론 개인정보보호법에 의거한 개인정보 처리방침을 통하여 정보주체의 개인정보보호 및 권익을 보호하고 이와 관련한 고충을 원활하게 처리할 수 있도록 합니다.
 
@@ -156,6 +157,10 @@ const Subtitle = styled.h2`
   color: ${({ theme }) => theme.colors.Primary500};
   font-size: 3rem;
   font-weight: 600;
+
+  ${media.mobile`
+    font-size: 16px;
+  `}
 `;
 
 const Content = styled(Markdown)`
@@ -165,6 +170,11 @@ const Content = styled(Markdown)`
   font-size: 2.5rem;
   font-weight: 400;
   white-space: pre-wrap;
+  line-height: normal;
+
+  ${media.mobile`
+    font-size: 14px;
+  `}
 `;
 
 export default PolicyPrivacyScreen;
