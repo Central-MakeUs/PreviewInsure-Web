@@ -6,6 +6,10 @@ export interface State {
   logOut: () => void;
   nickName: string;
   isLogin: boolean;
+
+  //temp
+  temporaryToken: string; //register 하는 과정에서만 사용
+  setTempToken: (token: string) => void;
 }
 
 const getInitialState = (): State => {
@@ -19,6 +23,9 @@ const getInitialState = (): State => {
     isLogin,
     login: () => {},
     logOut: () => {},
+
+    temporaryToken: '',
+    setTempToken: () => {},
   };
 };
 
@@ -27,11 +34,17 @@ export const useStore = create<State>((set, get) => ({
   login: (token, nickName) => {
     localStorage.setItem('accessToken', token);
     localStorage.setItem('nickName', nickName);
-    set({ accessToken: token, nickName, isLogin: true });
+    set({ accessToken: token, nickName, isLogin: true, temporaryToken: '' });
   },
   logOut: () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('nickName');
-    set({ accessToken: '', nickName: '', isLogin: false });
+    set({ accessToken: '', nickName: '', isLogin: false, temporaryToken: '' });
+  },
+
+  setTempToken: (token) => {
+    set({
+      temporaryToken: token,
+    });
   },
 }));

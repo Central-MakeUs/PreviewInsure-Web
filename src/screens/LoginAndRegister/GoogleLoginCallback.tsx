@@ -30,14 +30,15 @@ const GoogleLoginCallback = () => {
     // console.log(code);
 
     const data = {
-      platform: 'GOOGLE',
+      // platform: 'GOOGLE',
       code: code,
     };
 
     try {
       // 토큰 서버에 전송. 로그인 요청.
-      const res = await axiosInstance.post('/oauth', data);
-
+      console.log(data);
+      const res = await axiosInstance.post(`/oauth?platform=GOOGLE&code=${code}`);
+      console.log(res);
       // 토큰 zustand 저장
       // TODO : api 반환값에 따른 처리
       const accessToken = res.data.accessToken;

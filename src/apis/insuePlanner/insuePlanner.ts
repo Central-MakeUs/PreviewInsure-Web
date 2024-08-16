@@ -2,11 +2,17 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axiosInstance from '@utils/axios';
 import { plannerPOSTRequest, plannerPOSTResponse, QuestionTitleData, QuestionDetailData } from './insuePlanner.d';
 import { insuePlannerKeys, questionTitleKeys, questionDetailKeys } from './insuePlanner.keys';
+import { useStore } from '@stores/useStore';
 
 // POST question
 async function postInsuePlannerQuestion(data: plannerPOSTRequest): Promise<plannerPOSTResponse> {
-  const response = await axiosInstance.post<APIResponse<plannerPOSTResponse>>('/quesion', data);
-  //   console.log(response);
+  const { accessToken } = useStore.getState();
+  console.log(accessToken);
+  const response = await axiosInstance.post<APIResponse<plannerPOSTResponse>>('/quesion', data, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   return response.data.data;
 }
 
@@ -32,7 +38,12 @@ export function useInsuePlannerMutation() {
 // GET QuestionTitle
 
 async function getQuestionTitle() {
-  const response = await axiosInstance.get<APIResponse<QuestionTitleData>>('/quesion');
+  const { accessToken } = useStore.getState();
+  const response = await axiosInstance.get<APIResponse<QuestionTitleData>>('/quesion', {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   return response.data.data;
 }
 
@@ -45,10 +56,15 @@ export function useGetQuestionTitleQuery() {
 }
 
 // GET QuestionDetail
-
 export async function getQuestionDetail(qnaBoardId: number) {
+  const { accessToken } = useStore.getState();
   const response = await axiosInstance.get<APIResponse<QuestionDetailData>>(
     `/question/detail?qnaBoardId=${qnaBoardId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
   );
   return response.data.data;
 }

@@ -2,11 +2,16 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axiosInstance from '@utils/axios';
 import { AgeRequest, AgeResponse, BoardRequest, BoardResponse } from './insueboarding.d';
 import { ageKeys, boardKeys } from './insueboarding.keys';
+import { useStore } from '@stores/useStore';
 
 // age patch
-
+const { accessToken } = useStore.getState();
 export async function patchAgeData(data: AgeRequest): Promise<AgeResponse> {
-  const response = await axiosInstance.patch<APIResponse<AgeResponse>>('/register/age', data);
+  const response = await axiosInstance.patch<APIResponse<AgeResponse>>('/register/age', data, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   console.log(response.data);
   return response.data;
 }
@@ -38,7 +43,11 @@ export function useAgeMutation() {
 // gender, insures patch
 
 export async function patchBoardData(data: BoardRequest): Promise<BoardResponse> {
-  const response = await axiosInstance.patch<APIResponse<BoardResponse>>('/register/board', data);
+  const response = await axiosInstance.patch<APIResponse<BoardResponse>>('/register/board', data, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   console.log('board', response.data);
   return response.data;
 }

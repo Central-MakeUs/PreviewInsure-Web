@@ -9,6 +9,7 @@ import type { InsuePlannerQuestionProps } from '@/types/InsuePlannerComponents';
 import FailAlarm from '@components/commons/FailAlarm';
 import InsueQuestionCategory from './InsuePlannerComponents/InsueQuestionCategory';
 import media from '@styles/media';
+import { useStore } from '@stores/useStore';
 
 import { useInsuePlannerMutation } from '@apis/insuePlanner/insuePlanner';
 import type { link } from '@apis/insuePlanner/insuePlanner.d';
@@ -21,12 +22,14 @@ function InsuePlannerQuestion({
   setCurrentAnswer,
   setCurrentAnswerLinks,
 }: InsuePlannerQuestionProps) {
+  const { isLogin } = useStore();
   const [text, setText] = useState<string>('');
   const [canQuestion, setCanQuestion] = useState<boolean>(false);
   const [check, setCheck] = useState<boolean>(true);
   const [visible, setVisible] = useState<boolean>(false);
   const [alarmShown, setAlarmShown] = useState(false);
   const [insureSearchCategory, setInsureSearchCategory] = useState('전체 카테고리');
+  const [loginAlarmShown, setLoginAlarmShown] = useState(false);
 
   //apis
   const { insuePlannerMutation } = useInsuePlannerMutation();
@@ -42,13 +45,22 @@ function InsuePlannerQuestion({
   }, [text]);
 
   useEffect(() => {
-    // 경고 없애기
+    // 글자 수 부족 경고 없애기
     if (alarmShown) {
       setTimeout(() => {
         setAlarmShown(false);
       }, 2000);
     }
   }, [alarmShown]);
+
+  useEffect(() => {
+    // 글자 수 부족 경고 없애기
+    if (loginAlarmShown) {
+      setTimeout(() => {
+        setLoginAlarmShown(false);
+      }, 2000);
+    }
+  }, [loginAlarmShown]);
 
   const postQuestion = () => {
     //api
@@ -75,6 +87,11 @@ function InsuePlannerQuestion({
   };
 
   const questionBtnClickHandler = () => {
+    if (!isLogin) {
+      setLoginAlarmShown(true);
+      return;
+    }
+
     if (!canQuestion) {
       setAlarmShown(true);
       setVisible(true);
@@ -90,6 +107,9 @@ function InsuePlannerQuestion({
       <Wrapper>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <FailAlarm text={'질문 내용을 입력해 주세요.'} alarmShown={alarmShown} />
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <FailAlarm text={'로그인이 필요한 서비스입니다'} alarmShown={loginAlarmShown} />
         </div>
         <Title>
           <TitleP>보험에 대한 고민,</TitleP>

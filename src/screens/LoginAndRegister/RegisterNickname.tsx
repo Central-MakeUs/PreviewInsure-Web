@@ -4,24 +4,46 @@ import { ReactComponent as Warning } from '@/assets/icons/Warning.svg';
 import { ReactComponent as Close } from '@/assets/icons/Close.svg';
 import { ReactComponent as Heart } from '@/assets/icons/Heart.svg';
 import media from '@styles/media';
-import { useGetRandomNicknameQuery } from '@apis/register/register';
+import { useGetRandomNicknameQuery, useNicknameMutation } from '@apis/register/register';
+import type { patchNickNameData } from '@apis/register/register.d';
+import { useStore } from '@stores/useStore';
+import { useNavigate } from 'react-router-dom';
 
 function RegisterNickname() {
+  const { temporaryToken, login } = useStore(); // 이걸 통해 서버에 엑세스
+  const { nicknameMutation } = useNicknameMutation();
+  const navigate = useNavigate();
+
   const [nickname, setNickname] = useState('');
   const { nickNameQuery } = useGetRandomNicknameQuery();
   const { isLoading, isFetched, refetch } = nickNameQuery;
+
+  const getNickname = () => {
+    refetch();
+  };
 
   const resetNickname = () => {
     // console.log('reset Nickname');
     getNickname();
   };
+
   const confirmNickname = () => {
     console.log('confirm Nickname');
-    // api POST
-  };
-
-  const getNickname = () => {
-    refetch();
+    //
+    //api POST   -> temporaryToken 엑세스
+    const nicknameData: patchNickNameData = {
+      nickname: nickname,
+    };
+    console.log('tempToken', temporaryToken);
+    console.log('nicknameData', nicknameData);
+    nicknameMutation.mutate(nicknameData, {
+      onSuccess: (data) => {
+        console.log('confirm nickname success');
+      },
+    });
+    login(temporaryToken, nickname);
+    //
+    // navigate('/insueBording');
   };
 
   useEffect(() => {
