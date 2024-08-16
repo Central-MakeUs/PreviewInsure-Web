@@ -7,6 +7,7 @@ type InsueMapHeadPorps = {
 
 type InsueMapSecondPorps = {
   insueName: String;
+  insueRecommandPerson: String;
   insueRecommandExplain: String;
   insueIcon: React.FC<React.SVGProps<SVGSVGElement>>;
   isSubscribe?: boolean;
@@ -45,5 +46,6 @@ interface recommandItem {
 
 type RecommendProps = {
   isLoading: boolean;
+  isError: boolean;
   insuranceRecommends?: recommandItem[];
 };
