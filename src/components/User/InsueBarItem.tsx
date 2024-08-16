@@ -190,6 +190,9 @@ const IconBox = styled.div`
   width: 1.3rem;
   height: 0.8rem;
 
+  // 수정 불가능 하도록
+  display: none;
+
   ${media.medium`
     bottom: 27%;
   `}
