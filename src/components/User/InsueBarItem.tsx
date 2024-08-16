@@ -27,7 +27,8 @@ function InsueBarItem({ text, SVG, company, handleInsue }: InsueCardProps) {
         <InsueName>{text}</InsueName>
 
         <SelectWrapper>
-          <Button onClick={() => setShowMenu(!showMenu)}>
+          {/* <Button onClick={() => setShowMenu(!showMenu)}> */}
+          <Button>
             <span>{company} </span>
             <IconBox>
               {!showMenu ? (
