@@ -40,7 +40,7 @@ const GoogleLoginCallback = () => {
       console.log(res);
       // 토큰 zustand 저장
       // TODO : api 반환값에 따른 처리
-      const accessToken = res.data.accessToken;
+      const accessToken = res.data.atk;
       const accessNickname = res.data.nickname;
       // setAccessToken(accessToken);
 
