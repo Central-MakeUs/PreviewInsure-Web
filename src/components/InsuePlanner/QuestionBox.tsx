@@ -16,11 +16,14 @@ function QuestionBox({
   setCurrentScreen,
   setCurrentAnswer,
   setCurrentAnswerLinks,
+  setLoading,
+  setErrorAlarmShown,
 }: QuestionBoxProps) {
   const { insuePlannerMutation } = useInsuePlannerMutation();
 
   const postQuestion = () => {
     //api
+    setLoading(true);
     const questionData: plannerPOSTRequest = {
       quesion: value,
       isShare: false,
@@ -30,6 +33,7 @@ function QuestionBox({
     insuePlannerMutation.mutate(questionData, {
       onSuccess: (data) => {
         console.log('question box API 호출 성공:', data);
+        setLoading(false);
         // 답변 저장
         setCurrentAnswer(data.answer as string);
         setCurrentAnswerLinks(data.links as link[]);
@@ -37,7 +41,9 @@ function QuestionBox({
         setCurrentScreen('A');
       },
       onError: (error) => {
+        setLoading(false);
         console.error('questino box API 호출 실패:', error);
+        setErrorAlarmShown(true);
       },
     });
   };

@@ -191,6 +191,8 @@ function InsuePlannerQuestion({
                   setCurrentScreen={setCurrentScreen}
                   setCurrentAnswer={setCurrentAnswer}
                   setCurrentAnswerLinks={setCurrentAnswerLinks}
+                  setLoading={setLoading}
+                  setErrorAlarmShown={setErrorAlarmShown}
                 />
                 <QuestionBox
                   svg={
@@ -206,6 +208,8 @@ function InsuePlannerQuestion({
                   setCurrentScreen={setCurrentScreen}
                   setCurrentAnswer={setCurrentAnswer}
                   setCurrentAnswerLinks={setCurrentAnswerLinks}
+                  setLoading={setLoading}
+                  setErrorAlarmShown={setErrorAlarmShown}
                 />
                 <QuestionBox
                   svg={
@@ -226,6 +230,8 @@ function InsuePlannerQuestion({
                   }
                   setCurrentAnswer={setCurrentAnswer}
                   setCurrentAnswerLinks={setCurrentAnswerLinks}
+                  setLoading={setLoading}
+                  setErrorAlarmShown={setErrorAlarmShown}
                 />
               </QuestionBoxWrapper>
             </QuestionContainer>

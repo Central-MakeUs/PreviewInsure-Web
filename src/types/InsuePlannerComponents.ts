@@ -23,6 +23,8 @@ export type QuestionBoxProps = {
   setCurrentScreen: (arg: 'Q' | 'A') => void;
   setCurrentAnswer: (arg: string) => void;
   setCurrentAnswerLinks: (arg: link[]) => void;
+  setLoading: (arg: boolean) => void;
+  setErrorAlarmShown: (arg: boolean) => void;
 };
 
 //answer
