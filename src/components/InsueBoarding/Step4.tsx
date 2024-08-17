@@ -6,6 +6,7 @@ import { ReactComponent as Check } from '@/assets/icons/Approve.svg';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { initialCards } from '@/static/insurebordCards';
 import media from '@styles/media';
+import { useStore } from '@stores/useStore';
 
 type StepProps = {
   goNextStep: () => void;
@@ -20,14 +21,19 @@ function Step4({ goNextStep, goPreviousStep, setSelectedInsures, setToSelectInsu
   const [selectedCards, setSelectedCards] = useState<any>([]);
   const [toSelectCards, setToSelectCards] = useState(initialCards);
 
+  // platform === ios  일 때 처리
+  const { platform } = useStore();
+  const [fake, setFake] = useState(true);
   useEffect(() => {
-    setSelectedCards([]);
+    if (platform === 'ios') {
+      setSelectedCards(initialCards);
 
-    //ios 렌더링 오류 대응
-    window.addEventListener('message', (e: any) => {
-      const data = JSON.parse(e.data);
-      console.log('webviewData', data);
-    });
+      setTimeout(() => {
+        setFake(false);
+        setSelectedCards([]);
+      }, 100);
+      // setSelectedCards([]);
+    }
   }, []);
 
   const handleSelectCardClick = (card: any) => {
@@ -54,7 +60,7 @@ function Step4({ goNextStep, goPreviousStep, setSelectedInsures, setToSelectInsu
         <SubtitleP>가입한 보험을 모두 선택해 주세요</SubtitleP>
       </Subtitle>
 
-      <Selected>
+      <Selected fake={fake}>
         <TransitionGroup component={null}>
           {selectedCards.map((card: any, index: number) => (
             <CSSTransition key={card.text} timeout={300} classNames="card">
@@ -115,7 +121,7 @@ const CardButton = styled.div`
   position: relative;
 `;
 
-const Selected = styled.div`
+const Selected = styled.div<{ fake: boolean }>`
   height: 23rem;
   max-width: 80%;
   /* border: 1px solid #000; */
@@ -127,6 +133,8 @@ const Selected = styled.div`
 
   scrollbar-width: none;
   -ms-overflow-style: none; //drag 기능 추가
+
+  opacity: ${({ fake }) => fake && 0};
 
   .card-enter {
     opacity: 0;
