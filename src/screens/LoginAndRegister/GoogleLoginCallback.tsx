@@ -98,7 +98,7 @@ const GoogleLoginCallback = () => {
     >
       <Loading type={'spinningBubbles'} color={'#6879FB'} width={69.33} height={69.33} />
       <br />
-      {code ? <h1>로그인 중입니다.</h1> : <h1>로그인에 실패하였습니다.</h1>}
+      {/* {code ? <h1>로그인 중입니다.</h1> : <h1>로그인에 실패하였습니다.</h1>} */}
 
       {/* <button onClick={handleCriticalLogin}>일단 로그인하기</button> */}
     </div>
