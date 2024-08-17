@@ -68,7 +68,7 @@ function InsueMapSecondSection({
         <Title>이런 분들에게 추천드려요!</Title>
         <Explain>{insueRecommandPerson}</Explain>
         <Explain2>{myInsueTxt}</Explain2>
-        <Btn onClick={handleMoveBtn}>{btnTxt}</Btn>
+        {/* <Btn onClick={handleMoveBtn}>{btnTxt}</Btn> */}
       </Right>
     </Container>
   );
