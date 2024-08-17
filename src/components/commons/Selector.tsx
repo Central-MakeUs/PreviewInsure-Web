@@ -2,12 +2,15 @@ import { ReactComponent as Check } from '@/assets/icons/Selector.svg';
 import type { SelectorProps } from '@/types/commonComponents';
 import styled from 'styled-components';
 import media from '@styles/media';
+import { useStore } from '@stores/useStore';
 
 function Selector({ check, setCheck, type, redFlag }: SelectorProps) {
+  //ios
+  const { platform } = useStore();
   return (
-    <SelectorContainer redFlag={redFlag} type={type} check={check} onClick={() => setCheck(!check)}>
+    <SelectorContainer platform={platform} redFlag={redFlag} type={type} check={check} onClick={() => setCheck(!check)}>
       {check && (
-        <IconBox>
+        <IconBox platform={platform}>
           <Check width={'100%'} height={'100%'} fill={'#fff'} />
         </IconBox>
       )}
@@ -15,7 +18,7 @@ function Selector({ check, setCheck, type, redFlag }: SelectorProps) {
   );
 }
 
-const SelectorContainer = styled.button<{ check: boolean; type: string; redFlag: boolean }>`
+const SelectorContainer = styled.button<{ check: boolean; type: string; redFlag: boolean; platform: string }>`
   width: ${({ type }) => (type === 'circle' ? '4.5rem' : '3.2rem')};
   height: ${({ type }) => (type === 'circle' ? '4.5rem' : '3.2rem')};
   background-color: ${({ check, theme, redFlag }) =>
@@ -23,6 +26,7 @@ const SelectorContainer = styled.button<{ check: boolean; type: string; redFlag:
   border-radius: ${({ type }) => (type === 'circle' ? '50%' : '0.8rem')};
   border: 1px solid ${({ theme, redFlag }) => (redFlag ? theme.colors.AlertT : theme.colors.Primary500)};
   cursor: pointer;
+  position: relative;
   /* ${({ theme }) => theme.common.flexCenter} */
 
   ${media.small`
@@ -35,20 +39,21 @@ const SelectorContainer = styled.button<{ check: boolean; type: string; redFlag:
 
   ${media.mobile`
     // 767 < 
-    width: ${({ type }: any) => (type === 'circle' ? '4.5rem' : '5rem')};
-    height: ${({ type }: any) => (type === 'circle' ? '4.5rem' : '5rem')};
+
+    width: ${({ type, platform }: any) => (platform === 'ios' ? '25px' : type === 'circle' ? '4.5rem' : '5rem')};
+    height: ${({ type, platform }: any) => (platform === 'ios' ? '25px' : type === 'circle' ? '4.5rem' : '5rem')};
     border-radius: ${({ type }: any) => (type === 'circle' ? '50%' : '1.5rem')};
     border-width:2px;
 
-    /* width: 20px;  */
-    /* height: 20px; */
-    /* border-radius: ${({ type }: any) => (type === 'circle' ? '50%' : '1.5rem')}; */
+    
+    /* width: 25px;  */
+    /* height: 25px; */
 
 
   `}
 `;
 
-const IconBox = styled.div`
+const IconBox = styled.div<{ platform: string }>`
   width: 2.5rem;
   height: 2.5rem;
   position: relative;
@@ -73,6 +78,13 @@ const IconBox = styled.div`
     width: 3rem;
     height: 3rem;
     left: -100%;
+
+    //
+    position: ${({ platform }: any) => platform === 'ios' && 'absolute'};
+    left:${({ platform }: any) => platform === 'ios' && '20%'};
+    bottom:${({ platform }: any) => platform === 'ios' && '10%'};
+    width: ${({ platform }: any) => platform === 'ios' && '4rem'};
+    height: ${({ platform }: any) => platform === 'ios' && '4rem'};
   `}
 `;
 
