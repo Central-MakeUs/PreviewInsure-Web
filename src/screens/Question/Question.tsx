@@ -14,7 +14,7 @@ import { useStore } from '@stores/useStore';
 import { useInsueListQuery } from '@apis/account/account';
 
 function Question() {
-  const [alarmShown, setAlarmShown] = useState(true);
+  const [alarmShown, setAlarmShown] = useState(false);
   const [alarmMessage, setAlarmMessage] = useState<string>('');
   const [viewType, setViewType] = useState('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
