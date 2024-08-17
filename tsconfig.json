@@ -1,11 +1,25 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@assets/*": ["assets/*"],
+      "@components/*": ["components/*"],
+      "@screens/*": ["screens/*"],
+      "@stores/*": ["stores/*"],
+      "@styles/*": ["styles/*"],
+      "@utils/*": ["utils/*"],
+      "@apis/*": ["apis/*"],
+      "@/*": ["*"]
     },
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ]
+    "outDir": "./dist", // 컴파일된 파일의 출력 디렉토리
+    "target": "ES2020",
+    "module": "ESNext", // 모듈 시스템
+    "moduleResolution": "Node", // 모듈 해석 방법
+    "strict": true, // 엄격한 타입 검사
+    "jsx": "react-jsx", // JSX 변환 방식
+    "esModuleInterop": true, // ES 모듈 호환성
+    "skipLibCheck": true, // 라이브러리 검사 건너뛰기
+    "forceConsistentCasingInFileNames": true // 파일 이름 대소문자 일관성 검사
+  },
+  "include": ["src", "vite.config.ts", "svg.d.ts"]
 }
