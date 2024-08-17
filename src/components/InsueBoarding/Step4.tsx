@@ -33,6 +33,8 @@ function Step4({ goNextStep, goPreviousStep, setSelectedInsures, setToSelectInsu
         setSelectedCards([]);
       }, 100);
       // setSelectedCards([]);
+    } else {
+      setFake(false);
     }
   }, []);
 
