@@ -62,23 +62,23 @@ function RecommendSection({ isLoading, insuranceRecommends, isError }: Recommend
         <Message>{`보험 추천을 원하신다면, 로그인을 진행해주세요!`}</Message>
       ) : isLoading ? (
         <Loading type={'spinningBubbles'} color={'#6879FB'} width={69.33} height={69.33} />
-      ) : isError ? (
-        <Message>{`기능 준비중 입니다.\n더 다양한 상품을 보여드릴 예정이예요!`}</Message>
       ) : (
-        <>
-          {insuranceRecommends?.map((item) => (
-            <RecommendItem
-              key={item.insuranceId}
-              insuranceCompany={item.insuranceCompany}
-              insuranceContent={item.insuranceContent}
-              insuranceImage={item.insuranceImage}
-              insuranceRate={item.insuranceRate}
-              link={item.link}
-              price={item.price}
-            />
-          ))}
-          <Description>{description}</Description>
-        </>
+        <Message>{`기능 준비중 입니다.\n더 다양한 상품을 보여드릴 예정이예요!`}</Message>
+        // ) : (
+        //   <>
+        //     {insuranceRecommends?.map((item) => (
+        //       <RecommendItem
+        //         key={item.insuranceId}
+        //         insuranceCompany={item.insuranceCompany}
+        //         insuranceContent={item.insuranceContent}
+        //         insuranceImage={item.insuranceImage}
+        //         insuranceRate={item.insuranceRate}
+        //         link={item.link}
+        //         price={item.price}
+        //       />
+        //     ))}
+        //     <Description>{description}</Description>
+        //   </>
       )}
     </Container>
   );
