@@ -23,8 +23,8 @@ function QuestionBox({
     //api
     const questionData: plannerPOSTRequest = {
       quesion: value,
-      isShare: true,
-      insuranceType: 'ED', // DE 일때 400 에러 뜸
+      isShare: false,
+      insuranceType: 'DE', // DE 일때 400 에러 뜸
     };
     console.log(questionData);
     insuePlannerMutation.mutate(questionData, {
