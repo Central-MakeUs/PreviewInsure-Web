@@ -117,6 +117,19 @@ const AgreeContentsP = styled.p`
   margin-top: 4.5rem;
   font-weight: 400;
   white-space: pre-wrap;
+  line-height: normal;
+
+  ${media.mobile`
+    font-size: 11px;
+  `}
+
+  span {
+    font-size: 1.8rem;
+
+    ${media.mobile`
+      font-size: 14px;
+    `}
+  }
 `;
 
 export default Agree;
