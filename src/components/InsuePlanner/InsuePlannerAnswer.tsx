@@ -82,7 +82,8 @@ function InsuePlannerAnswer({
   //mobile design
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
   window.addEventListener('resize', function (e: any) {
-    if (e.currentTarget.innerWidth <= 767) {
+    if (e.currentTarget.innerWidth <= 99999) {
+      //767  -> 기존 모바일
       setIsMobile(true);
     } else {
       setIsMobile(false);

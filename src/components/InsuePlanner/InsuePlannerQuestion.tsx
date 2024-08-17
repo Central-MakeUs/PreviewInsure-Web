@@ -74,42 +74,9 @@ function InsuePlannerQuestion({
     }
   }, [errorAlarmShown]);
 
-  const postQuestion = () => {
-    //api
-    setLoading(true);
-    const questionData: plannerPOSTRequest = {
-      quesion: text,
-      isShare: check,
-      insuranceType: convertInsureType(insureSearchCategory) as string, // DE 일때 400 에러 뜸
-    };
-    console.log('questionData', questionData);
-
-    insuePlannerMutation.mutate(questionData, {
-      onSuccess: (data) => {
-        console.log('API 호출 성공:', data);
-        setLoading(false);
-        // 답변 저장
-        setCurrentAnswer(data.answer as string);
-        setCurrentAnswerLinks(data.links as link[]);
-        // 성공 후 이동
-        setCurrentScreen('A');
-      },
-      onError: (error) => {
-        console.error('API 호출 실패:', error);
-        setLoading(false);
-        setErrorAlarmShown(true);
-      },
-    });
-  };
-
   const postQuestion2 = (inputdata: any) => {
     //api
     setLoading(true);
-    //  const questionData: plannerPOSTRequest = {
-    //    quesion: text,
-    //    isShare: check,
-    //    insuranceType: convertInsureType(insureSearchCategory) as string, // DE 일때 400 에러 뜸
-    //  };
     console.log('questionData', inputdata);
 
     insuePlannerMutation.mutate(inputdata, {
@@ -223,12 +190,7 @@ function InsuePlannerQuestion({
                   text={'10년 뒤 어떤보험이 필요할까요?'}
                   value={'10년 뒤 어떤보험이 필요할까요?'}
                   setQuestion={setQuestion}
-                  setCurrentScreen={setCurrentScreen}
-                  setCurrentAnswer={setCurrentAnswer}
-                  setCurrentAnswerLinks={setCurrentAnswerLinks}
                   postQuestion2={postQuestion2}
-                  setLoading={setLoading}
-                  setErrorAlarmShown={setErrorAlarmShown}
                 />
                 <QuestionBox
                   svg={
@@ -241,11 +203,6 @@ function InsuePlannerQuestion({
                   text={'보험에 대해 잘 모르겠어요.'}
                   value={'보험에 대해 잘 모르겠어요.'}
                   setQuestion={setQuestion}
-                  setCurrentScreen={setCurrentScreen}
-                  setCurrentAnswer={setCurrentAnswer}
-                  setCurrentAnswerLinks={setCurrentAnswerLinks}
-                  setLoading={setLoading}
-                  setErrorAlarmShown={setErrorAlarmShown}
                   postQuestion2={postQuestion2}
                 />
                 <QuestionBox
@@ -258,17 +215,12 @@ function InsuePlannerQuestion({
                   right={'-6'}
                   value={'해외여행 가기 전 보험 가입이 필요할까요?'}
                   setQuestion={setQuestion}
-                  setCurrentScreen={setCurrentScreen}
                   text={
                     <>
                       해외여행 가기 전<br />
                       보험 가입이 필요할까요?
                     </>
                   }
-                  setCurrentAnswer={setCurrentAnswer}
-                  setCurrentAnswerLinks={setCurrentAnswerLinks}
-                  setLoading={setLoading}
-                  setErrorAlarmShown={setErrorAlarmShown}
                   postQuestion2={postQuestion2}
                 />
               </QuestionBoxWrapper>
