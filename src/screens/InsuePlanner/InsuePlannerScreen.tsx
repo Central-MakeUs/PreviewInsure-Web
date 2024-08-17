@@ -32,7 +32,7 @@ function InsuePlannerScreen() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const [question, setQuestion] = useState<string>(''); // 질문
-  const [currentScreen, setCurrentScreen] = useState<'Q' | 'A'>('A');
+  const [currentScreen, setCurrentScreen] = useState<'Q' | 'A'>('Q');
   // 답변
   const [currentAnswer, setCurrentAnswer] = useState('');
   const [currentAnswerLinks, setCurrentAnswerLinks] = useState<link[] | []>([]);
