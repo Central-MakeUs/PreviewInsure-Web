@@ -49,16 +49,14 @@ function QuestionBox({
   };
 
   return (
-    <QuestionBoxWrapper>
-      <QuestionBoxSvg
-        bottom={bottom}
-        right={right}
-        onClick={() => {
-          setQuestion(value);
-          postQuestion();
-          // setCurrentScreen('A');
-        }}
-      >
+    <QuestionBoxWrapper
+      onClick={() => {
+        setQuestion(value);
+        postQuestion();
+        // setCurrentScreen('A');
+      }}
+    >
+      <QuestionBoxSvg bottom={bottom} right={right}>
         {svg}
       </QuestionBoxSvg>
       <QuestionBoxText>{text}</QuestionBoxText>
