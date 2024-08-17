@@ -48,6 +48,8 @@ const Img = styled.img`
 
   ${media.mobile`
     flex: 3 1 0;
+    padding-right: 15px;
+    max-width:28rem;
   `}
 `;
 
