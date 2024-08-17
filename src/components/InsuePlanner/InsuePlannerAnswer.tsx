@@ -80,7 +80,7 @@ function InsuePlannerAnswer({
   // }, [questionDetailQuery.isFetched]);
 
   //mobile design
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 99999); //767
   window.addEventListener('resize', function (e: any) {
     if (e.currentTarget.innerWidth <= 99999) {
       //767  -> 기존 모바일
