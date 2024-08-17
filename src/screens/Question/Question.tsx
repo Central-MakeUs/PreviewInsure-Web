@@ -11,18 +11,21 @@ import Loading from '@components/commons/Loading';
 import media from '@styles/media';
 import { convertInsureType } from '@utils/common/convertInsureType';
 import { useStore } from '@stores/useStore';
+import { useInsueListQuery } from '@apis/account/account';
 
 function Question() {
-  const [alarmShown, setAlarmShown] = useState(false);
+  const [alarmShown, setAlarmShown] = useState(true);
   const [alarmMessage, setAlarmMessage] = useState<string>('');
   const [viewType, setViewType] = useState('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
 
   const { isLogin } = useStore();
-  const myInsueCategory = ['']; // GET요청으로 변경 필요. includes 연산을 위해 빈배열X
+  const { insurancesQuery } = useInsueListQuery();
+
+  // const myInsueCategory = ['']; // GET요청으로 변경 필요. includes 연산을 위해 빈배열X
   // const myInsueCategory = ['', '연금보험', '상해보험'];
   const [categorys, setCategorys] = useState(Categorys); //view에 보여질 category
-  const myCategorys = Categorys.filter((category) => myInsueCategory.includes(category.name));
+  const [myCategorys, setMyCategorys] = useState<any>([]);
 
   const [ref, inView] = useInView({ rootMargin: '0px' }); // 무한스크롤 감지
   const { questionQuery } = useQuestionInfiniteQuery({ insuranceType: convertType() });
@@ -32,15 +35,32 @@ function Question() {
     return convertInsureType(selectedCategory);
   }
 
+  // 가입한 보험 보기에 뜨는 카테고리 설정
+  useEffect(() => {
+    if (insurancesQuery.data) {
+      const typeNames = insurancesQuery.data.map((item) => item.insuranceType);
+      const cate = ['', ...typeNames];
+      console.log(2, cate);
+
+      const filtered = cate
+        .map((item) => Categorys.find((category) => category.value === item))
+        .filter((category) => category !== undefined);
+      console.log(3, filtered);
+      setMyCategorys(filtered);
+    }
+  }, [insurancesQuery.isSuccess]);
+
   // 전체보기, 가입한 보험 보기
   function handleView(type: string) {
     // 변경없음
     if (type === viewType) return;
     // all -> my 이동 시 현재 가입한 보험이 없다면 fail
-    if (type === 'my' && myInsueCategory.length === 1) {
+    if (type === 'my' && myCategorys.length === 0) {
       if (!isLogin) setAlarmMessage('로그인이 필요한 기능입니다.');
       else setAlarmMessage('현재 가입한 보험이 없습니다.');
+
       setAlarmShown(true);
+      return;
     }
     setViewType(type);
     setSelectedCategory('');
