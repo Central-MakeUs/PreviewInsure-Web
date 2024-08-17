@@ -23,17 +23,17 @@ import { ReactComponent as NursingCareImg } from '@/assets/icons/InsueCard/Wheel
 import { ReactComponent as DriverImg } from '@/assets/icons/InsueCard/Car.svg';
 
 const Categorys = [
-  { name: '생명보험', value: 1, miniIcon: Life },
-  { name: '저축보험', value: 2, miniIcon: Saving },
-  { name: '건강보험', value: 3, miniIcon: Health },
-  { name: '상해보험', value: 4, miniIcon: Accident },
-  { name: 'CI보험', value: 5, miniIcon: CI },
-  { name: '치아보험', value: 6, miniIcon: Dental },
-  { name: '연금보험', value: 7, miniIcon: Pension },
-  { name: '교육보험', value: 8, miniIcon: Education },
-  { name: '애견보험', value: 9, miniIcon: Pet },
-  { name: '간병/치매보험', value: 10, miniIcon: NursingCare },
-  { name: '운전자보험', value: 11, miniIcon: Driver },
+  { name: '생명보험', value: 'LF', miniIcon: Life },
+  { name: '저축보험', value: 'SI', miniIcon: Saving },
+  { name: '건강보험', value: 'HE', miniIcon: Health },
+  { name: '상해보험', value: 'PA', miniIcon: Accident },
+  { name: 'CI보험', value: 'CI', miniIcon: CI },
+  { name: '치아보험', value: 'TE', miniIcon: Dental },
+  { name: '연금보험', value: 'PI', miniIcon: Pension },
+  { name: '교육보험', value: 'ED', miniIcon: Education },
+  { name: '애견보험', value: 'PE', miniIcon: Pet },
+  { name: '간병/치매보험', value: 'TD', miniIcon: NursingCare },
+  { name: '운전자보험', value: 'DR', miniIcon: Driver },
 ];
 
 export const CategoryImg = [
