@@ -28,7 +28,7 @@ function Congratulate() {
   return (
     <>
       <Container>
-        <Title>회원가입</Title>
+        <Title>인슈보딩</Title>
         <Subtitle>
           <SubtitleP>
             <SubTitleTitle>프리뷰인슈</SubTitleTitle>와 내 보험을 그려보세요!
