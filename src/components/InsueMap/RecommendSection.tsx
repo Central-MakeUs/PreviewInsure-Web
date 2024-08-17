@@ -64,6 +64,8 @@ function RecommendSection({ isLoading, insuranceRecommends, isError }: Recommend
         <Loading type={'spinningBubbles'} color={'#6879FB'} width={69.33} height={69.33} />
       ) : isError ? (
         <Message>{`기능 준비중 입니다.\n더 다양한 상품을 보여드릴 예정이예요!`}</Message>
+      ) : insuranceRecommends?.length === 0 ? (
+        <Message>{`해당 보험 상품은 서비스 준비중입니다.\n더 다양한 상품을 보여드릴 예정이예요!`}</Message>
       ) : (
         <>
           {insuranceRecommends?.map((item) => (
@@ -77,9 +79,9 @@ function RecommendSection({ isLoading, insuranceRecommends, isError }: Recommend
               price={item.price}
             />
           ))}
-          <Description>{description}</Description>
         </>
       )}
+      <Description>{description}</Description>
     </Container>
   );
 }
