@@ -20,11 +20,7 @@ export type QuestionBoxProps = {
   bottom: string;
   right: string;
   setQuestion: (arg: string) => void;
-  setCurrentScreen: (arg: 'Q' | 'A') => void;
-  setCurrentAnswer: (arg: string) => void;
-  setCurrentAnswerLinks: (arg: link[]) => void;
-  setLoading: (arg: boolean) => void;
-  setErrorAlarmShown: (arg: boolean) => void;
+
   postQuestion2: (data: any) => void;
 };
 
