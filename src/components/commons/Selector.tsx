@@ -81,7 +81,7 @@ const IconBox = styled.div<{ platform: string }>`
 
     //
     position: ${({ platform }: any) => platform === 'ios' && 'absolute'};
-    left:${({ platform }: any) => platform === 'ios' && '20%'};
+    left:${({ platform }: any) => platform === 'ios' && '10%'};
     bottom:${({ platform }: any) => platform === 'ios' && '10%'};
     width: ${({ platform }: any) => platform === 'ios' && '4rem'};
     height: ${({ platform }: any) => platform === 'ios' && '4rem'};
