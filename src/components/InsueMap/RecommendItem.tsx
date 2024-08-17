@@ -48,6 +48,7 @@ const Img = styled.img`
 
   ${media.mobile`
     flex: 3 1 0;
+    margin-right: 10px;
   `}
 `;
 
