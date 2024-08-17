@@ -102,6 +102,34 @@ function InsuePlannerQuestion({
     });
   };
 
+  const postQuestion2 = (inputdata: any) => {
+    //api
+    setLoading(true);
+    //  const questionData: plannerPOSTRequest = {
+    //    quesion: text,
+    //    isShare: check,
+    //    insuranceType: convertInsureType(insureSearchCategory) as string, // DE 일때 400 에러 뜸
+    //  };
+    console.log('questionData', inputdata);
+
+    insuePlannerMutation.mutate(inputdata, {
+      onSuccess: (data) => {
+        console.log('API 호출 성공:', data);
+        setLoading(false);
+        // 답변 저장
+        setCurrentAnswer(data.answer as string);
+        setCurrentAnswerLinks(data.links as link[]);
+        // 성공 후 이동
+        setCurrentScreen('A');
+      },
+      onError: (error) => {
+        console.error('API 호출 실패:', error);
+        setLoading(false);
+        setErrorAlarmShown(true);
+      },
+    });
+  };
+
   const questionBtnClickHandler = () => {
     if (!isLogin) {
       setLoginAlarmShown(true);
@@ -115,7 +143,14 @@ function InsuePlannerQuestion({
     }
 
     setQuestion(text);
-    postQuestion(); //api 처리
+    // postQuestion(); //api 처리
+
+    const questionData: plannerPOSTRequest = {
+      quesion: text,
+      isShare: check,
+      insuranceType: convertInsureType(insureSearchCategory) as string, // DE 일때 400 에러 뜸
+    };
+    postQuestion2(questionData);
   };
 
   return (
@@ -191,6 +226,7 @@ function InsuePlannerQuestion({
                   setCurrentScreen={setCurrentScreen}
                   setCurrentAnswer={setCurrentAnswer}
                   setCurrentAnswerLinks={setCurrentAnswerLinks}
+                  postQuestion2={postQuestion2}
                   setLoading={setLoading}
                   setErrorAlarmShown={setErrorAlarmShown}
                 />
@@ -210,6 +246,7 @@ function InsuePlannerQuestion({
                   setCurrentAnswerLinks={setCurrentAnswerLinks}
                   setLoading={setLoading}
                   setErrorAlarmShown={setErrorAlarmShown}
+                  postQuestion2={postQuestion2}
                 />
                 <QuestionBox
                   svg={
@@ -232,6 +269,7 @@ function InsuePlannerQuestion({
                   setCurrentAnswerLinks={setCurrentAnswerLinks}
                   setLoading={setLoading}
                   setErrorAlarmShown={setErrorAlarmShown}
+                  postQuestion2={postQuestion2}
                 />
               </QuestionBoxWrapper>
             </QuestionContainer>

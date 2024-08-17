@@ -18,42 +18,50 @@ function QuestionBox({
   setCurrentAnswerLinks,
   setLoading,
   setErrorAlarmShown,
+  postQuestion2,
 }: QuestionBoxProps) {
   const { insuePlannerMutation } = useInsuePlannerMutation();
 
-  const postQuestion = () => {
-    //api
-    setLoading(true);
-    const questionData: plannerPOSTRequest = {
-      quesion: value,
-      isShare: false,
-      insuranceType: 'DE', // DE 일때 400 에러 뜸
-    };
-    console.log(questionData);
-    insuePlannerMutation.mutate(questionData, {
-      onSuccess: (data) => {
-        console.log('question box API 호출 성공:', data);
-        setLoading(false);
-        // 답변 저장
-        setCurrentAnswer(data.answer as string);
-        setCurrentAnswerLinks(data.links as link[]);
-        // 성공 후 이동
-        setCurrentScreen('A');
-      },
-      onError: (error) => {
-        setLoading(false);
-        console.error('questino box API 호출 실패:', error);
-        setErrorAlarmShown(true);
-      },
-    });
+  const questionData: plannerPOSTRequest = {
+    quesion: value,
+    isShare: false,
+    insuranceType: 'DE', // DE 일때 400 에러 뜸
   };
+
+  // const postQuestion = () => {
+  //   //api
+  //   setLoading(true);
+  //   const questionData: plannerPOSTRequest = {
+  //     quesion: value,
+  //     isShare: false,
+  //     insuranceType: 'DE', // DE 일때 400 에러 뜸
+  //   };
+  //   console.log(questionData);
+  //   insuePlannerMutation.mutate(questionData, {
+  //     onSuccess: (data) => {
+  //       console.log('question box API 호출 성공:', data);
+  //       setLoading(false);
+  //       // 답변 저장
+  //       setCurrentAnswer(data.answer as string);
+  //       setCurrentAnswerLinks(data.links as link[]);
+  //       // 성공 후 이동
+  //       setCurrentScreen('A');
+  //     },
+  //     onError: (error) => {
+  //       setLoading(false);
+  //       console.error('questino box API 호출 실패:', error);
+  //       setErrorAlarmShown(true);
+  //     },
+  //   });
+  // };
 
   return (
     <QuestionBoxWrapper
       onClick={() => {
         setQuestion(value);
-        postQuestion();
+        // postQuestion();
         // setCurrentScreen('A');
+        postQuestion2(questionData);
       }}
     >
       <QuestionBoxSvg bottom={bottom} right={right}>
