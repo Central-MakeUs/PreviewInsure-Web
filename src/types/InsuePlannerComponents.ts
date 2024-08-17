@@ -25,6 +25,7 @@ export type QuestionBoxProps = {
   setCurrentAnswerLinks: (arg: link[]) => void;
   setLoading: (arg: boolean) => void;
   setErrorAlarmShown: (arg: boolean) => void;
+  postQuestion2: (data: any) => void;
 };
 
 //answer
