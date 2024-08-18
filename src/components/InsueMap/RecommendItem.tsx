@@ -81,7 +81,7 @@ const Title = styled.p`
   `}
 `;
 
-const Content = styled.b`
+const Content = styled.div`
   flex: 6 1 0;
   color: ${({ theme }) => theme.colors.Black500};
   font-weight: 600;
@@ -92,6 +92,7 @@ const Content = styled.b`
   overflow: hidden;
 
   ${media.mobile`
+    flex: 1 1 auto;
     font-size: 4rem;
     font-weight: 500;
     text-align: left;

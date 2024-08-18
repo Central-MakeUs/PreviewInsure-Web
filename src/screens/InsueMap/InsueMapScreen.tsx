@@ -13,6 +13,8 @@ import RecommendSection from '@components/InsueMap/RecommendSection';
 import { useEffect, useState } from 'react';
 import FailAlarm from '@components/commons/FailAlarm';
 import { useStore } from '@stores/useStore';
+import { useFavoritMutation, useFavoritQuery } from '@apis/account/account';
+import { PostFavoritRequest } from '@apis/account/account.d';
 
 function InsueMapScreen() {
   const { isLogin } = useStore();
@@ -33,13 +35,28 @@ function InsueMapScreen() {
   const recommendRequestData: recommendRequest = { insuranceType: convertInsureType(insueItem.name) };
   const { detailQuery } = useInsueDetailQuery(recommendRequestData);
 
+  // 관심보험 조회 및 등록 API
+  const { favoritQuery } = useFavoritQuery();
+  const { favoritMutation } = useFavoritMutation();
+
   // TODO: 관심 보험 등록 및 취소 PATCH API. 요청에 따라 현재 값도 달라져야함.
-  function handleSubscribe() {
+  function handleSubscribe(change: boolean) {
     if (!isLogin) {
       setAlarmShown(true);
       return;
     }
-    console.log('Subscribe변경 요청: ', !detailQuery.data?.isSubscribed);
+
+    // 등록하기
+    if (insueItem && change) {
+      const insueData: PostFavoritRequest = {
+        insuranceType: insueItem?.value,
+      };
+      favoritMutation.mutate(insueData);
+    }
+
+    // 취소하기
+
+    console.log('Subscribe변경 요청: ', detailQuery.data?.isSubscribed);
   }
 
   // 알림창
@@ -61,7 +78,7 @@ function InsueMapScreen() {
       <InsueMapHeadSection
         insueName={insueItem.name}
         insueExplain={insueItem.explain}
-        isSubscribe={detailQuery.data?.isSubscribed}
+        isSubscribe={favoritQuery.data && favoritQuery.data?.some((item) => item.insuranceType === insueItem.value)}
         handleSubscribe={handleSubscribe}
       />
 
@@ -71,7 +88,7 @@ function InsueMapScreen() {
         insueRecommandPerson={insueItem.recommand}
         insueRecommandExplain={insueItem.recomtxt}
         insueIcon={insueItem.img}
-        isSubscribe={detailQuery.data?.isSubscribed}
+        isSubscribe={favoritQuery.data && favoritQuery.data?.some((item) => item.insuranceType === insueItem.value)}
         registInsueCompany={detailQuery.data?.insuranceCompany}
         registInsueLink={detailQuery.data?.insuranceLink}
       />

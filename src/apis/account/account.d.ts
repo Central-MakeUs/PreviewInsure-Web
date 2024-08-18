@@ -10,3 +10,16 @@ export interface InsueItem {
   insuranceType: string;
   insuranceCompany: string;
 }
+
+export interface PostFavoritRequest {
+  insuranceType: string;
+}
+export interface PostFavoritResponse {
+  code: number;
+  message: string;
+}
+
+export interface FavoritItem {
+  favoriteInsuranceId: number;
+  insuranceType: string;
+}

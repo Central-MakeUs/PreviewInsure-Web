@@ -1,8 +1,9 @@
-import { UserInfoResponse, InsueItem } from './account.d';
+import { UserInfoResponse, InsueItem, PostFavoritRequest, PostFavoritResponse, FavoritItem } from './account.d';
+import { accountKeys } from './account.keys';
 
 // 회원 탈퇴
 import { useStore } from '@stores/useStore';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axiosInstance from '@utils/axios';
 
 export async function deleteAccount() {
@@ -73,3 +74,71 @@ export const useInsueListQuery = () => {
 
   return { insurancesQuery: query };
 };
+
+// =====================================================
+// 관심보험 GET
+async function getFavoritList() {
+  const { accessToken } = useStore.getState();
+  const response = await axiosInstance.get<APIResponse<FavoritItem[]>>('/account/favorite', {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return response.data.data;
+}
+
+export const useFavoritQuery = () => {
+  const queryClient = useQueryClient();
+  const query = useQuery<FavoritItem[]>({
+    queryKey: accountKeys.favorit(),
+    queryFn: () => getFavoritList(),
+    staleTime: 2 * 60 * 1000, // 2분
+    gcTime: 5 * 60 * 1000, // 5분
+    // initialData: () => {
+    //   const cachedHealth = queryClient.getQueryData<FavoritItem[]>(accountKeys.favorit());
+    //   return cachedHealth;
+    // },
+  });
+
+  return { favoritQuery: query };
+};
+
+// 관심보험 등록 POST
+// 인슈 맵에서 사용
+async function postFavoritInsue(data: PostFavoritRequest): Promise<PostFavoritResponse> {
+  const { accessToken } = useStore.getState();
+  const response = await axiosInstance.post<PostFavoritResponse>('/account/favorite', data, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return response.data;
+}
+
+export function useFavoritMutation() {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    // mutation에는 querykey를 작성하지 않는다.
+    mutationFn: (data: PostFavoritRequest) => postFavoritInsue(data),
+    onSuccess: (newData, data) => {
+      // ['health', 'detail']인 캐시 업데이트
+      // queryClient.setQueryData(healthKeys.detail(), newData);
+      // 연관된 GET요청을 update
+      // GET요청을 다시 보내면 POST요청 후에 GET요청이 무조건 발생. 따라서 불필요한 GET 대신 메모리상의 쿼리에 데이터를 업데이트.
+      // queryClient.setQueryData(healthKeys.all, () => {
+      //   isHealthCheck: false;
+      // });
+      const item: FavoritItem = {
+        favoriteInsuranceId: 0,
+        insuranceType: data.insuranceType,
+      };
+      queryClient.setQueryData(accountKeys.favorit(), (oldData: any) => {
+        return [...oldData, item];
+      });
+    },
+    onError: () => {},
+  });
+
+  return { favoritMutation: mutation };
+}
