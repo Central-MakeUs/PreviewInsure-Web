@@ -2,57 +2,23 @@ import styled from 'styled-components';
 import type { QuestionBoxProps } from '@/types/InsuePlannerComponents';
 import media from '@styles/media';
 
-import { useInsuePlannerMutation } from '@apis/insuePlanner/insuePlanner';
-import type { link } from '@apis/insuePlanner/insuePlanner.d';
 import { plannerPOSTRequest } from '@apis/insuePlanner/insuePlanner.d';
 
-function QuestionBox({
-  svg,
-  text,
-  bottom,
-  right,
-  setQuestion,
-  value,
-  setCurrentScreen,
-  setCurrentAnswer,
-  setCurrentAnswerLinks,
-}: QuestionBoxProps) {
-  const { insuePlannerMutation } = useInsuePlannerMutation();
-
-  const postQuestion = () => {
-    //api
-    const questionData: plannerPOSTRequest = {
-      quesion: value,
-      isShare: true,
-      insuranceType: 'ED', // DE 일때 400 에러 뜸
-    };
-    console.log(questionData);
-    insuePlannerMutation.mutate(questionData, {
-      onSuccess: (data) => {
-        console.log('question box API 호출 성공:', data);
-        // 답변 저장
-        setCurrentAnswer(data.answer as string);
-        setCurrentAnswerLinks(data.links as link[]);
-        // 성공 후 이동
-        setCurrentScreen('A');
-      },
-      onError: (error) => {
-        console.error('questino box API 호출 실패:', error);
-      },
-    });
+function QuestionBox({ svg, text, bottom, right, setQuestion, value, postQuestion2 }: QuestionBoxProps) {
+  const questionData: plannerPOSTRequest = {
+    quesion: value,
+    isShare: false,
+    insuranceType: 'DE', // DE 일때 400 에러 뜸
   };
 
   return (
-    <QuestionBoxWrapper>
-      <QuestionBoxSvg
-        bottom={bottom}
-        right={right}
-        onClick={() => {
-          setQuestion(value);
-          postQuestion();
-          // setCurrentScreen('A');
-        }}
-      >
+    <QuestionBoxWrapper
+      onClick={() => {
+        setQuestion(value);
+        postQuestion2(questionData);
+      }}
+    >
+      <QuestionBoxSvg bottom={bottom} right={right}>
         {svg}
       </QuestionBoxSvg>
       <QuestionBoxText>{text}</QuestionBoxText>

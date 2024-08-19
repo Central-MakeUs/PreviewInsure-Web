@@ -38,7 +38,7 @@ const GoogleLoginCallback = () => {
 
     try {
       // 토큰 서버에 전송. 로그인 요청.
-      const res = await axiosInstance.post(`/oauth?platform=GOOGLE&code=${code}`);
+      const res = await axiosInstance.get(`/oauth?platform=GOOGLE&code=${code}`);
       console.log(res);
       // 토큰 zustand 저장
       // TODO : api 반환값에 따른 처리
@@ -98,7 +98,7 @@ const GoogleLoginCallback = () => {
     >
       <Loading type={'spinningBubbles'} color={'#6879FB'} width={69.33} height={69.33} />
       <br />
-      {code ? <h1>로그인 중입니다.</h1> : <h1>로그인에 실패하였습니다.</h1>}
+      {/* {code ? <h1>로그인 중입니다.</h1> : <h1>로그인에 실패하였습니다.</h1>} */}
 
       {/* <button onClick={handleCriticalLogin}>일단 로그인하기</button> */}
     </div>

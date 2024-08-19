@@ -39,6 +39,7 @@ function BottomNav() {
       setActiveNav(path);
       navigate(path);
       setClickCount(0);
+      window.scrollTo({ top: 0, behavior: 'instant' });
     }
   };
 

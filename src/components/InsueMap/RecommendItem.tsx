@@ -10,7 +10,11 @@ function RecommendItem({
   link,
 }: RecommendItemProps) {
   const handleLink = () => {
-    window.open(link, '_black');
+    const userConfirmed = window.confirm('해당 보험 상품 페이지로 이동하시겠습니까?');
+
+    if (userConfirmed) {
+      window.open(link, '_blank');
+    }
   };
   return (
     <Container onClick={handleLink}>
@@ -48,12 +52,15 @@ const Img = styled.img`
 
   ${media.mobile`
     flex: 3 1 0;
+    margin-right: 10px;
+    max-width: 18rem;
   `}
 `;
 
 const Wrap = styled.div`
   flex: 8 1 0;
   display: flex;
+  overflow: hidden;
 
   ${media.mobile`
     flex-direction: column;
@@ -74,18 +81,22 @@ const Title = styled.p`
   `}
 `;
 
-const Content = styled.b`
+const Content = styled.div`
   flex: 6 1 0;
   color: ${({ theme }) => theme.colors.Black500};
   font-weight: 600;
   font-size: 2rem;
   text-align: center;
   text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 
   ${media.mobile`
+    flex: 1 1 auto;
     font-size: 4rem;
     font-weight: 500;
     text-align: left;
+    width: 90%;
   `}
 `;
 

@@ -27,14 +27,12 @@ function Step5({ selectedInsures, toSelectInsures, setInsures, setComplete }: St
   );
 
   const getData = (cardInsureType: string, cardInsureCompany: string) => {
-    // console.log(cardInsureType, cardInsureCompany);
     const newInsureCardInfos = insureCardInfos.map((e) => {
-      if (e.insuranceType === cardInsureType && e.insuranceCompany !== cardInsureCompany) {
+      if (e.insuranceType === convertInsureType(cardInsureType) && e.insuranceCompany !== cardInsureCompany) {
         return { ...e, insuranceCompany: cardInsureCompany };
       }
       return e;
     });
-    // console.log(newInsureCardInfos);
     setInsureCardInfos(newInsureCardInfos);
   };
 

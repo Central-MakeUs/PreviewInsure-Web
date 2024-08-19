@@ -23,17 +23,17 @@ import { ReactComponent as NursingCareImg } from '@/assets/icons/InsueCard/Wheel
 import { ReactComponent as DriverImg } from '@/assets/icons/InsueCard/Car.svg';
 
 const Categorys = [
-  { name: '생명보험', value: 1, miniIcon: Life },
-  { name: '저축보험', value: 2, miniIcon: Saving },
-  { name: '건강보험', value: 3, miniIcon: Health },
-  { name: '상해보험', value: 4, miniIcon: Accident },
-  { name: 'CI보험', value: 5, miniIcon: CI },
-  { name: '치아보험', value: 6, miniIcon: Dental },
-  { name: '연금보험', value: 7, miniIcon: Pension },
-  { name: '교육보험', value: 8, miniIcon: Education },
-  { name: '애견보험', value: 9, miniIcon: Pet },
-  { name: '간병/치매보험', value: 10, miniIcon: NursingCare },
-  { name: '운전자보험', value: 11, miniIcon: Driver },
+  { name: '생명보험', value: 'LF', miniIcon: Life },
+  { name: '저축보험', value: 'SI', miniIcon: Saving },
+  { name: '건강보험', value: 'HE', miniIcon: Health },
+  { name: '상해보험', value: 'PA', miniIcon: Accident },
+  { name: 'CI보험', value: 'CI', miniIcon: CI },
+  { name: '치아보험', value: 'TE', miniIcon: Dental },
+  { name: '연금보험', value: 'PI', miniIcon: Pension },
+  { name: '교육보험', value: 'ED', miniIcon: Education },
+  { name: '애견보험', value: 'PE', miniIcon: Pet },
+  { name: '간병/치매보험', value: 'TD', miniIcon: NursingCare },
+  { name: '운전자보험', value: 'DR', miniIcon: Driver },
 ];
 
 export const CategoryImg = [
@@ -53,7 +53,7 @@ export const CategoryImg = [
 export const InsueMapCategorys = [
   {
     name: '생명 보험',
-    value: 1,
+    value: 'LF',
     img: LifeImg,
     nav: 'life',
     explain: `피보험자의 사망 시 수혜자에게 일정 금액을 지급하여 가족의 재정적 안정을 돕는 보험입니다.\n주로 가족의 생활비나 자녀의 교육비, 주택 대출 상환 등을 목적으로 가입합니다.`,
@@ -62,7 +62,7 @@ export const InsueMapCategorys = [
   },
   {
     name: '저축 보험',
-    value: 2,
+    value: 'SI',
     img: SavingImg,
     nav: 'saving',
     explain: `일정 기간 동안 보험료를 납입하고 만기 시 원금과 이자를 돌려받는 보험으로, 저축과 보험의 기능을 동시에 제공합니다.\n금리 연동형과 확정 금리형 등이 있으며, 중도 해지 시 원금 손실이 발생할 수 있습니다.`,
@@ -71,7 +71,7 @@ export const InsueMapCategorys = [
   },
   {
     name: '건강 보험',
-    value: 3,
+    value: 'HE',
     img: HealthImg,
     nav: 'health',
     explain: `특정 질병 진단 시 치료비를 보장해주는 보험으로, 질병으로 인한 경제적 부담을 줄이는 데 도움이 됩니다.\n암, 뇌졸중, 심근경색 등 주요 질병에 대한 보장을 제공합니다.`,
@@ -80,7 +80,7 @@ export const InsueMapCategorys = [
   },
   {
     name: '상해 보험',
-    value: 4,
+    value: 'PA',
     img: AccidentImg,
     nav: 'accident',
     explain: `사고로 인한 상해 시 치료비를 보장해주는 보험으로, 일상 생활이나 직장 내 사고 발생 시\n경제적 부담을 줄이는 데 도움이 됩니다. 낙상, 교통사고 등 다양한 사고를 보장합니다.`,
@@ -89,7 +89,7 @@ export const InsueMapCategorys = [
   },
   {
     name: 'CI 보험',
-    value: 5,
+    value: 'CI',
     img: CIImg,
     nav: 'ci',
     explain: `중대한 질병(Critical Illness) 진단 시 보험금을 지급하는 보험으로, 주요 질병에 대한 경제적 대비를 제공합니다.\n암, 심혈관 질환, 주요 장기 이식 등의 경우에 큰 도움이 됩니다.`,
@@ -98,7 +98,7 @@ export const InsueMapCategorys = [
   },
   {
     name: '치아 보험',
-    value: 6,
+    value: 'TE',
     img: DentalImg,
     nav: 'dantal',
     explain: `치과 치료 비용을 보장해주는 보험으로, 임플란트, 크라운, 브릿지 등의\n고가 치료 비용을 대비할 수 있습니다. 정기적인 치과 검진 및 예방 치료도 포함됩니다.`,
@@ -107,7 +107,7 @@ export const InsueMapCategorys = [
   },
   {
     name: '연금 보험',
-    value: 7,
+    value: 'PI',
     img: PensionImg,
     nav: 'pension',
     explain: `일정 기간 보험료를 납입하고, 만기 후 연금을 지급받는 보험으로, 안정적인 노후 생활을 지원합니다.\n연금 수령 방법은 일시금, 종신 연금 등 다양합니다.`,
@@ -116,7 +116,7 @@ export const InsueMapCategorys = [
   },
   {
     name: '교육 보험',
-    value: 8,
+    value: 'ED',
     img: EducationImg,
     nav: 'education',
     explain: `자녀의 교육비를 대비할 수 있는 보험으로, 초등학교부터 대학까지의 학자금을\n미리 준비할 수 있습니다. 만기 시 자녀의 교육 자금으로 지급됩니다.`,
@@ -125,7 +125,7 @@ export const InsueMapCategorys = [
   },
   {
     name: '애견 보험',
-    value: 9,
+    value: 'PE',
     img: PetImg,
     nav: 'pet',
     explain: `반려동물의 의료비를 보장해주는 보험으로, 질병이나 상해 시 치료비를 보장합니다.\n예방 접종, 정기 검진 등의 비용도 포함될 수 있습니다.`,
@@ -134,7 +134,7 @@ export const InsueMapCategorys = [
   },
   {
     name: '간병/치매 보험',
-    value: 10,
+    value: 'TD',
     img: NursingCareImg,
     nav: 'nursingcare',
     explain: `장기 간병이나 치매 발생 시 간병비를 보장해주는 보험으로,\n장기 요양 서비스나 시설 이용 비용을 지원합니다. 고령화 사회에서 필수적인 보험으로 각광받고 있습니다.`,
@@ -143,7 +143,7 @@ export const InsueMapCategorys = [
   },
   {
     name: '운전자 보험',
-    value: 11,
+    value: 'DR',
     img: DriverImg,
     nav: 'driver',
     explain: `사고가 발생했을 때 자동차보험에서 보장해주는 내용 이외에\n추가로 발생할 수 있는 각종 책임에 대한 배상을 처리해주는 보험입니다.`,

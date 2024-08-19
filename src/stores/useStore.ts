@@ -8,6 +8,10 @@ export interface State {
   nickName: string;
   isLogin: boolean;
 
+  //platform
+  platform: string;
+  setPlatform: (data: string) => void;
+
   //temp
   temporaryToken: string; //register 하는 과정에서만 사용
   setTempToken: (token: string) => void;
@@ -57,6 +61,7 @@ export const useStore = create<State>()(
       nickName: '',
       isLogin: false,
       temporaryToken: '',
+      platform: 'ios', // 원래는 빈값 -> 웹에서도 깨지지 않기 일단 ios로
       login: (token, nickName) => {
         set({ accessToken: token, nickName, isLogin: true, temporaryToken: '' });
       },
@@ -65,6 +70,9 @@ export const useStore = create<State>()(
       },
       setTempToken: (token) => {
         set({ temporaryToken: token });
+      },
+      setPlatform: (data) => {
+        set({ platform: data });
       },
     }),
     {
