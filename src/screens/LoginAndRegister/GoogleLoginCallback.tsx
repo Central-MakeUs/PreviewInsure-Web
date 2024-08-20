@@ -50,7 +50,11 @@ const GoogleLoginCallback = () => {
       // 신규/기존 회원 여부에 따라 페이지 이동
       // res.data.isExistingMember ? handleHome() : handleRegist();
     } catch (error) {
-      console.log(error);
+      console.log('google login error', error);
+      if (error?.response.data.code === -1004) {
+        alert('탈퇴한 유저는 재가입할 수 없습니다.');
+        navigate('/login');
+      }
     }
   };
 
