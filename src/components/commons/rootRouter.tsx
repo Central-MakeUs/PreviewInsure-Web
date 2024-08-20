@@ -16,6 +16,7 @@ import MainScreen from '@screens/Main/MainScreen';
 import InsuePlannerScreen from '@screens/InsuePlanner/InsuePlannerScreen';
 import Question from '@screens/Question/Question';
 import AppleLoginCallback from '@screens/LoginAndRegister/AppleLoginCallback';
+import AppleErrorCallback from '@screens/LoginAndRegister/AppleErrorCallback';
 import Congratulate from '@components/InsueBoarding/Congraulate';
 import InsueMapScreen from '@screens/InsueMap/InsueMapScreen';
 import BottomNav from './BottomNav';
@@ -63,6 +64,7 @@ const rootRouter = () => {
           <Route path="/registerNickname" element={<RegisterNickname />} />
           <Route path="/callback/google" element={<GoogleLoginCallback />} />
           <Route path="/callback/apple" element={<AppleLoginCallback />} />
+          <Route path="/callback/errorApple" element={<AppleErrorCallback />} />
           <Route path="/insueBording" element={<InsueBordingScreen />} />
           <Route path="/congratulate" element={<Congratulate />} />
           <Route path="/insueMap" element={<InsueMapScreen />} />
