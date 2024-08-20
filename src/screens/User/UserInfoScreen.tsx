@@ -22,9 +22,8 @@ function UserInfoScreen() {
   }
 
   async function handleDeleteAccount() {
-    const confirmed = window.confirm('계정을 탈퇴하시겠습니까?');
+    const confirmed = window.confirm('탈퇴 신청 시, 탈퇴 심사가 진행되며 관련된 게시물은 일주일간 보유 후 삭제됩니다');
     if (confirmed) {
-      console.log('작업을 수행합니다!');
       await deleteAccount();
       logOut();
       navigate('/');
