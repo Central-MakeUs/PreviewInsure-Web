@@ -216,7 +216,7 @@ export const initialCards = [
     ),
   },
   {
-    text: '자동차보험',
+    text: '운전자보험',
     SVG: (
       <CarIconBox>
         <Car width={'100%'} height={'100%'} />
