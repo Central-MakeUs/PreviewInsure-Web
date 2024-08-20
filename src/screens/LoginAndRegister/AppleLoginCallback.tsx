@@ -34,7 +34,7 @@ function AppleLoginCallback() {
       console.log('accessToken', accessToken);
       console.log('accessNickname', accessNickname);
 
-      if (accessToken && accessNickname === 'null') {
+      if (accessToken && (accessNickname === 'null' || accessNickname === 'none')) {
         //register
         console.log('register');
         setTempToken(accessToken); //temp token 저장
