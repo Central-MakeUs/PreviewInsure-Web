@@ -97,27 +97,35 @@ function InsuePlannerQuestion({
     });
   };
 
-  const questionBtnClickHandler = () => {
+  const questionBtnClickHandler = (data?: plannerPOSTRequest) => {
     if (!isLogin) {
       setLoginAlarmShown(true);
       return;
     }
 
-    if (!canQuestion) {
-      setAlarmShown(true);
-      setVisible(true);
-      return;
+    if (data) {
+      // 버튼 눌러서 요청한 경우
+      setQuestion(data.quesion);
+      postQuestion2(data);
+    } else {
+      // 질문 입력으로 요청한 경우
+
+      if (!canQuestion) {
+        setAlarmShown(true);
+        setVisible(true);
+        return;
+      }
+
+      setQuestion(text);
+      // postQuestion(); //api 처리
+
+      const questionData: plannerPOSTRequest = {
+        quesion: text,
+        isShare: check,
+        insuranceType: convertInsureType(insureSearchCategory) as string, // DE 일때 400 에러 뜸
+      };
+      postQuestion2(questionData);
     }
-
-    setQuestion(text);
-    // postQuestion(); //api 처리
-
-    const questionData: plannerPOSTRequest = {
-      quesion: text,
-      isShare: check,
-      insuranceType: convertInsureType(insureSearchCategory) as string, // DE 일때 400 에러 뜸
-    };
-    postQuestion2(questionData);
   };
 
   return (
@@ -167,7 +175,7 @@ function InsuePlannerQuestion({
                   </InputShareRight>
                 </InputShareWrapper>
               </InputWrapperWrapper>
-              <InputBtn onClick={questionBtnClickHandler} canquestion={canQuestion}>
+              <InputBtn onClick={() => questionBtnClickHandler()} canquestion={canQuestion}>
                 질문하기
               </InputBtn>
             </InputContainer>
@@ -189,8 +197,7 @@ function InsuePlannerQuestion({
                   right={'5'}
                   text={'10년 뒤 어떤보험이 필요할까요?'}
                   value={'10년 뒤 어떤보험이 필요할까요?'}
-                  setQuestion={setQuestion}
-                  postQuestion2={postQuestion2}
+                  questionHandler={questionBtnClickHandler}
                 />
                 <QuestionBox
                   svg={
@@ -202,8 +209,7 @@ function InsuePlannerQuestion({
                   right={'5'}
                   text={'보험에 대해 잘 모르겠어요.'}
                   value={'보험에 대해 잘 모르겠어요.'}
-                  setQuestion={setQuestion}
-                  postQuestion2={postQuestion2}
+                  questionHandler={questionBtnClickHandler}
                 />
                 <QuestionBox
                   svg={
@@ -214,14 +220,13 @@ function InsuePlannerQuestion({
                   bottom={'-4'}
                   right={'-6'}
                   value={'해외여행 가기 전 보험 가입이 필요할까요?'}
-                  setQuestion={setQuestion}
+                  questionHandler={questionBtnClickHandler}
                   text={
                     <>
                       해외여행 가기 전<br />
                       보험 가입이 필요할까요?
                     </>
                   }
-                  postQuestion2={postQuestion2}
                 />
               </QuestionBoxWrapper>
             </QuestionContainer>

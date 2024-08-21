@@ -54,7 +54,7 @@ function RegisterScreen() {
       </ButtonGroup>
       <Line />
       <Explain>
-        <p>소셜 정보 없이 회원가입을 원하신다면,</p> 아래 [문의하기]로 문의해 주세요.
+        <p>소셜 정보로 회원가입이 어려운 경우, </p> reviewInsue@gmail.com 로 문의해주세요.
       </Explain>
     </Container>
   );
@@ -71,7 +71,7 @@ const Container = styled.div`
 
   ${media.mobile`
     // 767 < 
-    height: calc(100vh - 32rem);
+    height: calc(100vh - 16rem - 22rem);
   `}
 `;
 

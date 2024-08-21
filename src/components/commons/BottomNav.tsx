@@ -21,7 +21,7 @@ function BottomNav() {
     const cur = location.pathname.split('/')[1];
     setActiveNav('/' + cur);
 
-    if (cur === 'insueBording' || cur === 'login') setShowNav(false);
+    if (cur === 'insueBording') setShowNav(false);
     else setShowNav(true);
   }, [location.pathname]);
 

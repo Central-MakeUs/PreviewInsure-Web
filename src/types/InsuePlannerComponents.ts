@@ -19,9 +19,8 @@ export type QuestionBoxProps = {
   value: string;
   bottom: string;
   right: string;
-  setQuestion: (arg: string) => void;
 
-  postQuestion2: (data: any) => void;
+  questionHandler: (data: any) => void;
 };
 
 //answer

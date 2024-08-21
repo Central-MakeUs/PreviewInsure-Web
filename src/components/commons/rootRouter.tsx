@@ -37,16 +37,16 @@ const rootRouter = () => {
   // 모바일 사이즈에서만 BottomNav를 랜더링 하도록 함.
   // BottomNav에 스크롤 이벤트가 있기 때문.
   // const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 767);
-  const [isMobile, setIsMobile] = useState(true);
+  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 767);
 
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setIsMobile(window.innerWidth <= 768);
-  //   };
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
 
-  //   window.addEventListener('resize', handleResize);
-  //   return () => window.removeEventListener('resize', handleResize);
-  // }, []);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <BrowserRouter>
