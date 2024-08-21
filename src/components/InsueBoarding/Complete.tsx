@@ -6,6 +6,7 @@ import { ReactComponent as RightArrow } from '@/assets/icons/DownArrowRight.svg'
 import { useNavigate } from 'react-router-dom';
 import { useAgeMutation, useBoardMutation } from '@apis/insueboarding/insueboarding';
 import { AgeRequest, BoardRequest } from '@/apis/insueboarding/insueboarding.d';
+import { useStore } from '@stores/useStore';
 
 type insure = {
   insuranceType: string;
@@ -22,7 +23,7 @@ type CompleteProps = {
 function Complete({ birthYear, birthMonth, gender, insures }: CompleteProps) {
   const navigation = useNavigate();
   const [loading, setLoading] = useState(true);
-  const nickname = '춤추는 부엉이';
+  const { nickName } = useStore();
   const { ageMutation } = useAgeMutation();
   const { boardMutation } = useBoardMutation();
 
@@ -73,7 +74,7 @@ function Complete({ birthYear, birthMonth, gender, insures }: CompleteProps) {
       ) : (
         <>
           <Subtitle>
-            <SubtitleP>{nickname}님의 인슈 맵이 생성되었어요!</SubtitleP>
+            <SubtitleP>{nickName}님의 인슈 맵이 생성되었어요!</SubtitleP>
           </Subtitle>
           <InsueMap></InsueMap>
           <BtnWrapper>
