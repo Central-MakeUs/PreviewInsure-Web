@@ -4,7 +4,7 @@ import media from '@styles/media';
 
 import { plannerPOSTRequest } from '@apis/insuePlanner/insuePlanner.d';
 
-function QuestionBox({ svg, text, bottom, right, setQuestion, value, postQuestion2 }: QuestionBoxProps) {
+function QuestionBox({ svg, text, bottom, right, value, questionHandler }: QuestionBoxProps) {
   const questionData: plannerPOSTRequest = {
     quesion: value,
     isShare: false,
@@ -14,8 +14,7 @@ function QuestionBox({ svg, text, bottom, right, setQuestion, value, postQuestio
   return (
     <QuestionBoxWrapper
       onClick={() => {
-        setQuestion(value);
-        postQuestion2(questionData);
+        questionHandler(questionData);
       }}
     >
       <QuestionBoxSvg bottom={bottom} right={right}>
