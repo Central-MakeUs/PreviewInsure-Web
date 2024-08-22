@@ -10,6 +10,7 @@ const insuranceTypes = [
   { code: 'PI', name: '연금 보험' },
   { code: 'ED', name: '교육 보험' },
   { code: 'SI', name: '저축 보험' },
+  { code: 'AN', name: '애견 보험' },
   { code: 'DR', name: '운전자 보험' },
   { code: 'DE', name: '전체 카테고리' },
   { code: 'DE', name: '그 외' },
@@ -26,6 +27,7 @@ const insuranceTypes = [
   { code: 'PI', name: '연금보험' },
   { code: 'ED', name: '교육보험' },
   { code: 'SI', name: '저축보험' },
+  { code: 'AN', name: '애견보험' },
   { code: 'DR', name: '운전자보험' },
   { code: 'DE', name: '전체카테고리' },
 ];
