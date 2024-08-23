@@ -19,6 +19,7 @@ import AppleLoginCallback from '@screens/LoginAndRegister/AppleLoginCallback';
 import AppleErrorCallback from '@screens/LoginAndRegister/AppleErrorCallback';
 import Congratulate from '@components/InsueBoarding/Congraulate';
 import InsueMapScreen from '@screens/InsueMap/InsueMapScreen';
+import InsueMap2Screen from '@screens/InsueMap2/InsueMap2Screen';
 import BottomNav from './BottomNav';
 import media from '@styles/media';
 import { useEffect, useState } from 'react';
@@ -75,10 +76,12 @@ const rootRouter = () => {
           <Route path="/policy/service" element={<PolicyServiceScreen />} />
           <Route path="/policy/privacy" element={<PolicyPrivacyScreen />} />
 
+          {/* <Route path="/insueMap2" element={<InsueMap2Screen />} /> */}
           {/* 로그인시에만 진입 가능 */}
           <Route element={<PrivateRoute />}>
             <Route path="/user" element={<UserInfoScreen />} />
-            <Route path="/myInsue" element={<MyInsueScreen />} />
+            {/* <Route path="/myInsue" element={<MyInsueScreen />} /> */}
+            <Route path="/myInsue" element={<InsueMap2Screen />} />
           </Route>
         </Routes>
       </WrapContent>
