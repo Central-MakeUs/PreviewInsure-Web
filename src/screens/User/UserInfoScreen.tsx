@@ -5,7 +5,8 @@ import InsueSection from '@components/User/InsueSection';
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '@stores/useStore';
 import InfoSection from '@components/User/InfoSection';
-import { deleteAccount } from '@apis/account/account';
+import { deleteAccount, useInsueListQuery, useFavoritQuery } from '@apis/account/account';
+import CountSection from '@components/User/CountSection';
 
 type NotiInfo = {
   alarm: boolean;
@@ -16,6 +17,9 @@ function UserInfoScreen() {
   const navigate = useNavigate();
   const { logOut } = useStore();
   const [view, setView] = useState<'VIEW' | 'EDIT'>('VIEW');
+
+  const { insurancesQuery } = useInsueListQuery();
+  const { favoritQuery } = useFavoritQuery();
 
   function goToInsueBording() {
     navigate('/insueBording');
@@ -45,6 +49,8 @@ function UserInfoScreen() {
 
       <InfoSection />
 
+      {/* Mobile */}
+      <CountSection favoritCount={favoritQuery.data?.length} insueCount={insurancesQuery.data?.length} />
       <SeparateLine />
 
       <Setting>
@@ -78,7 +84,11 @@ function UserInfoScreen() {
         </Tip2>
 
         <div style={{ width: '100%', marginTop: '5.6rem' }}>
-          <InsueSection />
+          <InsueSection
+            insurancesData={insurancesQuery.data}
+            isError={insurancesQuery.isError}
+            isLoading={insurancesQuery.isLoading}
+          />
         </div>
       </Insue>
     </Container>
@@ -97,7 +107,7 @@ const Container = styled.div`
   ${media.mobile`
     display: flex;
     flex-direction: column;
-    margin: 0 6%;
+    margin: 0 6.4%;
   `}
 `;
 
@@ -142,7 +152,7 @@ const EditBtn = styled.button`
 const SeparateLine = styled.div`
   display: none;
   position: relative;
-  left: -7%;
+  left: -7.4%;
   width: 100vw;
   border-top: 5px solid ${({ theme }) => theme.colors.Black_W};
   margin: 4rem 0;
