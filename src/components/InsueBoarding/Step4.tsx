@@ -21,6 +21,16 @@ function Step4({ goNextStep, goPreviousStep, setSelectedInsures, setToSelectInsu
   const [selectedCards, setSelectedCards] = useState<any>([]);
   const [toSelectCards, setToSelectCards] = useState(initialCards);
 
+  //mobile 일 때
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767); //767
+  window.addEventListener('resize', function (e: any) {
+    if (e.currentTarget.innerWidth <= 767) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  });
+
   // platform === ios  일 때 처리
   const { platform } = useStore();
   const [fake, setFake] = useState(true);
@@ -46,7 +56,11 @@ function Step4({ goNextStep, goPreviousStep, setSelectedInsures, setToSelectInsu
 
   const handleToSelectedCardClick = (card: any) => {
     const index = toSelectCards.findIndex((c: any) => c.text === card.text);
-    setSelectedCards([...selectedCards, { ...card }]);
+    if (isMobile) {
+      setSelectedCards([{ ...card }, ...selectedCards]);
+    } else {
+      setSelectedCards([...selectedCards, { ...card }]);
+    }
     setToSelectCards((prevState) => prevState.filter((_, i) => i !== index));
     // setToSelectCards(toSelectCards.filter((c: any) => c.text !== card.text));
   };
@@ -62,7 +76,7 @@ function Step4({ goNextStep, goPreviousStep, setSelectedInsures, setToSelectInsu
         <SubtitleP>가입한 보험을 모두 선택해 주세요</SubtitleP>
       </Subtitle>
 
-      <Selected fake={fake}>
+      <Selected fake={fake as boolean}>
         <TransitionGroup component={null}>
           {selectedCards.map((card: any, index: number) => (
             <CSSTransition key={card.text} timeout={300} classNames="card">
@@ -136,7 +150,7 @@ const Selected = styled.div<{ fake: boolean }>`
   scrollbar-width: none;
   -ms-overflow-style: none; //drag 기능 추가
 
-  opacity: ${({ fake }) => fake && 0};
+  opacity: ${({ fake }) => (fake ? 0 : 1)};
 
   .card-enter {
     opacity: 0;

@@ -27,7 +27,6 @@ const SelectorContainer = styled.button<{ check: boolean; type: string; redFlag:
   border: 1px solid ${({ theme, redFlag }) => (redFlag ? theme.colors.AlertT : theme.colors.Primary500)};
   cursor: pointer;
   position: relative;
-  /* ${({ theme }) => theme.common.flexCenter} */
 
   ${media.small`
     // 767 < 
@@ -40,10 +39,12 @@ const SelectorContainer = styled.button<{ check: boolean; type: string; redFlag:
   ${media.mobile`
     // 767 < 
 
-    width: ${({ type, platform }: any) => (platform === 'ios' ? '25px' : type === 'circle' ? '4.5rem' : '5rem')};
-    height: ${({ type, platform }: any) => (platform === 'ios' ? '25px' : type === 'circle' ? '4.5rem' : '5rem')};
+    width: ${({ type, platform }: any) => (platform === 'ios' ? 'fit-content' : type === 'circle' ? '4.5rem' : '5rem')};
+    height: ${({ type, platform }: any) => (platform === 'ios' ? '21px' : type === 'circle' ? '4.5rem' : '5rem')};
     border-radius: ${({ type }: any) => (type === 'circle' ? '50%' : '1.5rem')};
     border-width:2px;
+    border-radius:7px;
+    padding: 1px 8px;
 
     
     /* width: 25px;  */
@@ -75,16 +76,16 @@ const IconBox = styled.div<{ platform: string }>`
 
   ${media.mobile`
     // 767 < 
-    width: 3rem;
-    height: 3rem;
+    width: 13px;
+    height: 10px;
     left: -100%;
 
     //
     position: ${({ platform }: any) => platform === 'ios' && 'absolute'};
     left:${({ platform }: any) => platform === 'ios' && '10%'};
-    bottom:${({ platform }: any) => platform === 'ios' && '10%'};
-    width: ${({ platform }: any) => platform === 'ios' && '4rem'};
-    height: ${({ platform }: any) => platform === 'ios' && '4rem'};
+    bottom:${({ platform }: any) => platform === 'ios' && '25%'};
+    width: ${({ platform }: any) => platform === 'ios' && '13px'};  //4rem
+    height: ${({ platform }: any) => platform === 'ios' && '10px'};  //4rem
   `}
 `;
 
