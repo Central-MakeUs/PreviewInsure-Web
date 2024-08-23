@@ -27,7 +27,7 @@ import { useStore } from '@stores/useStore';
 
 import PolicyPrivacyScreen from '@screens/Main/PolicyPrivacyScreen';
 import PolicyServiceScreen from '@screens/Main/PolicyServiceScreen';
-import MyInsueScreen from '@screens/User/MyInsueScreen';
+import RegistInsueScreen from '@screens/User/RegistInsueScreen';
 
 const PrivateRoute = () => {
   const { isLogin } = useStore();
@@ -80,7 +80,7 @@ const rootRouter = () => {
           {/* 로그인시에만 진입 가능 */}
           <Route element={<PrivateRoute />}>
             <Route path="/user" element={<UserInfoScreen />} />
-            {/* <Route path="/myInsue" element={<MyInsueScreen />} /> */}
+            <Route path="/registInsue" element={<RegistInsueScreen />} />
             <Route path="/myInsue" element={<InsueMap2Screen />} />
           </Route>
         </Routes>

@@ -47,6 +47,12 @@ function InfoSection() {
     }
   }
 
+  function convertEmail(email: string) {
+    const split = email.split('@')[1];
+    if (split === 'privaterelay.appleid.com') return 'Apple 로그인';
+    return email;
+  }
+
   return (
     <Info>
       <SubTitle>| 내 정보</SubTitle>
@@ -105,7 +111,7 @@ function InfoSection() {
           </>
         )}
 
-        <Email>{accountQuery.data?.email}</Email>
+        <Email>{accountQuery.data ? convertEmail(accountQuery.data?.email) : ''}</Email>
       </InfoBoxMobile>
     </Info>
   );
@@ -132,7 +138,7 @@ const Info = styled.div`
     margin-top: 6rem;
     background-color: ${theme.colors.Primary500} ;
     width: 100%;
-    padding: 6rem 0 0 0;
+    padding: 5rem 0 0 0;
   `}
 `;
 
@@ -160,7 +166,7 @@ const InfoBoxPC = styled.div`
 `;
 
 const InfoBoxMobile = styled.div`
-  color: white;
+  color: ${({ theme }) => theme.colors.Primary_W};
   font-size: 14px;
   font-weight: 400;
   line-height: normal;
