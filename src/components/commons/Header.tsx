@@ -24,7 +24,7 @@ function Header() {
   };
 
   useEffect(() => {
-    location.pathname === '/' ? setIsHome(true) : setIsHome(false);
+    location.pathname === '/' || location.pathname === '/myInsue' ? setIsHome(true) : setIsHome(false);
     const cur = location.pathname.split('/')[1];
     setCurrent(cur);
   }, [location.pathname, setIsHome]);
