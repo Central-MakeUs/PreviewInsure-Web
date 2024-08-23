@@ -11,7 +11,7 @@ import Loading from '@components/commons/Loading';
 import media from '@styles/media';
 import { convertInsureType } from '@utils/common/convertInsureType';
 import { useStore } from '@stores/useStore';
-import { useInsueListQuery } from '@apis/account/account';
+import { useFavoritQuery } from '@apis/account/account';
 
 function Question() {
   const [alarmShown, setAlarmShown] = useState(false);
@@ -20,7 +20,7 @@ function Question() {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
 
   const { isLogin } = useStore();
-  const { insurancesQuery } = useInsueListQuery();
+  const { favoritQuery } = useFavoritQuery();
 
   // const myInsueCategory = ['']; // GET요청으로 변경 필요. includes 연산을 위해 빈배열X
   // const myInsueCategory = ['', '연금보험', '상해보험'];
@@ -37,8 +37,8 @@ function Question() {
 
   // 가입한 보험 보기에 뜨는 카테고리 설정
   useEffect(() => {
-    if (insurancesQuery.data) {
-      const typeNames = insurancesQuery.data.map((item) => item.insuranceType);
+    if (favoritQuery.data) {
+      const typeNames = favoritQuery.data.map((item) => item.insuranceType);
       const cate = ['', ...typeNames];
       console.log(2, cate);
 
@@ -48,7 +48,7 @@ function Question() {
       console.log(3, filtered);
       setMyCategorys(filtered);
     }
-  }, [insurancesQuery.isSuccess]);
+  }, [favoritQuery.isSuccess]);
 
   // 전체보기, 가입한 보험 보기
   function handleView(type: string) {
@@ -57,7 +57,7 @@ function Question() {
     // all -> my 이동 시 현재 가입한 보험이 없다면 fail
     if (type === 'my' && myCategorys.length === 0) {
       if (!isLogin) setAlarmMessage('로그인이 필요한 기능입니다.');
-      else setAlarmMessage('현재 가입한 보험이 없습니다.');
+      else setAlarmMessage('관심 보험이 없습니다.');
 
       setAlarmShown(true);
       return;
@@ -117,7 +117,7 @@ function Question() {
               전체보기
             </ViewBtn>
             <ViewBtn selected={viewType === 'my'} onClick={() => handleView('my')}>
-              가입한 보험 보기
+              내 관심보험 보기
             </ViewBtn>
           </ViewGroup>
           <ScrollGroup>
