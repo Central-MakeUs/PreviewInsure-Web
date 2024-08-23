@@ -24,7 +24,7 @@ function RecommendItem({
         <Content>{insuranceContent}</Content>
       </Wrap>
       <Detail>{insuranceRate}%</Detail>
-      <Detail>약 {price}원</Detail>
+      <Detail>약 {price?.toLocaleString()}원</Detail>
       <Line />
     </Container>
   );
@@ -47,13 +47,18 @@ const Container = styled.div`
 const Img = styled.img`
   flex: 2 1 0;
   object-fit: contain;
-  margin: 0 auto;
+  margin: auto;
+  padding-left: 3rem;
+  max-width: 16rem;
+  max-height: 7rem;
   /* width: 18rem; */
 
   ${media.mobile`
     flex: 3 1 0;
     margin-right: 10px;
     max-width: 18rem;
+    max-height: 10rem;
+    padding-left:0;
   `}
 `;
 

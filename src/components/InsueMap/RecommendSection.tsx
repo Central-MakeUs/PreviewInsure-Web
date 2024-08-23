@@ -34,30 +34,6 @@ function RecommendSection({ isLoading, insuranceRecommends, isError }: Recommend
     <Container>
       <h1>{isLogin ? `${nickName}님,\n이런 보험은 어떤가요?` : `이런 보험은 어떤가요?`}</h1>
 
-      {!isLogin && !isError && (
-        <TableHead>
-          <Line style={{ top: 0 }} />
-          <Blank />
-          <Company>기업명</Company>
-          <Content>상품명</Content>
-          <Detail>
-            보험 가격 지수
-            <Info width={20} height={'fit-content'} fill={Colors.Black100} onClick={() => handleHelp1Click()} />
-            <Help visible={isHelp1}>
-              {`보험 가격 지수는 보험료를 동일 유형 상품의 평균적인 가격과 비교하는 지표입니다.\n*보험가격지수 = { 영업보험료 / (참조순보험료 + 상품군별 평균사업비 ) } × 100\n보험 가격 지수가 낮을수록, 동일 상품 대비 저렴할 것으로 추측할 수 있습니다.`}
-            </Help>
-          </Detail>
-          <Detail>
-            추정 평균 가입 금액
-            <Info width={20} height={'fit-content'} fill={Colors.Black100} onClick={() => handleHelp2Click()} />
-            <Help
-              visible={isHelp2}
-            >{`추정 평균 가입 금액은 가상의 인물로 측정된 금액입니다.\n보험 가입 시, 나이 및 병력 등에 따라 금액이 변경될 수 있습니다.`}</Help>
-          </Detail>
-          <Line style={{ bottom: 0 }} />
-        </TableHead>
-      )}
-
       {!isLogin ? (
         <Message>{`보험 추천을 원하신다면, 로그인을 진행해주세요!`}</Message>
       ) : isLoading ? (
@@ -68,6 +44,28 @@ function RecommendSection({ isLoading, insuranceRecommends, isError }: Recommend
         <Message>{`해당 보험 상품은 서비스 준비중입니다.\n더 다양한 상품을 보여드릴 예정이예요!`}</Message>
       ) : (
         <>
+          <TableHead>
+            <Line style={{ top: 0 }} />
+            <Blank />
+            <Company>기업명</Company>
+            <Content>상품명</Content>
+            <Detail>
+              보험 가격 지수
+              <Info width={20} height={'fit-content'} fill={Colors.Black100} onClick={() => handleHelp1Click()} />
+              <Help visible={isHelp1}>
+                {`보험 가격 지수는 보험료를 동일 유형 상품의 평균적인 가격과 비교하는 지표입니다.\n*보험가격지수 = { 영업보험료 / (참조순보험료 + 상품군별 평균사업비 ) } × 100\n보험 가격 지수가 낮을수록, 동일 상품 대비 저렴할 것으로 추측할 수 있습니다.`}
+              </Help>
+            </Detail>
+            <Detail>
+              추정 평균 가입 금액
+              <Info width={20} height={'fit-content'} fill={Colors.Black100} onClick={() => handleHelp2Click()} />
+              <Help
+                visible={isHelp2}
+              >{`추정 평균 가입 금액은 가상의 인물로 측정된 금액입니다.\n보험 가입 시, 나이 및 병력 등에 따라 금액이 변경될 수 있습니다.`}</Help>
+            </Detail>
+            <Line style={{ bottom: 0 }} />
+          </TableHead>
+
           {insuranceRecommends?.map((item) => (
             <RecommendItem
               key={item.insuranceId}
@@ -177,6 +175,7 @@ const TableHead = styled.div`
 `;
 const Blank = styled.div`
   flex: 2 1 0;
+  max-width: 16rem;
 `;
 
 const Company = styled.p`
