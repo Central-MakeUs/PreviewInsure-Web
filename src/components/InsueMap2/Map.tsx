@@ -27,7 +27,7 @@ function Map() {
     const enrolled: string[] = [];
     insurancesQuery?.data?.map((e) => enrolled.push(e.insuranceType));
     setEnrolledType(enrolled);
-  }, []);
+  }, [insurancesQuery.isFetched, insurancesQuery.isRefetching]);
 
   useEffect(() => {
     console.log('enrolledType:', enrolledType);
