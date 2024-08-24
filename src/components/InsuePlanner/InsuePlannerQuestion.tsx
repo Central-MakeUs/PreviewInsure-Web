@@ -388,7 +388,8 @@ const InputShareLeft = styled.p<{ visible: boolean }>`
 
   ${media.mobile`
     // 767 < 
-    font-size: 10px;
+    font-size: 11px;
+    max-width:28%;
   `}
 `;
 

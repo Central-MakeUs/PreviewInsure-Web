@@ -42,7 +42,7 @@ const Title = styled.p`
 
   ${media.mobile`
     // 767 < 
-    font-size: 12px;
+    font-size: 10px;
     
   `}
 `;
