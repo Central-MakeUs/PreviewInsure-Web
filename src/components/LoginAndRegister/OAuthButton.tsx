@@ -38,12 +38,12 @@ const OAuthP = styled.p<{ type: string }>`
   font-size: ${({ theme }) => theme.fontSizes.small};
   font-weight: 600;
   color: ${({ type, theme }) => (type === 'google' ? theme.colors.Black500 : '#fff')};
-  font-family: Pretendard;
 
   ${media.mobile`
     // 767 < 
     font-size:14px;
-    font-weight:400;
+    font-weight:500;
+    font-family: 'Pretendard', sans-serif;
   `}
 `;
 

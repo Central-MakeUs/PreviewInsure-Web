@@ -274,7 +274,7 @@ const Title = styled.p`
 
   ${media.mobile`
     // 767 < 
-    font-size: 5rem;
+    font-size: 20px;
     line-height: 1.4;
     margin-bottom: 13.2rem;
   `}
@@ -291,10 +291,11 @@ const Subtitle = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.paragraph};
   color: ${({ theme }) => theme.colors.Black500};
   margin-bottom: 3rem;
+  font-weight: 600;
 
   ${media.mobile`
     // 767 < 
-    font-size:4rem;
+    font-size:16px;
     margin-bottom: 5rem;
   `}
 `;
@@ -357,6 +358,7 @@ const Input = styled.textarea`
     height: 28rem;
     font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
     padding: 4.5rem;
+    border-radius: 22px;
   `}
 `;
 
@@ -402,7 +404,7 @@ const InputShareWrapperP = styled.div`
 
   ${media.mobile`
     // 767 < 
-    font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
+    font-size: 13px;
   `}
 `;
 
@@ -450,8 +452,8 @@ const QuestionText = styled.p`
 
   ${media.mobile`
     // 767 < 
-    font-size:4rem;
-    font-weight: 500;
+    font-size:16px;
+    font-weight: 600;
   `}
 `;
 

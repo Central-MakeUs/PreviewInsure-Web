@@ -92,6 +92,6 @@ const Contents = styled.p`
 
   ${media.mobile`
     // 767 < 
-    font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
+    font-size: 14px;
   `}
 `;

@@ -73,7 +73,7 @@ const Button = styled.button`
     // 767 < 
     font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
     height: 10rem;
-    border-radius: 4.5rem;
+    border-radius: 16px;
   `}
 `;
 

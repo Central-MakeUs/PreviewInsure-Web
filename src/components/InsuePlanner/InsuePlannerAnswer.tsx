@@ -221,9 +221,9 @@ const Title = styled.p`
 
   ${media.mobile`
     // 767 < 
-    font-size: 4.5rem;
+    font-size: 20px;
     line-height: 1;
-    margin-bottom: 6rem;
+    margin-bottom: 27px;
   `}
 `;
 
@@ -308,8 +308,11 @@ const Btn = styled.button`
   }
 
   ${media.mobile`
-      border-radius: 5.2rem;
+      border-radius: 30px;
       padding: 3rem 3.6rem;
+      font-size: 13px;
+      height: 42px;
+      width: 164px;
   `}
 `;
 
@@ -319,7 +322,7 @@ const ChattingIConBox = styled.div`
 
   ${media.mobile`
     // 767 < 
-    width: 6rem;
-    height: 6rem;
+    width: 24px;
+    height: 24px;
   `}
 `;

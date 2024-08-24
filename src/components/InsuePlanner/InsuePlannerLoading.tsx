@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as SearchingForContent } from '@/assets/icons/InsuePlanner/SearchingForContent.svg';
+import media from '@styles/media';
 
 function InsuePlannerLoading() {
   return (
@@ -24,6 +25,12 @@ const Container = styled.div`
   padding: 10rem 36rem;
   flex-direction: column;
   align-items: center;
+
+  ${media.mobile`
+    // 767 < 
+    padding: 10rem 0;
+    
+  `}
 `;
 
 const Title = styled.p`
@@ -32,6 +39,12 @@ const Title = styled.p`
   color: ${({ theme }) => theme.colors.Black500};
   line-height: 1.4;
   text-align: center;
+
+  ${media.mobile`
+    // 767 < 
+    font-size: 12px;
+    
+  `}
 `;
 
 const TitleP = styled.p``;
