@@ -27,8 +27,6 @@ function Complete({ birthYear, birthMonth, gender, insures }: CompleteProps) {
   const { ageMutation } = useAgeMutation();
   const { boardMutation } = useBoardMutation();
 
-  // console.log(convertInsureType('생명 보험'));
-
   const handleAPI = () => {
     setLoading(true);
     const updateAgeData: AgeRequest = {
@@ -59,8 +57,21 @@ function Complete({ birthYear, birthMonth, gender, insures }: CompleteProps) {
     handleAPI();
   }, []);
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+  window.addEventListener('resize', function (e: any) {
+    if (e.currentTarget.innerWidth <= 767) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  });
+
   const goInsueMap = () => {
-    navigation('/');
+    if (isMobile) {
+      navigation('/myInsue');
+    } else {
+      navigation('/');
+    }
   };
 
   return (
