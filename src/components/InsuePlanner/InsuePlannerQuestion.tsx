@@ -171,7 +171,7 @@ function InsuePlannerQuestion({
                   <InputShareLeft visible={visible}>질문 내용을 입력해 주세요.</InputShareLeft>
                   <InputShareRight>
                     <Selector type={'square'} check={check} setCheck={setCheck} redFlag={false} />
-                    <InputShareWrapperP>전체 게시판에 질문 내용 공유하기</InputShareWrapperP>
+                    <InputShareWrapperP>Q&A 게시판에 질문 내용 공유하기</InputShareWrapperP>
                   </InputShareRight>
                 </InputShareWrapper>
               </InputWrapperWrapper>

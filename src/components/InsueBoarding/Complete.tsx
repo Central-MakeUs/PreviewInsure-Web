@@ -22,7 +22,7 @@ type CompleteProps = {
 
 function Complete({ birthYear, birthMonth, gender, insures }: CompleteProps) {
   const navigation = useNavigate();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { nickName } = useStore();
   const { ageMutation } = useAgeMutation();
   const { boardMutation } = useBoardMutation();
@@ -30,6 +30,7 @@ function Complete({ birthYear, birthMonth, gender, insures }: CompleteProps) {
   // console.log(convertInsureType('생명 보험'));
 
   const handleAPI = () => {
+    setLoading(true);
     const updateAgeData: AgeRequest = {
       year: birthYear,
       month: birthMonth,
@@ -40,19 +41,22 @@ function Complete({ birthYear, birthMonth, gender, insures }: CompleteProps) {
       gender: gender,
       insureBoards: insures,
     };
-    boardMutation.mutate(updateBoardDate);
+    boardMutation.mutate(updateBoardDate, {
+      onSuccess: (data) => {
+        setLoading(false);
+      },
+      onError: (error) => {
+        console.log('insuebording api error', error);
+        setLoading(false);
+      },
+    });
   };
 
   useEffect(() => {
     console.log(birthYear, birthMonth);
     console.log(gender, insures);
     //api
-
     handleAPI();
-    //로딩 끝나면 -> api 통신
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
   }, []);
 
   const goInsueMap = () => {
@@ -76,7 +80,7 @@ function Complete({ birthYear, birthMonth, gender, insures }: CompleteProps) {
           <Subtitle>
             <SubtitleP>{nickName}님의 인슈 맵이 생성되었어요!</SubtitleP>
           </Subtitle>
-          <InsueMap></InsueMap>
+          {/* <InsueMap></InsueMap> */}
           <BtnWrapper>
             <RegisterBtn onClick={goInsueMap}>
               인슈 맵 보러가기
@@ -94,7 +98,10 @@ function Complete({ birthYear, birthMonth, gender, insures }: CompleteProps) {
 export default Complete;
 
 const Container = styled.div`
-  /* border: 1px solid #000; */
+  display: flex;
+  flex-direction: column;
+  min-height: 45vh;
+  justify-content: space-around;
 
   ${media.mobile`
     // 767 < 

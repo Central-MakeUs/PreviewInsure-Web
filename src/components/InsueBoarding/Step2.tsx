@@ -34,7 +34,7 @@ function Step2({ goNextStep, goPreviousStep, setGender }: StepProps) {
       <SelectWrapper>
         <RegisterBtn onClick={handleSelectMen}>남성</RegisterBtn>
         <RegisterBtn onClick={handleSelectWomen}>여성</RegisterBtn>
-        <RegisterBtn onClick={handleSkip}>건너띄기</RegisterBtn>
+        <RegisterBtn onClick={handleSkip}>건너뛰기</RegisterBtn>
       </SelectWrapper>
 
       <Explain>

@@ -98,6 +98,7 @@ const Subtitle = styled.p`
   ${media.mobile`
     // 767 < 
     flex-grow:1;
+    /* font-size:22px; */
   `}
 `;
 
