@@ -282,7 +282,7 @@ const QuestionWrapper = styled.div`
   margin-bottom: 1rem;
 
   ${media.mobile`
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
   `}
 `;
 
@@ -310,7 +310,7 @@ const Btn = styled.button`
   ${media.mobile`
       border-radius: 30px;
       padding: 3rem 3.6rem;
-      font-size: 13px;
+      font-size: 12px;
       height: 42px;
       width: 164px;
   `}

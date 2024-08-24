@@ -69,7 +69,7 @@ const TextContainer = styled.div`
 
   ${media.mobile`
     // ~ 767 
-    max-width: 70rem;
+    max-width: 68rem;
     font-size: 14px;
     border-radius: 12px;
     padding: 18px 27px 20px 17px;

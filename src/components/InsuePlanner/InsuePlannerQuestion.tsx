@@ -388,7 +388,7 @@ const InputShareLeft = styled.p<{ visible: boolean }>`
 
   ${media.mobile`
     // 767 < 
-    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+    font-size: 10px;
   `}
 `;
 
@@ -404,7 +404,7 @@ const InputShareWrapperP = styled.div`
 
   ${media.mobile`
     // 767 < 
-    font-size: 13px;
+    font-size: 12px;
   `}
 `;
 
