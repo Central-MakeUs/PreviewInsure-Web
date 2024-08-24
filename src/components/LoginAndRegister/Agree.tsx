@@ -48,6 +48,12 @@ const AgreeContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 85rem;
+
+  ${media.mobile`
+    // 767 < 
+    width: 90rem;
+    justify-content: space-around;
+  `}
 `;
 
 const AgreeLeft = styled.div`
@@ -67,7 +73,7 @@ const AgreeLeftText = styled.p<{ registerBtnClicked: boolean; check: boolean }>`
 
   ${media.mobile`
     // 767 < 
-    font-size:3.1rem;
+    font-size:14px;
     font-weight:500;
   `}
 `;

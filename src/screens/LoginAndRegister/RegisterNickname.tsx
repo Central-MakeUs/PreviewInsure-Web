@@ -102,6 +102,13 @@ const Container = styled.div`
   justify-content: flex-start;
   align-items: center;
   height: calc(100vh - 18rem);
+
+  ${media.mobile`
+    // 767 < 
+    min-height: calc(100vh - 32rem);
+    /* justify-content: center; */
+    margin-top: 140px;
+  `}
 `;
 
 const Title = styled.h1`
@@ -113,7 +120,7 @@ const Title = styled.h1`
 
   ${media.mobile`
     // 767 < 
-    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+    font-size: 12px;
     color: ${({ theme }: any) => theme.colors.Black200};
   `}
 `;
@@ -127,6 +134,11 @@ const Subtitle = styled.p`
   color: #000;
   line-height: 1.1;
   margin-bottom: 6.8rem;
+
+  ${media.mobile`
+    // 767 < 
+    font-size:22px;
+  `}
 `;
 
 const SubtitleP = styled.p``;
@@ -141,7 +153,7 @@ const NicknameLine = styled.p`
 
   ${media.mobile`
     // 767 < 
-    font-size:3rem;
+    font-size:16px;
     font-weight: 400;
   `}
 `;
@@ -150,21 +162,45 @@ const Nickname = styled.p`
   margin: 0 3rem 0 3rem;
   font-size: ${({ theme }) => theme.fontSizes.title};
   color: ${({ theme }) => theme.colors.Primary500};
+  font-weight: 500;
+
+  ${media.mobile`
+    // 767 < 
+    font-size:30px;
+  `}
 `;
 
 const RegisterBtnGroup = styled.div`
   display: flex;
   gap: 4rem;
+
+  ${media.mobile`
+    // 767 < 
+    width:100%;
+    justify-content:center;
+  `}
 `;
 
 const HeartIconBox = styled.div`
   width: 3rem;
   height: 3rem;
+
+  ${media.mobile`
+    // 767 < 
+    width: 18px;
+    height: 17px;
+  `}
 `;
 
 const XIconBOx = styled.div`
   width: 2.5rem;
   height: 2.5rem;
+
+  ${media.mobile`
+    // 767 < 
+    width: 16px;
+    height: 16px;
+  `}
 `;
 
 const RegisterBtn = styled.button`
@@ -181,6 +217,14 @@ const RegisterBtn = styled.button`
   margin-bottom: 5rem;
   transition: all 0.3s ease;
   gap: 1.6rem;
+
+  ${media.mobile`
+    // 767 < 
+    font-size: 14px;
+    width:42%;
+    height:48px;
+    border-radius:14px;
+  `}
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.Primary500};
@@ -204,6 +248,12 @@ const RegisterBtn = styled.button`
 const WarningIconBox = styled.div`
   width: 3.2rem;
   height: 3.2rem;
+
+  ${media.mobile`
+    // 767 < 
+    width: 18px;
+    height: 18px;
+  `}
 `;
 
 const Explain = styled.p`
@@ -216,7 +266,7 @@ const Explain = styled.p`
   ${media.mobile`
     // 767 < 
     /* width:82%; */
-    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+    font-size: 13px;
     color: ${({ theme }: any) => theme.colors.Black200};
 
     ${WarningIconBox} {

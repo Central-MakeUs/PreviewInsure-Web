@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import FailAlarm from '@components/commons/FailAlarm';
 import { ReactComponent as Close } from '@/assets/icons/Close.svg';
 import { ReactComponent as Heart } from '@/assets/icons/Heart.svg';
+import { ReactComponent as Warning } from '@/assets/icons/Warning.svg';
 import MonthPicker from './InsueBoardingCompononets/MonthPicker';
 import YearPicker from './InsueBoardingCompononets/YearPicker';
 import { useNavigate } from 'react-router-dom';
@@ -79,6 +80,9 @@ function Step1({ goNextStep, goPreviousStep, setBirthYear, setBirthMonth }: Step
         </RegisterBtn>
       </RegisterBtnGroup>
       <Explain>
+        <WarningIconBox>
+          <Warning width={'100%'} height={'100%'} fill={'#aaaaaa'} />
+        </WarningIconBox>
         <p>기입한 정보는 내 정보에서 다시 수정할 수 있어요.</p>
       </Explain>
     </>
@@ -98,6 +102,7 @@ const Subtitle = styled.p`
   ${media.mobile`
     // 767 < 
     margin-bottom: 10rem;
+    font-size: 22px;
   `}
 `;
 
@@ -148,8 +153,8 @@ const HeartIconBox = styled.div`
 
   ${media.mobile`
     // 767 < 
-    width: 4rem;
-    height: 4rem;
+    width: 17px;
+    height: 17px;
   `}
 `;
 
@@ -159,8 +164,8 @@ const XIconBOx = styled.div`
 
   ${media.mobile`
     // 767 < 
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 16px;
+    height: 16px;
   `}
 `;
 
@@ -199,10 +204,21 @@ const RegisterBtn = styled.button`
 
   ${media.mobile`
     // 767 < 
-    width:38%;
-    height:10rem;
-    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
-    border-radius: 3.5rem;
+    width:42%;
+    height:48px;
+    font-size: 14px;
+    border-radius: 14px;
+  `}
+`;
+
+const WarningIconBox = styled.div`
+  width: 3.2rem;
+  height: 3.2rem;
+
+  ${media.mobile`
+    // 767 < 
+    width: 18px;
+    height: 18px;
   `}
 `;
 
@@ -215,7 +231,7 @@ const Explain = styled.p`
 
   ${media.mobile`
     // 767 < 
-    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+    font-size: 13px;
     color: ${({ theme }: any) => theme.colors.Black200};
   `}
 `;

@@ -57,12 +57,13 @@ const QuestionBoxSvg = styled.div<{ bottom: string; right: string }>`
 
 const QuestionBoxText = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.small};
-  font-weight: 500;
+  font-weight: 600;
   color: ${({ theme }) => theme.colors.Black500};
   text-align: left;
+  font-family: 'Pretendard', sans-serif;
 
   ${media.mobile`
     // 767 < 
-    font-size: 4rem;
+    font-size: 16px;
   `}
 `;

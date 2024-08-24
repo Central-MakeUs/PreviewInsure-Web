@@ -98,6 +98,7 @@ const Subtitle = styled.p`
   ${media.mobile`
     // 767 < 
     flex-grow:1;
+    font-size:22px;
   `}
 `;
 
@@ -118,7 +119,8 @@ const ButtonGroup = styled.div`
   ${media.mobile`
     // 767 < 
     width:100%;
-    gap: 2rem;
+    /* gap: 2rem; */
+    gap:12px;
   `}
 `;
 
@@ -152,7 +154,8 @@ const StyledLink = styled(Link)`
 
   ${media.mobile`
     // 767 < 
-    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+    /* font-size: ${({ theme }: any) => theme.fontSizes.paragraph}; */
+    font-size:12px;
   `}
 `;
 

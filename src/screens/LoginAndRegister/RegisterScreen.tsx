@@ -38,7 +38,7 @@ function RegisterScreen() {
               <GoogleIcon width={'100%'} height={'100%'} />
             </IconBox>
           }
-          text={'Google로 시작하기'}
+          text={'Google 로 시작하기'}
           type={'google'}
         />
         <OAuthButton
@@ -48,7 +48,7 @@ function RegisterScreen() {
               <AppleIcon width={'100%'} height={'100%'} />
             </IconBox>
           }
-          text={'Apple로 시작하기'}
+          text={'Apple 로 시작하기'}
           type={'apple'}
         />
       </ButtonGroup>
@@ -101,6 +101,7 @@ const Subtitle = styled.p`
   ${media.mobile`
     // 767 < 
     flex-grow:1;
+    font-size:22px;
   `}
 `;
 
@@ -121,7 +122,8 @@ const ButtonGroup = styled.div`
   ${media.mobile`
     // 767 < 
     width:100%;
-    gap: 2rem;
+    /* gap: 2rem; */
+    gap:12px;
   `}
 `;
 
@@ -157,7 +159,8 @@ const Explain = styled.p`
 
   ${media.mobile`
     // 767 < 
-    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+    /* font-size: ${({ theme }: any) => theme.fontSizes.paragraph}; */
+    font-size:12px;
   `}
 `;
 

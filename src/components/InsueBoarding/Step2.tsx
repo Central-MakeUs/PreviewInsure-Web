@@ -34,7 +34,7 @@ function Step2({ goNextStep, goPreviousStep, setGender }: StepProps) {
       <SelectWrapper>
         <RegisterBtn onClick={handleSelectMen}>남성</RegisterBtn>
         <RegisterBtn onClick={handleSelectWomen}>여성</RegisterBtn>
-        <RegisterBtn onClick={handleSkip}>건너띄기</RegisterBtn>
+        <RegisterBtn onClick={handleSkip}>건너뛰기</RegisterBtn>
       </SelectWrapper>
 
       <Explain>
@@ -62,6 +62,7 @@ const Subtitle = styled.p`
   ${media.mobile`
     // 767 < 
     margin-bottom: 10rem;
+    font-size: 22px;
   `}
 `;
 
@@ -102,7 +103,7 @@ const RegisterBtn = styled.button`
     // 767 < 
       flex-grow:1;
       padding:3rem 3.5rem;
-      font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
+      font-size: 14px;
       border-radius: 3.5rem;
   `}
 `;
@@ -113,16 +114,24 @@ const Explain = styled.p`
 
   ${media.mobile`
     // 767 < 
-    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+    font-size: 13px;
     display: flex;
     color: ${({ theme }: any) => theme.colors.Black200};
     text-align: center;
     line-height: 1.5;
     gap: 1rem;
+    justify-content:center;
+    width:75%;
   `}
 `;
 
 const WarningIconBox = styled.div`
   width: 3.2rem;
   height: 3.2rem;
+
+  ${media.mobile`
+    // 767 < 
+    width: 18px;
+    height: 18px;
+  `}
 `;
