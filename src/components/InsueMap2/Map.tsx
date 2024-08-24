@@ -4,6 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import { ReactComponent as MapSVG } from '@assets/icons/InsueMap/Map.svg';
 import { ReactComponent as MapLineSVG } from '@assets/icons/InsueMap/MapLine.svg';
 import { useInsueListQuery } from '@apis/account/account';
+import { useNavigate } from 'react-router-dom';
 
 //icons
 
@@ -20,8 +21,9 @@ import { ReactComponent as WheelChair } from '@/assets/icons/InsueCard/WheelChai
 import { ReactComponent as CI } from '@/assets/icons/InsueCard/CI.svg';
 
 function Map() {
+  const navigate = useNavigate();
   const { insurancesQuery } = useInsueListQuery();
-  console.log(insurancesQuery.data);
+  // console.log(insurancesQuery.data);
   const [enrolledType, setEnrolledType] = useState<string[]>([]);
   useEffect(() => {
     const enrolled: string[] = [];
@@ -29,9 +31,13 @@ function Map() {
     setEnrolledType(enrolled);
   }, [insurancesQuery.isFetched, insurancesQuery.isRefetching]);
 
-  useEffect(() => {
-    console.log('enrolledType:', enrolledType);
-  }, [enrolledType]);
+  // useEffect(() => {
+  //   console.log('enrolledType:', enrolledType);
+  // }, [enrolledType]);
+
+  const handleMove = (nav: string) => {
+    navigate('/insueMap', { state: { nav } });
+  };
 
   return (
     <Container>
@@ -42,37 +48,37 @@ function Map() {
       </MapLineIcon>
 
       {/* icons */}
-      <ToothIcon enrolled={enrolledType.includes('TE') as boolean}>
+      <ToothIcon onClick={() => handleMove('dantal')} enrolled={enrolledType.includes('TE') as boolean}>
         <ToothBraces width={'100%'} height={'100%'} />
       </ToothIcon>
-      <HealthIcon enrolled={enrolledType.includes('HE') as boolean}>
+      <HealthIcon onClick={() => handleMove('health')} enrolled={enrolledType.includes('HE') as boolean}>
         <Health width={'100%'} height={'100%'} />
       </HealthIcon>
-      <HospitalIcon enrolled={enrolledType.includes('PA') as boolean}>
+      <HospitalIcon onClick={() => handleMove('accident')} enrolled={enrolledType.includes('PA') as boolean}>
         <HospitalSign width={'100%'} height={'100%'} />
       </HospitalIcon>
-      <PetIcon enrolled={enrolledType.includes('AN') as boolean}>
+      <PetIcon onClick={() => handleMove('pet')} enrolled={enrolledType.includes('AN') as boolean}>
         <PetFootprint width={'100%'} height={'100%'} />
       </PetIcon>
-      <CarICon enrolled={enrolledType.includes('DR') as boolean}>
+      <CarICon onClick={() => handleMove('driver')} enrolled={enrolledType.includes('DR') as boolean}>
         <Car width={'100%'} height={'100%'} />
       </CarICon>
-      <LifeIcon enrolled={enrolledType.includes('LF') as boolean}>
+      <LifeIcon onClick={() => handleMove('life')} enrolled={enrolledType.includes('LF') as boolean}>
         <HeartBeat width={'100%'} height={'100%'} />
       </LifeIcon>
-      <CIIcon enrolled={enrolledType.includes('CI') as boolean}>
+      <CIIcon onClick={() => handleMove('ci')} enrolled={enrolledType.includes('CI') as boolean}>
         <CI width={'100%'} height={'100%'} />
       </CIIcon>
-      <PigIcon enrolled={enrolledType.includes('SI') as boolean}>
+      <PigIcon onClick={() => handleMove('saving')} enrolled={enrolledType.includes('SI') as boolean}>
         <PiggyBank width={'100%'} height={'100%'} />
       </PigIcon>
-      <MoneyIcon enrolled={enrolledType.includes('PI') as boolean}>
+      <MoneyIcon onClick={() => handleMove('pension')} enrolled={enrolledType.includes('PI') as boolean}>
         <MoneyBag width={'100%'} height={'100%'} />
       </MoneyIcon>
-      <BookIcon enrolled={enrolledType.includes('ED') as boolean}>
+      <BookIcon onClick={() => handleMove('education')} enrolled={enrolledType.includes('ED') as boolean}>
         <Book width={'100%'} height={'100%'} />
       </BookIcon>
-      <WheelChariIcon enrolled={enrolledType.includes('TD') as boolean}>
+      <WheelChariIcon onClick={() => handleMove('nursingcare')} enrolled={enrolledType.includes('TD') as boolean}>
         <WheelChair width={'100%'} height={'100%'} />
       </WheelChariIcon>
     </Container>
