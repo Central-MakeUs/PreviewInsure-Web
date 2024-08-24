@@ -42,7 +42,7 @@ const OAuthP = styled.p<{ type: string }>`
 
   ${media.mobile`
     // 767 < 
-    font-size:3.2rem;
+    font-size:14px;
     font-weight:400;
   `}
 `;

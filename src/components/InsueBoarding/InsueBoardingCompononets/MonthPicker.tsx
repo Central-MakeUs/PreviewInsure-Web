@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as UpSelector } from '@/assets/icons/UpSelector.svg';
+import { ReactComponent as DownSelector } from '@/assets/icons/DownSelector.svg';
 import media from '@styles/media';
 
 type MonthPickerProps = {
@@ -31,7 +31,7 @@ const MonthPicker = ({ setMonth }: MonthPickerProps) => {
       </SelectBox>
       <IconWrapper>
         <IconBox>
-          <UpSelector width={'100%'} height={'100%'} fill={'black'} />
+          <DownSelector width={'100%'} height={'100%'} fill={'black'} />
         </IconBox>
       </IconWrapper>
     </SelectWrapper>
