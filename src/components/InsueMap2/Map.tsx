@@ -93,7 +93,15 @@ const moving = keyframes`
   }
   100%{
     transform: translateY(5px);
-    /* transform: translateX(-5px); */
+  }
+`;
+
+const moving2 = keyframes`
+  0%{
+    transform: translateY(5px);
+  }
+  100%{
+    transform: translateY(-1px);
   }
 `;
 
@@ -119,7 +127,7 @@ const ToothIcon = styled.div<{ enrolled: boolean }>`
   left: 5%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
   animation: ${moving} 1s 0s linear alternate infinite;
-  animation-delay: 0s;
+  /* animation-delay: 0s; */
 `;
 
 const HealthIcon = styled.div<{ enrolled: boolean }>`
@@ -129,8 +137,8 @@ const HealthIcon = styled.div<{ enrolled: boolean }>`
   top: -13.5%;
   left: 37%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
-  animation: ${moving} 1s 0s linear alternate infinite;
-  animation-delay: 1s;
+  animation: ${moving2} 1s 0s linear alternate infinite;
+  /* animation-delay: 1s; */
 `;
 
 const HospitalIcon = styled.div<{ enrolled: boolean }>`
@@ -141,7 +149,7 @@ const HospitalIcon = styled.div<{ enrolled: boolean }>`
   left: 63%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
   animation: ${moving} 1s 0s linear alternate infinite;
-  animation-delay: 0s;
+  /* animation-delay: 0s; */
 `;
 
 const PetIcon = styled.div<{ enrolled: boolean }>`
@@ -151,8 +159,8 @@ const PetIcon = styled.div<{ enrolled: boolean }>`
   top: 12.5%;
   left: 78%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
-  animation: ${moving} 1s 0s linear alternate infinite;
-  animation-delay: 1s;
+  animation: ${moving2} 1s 0s linear alternate infinite;
+  /* animation-delay: 1s; */
 `;
 
 const CarICon = styled.div<{ enrolled: boolean }>`
@@ -163,7 +171,7 @@ const CarICon = styled.div<{ enrolled: boolean }>`
   left: 50%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
   animation: ${moving} 1s 0s linear alternate infinite;
-  animation-delay: 0s;
+  /* animation-delay: 0s; */
 `;
 
 const LifeIcon = styled.div<{ enrolled: boolean }>`
@@ -173,8 +181,8 @@ const LifeIcon = styled.div<{ enrolled: boolean }>`
   top: 17%;
   left: 22%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
-  animation: ${moving} 1s 0s linear alternate infinite;
-  animation-delay: 1s;
+  animation: ${moving2} 1s 0s linear alternate infinite;
+  /* animation-delay: 1s; */
 `;
 
 const CIIcon = styled.div<{ enrolled: boolean }>`
@@ -185,7 +193,7 @@ const CIIcon = styled.div<{ enrolled: boolean }>`
   left: 4%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
   animation: ${moving} 1s 0s linear alternate infinite;
-  animation-delay: 0s;
+  /* animation-delay: 0s; */
 `;
 
 const PigIcon = styled.div<{ enrolled: boolean }>`
@@ -195,8 +203,8 @@ const PigIcon = styled.div<{ enrolled: boolean }>`
   top: 42%;
   left: 35%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
-  animation: ${moving} 1s 0s linear alternate infinite;
-  animation-delay: 1s;
+  animation: ${moving2} 1s 0s linear alternate infinite;
+  /* animation-delay: 1s; */
 `;
 
 const MoneyIcon = styled.div<{ enrolled: boolean }>`
@@ -207,7 +215,7 @@ const MoneyIcon = styled.div<{ enrolled: boolean }>`
   left: 70%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
   animation: ${moving} 1s 0s linear alternate infinite;
-  animation-delay: 0s;
+  /* animation-delay: 0s; */
 `;
 
 const BookIcon = styled.div<{ enrolled: boolean }>`
@@ -217,8 +225,8 @@ const BookIcon = styled.div<{ enrolled: boolean }>`
   top: 71%;
   left: 53%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
-  animation: ${moving} 1s 0s linear alternate infinite;
-  animation-delay: 1s;
+  animation: ${moving2} 1s 0s linear alternate infinite;
+  /* animation-delay: 1s; */
 `;
 
 const WheelChariIcon = styled.div<{ enrolled: boolean }>`
@@ -229,5 +237,5 @@ const WheelChariIcon = styled.div<{ enrolled: boolean }>`
   left: 19%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
   animation: ${moving} 1s 0s linear alternate infinite;
-  animation-delay: 0s;
+  /* animation-delay: 0s; */
 `;
