@@ -169,7 +169,7 @@ const Button = styled.button<{ showMenu: boolean }>`
     border-bottom-left-radius: ${({ showMenu }: any) => (showMenu ? '0' : '')};
     border-bottom-right-radius: ${({ showMenu }: any) => (showMenu ? '0' : '')};
     border-bottom: ${({ showMenu }: any) => (showMenu ? '1.5px solid #fff' : '')};
-    transition-delay: 0.3s;
+    transition-delay: ${({ showMenu }: any) => (showMenu ? '0s' : '0.3s')};
   `}
 `;
 
