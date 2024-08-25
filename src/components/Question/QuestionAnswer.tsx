@@ -10,7 +10,7 @@ function QuestionAnswer({ question, answer, tags }: QuestionAnswerProps) {
   const [viewLong, setViewLong] = useState(false);
 
   function handleTag(item: TagItem) {
-    window.open(item.insuranceLink, '_blank');
+    window.open(item.link, '_blank');
   }
 
   return (

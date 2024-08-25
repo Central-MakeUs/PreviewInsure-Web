@@ -6,7 +6,7 @@ export type CategoryProps = {
 
 export type TagItem = {
   insuranceCompany: string;
-  insuranceLink: string;
+  link: string;
 };
 
 export type QuestionAnswerProps = {
