@@ -23,3 +23,7 @@ export interface FavoritItem {
   favoriteInsuranceId: number;
   insuranceType: string;
 }
+
+export interface DeleteFavoritRequest {
+  favoriteInsuranceId: number;
+}
