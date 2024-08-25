@@ -1,4 +1,11 @@
-import { UserInfoResponse, InsueItem, PostFavoritRequest, PostFavoritResponse, FavoritItem } from './account.d';
+import {
+  UserInfoResponse,
+  InsueItem,
+  PostFavoritRequest,
+  PostFavoritResponse,
+  FavoritItem,
+  DeleteFavoritRequest,
+} from './account.d';
 import { accountKeys } from './account.keys';
 
 // 회원 탈퇴
@@ -136,9 +143,45 @@ export function useFavoritMutation() {
       queryClient.setQueryData(accountKeys.favorit(), (oldData: any) => {
         return [...oldData, item];
       });
+
+      //새로 Get요청
+      queryClient.invalidateQueries({ queryKey: accountKeys.favorit() });
     },
     onError: () => {},
   });
 
   return { favoritMutation: mutation };
+}
+
+// 관심보험 삭제
+// 인슈 맵에서 사용
+async function deleteFavoritInsue(data: DeleteFavoritRequest): Promise<PostFavoritResponse> {
+  const { accessToken } = useStore.getState();
+  const response = await axiosInstance.delete('/account/favorite', {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    data: data,
+  });
+  return response.data;
+}
+
+export function useDeleteFavoritMutation() {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    // mutation에는 querykey를 작성하지 않는다.
+    mutationFn: (data: DeleteFavoritRequest) => deleteFavoritInsue(data),
+    onSuccess: (newData, data) => {
+      const id = data.favoriteInsuranceId;
+      queryClient.setQueryData(accountKeys.favorit(), (oldData: FavoritItem[] | undefined) => {
+        if (!oldData) return [];
+
+        return oldData.filter((item) => item.favoriteInsuranceId !== id);
+      });
+    },
+    onError: () => {},
+  });
+
+  return { deletefavoritMutation: mutation };
 }
