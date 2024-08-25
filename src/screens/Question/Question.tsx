@@ -150,7 +150,9 @@ function Question() {
           )}
         </QList>
         {questionQuery.isFetching && (
-          <Loading type={'spinningBubbles'} color={'#6879FB'} width={69.33} height={69.33} />
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Loading type={'spinningBubbles'} color={'#6879FB'} width={69.33} height={69.33} />
+          </div>
         )}
         <div ref={ref} />
       </List>
