@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import media from '@styles/media';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { ReactComponent as MapSVG } from '@assets/icons/InsueMap/Map.svg';
 import { ReactComponent as MapLineSVG } from '@assets/icons/InsueMap/MapLine.svg';
 import { useInsueListQuery } from '@apis/account/account';
@@ -116,7 +116,7 @@ const Container = styled.div`
 `;
 
 const TopText = styled.div`
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 500;
   color: #fff;
   position: absolute;
@@ -125,7 +125,7 @@ const TopText = styled.div`
 `;
 
 const BottomText = styled.div`
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 500;
   color: #fff;
   position: absolute;
@@ -147,8 +147,15 @@ const ToothIcon = styled.div<{ enrolled: boolean }>`
   top: -13%;
   left: 5%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
-  animation: ${moving} 1s 0s linear alternate infinite;
-  /* animation-delay: 0s; */
+  /* animation: ${moving} 1s 0s linear alternate infinite; */
+  ${({ enrolled }) =>
+    enrolled
+      ? css`
+          animation: ${moving} 1s 0s linear alternate infinite;
+        `
+      : css`
+          animation: none;
+        `}
 `;
 
 const HealthIcon = styled.div<{ enrolled: boolean }>`
@@ -158,8 +165,15 @@ const HealthIcon = styled.div<{ enrolled: boolean }>`
   top: -13.5%;
   left: 37%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
-  animation: ${moving2} 1s 0s linear alternate infinite;
-  /* animation-delay: 1s; */
+  /* animation: ${moving2} 1s 0s linear alternate infinite; */
+  ${({ enrolled }) =>
+    enrolled
+      ? css`
+          animation: ${moving2} 1s 0s linear alternate infinite;
+        `
+      : css`
+          animation: none;
+        `}
 `;
 
 const HospitalIcon = styled.div<{ enrolled: boolean }>`
@@ -169,8 +183,14 @@ const HospitalIcon = styled.div<{ enrolled: boolean }>`
   top: -12.5%;
   left: 63%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
-  animation: ${moving} 1s 0s linear alternate infinite;
-  /* animation-delay: 0s; */
+  ${({ enrolled }) =>
+    enrolled
+      ? css`
+          animation: ${moving} 1s 0s linear alternate infinite;
+        `
+      : css`
+          animation: none;
+        `}
 `;
 
 const PetIcon = styled.div<{ enrolled: boolean }>`
@@ -180,8 +200,14 @@ const PetIcon = styled.div<{ enrolled: boolean }>`
   top: 12.5%;
   left: 78%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
-  animation: ${moving2} 1s 0s linear alternate infinite;
-  /* animation-delay: 1s; */
+  ${({ enrolled }) =>
+    enrolled
+      ? css`
+          animation: ${moving2} 1s 0s linear alternate infinite;
+        `
+      : css`
+          animation: none;
+        `}
 `;
 
 const CarICon = styled.div<{ enrolled: boolean }>`
@@ -191,8 +217,14 @@ const CarICon = styled.div<{ enrolled: boolean }>`
   top: 20%;
   left: 50%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
-  animation: ${moving} 1s 0s linear alternate infinite;
-  /* animation-delay: 0s; */
+  ${({ enrolled }) =>
+    enrolled
+      ? css`
+          animation: ${moving} 1s 0s linear alternate infinite;
+        `
+      : css`
+          animation: none;
+        `}
 `;
 
 const LifeIcon = styled.div<{ enrolled: boolean }>`
@@ -202,8 +234,14 @@ const LifeIcon = styled.div<{ enrolled: boolean }>`
   top: 17%;
   left: 22%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
-  animation: ${moving2} 1s 0s linear alternate infinite;
-  /* animation-delay: 1s; */
+  ${({ enrolled }) =>
+    enrolled
+      ? css`
+          animation: ${moving2} 1s 0s linear alternate infinite;
+        `
+      : css`
+          animation: none;
+        `}
 `;
 
 const CIIcon = styled.div<{ enrolled: boolean }>`
@@ -213,8 +251,14 @@ const CIIcon = styled.div<{ enrolled: boolean }>`
   top: 35%;
   left: 4%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
-  animation: ${moving} 1s 0s linear alternate infinite;
-  /* animation-delay: 0s; */
+  ${({ enrolled }) =>
+    enrolled
+      ? css`
+          animation: ${moving} 1s 0s linear alternate infinite;
+        `
+      : css`
+          animation: none;
+        `}
 `;
 
 const PigIcon = styled.div<{ enrolled: boolean }>`
@@ -224,8 +268,14 @@ const PigIcon = styled.div<{ enrolled: boolean }>`
   top: 42%;
   left: 35%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
-  animation: ${moving2} 1s 0s linear alternate infinite;
-  /* animation-delay: 1s; */
+  ${({ enrolled }) =>
+    enrolled
+      ? css`
+          animation: ${moving2} 1s 0s linear alternate infinite;
+        `
+      : css`
+          animation: none;
+        `}
 `;
 
 const MoneyIcon = styled.div<{ enrolled: boolean }>`
@@ -235,8 +285,14 @@ const MoneyIcon = styled.div<{ enrolled: boolean }>`
   top: 44%;
   left: 70%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
-  animation: ${moving} 1s 0s linear alternate infinite;
-  /* animation-delay: 0s; */
+  ${({ enrolled }) =>
+    enrolled
+      ? css`
+          animation: ${moving} 1s 0s linear alternate infinite;
+        `
+      : css`
+          animation: none;
+        `}
 `;
 
 const BookIcon = styled.div<{ enrolled: boolean }>`
@@ -246,8 +302,14 @@ const BookIcon = styled.div<{ enrolled: boolean }>`
   top: 71%;
   left: 53%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
-  animation: ${moving2} 1s 0s linear alternate infinite;
-  /* animation-delay: 1s; */
+  ${({ enrolled }) =>
+    enrolled
+      ? css`
+          animation: ${moving2} 1s 0s linear alternate infinite;
+        `
+      : css`
+          animation: none;
+        `}
 `;
 
 const WheelChariIcon = styled.div<{ enrolled: boolean }>`
@@ -257,6 +319,12 @@ const WheelChariIcon = styled.div<{ enrolled: boolean }>`
   top: 69%;
   left: 19%;
   opacity: ${({ enrolled }) => (enrolled ? 1 : 0.3)};
-  animation: ${moving} 1s 0s linear alternate infinite;
-  /* animation-delay: 0s; */
+  ${({ enrolled }) =>
+    enrolled
+      ? css`
+          animation: ${moving} 1s 0s linear alternate infinite;
+        `
+      : css`
+          animation: none;
+        `}
 `;
