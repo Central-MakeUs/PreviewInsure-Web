@@ -58,7 +58,7 @@ const GapLine = styled.div`
 const Line = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
   margin-bottom: 2.3rem;
 
   ${media.mobile`
@@ -68,6 +68,7 @@ const Line = styled.div`
 `;
 
 const DetailBtn = styled.div<{ viewLong: boolean }>`
+  margin-top: -4px;
   display: flex;
   align-items: center;
   flex-shrink: 0;
@@ -118,12 +119,15 @@ const Question = styled.div`
   font-weight: 600;
   font-size: ${({ theme }) => theme.fontSizes.paragraph};
   color: ${({ theme }) => theme.colors.Primary500};
-  line-height: normal;
   display: flex;
 
   ${media.small`
     font-size: 16px;
   `}
+
+  span {
+    line-height: 1.4;
+  }
 `;
 const Preview = styled.p`
   font-weight: 400;
