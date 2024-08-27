@@ -106,6 +106,7 @@ const Flex = styled.div`
 
     ${media.small`
     font-size: 14px;
+    line-height:1.5;
   `}
   }
   ${media.small`
@@ -121,7 +122,7 @@ const Question = styled.div`
   display: flex;
 
   ${media.small`
-    font-size: 14px;
+    font-size: 16px;
   `}
 `;
 const Preview = styled.p`
@@ -139,6 +140,7 @@ const Preview = styled.p`
 
   ${media.small`
     font-size: 14px;
+    line-height:1.5;
   `}
 `;
 const Answer = styled.p`
@@ -150,6 +152,7 @@ const Answer = styled.p`
 
   ${media.small`
     font-size: 14px;
+    line-height:1.5;
   `}
 `;
 const TagGroup = styled.div`
@@ -167,7 +170,7 @@ const TItem = styled.div`
   cursor: pointer;
 
   ${media.small`
-    padding: 10px;
+    padding: 10px 18px;
     font-size: 14px;
   `}
 `;

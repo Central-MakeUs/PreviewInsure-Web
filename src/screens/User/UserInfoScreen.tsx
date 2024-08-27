@@ -107,7 +107,7 @@ const Container = styled.div`
   ${media.mobile`
     display: flex;
     flex-direction: column;
-    margin: 0 6.4%;
+    margin: 0 32px;
   `}
 `;
 
@@ -152,7 +152,7 @@ const EditBtn = styled.button`
 const SeparateLine = styled.div`
   display: none;
   position: relative;
-  left: -7.4%;
+  left: -32px;
   width: 100vw;
   border-top: 5px solid ${({ theme }) => theme.colors.Black_W};
   margin: 4rem 0;
@@ -184,6 +184,10 @@ const SettingBox = styled.div`
   gap: 4rem;
   margin-top: 2rem;
   align-items: left;
+
+  ${media.mobile`
+    gap: 8px;
+  `}
 
   p {
     font-size: ${({ theme }) => theme.fontSizes.small};

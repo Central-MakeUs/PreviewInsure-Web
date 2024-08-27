@@ -80,8 +80,8 @@ const InsueBox = styled.div`
 
   ${media.mobile`
     flex-wrap: nowrap;
-  width: 89%;
-  margin: 0 auto;
+  width: 100%;
+  padding: 0 32px;
   display: flex;
   flex-direction: column;
   gap: 2rem;
