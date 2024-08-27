@@ -147,7 +147,7 @@ function InsuePlannerAnswer({
             <AnswerQuestionBox text={currentQuestion} />
           </QuestionWrapper>
           <AnswerWrapper>
-            <AnswerBox text={currentAnswer} links={currentAnswerLinks} />
+            <AnswerBox text={currentAnswer} links={currentAnswerLinks as any} />
           </AnswerWrapper>
         </TextWrapper>
         <BtnGroup>

@@ -3,14 +3,14 @@ import styled, { keyframes } from 'styled-components';
 import { ReactTyped } from 'react-typed';
 import media from '@styles/media';
 
-type link = {
+type linksProp = {
   insuranceCompany: string;
-  insuranceLink: string;
+  link: string;
 };
 
 type AnswerAnswerBoxProps = {
   text: string;
-  links: link[];
+  links: linksProp[];
 };
 
 function AnswerBox({ text, links }: AnswerAnswerBoxProps) {
@@ -39,7 +39,7 @@ function AnswerBox({ text, links }: AnswerAnswerBoxProps) {
             {links.map((e, i) => (
               <LinkBtn
                 onClick={() => {
-                  window.open(e.insuranceLink, '_blank', 'noopener, noreferrer');
+                  window.open(e.link, '_blank', 'noopener, noreferrer');
                 }}
               >
                 {e.insuranceCompany}
