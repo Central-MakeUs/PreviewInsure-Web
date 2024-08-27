@@ -170,7 +170,7 @@ const Container = styled.div`
   ${media.mobile`
     // 767 < 
     flex-direction:column;
-    padding: 3rem 7.8rem;
+    padding: 3rem 4.8rem;
     height: calc(100vh - 40rem);
   `}
 `;

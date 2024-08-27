@@ -179,7 +179,7 @@ const SubscribeHelp = styled.div<{ visible: boolean }>`
     position: fixed;
     left: 50vw;
     margin-left: calc(-40vw);
-    margin-top: 35%;
+    margin-top: 40%;
     z-index: 5;
     font-size: 14px;
     padding: 18px 18px 17px 16px;

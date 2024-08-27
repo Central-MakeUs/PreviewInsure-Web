@@ -10,7 +10,7 @@ type InsueQuestionCategoryProps = {
 };
 
 function InsueQuestionCategory({ setInsureSearchCategory }: InsueQuestionCategoryProps) {
-  const [insureCategory, setInsureCategory] = useState('전체 카테고리');
+  const [insureCategory, setInsureCategory] = useState('전체');
   const [showMenu, setShowMenu] = useState(false);
 
   const clickInsureSelectBtn = (insure: string) => {
@@ -65,13 +65,14 @@ const Button = styled.button`
   color: ${({ theme }) => theme.colors.Black500};
   display: flex;
   align-items: center;
-  gap: 1rem;
-  justify-content: space-around;
+  gap: 0rem;
+  justify-content: space-between;
   transition: all 0.3s ease-in-out;
+  padding: 1rem 5rem;
 
   ${media.mobile`
     // 767 < 
-    font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
+    font-size: 14px;
     height: 10rem;
     border-radius: 16px;
   `}

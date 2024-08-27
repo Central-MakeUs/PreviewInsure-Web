@@ -120,8 +120,8 @@ const LogoImg = styled.img`
   `};
 
   ${media.mobile`
-    width: 76px;
-    left: 29px;
+    width: 85px;
+    left: 32px;
     top: 6rem
   `};
 `;

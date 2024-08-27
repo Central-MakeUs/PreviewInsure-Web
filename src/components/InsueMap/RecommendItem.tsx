@@ -83,6 +83,7 @@ const Title = styled.p`
     font-size: 3rem;
     font-weight: 500;
     text-align: left;
+    margin-bottom:7px;
   `}
 `;
 

@@ -142,6 +142,7 @@ const Explain = styled.p`
   ${media.mobile`
     font-size: 14px;
     margin-bottom: 13.5rem;
+    line-height:1.4;
   `};
 `;
 
@@ -157,6 +158,7 @@ const Explain2 = styled.b`
   ${media.mobile`
     font-size: 15px;
     margin-bottom: 12rem;
+    line-height:1.4;
   `};
 `;
 

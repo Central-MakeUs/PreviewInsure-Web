@@ -26,7 +26,7 @@ function LoginScreen() {
       <Subtitle>
         <SubtitleP>인생 보험 설계,</SubtitleP>
         <SubtitleP>
-          <SubTitleTitle>프리뷰인슈</SubTitleTitle>에서 내 보험을 그려보세요
+          <SubTitleTitle>프리뷰인슈</SubTitleTitle>에서 그려보세요
         </SubtitleP>
       </Subtitle>
       <ButtonGroup>
@@ -98,7 +98,8 @@ const Subtitle = styled.p`
   ${media.mobile`
     // 767 < 
     flex-grow:1;
-    font-size:22px;
+    font-size:24px;
+    line-height: 1.3;
   `}
 `;
 

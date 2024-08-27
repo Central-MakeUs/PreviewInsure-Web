@@ -57,7 +57,7 @@ const QuestionBoxSvg = styled.div<{ bottom: string; right: string }>`
 
 const QuestionBoxText = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.small};
-  font-weight: 600;
+  font-weight: 400;
   color: ${({ theme }) => theme.colors.Black500};
   text-align: left;
   font-family: 'Pretendard', sans-serif;

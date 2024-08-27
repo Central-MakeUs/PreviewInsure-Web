@@ -230,7 +230,7 @@ const FrontContent = styled.div<{ iconactive: boolean }>`
     color: white;
 
     ${media.mobile`
-    font-size: 11px;
+    font-size: 14px;
   `};
   }
 `;
