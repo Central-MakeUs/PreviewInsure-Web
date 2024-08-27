@@ -47,6 +47,9 @@ function Map() {
         <MapLineSVG width={'100%'} height={'100%'} />
       </MapLineIcon>
 
+      <TopText>질병 및 사고대비</TopText>
+      <BottomText>미래대비</BottomText>
+
       {/* icons */}
       <ToothIcon onClick={() => handleMove('dantal')} enrolled={enrolledType.includes('TE') as boolean}>
         <ToothBraces width={'100%'} height={'100%'} />
@@ -110,6 +113,24 @@ const Container = styled.div`
   height: 100%;
   position: relative;
   /* border: 1px solid #000; */
+`;
+
+const TopText = styled.div`
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  position: absolute;
+  top: 12%;
+  left: 5%;
+`;
+
+const BottomText = styled.div`
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  position: absolute;
+  bottom: 12%;
+  left: 5%;
 `;
 
 const MapLineIcon = styled.div`

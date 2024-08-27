@@ -11,6 +11,7 @@ function InsueMap2Screen() {
 
   return (
     <Container>
+      <Background />
       <TitleWrapper>
         <Title>
           <p>{nickName}님의 인슈맵은</p>
@@ -42,9 +43,19 @@ const Container = styled.div`
   `};
 `;
 
+const Background = styled.div`
+  width: 100vw;
+  height: 50vh;
+  background-color: ${({ theme }) => theme.colors.Primary500};
+  position: fixed;
+  top: 0;
+  z-index: -1;
+`;
+
 const TitleWrapper = styled.div`
   ${media.mobile`
-    padding: 16px;
+    /* padding: 16px; */
+    padding: 16px 32px;
     /* border: 1px solid #000; */
   `}
 `;
@@ -78,7 +89,7 @@ const Btn = styled.div`
     font-size: 12px;
     color: #fff;
     font-weight: 400;
-    padding: 7px 9px;
+    padding: 7px 15px;
   `}
 `;
 

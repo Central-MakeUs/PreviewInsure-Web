@@ -63,6 +63,7 @@ const SelectBox = styled.select`
   z-index: 3;
   position: relative;
   background: transparent;
+  font-family: 'Pretendard', sans-serif;
 
   ${media.mobile`
     // 767 < 

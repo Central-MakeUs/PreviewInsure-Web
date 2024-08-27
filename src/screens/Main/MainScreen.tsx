@@ -190,6 +190,7 @@ const Background = styled.div`
   background-color: ${({ theme }) => theme.colors.Primary500};
   position: fixed;
   top: 0;
+  z-index: -1;
 `;
 
 const TextBox = styled.div`

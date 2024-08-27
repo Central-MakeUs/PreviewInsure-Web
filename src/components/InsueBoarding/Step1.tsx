@@ -54,8 +54,8 @@ function Step1({ goNextStep, goPreviousStep, setBirthYear, setBirthMonth }: Step
         <FailAlarm text={'질문 내용을 입력해 주세요.'} alarmShown={alarmShown} />
       </div>
       <Subtitle>
-        <SubtitleP>보험 맵을 구성하는</SubtitleP>
-        <SubtitleP>정보를 입력해볼게요!</SubtitleP>
+        <SubtitleP>나만의 보험 지도를 만들어 볼까요?</SubtitleP>
+        <SubtitleP>나이를 입력해주세요.</SubtitleP>
       </Subtitle>
       <DateSelectWrapper>
         <PickerContainer>
@@ -103,6 +103,7 @@ const Subtitle = styled.p`
     // 767 < 
     margin-bottom: 10rem;
     font-size: 22px;
+    line-height: 1.4;
   `}
 `;
 
