@@ -195,6 +195,7 @@ const RegisterBtn = styled.button`
   transition: all 0.3s ease;
   gap: 0.5rem;
   z-index: 5;
+  font-family: 'Pretendard', sans-serif;
 
   ${IconBox} {
     svg {

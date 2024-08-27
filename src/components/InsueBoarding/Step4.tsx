@@ -284,6 +284,7 @@ const RegisterBtn = styled.button`
   margin-bottom: 5rem;
   transition: all 0.3s ease;
   gap: 1.6rem;
+  font-family: 'Pretendard', sans-serif;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.Primary500};

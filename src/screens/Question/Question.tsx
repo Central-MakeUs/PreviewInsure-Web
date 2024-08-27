@@ -322,6 +322,7 @@ const ListTitle = styled.div`
 
   ${media.small`
     font-size: 18px;
+    margin-bottom: 33px;
   `}
 `;
 
