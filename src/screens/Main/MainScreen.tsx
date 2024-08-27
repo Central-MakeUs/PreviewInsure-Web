@@ -186,7 +186,7 @@ const Container = styled.div`
 
 const Background = styled.div`
   width: 100vw;
-  height: 30vh;
+  height: 50vh;
   background-color: ${({ theme }) => theme.colors.Primary500};
   position: fixed;
   top: 0;
