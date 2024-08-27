@@ -108,7 +108,7 @@ function BottomNav() {
 const Container = styled.div`
   width: 100%;
   height: fit-content; //78px
-  padding: 15px 40px;
+  padding: 15px 30px;
   background-color: white;
   z-index: 6;
   position: fixed;

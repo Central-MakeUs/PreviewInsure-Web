@@ -14,6 +14,7 @@ const insuranceTypes = [
   { code: 'DR', name: '운전자 보험' },
   { code: 'DE', name: '전체 카테고리' },
   { code: 'DE', name: '그 외' },
+  { code: 'DE', name: '전체' },
 
   // 붙여놓기 ver.
   { code: 'LF', name: '생명보험' }, // = 종신 보험

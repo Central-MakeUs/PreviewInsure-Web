@@ -28,9 +28,9 @@ const OAuthButtonContainer = styled.button<{ type: string }>`
   ${media.mobile`
     // 767 < 
     width:80%;
-    height:10rem;
+    height:13rem;
     padding: 0 12.6rem;
-    border-radius: 2.8rem;
+    border-radius: 3.8rem;
   `}
 `;
 

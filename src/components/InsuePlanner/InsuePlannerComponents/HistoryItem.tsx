@@ -78,6 +78,7 @@ const Title = styled.p`
   ${media.mobile`
     // 767 < 
     font-size: 4rem;
+    font-family: 'Pretendard', sans-serif;
   `}
 `;
 
@@ -93,5 +94,6 @@ const Contents = styled.p`
   ${media.mobile`
     // 767 < 
     font-size: 14px;
+    font-family: 'Pretendard', sans-serif;
   `}
 `;

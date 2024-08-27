@@ -201,7 +201,7 @@ const TextBox = styled.div`
 
   ${media.mobile`
     top: 3%;
-    left: 7%;
+    left: 32px;
   `};
 `;
 const Logoimg = styled.img`

@@ -1,5 +1,5 @@
 export const insuranceCategories = [
-  '전체 카테고리',
+  '전체',
   '생명보험',
   '상해보험',
   '건강보험',

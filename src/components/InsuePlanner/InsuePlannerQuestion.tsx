@@ -31,7 +31,7 @@ function InsuePlannerQuestion({
   const [alarmShown, setAlarmShown] = useState(false);
   const [loginAlarmShown, setLoginAlarmShown] = useState(false);
   const [errorAlarmShown, setErrorAlarmShown] = useState(false);
-  const [insureSearchCategory, setInsureSearchCategory] = useState('전체 카테고리');
+  const [insureSearchCategory, setInsureSearchCategory] = useState('전체');
   const [loading, setLoading] = useState(false);
 
   //apis
@@ -356,7 +356,7 @@ const Input = styled.textarea`
   ${media.mobile`
     // 767 < 
     height: 28rem;
-    font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
+    font-size: 14px;
     padding: 4.5rem;
     border-radius: 22px;
   `}
@@ -396,7 +396,7 @@ const InputShareLeft = styled.p<{ visible: boolean }>`
 const InputShareRight = styled.div`
   display: flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: 3rem;
 `;
 
 const InputShareWrapperP = styled.div`
@@ -417,7 +417,7 @@ const InputBtn = styled.button<{ canquestion: boolean }>`
   ${({ theme }) => theme.common.flexCenter};
   font-size: ${({ theme }) => theme.fontSizes.paragraph};
   font-weight: 500;
-  background-color: ${({ theme, canquestion }) => (canquestion ? theme.colors.Primary500 : theme.colors.Black100)};
+  background-color: ${({ theme, canquestion }) => (canquestion ? theme.colors.Primary500 : theme.colors.Black_W)};
   color: #fff;
   border-radius: 3rem;
   transition: all 0.3s ease-in-out;
