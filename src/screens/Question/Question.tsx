@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import backgroundimg from '@/assets/imgs/qna-background.png';
+import backgroundimg from '@/assets/imgs/qna-background.webp';
 import { useEffect, useState } from 'react';
 import FailAlarm from '@components/commons/FailAlarm';
 import Categorys, { CategoryType } from '@utils/common/InsurCategory';
