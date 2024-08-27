@@ -112,7 +112,7 @@ function MainScreen() {
           <TransitionGroup>
             <CSSTransition key={selected} in={true} timeout={300} classNames="icon-transition" unmountOnExit>
               <IconBox>
-                <IconTxt>{CategoryImg[selected].name}</IconTxt>
+                {/* <IconTxt>{CategoryImg[selected].name}</IconTxt> */}
                 <Icon>{SelectedIcon && <SelectedIcon width={'100%'} height={'100%'} />}</Icon>
               </IconBox>
             </CSSTransition>
