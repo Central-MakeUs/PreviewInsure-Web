@@ -29,7 +29,7 @@ function RegistInsueScreen() {
 
 const Head = styled.div`
   width: 100%;
-  padding: 7.5rem 6rem;
+  padding: 7.5rem 32px;
   background-color: ${({ theme }) => theme.colors.Primary100};
 `;
 

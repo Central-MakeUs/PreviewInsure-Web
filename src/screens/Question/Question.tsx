@@ -117,7 +117,7 @@ function Question() {
               전체보기
             </ViewBtn>
             <ViewBtn selected={viewType === 'my'} onClick={() => handleView('my')}>
-              내 관심보험 보기
+              관심보험 보기
             </ViewBtn>
           </ViewGroup>
           <ScrollGroup>
@@ -195,7 +195,9 @@ const TextBox = styled.div`
   transform: translate(-50%, 0);
 
   ${media.mobile`
-    top: 40%;
+    top: 37%;
+    font-size: 20px;
+    line-height: 1.4;
   `}
 `;
 const Search = styled.div`
@@ -258,7 +260,7 @@ const ViewBtn = styled.div<{ selected: boolean }>`
     border-radius: 14px;
     width: fit-content;
     padding: 3.1rem 5.1rem;
-    font-size: 3rem;
+    font-size: 14px;
   `};
 `;
 
