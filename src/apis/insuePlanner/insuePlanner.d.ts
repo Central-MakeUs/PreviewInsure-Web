@@ -17,7 +17,7 @@ interface link {
 }
 
 export interface plannerPOSTResponse {
-  qnaBoardId: string;
+  qnaBoardId: number;
   quesion: string;
   answer: string;
   isShare: boolean;

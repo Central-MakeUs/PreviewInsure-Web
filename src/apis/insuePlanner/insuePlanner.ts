@@ -68,7 +68,7 @@ export function useInsuePlannerPatchMutation() {
     },
   });
 
-  return { insuePlannerMutation: mutation };
+  return { insuePlannerPatchMutation: mutation };
 }
 
 // GET QuestionTitle
