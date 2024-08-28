@@ -3,7 +3,7 @@ import type { QuestionTitle } from '@apis/insuePlanner/insuePlanner.d';
 
 interface link {
   insuranceCompany: string;
-  insuranceLink: string;
+  link: string;
 }
 
 export type InsuePlannerQuestionProps = {

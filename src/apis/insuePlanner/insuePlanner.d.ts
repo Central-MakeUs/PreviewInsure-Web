@@ -6,9 +6,14 @@ export interface plannerPOSTRequest {
   insuranceType: string;
 }
 
+export interface plannerPATCHRequest {
+  quesionId: number;
+  quesion: string;
+}
+
 interface link {
   insuranceCompany: string;
-  insuranceLink: string;
+  link: string;
 }
 
 export interface plannerPOSTResponse {

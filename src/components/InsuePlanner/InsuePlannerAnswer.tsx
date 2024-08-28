@@ -14,7 +14,7 @@ import {
   useGetQuestionDetailQuery,
   getQuestionDetail,
 } from '@apis/insuePlanner/insuePlanner';
-import type { QuestionTitle } from '@apis/insuePlanner/insuePlanner.d';
+import type { QuestionTitle, plannerPATCHRequest } from '@apis/insuePlanner/insuePlanner.d';
 
 function InsuePlannerAnswer({
   question,
@@ -24,7 +24,7 @@ function InsuePlannerAnswer({
   setCurrentAnswer,
   setCurrentAnswerLinks,
 }: InsuePlannerAnswerProps) {
-  const [currentQuestion, setCurrentQuestion] = useState(question);
+  const [currentQuestion, setCurrentQuestion] = useState<string>(question);
   const [history, setHistory] = useState<QuestionTitle[]>([]);
   const [historyQuestionId, setHistoryQuestionId] = useState<number | null>();
 
@@ -38,6 +38,11 @@ function InsuePlannerAnswer({
 
   const anotherPlannerAsk = () => {
     console.log('anotherPlannerAsk click');
+    const questionPatchData: plannerPATCHRequest = {
+      quesionId: 1,
+      quesion: currentQuestion,
+    };
+    console.log(questionPatchData);
   };
 
   //apis
@@ -147,7 +152,7 @@ function InsuePlannerAnswer({
             <AnswerQuestionBox text={currentQuestion} />
           </QuestionWrapper>
           <AnswerWrapper>
-            <AnswerBox text={currentAnswer} links={currentAnswerLinks as any} />
+            <AnswerBox text={currentAnswer} links={currentAnswerLinks} />
           </AnswerWrapper>
         </TextWrapper>
         <BtnGroup>
