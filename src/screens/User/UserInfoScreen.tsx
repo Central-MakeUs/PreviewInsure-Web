@@ -7,6 +7,7 @@ import { useStore } from '@stores/useStore';
 import InfoSection from '@components/User/InfoSection';
 import { deleteAccount, useInsueListQuery, useFavoritQuery } from '@apis/account/account';
 import CountSection from '@components/User/CountSection';
+import { openNewTab } from '@utils/common/openNewTab';
 
 type NotiInfo = {
   alarm: boolean;
@@ -35,7 +36,7 @@ function UserInfoScreen() {
   }
 
   function handleReportFraud() {
-    window.open('https://www.fss.or.kr/fss/main/contents.do?menuNo=200647', '_blank');
+    openNewTab('https://www.fss.or.kr/fss/main/contents.do?menuNo=200647');
   }
 
   function goTO(link: string) {

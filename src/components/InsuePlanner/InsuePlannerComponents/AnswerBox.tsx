@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { ReactTyped } from 'react-typed';
 import media from '@styles/media';
+import { openNewTab } from '@utils/common/openNewTab';
 
 type linksProp = {
   insuranceCompany: string;
@@ -39,7 +40,7 @@ function AnswerBox({ text, links }: AnswerAnswerBoxProps) {
             {links.map((e, i) => (
               <LinkBtn
                 onClick={() => {
-                  window.open(e.link, '_blank', 'noopener, noreferrer');
+                  openNewTab(e.link);
                 }}
               >
                 {e.insuranceCompany}

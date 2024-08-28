@@ -16,6 +16,6 @@ export const openNewTab = (url: string) => {
   if (isApp()) {
     sendRouterEvent(url);
   } else {
-    window.open(url, '_blank');
+    window.open(url, '_blank', 'noopener, noreferrer');
   }
 };

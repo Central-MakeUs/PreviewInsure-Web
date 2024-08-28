@@ -4,6 +4,7 @@ import media from '@styles/media';
 import InsueDetailIcon from './InsueDetailIcon';
 import { useStore } from '@stores/useStore';
 import { useNavigate } from 'react-router-dom';
+import { openNewTab } from '@utils/common/openNewTab';
 
 function InsueMapSecondSection({
   insueName,
@@ -40,8 +41,9 @@ function InsueMapSecondSection({
   const handleMoveBtn = () => {
     if (!isLogin) navigate('/login');
     if (registInsueCompany) {
-      if (registInsueLink === 'none') return;
-      window.open(registInsueLink, '_blank', 'noopener, noreferrer');
+      if (!registInsueLink || registInsueLink === 'none') return;
+
+      openNewTab(registInsueLink);
     } else {
       // TODO : 보험 정보 입력하기 화면으로 이동
       navigate('/user');
