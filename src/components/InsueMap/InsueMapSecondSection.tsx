@@ -27,7 +27,11 @@ function InsueMapSecondSection({
       ? `${nickName}님은 ${registInsueCompany}에 현재 가입되어 있어요!\n해당 사이트에 들어가서 정보를 확인할 수 있어요.`
       : `${nickName}님은 아직 ${insueName}을 보유하지 않았네요.\n${insueRecommandExplain}`;
 
-  const btnTxt = registInsueCompany ? `${registInsueCompany} 바로가기` : '가입한 보험 정보 입력하기';
+  const btnTxt = registInsueCompany
+    ? registInsueCompany === '그 외'
+      ? `사용하는 보험사가 없다면\n프리뷰인슈에 알려주세요!`
+      : `${registInsueCompany} 바로가기`
+    : '가입한 보험 정보 입력하기';
 
   // icon
   const iconTxt = isSubscribe ? '관심보험 등록 완료!' : isRegist ? '관심보험 미등록' : `${insueName} 미등록`;
@@ -36,6 +40,7 @@ function InsueMapSecondSection({
   const handleMoveBtn = () => {
     if (!isLogin) navigate('/login');
     if (registInsueCompany) {
+      if (registInsueLink === 'none') return;
       window.open(registInsueLink, '_blank', 'noopener, noreferrer');
     } else {
       // TODO : 보험 정보 입력하기 화면으로 이동
@@ -68,7 +73,7 @@ function InsueMapSecondSection({
         <Title>이런 분들에게 추천드려요!</Title>
         <Explain>{insueRecommandPerson}</Explain>
         <Explain2>{myInsueTxt}</Explain2>
-        {/* <Btn onClick={handleMoveBtn}>{btnTxt}</Btn> */}
+        <Btn onClick={handleMoveBtn}>{btnTxt}</Btn>
       </Right>
     </Container>
   );
@@ -142,7 +147,6 @@ const Explain = styled.p`
   ${media.mobile`
     font-size: 14px;
     margin-bottom: 13.5rem;
-    line-height:1.4;
   `};
 `;
 
@@ -158,11 +162,11 @@ const Explain2 = styled.b`
   ${media.mobile`
     font-size: 15px;
     margin-bottom: 12rem;
-    line-height:1.4;
   `};
 `;
 
 const Btn = styled.button`
+  white-space: pre;
   display: block;
   border-radius: 3.2rem;
   border: 0px;
@@ -179,6 +183,7 @@ const Btn = styled.button`
   ${media.mobile`
   border-radius: 32px;
     margin: 0 auto;
+    margin-bottom: 10px;
     font-size: 15px;
     padding: 3rem;
     min-width: 60rem;
