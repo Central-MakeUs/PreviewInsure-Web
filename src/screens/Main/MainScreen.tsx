@@ -10,6 +10,7 @@ import { CategoryImg } from '@utils/common/InsurCategory';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import _ from 'lodash';
+import { Link } from 'react-router-dom';
 
 function MainScreen() {
   const [selected, setSelected] = useState<number>(-1);
@@ -158,6 +159,11 @@ function MainScreen() {
         </SelectBox>
       </ScrollBox>
 
+      {/* Mobile */}
+      <InfoBox>
+        <Link to={'/policy/service'}>이용약관</Link> 및 <Link to={'/policy/privacy'}>개인정보 처리방침</Link>
+      </InfoBox>
+
       <ArrowBox onClick={() => hanldeSelected(1)}>
         <Arrow width={43} height={'100%'} color="white" />
       </ArrowBox>
@@ -263,7 +269,7 @@ const CharacterBox = styled.div`
     width: 100%;
     height: 100%;
     max-height: 100%;
-    margin-bottom: 25rem;
+    margin-bottom: 26rem;
     overflow: hidden;
   `};
 `;
@@ -394,7 +400,8 @@ const GradientImgBackground = styled.div`
   `}
 
   ${media.mobile`
-  bottom: 15.8%;
+    max-height: 16rem;
+    bottom: 18.8%;
   `};
 `;
 
@@ -412,7 +419,7 @@ const ColorBackground = styled.div`
     height: 40%;
   `};
   ${media.mobile`
-    height: 16%;
+    height: 19%;
   `};
 `;
 
@@ -428,6 +435,10 @@ const ScrollBox = styled.div`
 
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
+
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera에서 스크롤 바 숨기기 */
+  }
 `;
 
 const ScrollItem = styled.div`
@@ -446,7 +457,30 @@ const SelectBox = styled.div`
   align-items: end;
   overflow: visible;
 `;
+const InfoBox = styled.div`
+  display: none;
+  position: absolute;
+  bottom: 28%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 88%;
 
+  color: white;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 12px 22px;
+  border-radius: 12px;
+  background-color: ${({ theme }) => theme.colors.Primary400};
+
+  a {
+    color: white;
+    text-decoration: underline;
+  }
+
+  ${media.mobile`
+    display: block;
+  `}
+`;
 const ArrowBox = styled.div`
   z-index: 3;
   position: absolute;
@@ -461,7 +495,7 @@ const LeftArrowBox = styled.div`
   z-index: 3;
   position: absolute;
   bottom: 23%;
-  left: 2.5rem;
+  left: 5rem;
   display: none;
 
   transform: rotate(180deg);
@@ -473,7 +507,7 @@ const RightArrowBox = styled.div`
   z-index: 3;
   position: absolute;
   bottom: 23%;
-  right: 2.5rem;
+  right: 5rem;
   display: none;
   ${media.mobile`
     display: block;
