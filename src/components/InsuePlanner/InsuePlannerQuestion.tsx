@@ -22,6 +22,7 @@ function InsuePlannerQuestion({
   setCurrentScreen,
   setCurrentAnswer,
   setCurrentAnswerLinks,
+  setCurrentQuestionId,
 }: InsuePlannerQuestionProps) {
   const { isLogin } = useStore();
   const [text, setText] = useState<string>('');
@@ -86,6 +87,8 @@ function InsuePlannerQuestion({
         // 답변 저장
         setCurrentAnswer(data.answer as string);
         setCurrentAnswerLinks(data.links as link[]);
+        // question Id 저장
+        setCurrentQuestionId(data.qnaBoardId);
         // 성공 후 이동
         setCurrentScreen('A');
       },
