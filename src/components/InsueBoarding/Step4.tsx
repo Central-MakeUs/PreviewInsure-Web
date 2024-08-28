@@ -42,7 +42,6 @@ function Step4({ goNextStep, goPreviousStep, setSelectedInsures, setToSelectInsu
         setFake(false);
         setSelectedCards([]);
       }, 100);
-      // setSelectedCards([]);
     } else {
       setFake(false);
     }
