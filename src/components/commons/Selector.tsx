@@ -78,14 +78,12 @@ const IconBox = styled.div<{ platform: string }>`
     // 767 < 
     width: 13px;
     height: 10px;
-    left: -100%;
-
+    position: absolute;
+    left: 10%;
+    bottom:25%;
     //
-    position: ${({ platform }: any) => platform === 'ios' && 'absolute'};
-    left:${({ platform }: any) => platform === 'ios' && '10%'};
-    bottom:${({ platform }: any) => platform === 'ios' && '25%'};
-    width: ${({ platform }: any) => platform === 'ios' && '13px'};  //4rem
-    height: ${({ platform }: any) => platform === 'ios' && '10px'};  //4rem
+    bottom:${({ platform }: any) => platform === 'ios' && '15%'};
+  
   `}
 `;
 
