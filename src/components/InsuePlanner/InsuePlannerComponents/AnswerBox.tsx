@@ -65,7 +65,8 @@ const TextContainer = styled.div`
   color: ${({ theme }) => theme.colors.Black500};
   font-weight: 300;
   border-radius: 1.2rem;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.4rem;
+  line-height: 1.4;
 
   ${media.mobile`
     // ~ 767 
@@ -74,6 +75,7 @@ const TextContainer = styled.div`
     border-radius: 12px;
     padding: 18px 20px;
     line-height:1.4;
+    margin-bottom: 12px;
   `}
 `;
 
@@ -94,7 +96,7 @@ const fadeIn = keyframes`
 const LinksTextContainer = styled.div`
   width: fit-content;
   border-radius: 1.2rem;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.4rem;
   padding: 2rem 3rem;
   background-color: ${({ theme }) => theme.colors.Primary_W};
   font-size: ${({ theme }) => theme.fontSizes.small};
@@ -107,6 +109,7 @@ const LinksTextContainer = styled.div`
     font-size: 14px;
     border-radius: 12px;
     padding: 18px 20px;
+    margin-bottom: 12px;
   `}
 `;
 

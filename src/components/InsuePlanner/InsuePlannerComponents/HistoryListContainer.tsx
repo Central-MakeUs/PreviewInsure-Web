@@ -107,11 +107,11 @@ const CloseIconBox = styled.div`
 `;
 
 const SearchBarWrapper = styled.div`
+  display: none;
   margin-bottom: 2.4rem;
-
   ${media.mobile`
     display:none;
-  `}
+  `};
 `;
 
 const HistoryList = styled.div`

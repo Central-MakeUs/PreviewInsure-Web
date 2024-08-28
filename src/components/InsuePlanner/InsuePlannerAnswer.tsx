@@ -152,7 +152,7 @@ function InsuePlannerAnswer({
         </TextWrapper>
         <BtnGroup>
           <Btn onClick={goBack}>다른 질문하러 돌아가기</Btn>
-          <Btn onClick={anotherPlannerAsk}>다른 플래너에게 답변 받기</Btn>
+          <Btn onClick={anotherPlannerAsk}>다시 답변받기</Btn>
         </BtnGroup>
       </TextContainer>
     </Container>
@@ -296,8 +296,10 @@ const BtnGroup = styled.div`
 `;
 
 const Btn = styled.button`
+  min-width: 28rem;
   border: none;
   background-color: ${({ theme }) => theme.colors.Black100};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   padding: 2rem 3.6rem;
   color: #fff;
   border-radius: 3.2rem;

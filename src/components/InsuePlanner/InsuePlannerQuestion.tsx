@@ -416,8 +416,8 @@ const InputBtn = styled.button<{ canquestion: boolean }>`
   cursor: pointer;
   ${({ theme }) => theme.common.flexCenter};
   font-size: ${({ theme }) => theme.fontSizes.paragraph};
-  font-weight: 500;
-  background-color: ${({ theme, canquestion }) => (canquestion ? theme.colors.Primary500 : theme.colors.Black_W)};
+  font-weight: 400;
+  background-color: ${({ theme, canquestion }) => (canquestion ? theme.colors.Primary500 : theme.colors.Black100)};
   color: #fff;
   border-radius: 3rem;
   transition: all 0.3s ease-in-out;
@@ -426,8 +426,9 @@ const InputBtn = styled.button<{ canquestion: boolean }>`
     // 767 < 
     width: 100%;
     font-size: 4rem;
-    font-weight: 400;
+    background-color: ${({ theme, canquestion }: any) => (canquestion ? theme.colors.Primary500 : theme.colors.Black_W)};
     color: ${({ theme, canquestion }: any) => (canquestion ? '#fff' : theme.colors.Black500)};
+    font-weight: 400;
     height: 11.5rem;
   `}
 `;

@@ -20,12 +20,12 @@ const Container = styled.div`
   color: #fff;
   border-radius: 1.2rem;
   font-weight: 300;
+  line-height: 1.4;
 
   ${media.mobile`
     // 767 < 
     font-size: 14px;
     border-radius: 12px;
     padding:14px;
-    line-height:1.2;
   `}
 `;
