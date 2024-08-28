@@ -11,6 +11,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
+import { openNewTab } from '@utils/common/openNewTab';
 
 function MainScreen() {
   const [selected, setSelected] = useState<number>(-1);
@@ -112,7 +113,7 @@ function MainScreen() {
         <CharacterBox>
           <TransitionGroup>
             <CSSTransition key={selected} in={true} timeout={300} classNames="icon-transition" unmountOnExit>
-              <IconBox>
+              <IconBox onClick={() => openNewTab('https://www.naver.com/')}>
                 {/* <IconTxt>{CategoryImg[selected].name}</IconTxt> */}
                 <Icon>{SelectedIcon && <SelectedIcon width={'100%'} height={'100%'} />}</Icon>
               </IconBox>
