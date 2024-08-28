@@ -59,6 +59,9 @@ function UserInfoScreen() {
           <p className="black" onClick={goToInsueBording}>
             인슈보딩 다시하기
           </p>
+          <p className="only_mobile black" onClick={() => goTO('/registInsue')}>
+            가입 보험 확인하기
+          </p>
           <p onClick={logOut}>로그아웃</p>
           <p onClick={handleDeleteAccount}>탈퇴하기</p>
           <p className="only_mobile" onClick={handleReportFraud}>

@@ -44,7 +44,7 @@ function InsueMapSecondSection({
       window.open(registInsueLink, '_blank', 'noopener, noreferrer');
     } else {
       // TODO : 보험 정보 입력하기 화면으로 이동
-      navigate('/myInsue');
+      navigate('/user');
     }
   };
 
