@@ -17,6 +17,7 @@ function MainScreen() {
   const scrollWrapperRef = useRef<HTMLDivElement>(null);
   const ContainerRef = useRef<HTMLDivElement>(null);
   const SelectedIcon = selected >= 0 && CategoryImg[selected].img;
+  let selectFlag = false;
 
   const MoveSelected = (num: number) => {
     muCenter(num);
@@ -45,7 +46,7 @@ function MainScreen() {
   // 스크롤시 selected 변경
   const handleScroll = useCallback(
     _.throttle(() => {
-      if (scrollWrapperRef.current) {
+      if (!selectFlag && scrollWrapperRef.current) {
         const box = scrollWrapperRef.current;
         const scrItems = box?.querySelectorAll<HTMLDivElement>('.horizonScroll__item');
 
@@ -69,6 +70,8 @@ function MainScreen() {
         // 현재 스크롤 위치에 따라 selected 업데이트
         setSelected(closestIndex);
       }
+
+      selectFlag = false;
     }, 500), // 쓰로틀 간격
     [],
   );
@@ -89,6 +92,7 @@ function MainScreen() {
   // 선택된 item 가운데로
   const muCenter = (targetIndex: number) => {
     if (scrollWrapperRef.current) {
+      selectFlag = true;
       const box = scrollWrapperRef.current;
       const scrItems = box?.querySelectorAll<HTMLDivElement>('.horizonScroll__item');
       const targetElement = scrItems?.[targetIndex];
@@ -308,8 +312,9 @@ const IconBox = styled.div`
   `};
 
   ${media.mobile`
-    left:8%;
-    bottom: 35%;
+    left: 43%;
+    transform: translateX(-34rem);
+    bottom: calc(35rem + 15vw);
   `}
 
   transition:
@@ -359,7 +364,6 @@ const CharacterImg = styled.img`
   bottom: 10rem;
   left: 0;
   width: 100%;
-  height: fit-content;
   height: 100%;
   min-height: 90rem;
   max-width: 120rem;
@@ -370,11 +374,13 @@ const CharacterImg = styled.img`
   `}
 
   ${media.mobile`
+    height: fit-content;
+    max-height: 130rem;
     width:120%;
     max-width: 120%;
     left:53%;
-    bottom: 38%;
-    transform: translate(-50%, 50%);
+    bottom: 10rem;
+    transform: translate(-50%);
     /* position: absolute; */
     /* width: 100%; */
     /* height: 100%; */
@@ -401,7 +407,7 @@ const GradientImgBackground = styled.div`
 
   ${media.mobile`
     max-height: 16rem;
-    bottom: 18.8%;
+    bottom: 30.8rem;
   `};
 `;
 
@@ -419,7 +425,7 @@ const ColorBackground = styled.div`
     height: 40%;
   `};
   ${media.mobile`
-    height: 19%;
+    height: 31rem;
   `};
 `;
 
@@ -460,7 +466,7 @@ const SelectBox = styled.div`
 const InfoBox = styled.div`
   display: none;
   position: absolute;
-  bottom: 28%;
+  bottom: 47rem;
   left: 50%;
   transform: translateX(-50%);
   width: 88%;
@@ -494,8 +500,8 @@ const ArrowBox = styled.div`
 const LeftArrowBox = styled.div`
   z-index: 3;
   position: absolute;
-  bottom: 23%;
-  left: 5rem;
+  bottom: 38rem;
+  left: 5.5rem;
   display: none;
 
   transform: rotate(180deg);
@@ -506,8 +512,8 @@ const LeftArrowBox = styled.div`
 const RightArrowBox = styled.div`
   z-index: 3;
   position: absolute;
-  bottom: 23%;
-  right: 5rem;
+  bottom: 38rem;
+  right: 5.5rem;
   display: none;
   ${media.mobile`
     display: block;
