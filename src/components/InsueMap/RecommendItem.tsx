@@ -1,4 +1,5 @@
 import media from '@styles/media';
+import { openNewTab } from '@utils/common/openNewTab';
 import styled from 'styled-components';
 
 function RecommendItem({
@@ -10,11 +11,8 @@ function RecommendItem({
   link,
 }: RecommendItemProps) {
   const handleLink = () => {
-    const userConfirmed = window.confirm('해당 보험 상품 페이지로 이동하시겠습니까?');
-
-    if (userConfirmed) {
-      window.open(link, '_blank');
-    }
+    if (!link) return;
+    openNewTab(link);
   };
   return (
     <Container onClick={handleLink}>

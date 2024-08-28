@@ -5,12 +5,13 @@ import { ReactComponent as Up } from '@assets/icons/Up.svg';
 import Colors from '@styles/Colors';
 import { useState } from 'react';
 import media from '@styles/media';
+import { openNewTab } from '@utils/common/openNewTab';
 function QuestionAnswer({ question, answer, tags }: QuestionAnswerProps) {
   const isLongText = answer.length > 150;
   const [viewLong, setViewLong] = useState(false);
 
   function handleTag(item: TagItem) {
-    window.open(item.link, '_blank');
+    openNewTab(item.link);
   }
 
   return (
