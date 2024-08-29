@@ -6,6 +6,8 @@ import InsueBarItem from '@components/User/InsueBarItem';
 import { convertInsureString } from '@utils/common/convertInsureType';
 import { UseQueryResult } from '@tanstack/react-query';
 import Loading from '@components/commons/Loading';
+import { useInsueComponayPatchMutation } from '@apis/account/account';
+import { PatchInsueRequest } from '@apis/account/account.d';
 
 interface InsueSectionProps {
   view?: 'VIEW | EDIT';
@@ -18,26 +20,20 @@ interface Item {
   insueCompany: string;
 }
 function InsueSection({ insurancesData, isError, isLoading }: InsueSectionProps) {
-  // TODO: GET요청
-  // const { insurancesQuery } = useInsueListQuery();
-  const myinsue = [
-    { type: '생명보험', insueCompany: 'KB손해보험' },
-    { type: '건강보험', insueCompany: 'KB손해보험' },
-    { type: '상해보험', insueCompany: 'KB손해보험' },
-    { type: 'CI보험', insueCompany: 'KB손해보험' },
-    { type: '운전자보험', insueCompany: 'KB손해보험' },
-    { type: '연금보험', insueCompany: 'KB손해보험' },
-    { type: '애견보험', insueCompany: 'KB손해보험' },
-    { type: '건강보험', insueCompany: 'KB손해보험' },
-  ];
+  // 가입한 보험사 수정 API
+  const { insueCompanyPatchMutation } = useInsueComponayPatchMutation();
 
-  const [insues, setInsues] = useState<Item[]>(myinsue);
+  function changeInsue(id: number, type: string, changeCompany: string) {
+    console.log('change');
+    console.log(type, changeCompany);
 
-  function changeInsue(type: string, company: string) {
-    const updatedInsues = insues.map((item) => (item.type === type ? { ...item, insueCompany: company } : item));
-    setInsues(updatedInsues);
+    const data: PatchInsueRequest = {
+      accountInsuranceId: id,
+      insuranceType: type,
+      insuranceCompany: changeCompany,
+    };
 
-    // TODO : POST 요청
+    insueCompanyPatchMutation.mutate(data);
   }
 
   if (isLoading) {
@@ -61,6 +57,9 @@ function InsueSection({ insurancesData, isError, isLoading }: InsueSectionProps)
       {insurancesData &&
         insurancesData?.map((insue) => (
           <InsueBarItem
+            key={insue.accountInsuranceId}
+            id={insue.accountInsuranceId}
+            type={insue.insuranceType}
             text={convertInsureString(insue.insuranceType)}
             SVG={CategoryImg.find((item) => item.value === insue.insuranceType)?.img}
             company={insue.insuranceCompany}
