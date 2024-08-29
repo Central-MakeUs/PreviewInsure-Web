@@ -11,6 +11,12 @@ export interface InsueItem {
   insuranceCompany: string;
 }
 
+export interface PatchInsueRequest {
+  accountInsuranceId: number;
+  insuranceType: string;
+  insuranceCompany: string;
+}
+
 export interface PostFavoritRequest {
   insuranceType: string;
 }

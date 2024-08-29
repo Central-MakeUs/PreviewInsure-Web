@@ -6,29 +6,30 @@ import { ReactComponent as UpSelector } from '@/assets/icons/UpSelector.svg';
 import { insures } from '@/static/insures';
 
 type InsueCardProps = {
+  id: number;
+  type: string;
   text: string;
   SVG?: React.FC<React.SVGProps<SVGSVGElement>>;
   company: string;
   handleInsue?: any;
 };
 
-function InsueBarItem({ text, SVG, company, handleInsue }: InsueCardProps) {
+function InsueBarItem({ id, type, text, SVG, company, handleInsue }: InsueCardProps) {
   const [showMenu, setShowMenu] = useState(false);
 
   const clickInsureSelectBtn = (insure: string) => {
     setShowMenu(false);
-    handleInsue(text, insure);
+    handleInsue(id, type, insure);
   };
 
   return (
     <Card>
       <Bar>
-        {SVG && <SVG width={'30%'} height={'90%'} />}
+        {SVG && <SVG width={'23%'} height={'78%'} />}
         <InsueName>{text}</InsueName>
 
         <SelectWrapper>
-          {/* <Button onClick={() => setShowMenu(!showMenu)}> */}
-          <Button>
+          <Button onClick={() => setShowMenu(!showMenu)}>
             <span>{company} </span>
             <IconBox>
               {!showMenu ? (
@@ -68,7 +69,7 @@ const Bar = styled.div`
   align-items: center;
   justify-content: center;
 
-  padding: 1rem 3rem 1rem 1rem;
+  padding: 1rem 2rem 1rem 1rem;
   width: 100%;
   height: 12rem;
   border-radius: 2.4rem;
@@ -85,7 +86,8 @@ const InsueName = styled.p`
   color: ${({ theme }) => theme.colors.Primary500};
   min-width: fit-content;
   font-weight: 500;
-  margin-right: auto;
+  margin: 0 auto;
+  text-align: center;
 
   ${media.mobile`
     // 767 < 
@@ -95,13 +97,13 @@ const InsueName = styled.p`
 
 const SelectWrapper = styled.div`
   position: relative;
-  width: 15rem;
+  width: 17rem;
   margin-left: auto;
   height: 5rem;
 
   ${media.mobile`
     width: 32rem;
-    height: 10rem;
+    height: 11rem;
   `}
 `;
 const Button = styled.button`
@@ -115,27 +117,28 @@ const Button = styled.button`
   padding: 1.4rem 2.4rem;
 
   gap: 1rem;
-  align-items: baseline;
   justify-content: center;
   transition: all 0.3s ease-in-out;
 
   ${media.mobile`
-  padding: 0;
-  align-items: center;
-    width: 90%;
-    height: 10rem;
+    padding: 2rem;
+    align-items: center;
+    width: 95%;
+    height: 11rem;
     border-radius: 4rem;
     gap: 2rem;
     font-size: 14px;
   `}
 
   span {
-    font-size: ${({ theme }) => theme.fontSizes.tiny};
+    font-size: ${({ theme }) => theme.fontSizes.small};
     font-weight: 500;
+    margin: 0 auto;
+
     ${media.mobile`
-    font-size: 14px;
-    text-overflow: ellipsis;
-  `}
+      font-size: 14px;
+      text-overflow: ellipsis;
+  `};
   }
 `;
 const InsureContents = styled.div<{ open: boolean }>`
@@ -158,7 +161,7 @@ const InsureContents = styled.div<{ open: boolean }>`
   ${media.mobile`
     margin-top: 0.8rem;
     width: 90%;
-    border-radius: 3rem;
+    border-radius: 20px;
   `}
 `;
 
@@ -183,25 +186,20 @@ const InsureContent = styled.button`
 
   ${media.mobile`
     height: 7rem;
-    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+    font-size: 12px;
   `}
 `;
 
 const IconBox = styled.div`
   width: 1.3rem;
-  height: 0.8rem;
+  height: 98%;
+  align-content: center;
 
-  // 수정 불가능 하도록
-  display: none;
+  svg {
+    margin: auto 0;
+  }
 
-  ${media.medium`
-    bottom: 27%;
-  `}
-  ${media.small`
-    bottom: 36%;
-  `}
   ${media.mobile`
     width: 2.5rem;
-    height: 2.5rem;
   `}
 `;
