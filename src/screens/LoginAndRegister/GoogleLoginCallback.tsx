@@ -62,19 +62,21 @@ const GoogleLoginCallback = () => {
       console.log('accessToken', accessToken);
       console.log('accessNickname', accessNickname);
 
-      closeNewTab(); //WebView로 전송
-
       if (accessToken && accessNickname === 'null') {
         //register
         console.log('register');
         setTempToken(accessToken); //temp token 저장
+        closeNewTab(); //WebView로 전송
         navigate('/registerAgree');
       } else if (accessToken) {
         // login
         console.log('login');
         login(accessToken, accessNickname);
+        closeNewTab(); //WebView로 전송
         navigate('/');
       }
+
+      closeNewTab(); //WebView로 전송
     }
   }, [accessToken, accessNickname]);
 
