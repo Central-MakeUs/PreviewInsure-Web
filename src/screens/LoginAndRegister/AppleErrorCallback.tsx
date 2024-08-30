@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loading from '@components/commons/Loading';
+import { closeNewTab } from '@utils/common/openNewTab';
 
 function AppleErrorCallback() {
   const navigate = useNavigate();
@@ -10,6 +11,8 @@ function AppleErrorCallback() {
   };
 
   useEffect(() => {
+    closeNewTab(); //WebView로 전송
+
     // 에러 파라미터 들고오기
     const isRegistered = getParameter('isRegistered');
     if (isRegistered === 'true') {
