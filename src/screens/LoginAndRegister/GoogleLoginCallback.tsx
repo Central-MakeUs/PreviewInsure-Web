@@ -74,7 +74,7 @@ const GoogleLoginCallback = () => {
         navigate('/');
       }
 
-      closeNewTab(); //WebView로 전송
+      // closeNewTab(); //WebView로 전송
     }
   }, [accessToken, accessNickname]);
 
