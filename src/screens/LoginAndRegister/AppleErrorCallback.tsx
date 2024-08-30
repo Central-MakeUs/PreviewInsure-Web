@@ -11,12 +11,11 @@ function AppleErrorCallback() {
   };
 
   useEffect(() => {
-    closeNewTab(); //WebView로 전송
-
     // 에러 파라미터 들고오기
     const isRegistered = getParameter('isRegistered');
     if (isRegistered === 'true') {
       alert('탈퇴한 유저는 재가입할 수 없습니다.');
+      closeNewTab(); //WebView로 전송
       navigate('/login');
     }
   }, []);
