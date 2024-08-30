@@ -1,6 +1,7 @@
 import Loading from '@components/commons/Loading';
 import { useStore } from '@stores/useStore';
 import axiosInstance from '@utils/axios';
+import { closeNewTab } from '@utils/common/openNewTab';
 import { platform } from 'os';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -31,24 +32,13 @@ const GoogleLoginCallback = () => {
     //코드 받아와지는 거 확인됐음.
     // console.log(code);
 
-    const data = {
-      platform: 'GOOGLE',
-      code: code,
-    };
-
     try {
       // 토큰 서버에 전송. 로그인 요청.
       const res = await axiosInstance.get(`/oauth?platform=GOOGLE&code=${code}`);
       console.log(res);
       // 토큰 zustand 저장
-      // TODO : api 반환값에 따른 처리
-      // const accessToken = res.data.data.atk;
-      // const accessNickname = res.data.data.nickname;
       setAccessToken(res.data.data.atk);
       setAccessNickname(res.data.data.nickname);
-
-      // 신규/기존 회원 여부에 따라 페이지 이동
-      // res.data.isExistingMember ? handleHome() : handleRegist();
     } catch (error: any) {
       console.log('google login error', error);
       if (error?.response.data.code === -1004) {
@@ -57,11 +47,6 @@ const GoogleLoginCallback = () => {
       }
     }
   };
-
-  function handleCriticalLogin() {
-    login('aaaaaaaaaaaaa', '춤추는 부엉이');
-    navigate('/');
-  }
 
   useEffect(() => {
     if (code) {
@@ -75,6 +60,8 @@ const GoogleLoginCallback = () => {
     if (accessToken) {
       console.log('accessToken', accessToken);
       console.log('accessNickname', accessNickname);
+
+      closeNewTab(); //WebView로 전송
 
       if (accessToken && accessNickname === 'null') {
         //register

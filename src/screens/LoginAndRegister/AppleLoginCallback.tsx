@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loading from '@components/commons/Loading';
 import { useStore } from '@stores/useStore';
+import { closeNewTab } from '@utils/common/openNewTab';
 
 const SERVER_URL = import.meta.env.VITE_APP_SERVER_URL;
 
@@ -33,6 +34,8 @@ function AppleLoginCallback() {
     if (accessToken) {
       console.log('accessToken', accessToken);
       console.log('accessNickname', accessNickname);
+
+      closeNewTab(); //WebView로 전송
 
       if (accessToken && (accessNickname === 'null' || accessNickname === 'none')) {
         //register

@@ -19,3 +19,7 @@ export const openNewTab = (url: string) => {
     window.open(url, '_blank', 'noopener, noreferrer');
   }
 };
+
+export const closeNewTab = () => {
+  if (isApp()) window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'ROUTER_EVENT', data: 'back' }));
+};
