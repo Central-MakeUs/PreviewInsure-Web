@@ -22,7 +22,6 @@ function AppleLoginCallback() {
     setAccessToken(getParameter('token'));
     setAccessNickname(getParameter('nickname'));
 
-    closeNewTab(); //WebView로 전송
     // if (getParameter('nickname') !== 'null') {
     //   // 닉네임이 decoding 된 형태
     //   setAccessNickname(decodeURIComponent(getParameter('nickname'))); // decoding
@@ -42,14 +41,14 @@ function AppleLoginCallback() {
         console.log('register');
         setTempToken(accessToken); //temp token 저장
 
-        closeNewTab(); //WebView로 전송
+        // closeNewTab(); //WebView로 전송
         navigate('/registerAgree');
       } else if (accessToken) {
         // login
         console.log('login');
         login(accessToken, accessNickname);
 
-        closeNewTab(); //WebView로 전송
+        // closeNewTab(); //WebView로 전송
         navigate('/');
       }
     }

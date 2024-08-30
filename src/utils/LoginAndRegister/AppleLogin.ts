@@ -34,11 +34,11 @@ export const appleLogin = async () => {
   try {
     // window.location.href = AUTH_URL2;
     // openNewTab(AUTH_URL2);
-    if (platform === 'ios' || platform === 'android') {
-      openNewTab(AUTH_URL2);
-    } else {
-      window.location.href = AUTH_URL2;
-    }
+    // if (platform === 'ios' || platform === 'android') {
+    //   openNewTab(AUTH_URL2);
+    // } else {
+    window.location.href = AUTH_URL2;
+    // }
   } catch (error) {
     console.log(error);
   }

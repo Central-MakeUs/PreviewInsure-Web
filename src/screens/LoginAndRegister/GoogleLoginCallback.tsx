@@ -26,7 +26,7 @@ const GoogleLoginCallback = () => {
       handleLoginPost(code);
     } else {
       console.log('로그인 재시도하세요.');
-      closeNewTab(); //WebView로 전송
+      // closeNewTab(); //WebView로 전송
       setErrorMessage('로그인에 실패하였습니다.');
     }
   }, [code, navigate]);
@@ -64,16 +64,14 @@ const GoogleLoginCallback = () => {
         //register
         console.log('register');
         setTempToken(accessToken); //temp token 저장
-        closeNewTab(); //WebView로 전송
+        // closeNewTab(); //WebView로 전송
         navigate('/registerAgree');
       } else if (accessToken) {
         // login
         console.log('login');
         login(accessToken, accessNickname);
-        closeNewTab(); //WebView로 전송
-
-        window.location.href = '/';
-        // navigate('/');
+        // closeNewTab(); //WebView로 전송
+        navigate('/');
       }
 
       closeNewTab(); //WebView로 전송
