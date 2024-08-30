@@ -22,4 +22,5 @@ export const openNewTab = (url: string) => {
 
 export const closeNewTab = () => {
   if (isApp()) window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'ROUTER_EVENT', data: 'back' }));
+  window.location.reload();
 };
