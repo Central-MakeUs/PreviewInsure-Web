@@ -50,10 +50,10 @@ const GoogleLoginCallback = () => {
 
   useEffect(() => {
     if (code) {
-      closeNewTab(); //WebView로 전송
       handleLoginPost(code);
     } else {
       console.log('로그인 재시도하세요.');
+      closeNewTab(); //WebView로 전송
     }
   }, [code, navigate]);
 
@@ -73,7 +73,9 @@ const GoogleLoginCallback = () => {
         console.log('login');
         login(accessToken, accessNickname);
         closeNewTab(); //WebView로 전송
-        navigate('/');
+
+        window.location.href = '/';
+        // navigate('/');
       }
 
       closeNewTab(); //WebView로 전송
