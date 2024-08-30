@@ -37,6 +37,8 @@ function AppleLoginCallback() {
       console.log('accessToken', accessToken);
       console.log('accessNickname', accessNickname);
 
+      closeNewTab(); //WebView로 전송
+
       if (accessToken && (accessNickname === 'null' || accessNickname === 'none')) {
         //register
         console.log('register');

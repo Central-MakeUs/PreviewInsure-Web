@@ -62,6 +62,8 @@ const GoogleLoginCallback = () => {
       console.log('accessToken', accessToken);
       console.log('accessNickname', accessNickname);
 
+      closeNewTab(); //WebView로 전송
+
       if (accessToken && accessNickname === 'null') {
         //register
         console.log('register');
