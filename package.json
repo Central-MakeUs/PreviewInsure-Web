@@ -25,6 +25,7 @@
     "react-router-dom": "^6.24.1",
     "react-transition-group": "^4.4.5",
     "react-typed": "^2.0.12",
+    "react-virtuoso": "^4.12.0",
     "styled-components": "^6.1.11",
     "styled-reset": "^4.5.2",
     "vite-plugin-svgr": "^4.2.0",
