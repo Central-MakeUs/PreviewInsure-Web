@@ -12,6 +12,7 @@ import media from '@styles/media';
 import { convertInsureType } from '@utils/common/convertInsureType';
 import { useStore } from '@stores/useStore';
 import { useFavoritQuery } from '@apis/account/account';
+import { Virtuoso } from 'react-virtuoso';
 
 function Question() {
   const [alarmShown, setAlarmShown] = useState(false);
@@ -87,6 +88,9 @@ function Question() {
     }
   }, [inView]);
 
+  const questionItems = questionQuery.data?.pages.flatMap((page) => page.content) || []; // page flattening
+  // console.log('questionItems', questionItems);
+
   // 알림창
   useEffect(() => {
     if (alarmShown) {
@@ -141,14 +145,30 @@ function Question() {
       </Search>
 
       <List>
-        <ListTitle>질문보기</ListTitle>{' '}
-        <QList>
+        <ListTitle>질문보기</ListTitle>
+        {/* 기존 렌더링 코드 */}
+        {/* <QList>
           {questionQuery.data?.pages.map((page, pageIndex) =>
             page.content.map((q, index) => (
               <QuestionAnswer key={`${pageIndex}-${index}`} question={q.question} answer={q.answer} tags={q.links} />
             )),
           )}
-        </QList>
+        </QList> */}
+        {/* react-virtuoso 를 활용한 가상화 적용 */}
+        <Virtuoso
+          useWindowScroll
+          style={{
+            height: '100vh',
+          }}
+          data={questionItems}
+          itemContent={(pageIndex, q) => {
+            return (
+              <QListItem key={pageIndex}>
+                <QuestionAnswer key={pageIndex} question={q.question} answer={q.answer} tags={q.links} />;
+              </QListItem>
+            );
+          }}
+        />
         {questionQuery.isFetching && (
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Loading type={'spinningBubbles'} color={'#6879FB'} width={69.33} height={69.33} />
@@ -335,4 +355,13 @@ const QList = styled.div`
     gap: 8rem;
   `};
 `;
+
+const QListItem = styled.div`
+  margin-bottom: 7.5rem;
+
+  ${media.small`
+    margin-bottom: 8rem;
+  `};
+`;
+
 export default Question;
