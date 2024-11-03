@@ -159,12 +159,13 @@ function Question() {
           useWindowScroll
           style={{
             height: '100vh',
+            marginBottom: '48rem',
           }}
           data={questionItems}
           itemContent={(pageIndex, q) => {
             return (
               <QListItem key={pageIndex}>
-                <QuestionAnswer key={pageIndex} question={q.question} answer={q.answer} tags={q.links} />;
+                <QuestionAnswer key={pageIndex} question={q.question} answer={q.answer} tags={q.links} />
               </QListItem>
             );
           }}
