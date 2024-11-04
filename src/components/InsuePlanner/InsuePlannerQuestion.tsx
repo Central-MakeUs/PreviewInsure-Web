@@ -16,6 +16,7 @@ import type { link } from '@apis/insuePlanner/insuePlanner.d';
 import { plannerPOSTRequest } from '@apis/insuePlanner/insuePlanner.d';
 import { convertInsureType } from '@utils/common/convertInsureType';
 import InsuePlannerLoading from './InsuePlannerLoading';
+import InsuePlannerLoadingWithSkeleton from './InsuePlannerComponents/InsuePlannerLoadingWithSkeleton';
 
 function InsuePlannerQuestion({
   setQuestion,
@@ -136,7 +137,7 @@ function InsuePlannerQuestion({
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <FailAlarm text={'오류가 발생했습니다.\n다시 시도해주세요.'} alarmShown={errorAlarmShown} />
       </div>
-      {loading && <InsuePlannerLoading />}
+      {loading && <InsuePlannerLoadingWithSkeleton />}
       {!loading && (
         <Container>
           <Wrapper>
