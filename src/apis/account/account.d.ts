@@ -11,6 +11,12 @@ export interface InsueItem {
   insuranceCompany: string;
 }
 
+export interface PatchInsueRequest {
+  accountInsuranceId: number;
+  insuranceType: string;
+  insuranceCompany: string;
+}
+
 export interface PostFavoritRequest {
   insuranceType: string;
 }
@@ -22,4 +28,8 @@ export interface PostFavoritResponse {
 export interface FavoritItem {
   favoriteInsuranceId: number;
   insuranceType: string;
+}
+
+export interface DeleteFavoritRequest {
+  favoriteInsuranceId: number;
 }

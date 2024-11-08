@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loading from '@components/commons/Loading';
 import { useStore } from '@stores/useStore';
+import { closeNewTab } from '@utils/common/openNewTab';
 
 const SERVER_URL = import.meta.env.VITE_APP_SERVER_URL;
 
@@ -20,6 +21,7 @@ function AppleLoginCallback() {
     // token 저장
     setAccessToken(getParameter('token'));
     setAccessNickname(getParameter('nickname'));
+
     // if (getParameter('nickname') !== 'null') {
     //   // 닉네임이 decoding 된 형태
     //   setAccessNickname(decodeURIComponent(getParameter('nickname'))); // decoding
@@ -34,15 +36,19 @@ function AppleLoginCallback() {
       console.log('accessToken', accessToken);
       console.log('accessNickname', accessNickname);
 
-      if (accessToken && accessNickname === 'null') {
+      if (accessToken && (accessNickname === 'null' || accessNickname === 'none')) {
         //register
         console.log('register');
         setTempToken(accessToken); //temp token 저장
+
+        // closeNewTab(); //WebView로 전송
         navigate('/registerAgree');
       } else if (accessToken) {
         // login
         console.log('login');
         login(accessToken, accessNickname);
+
+        // closeNewTab(); //WebView로 전송
         navigate('/');
       }
     }

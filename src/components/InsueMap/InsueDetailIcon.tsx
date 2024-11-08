@@ -230,7 +230,7 @@ const FrontContent = styled.div<{ iconactive: boolean }>`
     color: white;
 
     ${media.mobile`
-    font-size: 11px;
+    font-size: 14px;
   `};
   }
 `;
@@ -270,6 +270,7 @@ const Txt2 = styled.p`
   color: white;
   font-weight: 600;
   font-size: ${({ theme }) => theme.fontSizes.subtitle};
+  text-align: center;
 
   ${media.mobile`
     font-size: 18px;

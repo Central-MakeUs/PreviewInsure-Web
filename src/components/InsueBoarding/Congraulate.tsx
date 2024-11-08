@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as PartyPopper } from '@/assets/icons/PartyPopper.svg';
 import { useNavigate } from 'react-router-dom';
+import media from '@styles/media';
 
 function Congratulate() {
   const navigate = useNavigate();
@@ -53,6 +54,13 @@ const Container = styled.div`
   ${({ theme }) => theme.common.flexCenter};
   flex-direction: column;
   position: relative;
+
+  ${media.mobile`
+    // 767 < 
+    min-height: calc(100vh - 32rem);
+    justify-content: flex-start;
+    margin-top: 140px;
+  `}
 `;
 
 const Title = styled.h1`
@@ -61,6 +69,11 @@ const Title = styled.h1`
   margin-bottom: 3.4rem;
   font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.Black500};
+
+  ${media.mobile`
+    // 767 < 
+    font-size: 12px;
+  `}
 `;
 
 const SubTitleTitle = styled.span`
@@ -77,6 +90,11 @@ const Subtitle = styled.p`
   color: #000;
   line-height: 1.1;
   margin-bottom: 6.8rem;
+
+  ${media.mobile`
+    // 767 < 
+    font-size: 22px;
+  `}
 `;
 
 const SubtitleP = styled.p``;
@@ -96,6 +114,11 @@ const Explain = styled.p`
   line-height: 1.5;
   position: absolute;
   bottom: 15%;
+
+  ${media.mobile`
+    // 767 < 
+    font-size: 13px;
+  `}
 `;
 
 const IconBox = styled.div`

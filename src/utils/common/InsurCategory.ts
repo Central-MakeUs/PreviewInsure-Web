@@ -31,7 +31,7 @@ const Categorys = [
   { name: '치아보험', value: 'TE', miniIcon: Dental },
   { name: '연금보험', value: 'PI', miniIcon: Pension },
   { name: '교육보험', value: 'ED', miniIcon: Education },
-  { name: '애견보험', value: 'PE', miniIcon: Pet },
+  { name: '애견보험', value: 'AN', miniIcon: Pet },
   { name: '간병/치매보험', value: 'TD', miniIcon: NursingCare },
   { name: '운전자보험', value: 'DR', miniIcon: Driver },
 ];
@@ -45,7 +45,7 @@ export const CategoryImg = [
   { name: '치아보험', value: 'TE', img: DentalImg, nav: 'dantal' },
   { name: '연금보험', value: 'PI', img: PensionImg, nav: 'pension' },
   { name: '교육보험', value: 'ED', img: EducationImg, nav: 'education' },
-  { name: '애견보험', value: 'PE', img: PetImg, nav: 'pet' },
+  { name: '애견보험', value: 'AN', img: PetImg, nav: 'pet' },
   { name: '간병/치매보험', value: 'TD', img: NursingCareImg, nav: 'nursingcare' },
   { name: '운전자보험', value: 'DR', img: DriverImg, nav: 'driver' },
 ];
@@ -125,7 +125,7 @@ export const InsueMapCategorys = [
   },
   {
     name: '애견 보험',
-    value: 'PE',
+    value: 'AN',
     img: PetImg,
     nav: 'pet',
     explain: `반려동물의 의료비를 보장해주는 보험으로, 질병이나 상해 시 치료비를 보장합니다.\n예방 접종, 정기 검진 등의 비용도 포함될 수 있습니다.`,

@@ -34,9 +34,9 @@ const customStyles: any = {
     right: '0%',
     top: 'auto',
     // borderRadius: '5%',
-    borderTopLeftRadius: '5%',
+    borderTopLeftRadius: '32px',
     borderTopRightRadius: '0%',
-    borderBottomLeftRadius: '5%',
+    borderBottomLeftRadius: '32px',
     borderBottomRightRadius: '0%',
   },
 };

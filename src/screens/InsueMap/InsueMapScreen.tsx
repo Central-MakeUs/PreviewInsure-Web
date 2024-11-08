@@ -13,8 +13,8 @@ import RecommendSection from '@components/InsueMap/RecommendSection';
 import { useEffect, useState } from 'react';
 import FailAlarm from '@components/commons/FailAlarm';
 import { useStore } from '@stores/useStore';
-import { useFavoritMutation, useFavoritQuery } from '@apis/account/account';
-import { PostFavoritRequest } from '@apis/account/account.d';
+import { useDeleteFavoritMutation, useFavoritMutation, useFavoritQuery } from '@apis/account/account';
+import { DeleteFavoritRequest, PostFavoritRequest } from '@apis/account/account.d';
 
 function InsueMapScreen() {
   const { isLogin } = useStore();
@@ -38,8 +38,9 @@ function InsueMapScreen() {
   // 관심보험 조회 및 등록 API
   const { favoritQuery } = useFavoritQuery();
   const { favoritMutation } = useFavoritMutation();
+  const { deletefavoritMutation } = useDeleteFavoritMutation();
 
-  // TODO: 관심 보험 등록 및 취소 PATCH API. 요청에 따라 현재 값도 달라져야함.
+  // 관심 보험 등록 및 취소 PATCH API. 요청에 따라 현재 값도 달라져야함.
   function handleSubscribe(change: boolean) {
     if (!isLogin) {
       setAlarmShown(true);
@@ -55,8 +56,15 @@ function InsueMapScreen() {
     }
 
     // 취소하기
-
-    console.log('Subscribe변경 요청: ', detailQuery.data?.isSubscribed);
+    else if (insueItem && !change) {
+      const id = favoritQuery.data?.find((item) => item.insuranceType === insueItem.value)?.favoriteInsuranceId;
+      if (id) {
+        const insueData: DeleteFavoritRequest = {
+          favoriteInsuranceId: id,
+        };
+        deletefavoritMutation.mutate(insueData);
+      }
+    }
   }
 
   // 알림창

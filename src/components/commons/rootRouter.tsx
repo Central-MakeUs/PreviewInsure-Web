@@ -16,8 +16,10 @@ import MainScreen from '@screens/Main/MainScreen';
 import InsuePlannerScreen from '@screens/InsuePlanner/InsuePlannerScreen';
 import Question from '@screens/Question/Question';
 import AppleLoginCallback from '@screens/LoginAndRegister/AppleLoginCallback';
+import AppleErrorCallback from '@screens/LoginAndRegister/AppleErrorCallback';
 import Congratulate from '@components/InsueBoarding/Congraulate';
 import InsueMapScreen from '@screens/InsueMap/InsueMapScreen';
+import InsueMap2Screen from '@screens/InsueMap2/InsueMap2Screen';
 import BottomNav from './BottomNav';
 import media from '@styles/media';
 import { useEffect, useState } from 'react';
@@ -25,7 +27,7 @@ import { useStore } from '@stores/useStore';
 
 import PolicyPrivacyScreen from '@screens/Main/PolicyPrivacyScreen';
 import PolicyServiceScreen from '@screens/Main/PolicyServiceScreen';
-import MyInsueScreen from '@screens/User/MyInsueScreen';
+import RegistInsueScreen from '@screens/User/RegistInsueScreen';
 
 const PrivateRoute = () => {
   const { isLogin } = useStore();
@@ -36,16 +38,16 @@ const rootRouter = () => {
   // 모바일 사이즈에서만 BottomNav를 랜더링 하도록 함.
   // BottomNav에 스크롤 이벤트가 있기 때문.
   // const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 767);
-  const [isMobile, setIsMobile] = useState(true);
+  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 767);
 
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setIsMobile(window.innerWidth <= 768);
-  //   };
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
 
-  //   window.addEventListener('resize', handleResize);
-  //   return () => window.removeEventListener('resize', handleResize);
-  // }, []);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <BrowserRouter>
@@ -63,6 +65,7 @@ const rootRouter = () => {
           <Route path="/registerNickname" element={<RegisterNickname />} />
           <Route path="/callback/google" element={<GoogleLoginCallback />} />
           <Route path="/callback/apple" element={<AppleLoginCallback />} />
+          <Route path="/callback/errorApple" element={<AppleErrorCallback />} />
           <Route path="/insueBording" element={<InsueBordingScreen />} />
           <Route path="/congratulate" element={<Congratulate />} />
           <Route path="/insueMap" element={<InsueMapScreen />} />
@@ -73,10 +76,12 @@ const rootRouter = () => {
           <Route path="/policy/service" element={<PolicyServiceScreen />} />
           <Route path="/policy/privacy" element={<PolicyPrivacyScreen />} />
 
+          {/* <Route path="/insueMap2" element={<InsueMap2Screen />} /> */}
           {/* 로그인시에만 진입 가능 */}
           <Route element={<PrivateRoute />}>
             <Route path="/user" element={<UserInfoScreen />} />
-            <Route path="/myInsue" element={<MyInsueScreen />} />
+            <Route path="/registInsue" element={<RegistInsueScreen />} />
+            <Route path="/myInsue" element={<InsueMap2Screen />} />
           </Route>
         </Routes>
       </WrapContent>

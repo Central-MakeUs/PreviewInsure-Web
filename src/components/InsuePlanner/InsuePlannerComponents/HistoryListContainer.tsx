@@ -68,7 +68,7 @@ const HistoryListContainerr = styled.div`
     width:100%;
     height:100%;
     display: flex;
-        flex-direction: column;
+    flex-direction: column;
   `}
 `;
 
@@ -76,7 +76,7 @@ const TitleWrapper = styled.div`
   ${media.mobile`
     // 767 < 
     display:flex;
-    padding:6rem 4rem 2rem 4rem;
+    padding:6rem 4rem 2rem 5.5rem;
     justify-content: space-between;
     align-items: center;
   `}
@@ -107,11 +107,11 @@ const CloseIconBox = styled.div`
 `;
 
 const SearchBarWrapper = styled.div`
+  display: none;
   margin-bottom: 2.4rem;
-
   ${media.mobile`
     display:none;
-  `}
+  `};
 `;
 
 const HistoryList = styled.div`

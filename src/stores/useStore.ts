@@ -61,7 +61,7 @@ export const useStore = create<State>()(
       nickName: '',
       isLogin: false,
       temporaryToken: '',
-      platform: 'ios', // 원래는 빈값 -> 웹에서도 깨지지 않기 일단 ios로
+      platform: '', // 원래는 빈값 -> 웹에서도 깨지지 않기 일단 ios로
       login: (token, nickName) => {
         set({ accessToken: token, nickName, isLogin: true, temporaryToken: '' });
       },

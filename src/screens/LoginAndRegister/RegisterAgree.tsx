@@ -118,7 +118,9 @@ const RegisterAgreeWrapper = styled.div`
 
   ${media.mobile`
     // 767 < 
+    justify-content: flex-start;
     flex-grow:1;
+    margin-top: 140px;
   `}
 `;
 
@@ -131,7 +133,7 @@ const Title = styled.h1`
 
   ${media.mobile`
     // 767 < 
-    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+    font-size: 12px;
     color: ${({ theme }: any) => theme.colors.Black200};
   `}
 `;
@@ -145,6 +147,11 @@ const Subtitle = styled.p`
   color: #000;
   line-height: 1.1;
   margin-bottom: 9.6rem;
+
+  ${media.mobile`
+    // 767 < 
+    font-size:22px;
+  `}
 `;
 
 const SubtitleP = styled.p``;
@@ -173,7 +180,7 @@ const RegisterBtn = styled.button<{ registerable: boolean }>`
   ${media.mobile`
     // 767 < 
     width:80%;
-    font-size:3.2rem;
+    font-size:14px;
     font-weight:400;
     height:10rem;
     border-radius: 2.8rem;
@@ -203,7 +210,7 @@ const Explain = styled.p`
   ${media.mobile`
     // 767 < 
     width:82%;
-    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+    font-size: 11px;
     color: ${({ theme }: any) => theme.colors.Black200};
   `}
 `;

@@ -106,6 +106,11 @@ const Subtitle = styled.p`
   color: #000;
   line-height: 1.1;
   margin-bottom: 6.8rem;
+
+  ${media.mobile`
+    // 767 < 
+    font-size: 22px;
+  `}
 `;
 
 const SubtitleP = styled.p``;
@@ -249,6 +254,7 @@ const RegisterBtn = styled.button`
   transition: all 0.3s ease;
   gap: 1.6rem;
   z-index: 5;
+  font-family: 'Pretendard', sans-serif;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.Primary500};
@@ -261,7 +267,7 @@ const RegisterBtn = styled.button`
     bottom: 12%;
 
     width:80%;
-    font-size:3.2rem;
+    font-size:14px;
     font-weight:400;
     height:10rem;
     border-radius: 2.8rem;
@@ -274,7 +280,7 @@ const CheckIconBox = styled.div`
 
   ${media.mobile`
     // 767 < 
-    width: 6rem;
-    height: 6rem;
+    width: 28px;
+    height: 28px;
   `}
 `;

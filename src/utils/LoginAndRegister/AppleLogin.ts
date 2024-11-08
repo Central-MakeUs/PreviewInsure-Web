@@ -4,6 +4,8 @@ const REDIRECT_URI = window.location.protocol + '//' + window.location.host + '/
 
 const APPLE_CLIENT_ID2 = import.meta.env.VITE_APP_APPLE_CLIENT_ID2;
 const APPLE_SERVER_URI = import.meta.env.VITE_APP_APPLE_REDIRECT_SERVER_URL;
+import { openNewTab } from '@utils/common/openNewTab';
+import { useStore } from '@stores/useStore';
 
 export const appleLogin = async () => {
   // const RESPONSE_TYPE = 'code id_token'; // 요청하는 응답 타입
@@ -18,6 +20,7 @@ export const appleLogin = async () => {
   //   `&scope=${encodeURIComponent('')}` +
   //   `&state=${encodeURIComponent('previewInsure')}` +
   //   `&nonce=${encodeURIComponent('821')}`;
+  const { platform } = useStore.getState();
 
   const AUTH_URL2 =
     `https://appleid.apple.com/auth/authorize?` +
@@ -29,7 +32,13 @@ export const appleLogin = async () => {
 
   // 브라우저에서 Apple 로그인 페이지로 리디렉션
   try {
+    // window.location.href = AUTH_URL2;
+    // openNewTab(AUTH_URL2);
+    // if (platform === 'ios' || platform === 'android') {
+    //   openNewTab(AUTH_URL2);
+    // } else {
     window.location.href = AUTH_URL2;
+    // }
   } catch (error) {
     console.log(error);
   }

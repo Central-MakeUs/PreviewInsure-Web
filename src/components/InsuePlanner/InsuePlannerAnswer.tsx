@@ -8,13 +8,15 @@ import AnswerBox from './InsuePlannerComponents/AnswerBox';
 import media from '@styles/media';
 import HistoryListContainer from './InsuePlannerComponents/HistoryListContainer';
 import InsuePlannerAnswerMobileModal from './InsuePlannerComponents/InsuePlannerAnswerMobileModal';
+import FailAlarm from '@components/commons/FailAlarm';
 
 import {
   useGetQuestionTitleQuery,
+  useInsuePlannerPatchMutation,
   useGetQuestionDetailQuery,
   getQuestionDetail,
 } from '@apis/insuePlanner/insuePlanner';
-import type { QuestionTitle } from '@apis/insuePlanner/insuePlanner.d';
+import type { QuestionTitle, plannerPATCHRequest, link } from '@apis/insuePlanner/insuePlanner.d';
 
 function InsuePlannerAnswer({
   question,
@@ -23,13 +25,16 @@ function InsuePlannerAnswer({
   currentAnswerLinks,
   setCurrentAnswer,
   setCurrentAnswerLinks,
+  currentQuestionId,
 }: InsuePlannerAnswerProps) {
-  const [currentQuestion, setCurrentQuestion] = useState(question);
+  const [currentQuestion, setCurrentQuestion] = useState<string>(question);
   const [history, setHistory] = useState<QuestionTitle[]>([]);
   const [historyQuestionId, setHistoryQuestionId] = useState<number | null>();
+  const [errorAlarmShown, setErrorAlarmShown] = useState(false);
 
   // query
   const { questionTitleQuery } = useGetQuestionTitleQuery();
+  const { insuePlannerPatchMutation } = useInsuePlannerPatchMutation();
   // const { questionDetailQuery } = useGetQuestionDetailQuery(historyQuestionId!);  // 최초 패칭 문제(null값 패칭), 캐싱 문제 (데이터 로드가 안됨)
 
   const goBack = () => {
@@ -37,8 +42,36 @@ function InsuePlannerAnswer({
   };
 
   const anotherPlannerAsk = () => {
-    console.log('anotherPlannerAsk click');
+    // 다른 답변
+    setCurrentAnswer('');
+    setCurrentAnswerLinks([]);
+    const questionPatchData: plannerPATCHRequest = {
+      quesionId: currentQuestionId,
+      quesion: currentQuestion,
+    };
+    // console.log(questionPatchData);
+    insuePlannerPatchMutation.mutate(questionPatchData, {
+      onSuccess: (data) => {
+        console.log('API 호출 성공:', data);
+        // 답변 저장
+        setCurrentAnswer(data.answer as string);
+        setCurrentAnswerLinks(data.links as link[]);
+      },
+      onError: (error) => {
+        console.error('API 호출 실패:', error);
+        setErrorAlarmShown(true);
+      },
+    });
   };
+
+  useEffect(() => {
+    // 질문 오류 알람 없애기
+    if (errorAlarmShown) {
+      setTimeout(() => {
+        setErrorAlarmShown(false);
+      }, 2000);
+    }
+  }, [errorAlarmShown]);
 
   //apis
   useEffect(() => {
@@ -80,9 +113,10 @@ function InsuePlannerAnswer({
   // }, [questionDetailQuery.isFetched]);
 
   //mobile design
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 99999); //767
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767); //767
   window.addEventListener('resize', function (e: any) {
-    if (e.currentTarget.innerWidth <= 99999) {
+    if (e.currentTarget.innerWidth <= 767) {
+      // 다시 수정
       //767  -> 기존 모바일
       setIsMobile(true);
     } else {
@@ -92,69 +126,74 @@ function InsuePlannerAnswer({
   const [openModal, setOpenModal] = useState(false);
 
   return (
-    <Container>
-      <HistoryContainer>
-        <TitleWrapper>
-          <Title>
-            <p>안녕하세요!</p>
-            <TitleP>
-              AI 상담사, 인슈플래너에요.
-              <ChattingIConBox>
-                {' '}
-                <Chatting width={'100%'} height={'100%'} fill="#6879FB" />
-              </ChattingIConBox>
-            </TitleP>
-          </Title>
-          <MenuIconBox onClick={() => setOpenModal(true)}>
-            <Menu width={'100%'} height={'100%'} />
-          </MenuIconBox>
-        </TitleWrapper>
+    <>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <FailAlarm text={'오류가 발생했습니다.\n다시 시도해주세요.'} alarmShown={errorAlarmShown} />
+      </div>
+      <Container>
+        <HistoryContainer>
+          <TitleWrapper>
+            <Title>
+              <p>안녕하세요!</p>
+              <TitleP>
+                AI 상담사, 인슈플래너에요.
+                <ChattingIConBox>
+                  {' '}
+                  <Chatting width={'100%'} height={'100%'} fill="#6879FB" />
+                </ChattingIConBox>
+              </TitleP>
+            </Title>
+            <MenuIconBox onClick={() => setOpenModal(true)}>
+              <Menu width={'100%'} height={'100%'} />
+            </MenuIconBox>
+          </TitleWrapper>
 
-        <Paragraph>
-          <p>가벼운 질문을 하기에 부담스러웠나요?</p>
-          <p>AI 상담사 인슈플래너가 자세히 알려줄게요.</p>
-          <p>궁금한 모든 것을 질문 해 보세요!</p>
-        </Paragraph>
-        {isMobile ? (
-          // mobile
-          <InsuePlannerAnswerMobileModal
-            element={
-              <HistoryListContainer
-                history={history}
-                setCurrentQuestion={setCurrentQuestion}
-                setHistoryQuestionId={setHistoryQuestionId}
-                setOpenModal={setOpenModal}
-                historyQId={historyQuestionId}
-              />
-            }
-            openModal={openModal}
-            setOpenModal={setOpenModal}
-          />
-        ) : (
-          // web
-          <HistoryListContainer
-            history={history}
-            setCurrentQuestion={setCurrentQuestion}
-            setHistoryQuestionId={setHistoryQuestionId}
-            historyQId={historyQuestionId}
-          />
-        )}
-      </HistoryContainer>
-      <TextContainer>
-        <TextWrapper>
-          <QuestionWrapper>
-            <AnswerQuestionBox text={currentQuestion} />
-          </QuestionWrapper>
-          <AnswerWrapper>
-            <AnswerBox text={currentAnswer} links={currentAnswerLinks} />
-          </AnswerWrapper>
-        </TextWrapper>
-        <BtnGroup>
-          <Btn onClick={goBack}>다른 질문하러 돌아가기</Btn>
-          <Btn onClick={anotherPlannerAsk}>다른 플래너에게 답변 받기</Btn>
-        </BtnGroup>
-      </TextContainer>
-    </Container>
+          <Paragraph>
+            <p>가벼운 질문을 하기에 부담스러웠나요?</p>
+            <p>AI 상담사 인슈플래너가 자세히 알려줄게요.</p>
+            <p>궁금한 모든 것을 질문 해 보세요!</p>
+          </Paragraph>
+          {isMobile ? (
+            // mobile
+            <InsuePlannerAnswerMobileModal
+              element={
+                <HistoryListContainer
+                  history={history}
+                  setCurrentQuestion={setCurrentQuestion}
+                  setHistoryQuestionId={setHistoryQuestionId}
+                  setOpenModal={setOpenModal}
+                  historyQId={historyQuestionId}
+                />
+              }
+              openModal={openModal}
+              setOpenModal={setOpenModal}
+            />
+          ) : (
+            // web
+            <HistoryListContainer
+              history={history}
+              setCurrentQuestion={setCurrentQuestion}
+              setHistoryQuestionId={setHistoryQuestionId}
+              historyQId={historyQuestionId}
+            />
+          )}
+        </HistoryContainer>
+        <TextContainer>
+          <TextWrapper>
+            <QuestionWrapper>
+              <AnswerQuestionBox text={currentQuestion} />
+            </QuestionWrapper>
+            <AnswerWrapper>
+              <AnswerBox text={currentAnswer} links={currentAnswerLinks} />
+            </AnswerWrapper>
+          </TextWrapper>
+          <BtnGroup>
+            <Btn onClick={goBack}>다른 질문하러 돌아가기</Btn>
+            <Btn onClick={anotherPlannerAsk}>다시 답변받기</Btn>
+          </BtnGroup>
+        </TextContainer>
+      </Container>
+    </>
   );
 }
 
@@ -169,7 +208,7 @@ const Container = styled.div`
   ${media.mobile`
     // 767 < 
     flex-direction:column;
-    padding: 3rem 7.8rem;
+    padding: 3rem 4.8rem;
     height: calc(100vh - 40rem);
   `}
 `;
@@ -220,9 +259,9 @@ const Title = styled.p`
 
   ${media.mobile`
     // 767 < 
-    font-size: 4.5rem;
+    font-size: 20px;
     line-height: 1;
-    margin-bottom: 6rem;
+    margin-bottom: 27px;
   `}
 `;
 
@@ -281,7 +320,7 @@ const QuestionWrapper = styled.div`
   margin-bottom: 1rem;
 
   ${media.mobile`
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
   `}
 `;
 
@@ -295,8 +334,10 @@ const BtnGroup = styled.div`
 `;
 
 const Btn = styled.button`
+  min-width: 28rem;
   border: none;
   background-color: ${({ theme }) => theme.colors.Black100};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   padding: 2rem 3.6rem;
   color: #fff;
   border-radius: 3.2rem;
@@ -307,8 +348,11 @@ const Btn = styled.button`
   }
 
   ${media.mobile`
-      border-radius: 5.2rem;
+      border-radius: 30px;
       padding: 3rem 3.6rem;
+      font-size: 12px;
+      height: 42px;
+      width: 164px;
   `}
 `;
 
@@ -318,7 +362,7 @@ const ChattingIConBox = styled.div`
 
   ${media.mobile`
     // 767 < 
-    width: 6rem;
-    height: 6rem;
+    width: 24px;
+    height: 24px;
   `}
 `;

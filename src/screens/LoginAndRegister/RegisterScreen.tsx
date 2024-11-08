@@ -27,7 +27,7 @@ function RegisterScreen() {
       <Subtitle>
         <SubtitleP>인생 보험 설계,</SubtitleP>
         <SubtitleP>
-          <SubTitleTitle>프리뷰인슈</SubTitleTitle>에서 내 보험을 그려보세요
+          <SubTitleTitle>프리뷰인슈</SubTitleTitle>에서 그려보세요
         </SubtitleP>
       </Subtitle>
       <ButtonGroup>
@@ -38,7 +38,7 @@ function RegisterScreen() {
               <GoogleIcon width={'100%'} height={'100%'} />
             </IconBox>
           }
-          text={'Google로 시작하기'}
+          text={'Google 로 시작하기'}
           type={'google'}
         />
         <OAuthButton
@@ -48,13 +48,13 @@ function RegisterScreen() {
               <AppleIcon width={'100%'} height={'100%'} />
             </IconBox>
           }
-          text={'Apple로 시작하기'}
+          text={'Apple 로 시작하기'}
           type={'apple'}
         />
       </ButtonGroup>
       <Line />
       <Explain>
-        <p>소셜 정보 없이 회원가입을 원하신다면,</p> 아래 [문의하기]로 문의해 주세요.
+        <p>소셜 정보로 회원가입이 어려운 경우, </p> reviewInsue@gmail.com 로 문의해주세요.
       </Explain>
     </Container>
   );
@@ -71,7 +71,7 @@ const Container = styled.div`
 
   ${media.mobile`
     // 767 < 
-    height: calc(100vh - 32rem);
+    height: calc(100vh - 16rem - 22rem);
   `}
 `;
 
@@ -101,6 +101,8 @@ const Subtitle = styled.p`
   ${media.mobile`
     // 767 < 
     flex-grow:1;
+    font-size:24px;
+    line-height: 1.3;
   `}
 `;
 
@@ -121,7 +123,8 @@ const ButtonGroup = styled.div`
   ${media.mobile`
     // 767 < 
     width:100%;
-    gap: 2rem;
+    /* gap: 2rem; */
+    gap:12px;
   `}
 `;
 
@@ -157,7 +160,8 @@ const Explain = styled.p`
 
   ${media.mobile`
     // 767 < 
-    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+    /* font-size: ${({ theme }: any) => theme.fontSizes.paragraph}; */
+    font-size:12px;
   `}
 `;
 

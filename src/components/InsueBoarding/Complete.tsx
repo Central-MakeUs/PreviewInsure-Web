@@ -6,6 +6,7 @@ import { ReactComponent as RightArrow } from '@/assets/icons/DownArrowRight.svg'
 import { useNavigate } from 'react-router-dom';
 import { useAgeMutation, useBoardMutation } from '@apis/insueboarding/insueboarding';
 import { AgeRequest, BoardRequest } from '@/apis/insueboarding/insueboarding.d';
+import { useStore } from '@stores/useStore';
 
 type insure = {
   insuranceType: string;
@@ -21,14 +22,13 @@ type CompleteProps = {
 
 function Complete({ birthYear, birthMonth, gender, insures }: CompleteProps) {
   const navigation = useNavigate();
-  const [loading, setLoading] = useState(true);
-  const nickname = '춤추는 부엉이';
+  const [loading, setLoading] = useState(false);
+  const { nickName } = useStore();
   const { ageMutation } = useAgeMutation();
   const { boardMutation } = useBoardMutation();
 
-  // console.log(convertInsureType('생명 보험'));
-
   const handleAPI = () => {
+    setLoading(true);
     const updateAgeData: AgeRequest = {
       year: birthYear,
       month: birthMonth,
@@ -39,23 +39,39 @@ function Complete({ birthYear, birthMonth, gender, insures }: CompleteProps) {
       gender: gender,
       insureBoards: insures,
     };
-    boardMutation.mutate(updateBoardDate);
+    boardMutation.mutate(updateBoardDate, {
+      onSuccess: (data) => {
+        setLoading(false);
+      },
+      onError: (error) => {
+        console.log('insuebording api error', error);
+        setLoading(false);
+      },
+    });
   };
 
   useEffect(() => {
     console.log(birthYear, birthMonth);
     console.log(gender, insures);
     //api
-
     handleAPI();
-    //로딩 끝나면 -> api 통신
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
   }, []);
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+  window.addEventListener('resize', function (e: any) {
+    if (e.currentTarget.innerWidth <= 767) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  });
+
   const goInsueMap = () => {
-    navigation('/');
+    if (isMobile) {
+      navigation('/myInsue');
+    } else {
+      navigation('/');
+    }
   };
 
   return (
@@ -73,9 +89,9 @@ function Complete({ birthYear, birthMonth, gender, insures }: CompleteProps) {
       ) : (
         <>
           <Subtitle>
-            <SubtitleP>{nickname}님의 인슈 맵이 생성되었어요!</SubtitleP>
+            <SubtitleP>{nickName}님의 인슈 맵이 생성되었어요!</SubtitleP>
           </Subtitle>
-          <InsueMap></InsueMap>
+          {/* <InsueMap></InsueMap> */}
           <BtnWrapper>
             <RegisterBtn onClick={goInsueMap}>
               인슈 맵 보러가기
@@ -93,7 +109,10 @@ function Complete({ birthYear, birthMonth, gender, insures }: CompleteProps) {
 export default Complete;
 
 const Container = styled.div`
-  /* border: 1px solid #000; */
+  display: flex;
+  flex-direction: column;
+  min-height: 45vh;
+  justify-content: space-around;
 
   ${media.mobile`
     // 767 < 
@@ -176,6 +195,7 @@ const RegisterBtn = styled.button`
   transition: all 0.3s ease;
   gap: 0.5rem;
   z-index: 5;
+  font-family: 'Pretendard', sans-serif;
 
   ${IconBox} {
     svg {

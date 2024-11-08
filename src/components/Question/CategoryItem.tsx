@@ -26,6 +26,11 @@ const Container = styled.div<{ isselected: string }>`
     isselected === 'true' ? theme.colors.Primary500 : theme.colors.Primary_W};
   color: ${({ isselected, theme }) => (isselected === 'true' ? 'white' : theme.colors.Black500)};
   transition: 0.2s;
+
+  ${media.mobile`
+    padding: 3.5rem 3.8rem;
+    border-radius: 6.5rem;
+  `}
 `;
 
 const IconSize = styled.div`

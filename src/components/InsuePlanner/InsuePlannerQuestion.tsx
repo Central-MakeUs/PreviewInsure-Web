@@ -16,12 +16,14 @@ import type { link } from '@apis/insuePlanner/insuePlanner.d';
 import { plannerPOSTRequest } from '@apis/insuePlanner/insuePlanner.d';
 import { convertInsureType } from '@utils/common/convertInsureType';
 import InsuePlannerLoading from './InsuePlannerLoading';
+import InsuePlannerLoadingWithSkeleton from './InsuePlannerComponents/InsuePlannerLoadingWithSkeleton';
 
 function InsuePlannerQuestion({
   setQuestion,
   setCurrentScreen,
   setCurrentAnswer,
   setCurrentAnswerLinks,
+  setCurrentQuestionId,
 }: InsuePlannerQuestionProps) {
   const { isLogin } = useStore();
   const [text, setText] = useState<string>('');
@@ -31,7 +33,7 @@ function InsuePlannerQuestion({
   const [alarmShown, setAlarmShown] = useState(false);
   const [loginAlarmShown, setLoginAlarmShown] = useState(false);
   const [errorAlarmShown, setErrorAlarmShown] = useState(false);
-  const [insureSearchCategory, setInsureSearchCategory] = useState('전체 카테고리');
+  const [insureSearchCategory, setInsureSearchCategory] = useState('전체');
   const [loading, setLoading] = useState(false);
 
   //apis
@@ -86,6 +88,8 @@ function InsuePlannerQuestion({
         // 답변 저장
         setCurrentAnswer(data.answer as string);
         setCurrentAnswerLinks(data.links as link[]);
+        // question Id 저장
+        setCurrentQuestionId(data.qnaBoardId);
         // 성공 후 이동
         setCurrentScreen('A');
       },
@@ -97,27 +101,35 @@ function InsuePlannerQuestion({
     });
   };
 
-  const questionBtnClickHandler = () => {
+  const questionBtnClickHandler = (data?: plannerPOSTRequest) => {
     if (!isLogin) {
       setLoginAlarmShown(true);
       return;
     }
 
-    if (!canQuestion) {
-      setAlarmShown(true);
-      setVisible(true);
-      return;
+    if (data) {
+      // 버튼 눌러서 요청한 경우
+      setQuestion(data.quesion);
+      postQuestion2(data);
+    } else {
+      // 질문 입력으로 요청한 경우
+
+      if (!canQuestion) {
+        setAlarmShown(true);
+        setVisible(true);
+        return;
+      }
+
+      setQuestion(text);
+      // postQuestion(); //api 처리
+
+      const questionData: plannerPOSTRequest = {
+        quesion: text,
+        isShare: check,
+        insuranceType: convertInsureType(insureSearchCategory) as string, // DE 일때 400 에러 뜸
+      };
+      postQuestion2(questionData);
     }
-
-    setQuestion(text);
-    // postQuestion(); //api 처리
-
-    const questionData: plannerPOSTRequest = {
-      quesion: text,
-      isShare: check,
-      insuranceType: convertInsureType(insureSearchCategory) as string, // DE 일때 400 에러 뜸
-    };
-    postQuestion2(questionData);
   };
 
   return (
@@ -125,7 +137,7 @@ function InsuePlannerQuestion({
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <FailAlarm text={'오류가 발생했습니다.\n다시 시도해주세요.'} alarmShown={errorAlarmShown} />
       </div>
-      {loading && <InsuePlannerLoading />}
+      {loading && <InsuePlannerLoadingWithSkeleton />}
       {!loading && (
         <Container>
           <Wrapper>
@@ -163,11 +175,11 @@ function InsuePlannerQuestion({
                   <InputShareLeft visible={visible}>질문 내용을 입력해 주세요.</InputShareLeft>
                   <InputShareRight>
                     <Selector type={'square'} check={check} setCheck={setCheck} redFlag={false} />
-                    <InputShareWrapperP>전체 게시판에 질문 내용 공유하기</InputShareWrapperP>
+                    <InputShareWrapperP>Q&A 게시판에 질문 내용 공유하기</InputShareWrapperP>
                   </InputShareRight>
                 </InputShareWrapper>
               </InputWrapperWrapper>
-              <InputBtn onClick={questionBtnClickHandler} canquestion={canQuestion}>
+              <InputBtn onClick={() => questionBtnClickHandler()} canquestion={canQuestion}>
                 질문하기
               </InputBtn>
             </InputContainer>
@@ -189,8 +201,7 @@ function InsuePlannerQuestion({
                   right={'5'}
                   text={'10년 뒤 어떤보험이 필요할까요?'}
                   value={'10년 뒤 어떤보험이 필요할까요?'}
-                  setQuestion={setQuestion}
-                  postQuestion2={postQuestion2}
+                  questionHandler={questionBtnClickHandler}
                 />
                 <QuestionBox
                   svg={
@@ -202,8 +213,7 @@ function InsuePlannerQuestion({
                   right={'5'}
                   text={'보험에 대해 잘 모르겠어요.'}
                   value={'보험에 대해 잘 모르겠어요.'}
-                  setQuestion={setQuestion}
-                  postQuestion2={postQuestion2}
+                  questionHandler={questionBtnClickHandler}
                 />
                 <QuestionBox
                   svg={
@@ -214,14 +224,13 @@ function InsuePlannerQuestion({
                   bottom={'-4'}
                   right={'-6'}
                   value={'해외여행 가기 전 보험 가입이 필요할까요?'}
-                  setQuestion={setQuestion}
+                  questionHandler={questionBtnClickHandler}
                   text={
                     <>
                       해외여행 가기 전<br />
                       보험 가입이 필요할까요?
                     </>
                   }
-                  postQuestion2={postQuestion2}
                 />
               </QuestionBoxWrapper>
             </QuestionContainer>
@@ -269,7 +278,7 @@ const Title = styled.p`
 
   ${media.mobile`
     // 767 < 
-    font-size: 5rem;
+    font-size: 20px;
     line-height: 1.4;
     margin-bottom: 13.2rem;
   `}
@@ -286,10 +295,11 @@ const Subtitle = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.paragraph};
   color: ${({ theme }) => theme.colors.Black500};
   margin-bottom: 3rem;
+  font-weight: 600;
 
   ${media.mobile`
     // 767 < 
-    font-size:4rem;
+    font-size:16px;
     margin-bottom: 5rem;
   `}
 `;
@@ -350,8 +360,9 @@ const Input = styled.textarea`
   ${media.mobile`
     // 767 < 
     height: 28rem;
-    font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
+    font-size: 14px;
     padding: 4.5rem;
+    border-radius: 22px;
   `}
 `;
 
@@ -381,14 +392,15 @@ const InputShareLeft = styled.p<{ visible: boolean }>`
 
   ${media.mobile`
     // 767 < 
-    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+    font-size: 11px;
+    max-width:28%;
   `}
 `;
 
 const InputShareRight = styled.div`
   display: flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: 3rem;
 `;
 
 const InputShareWrapperP = styled.div`
@@ -397,7 +409,7 @@ const InputShareWrapperP = styled.div`
 
   ${media.mobile`
     // 767 < 
-    font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
+    font-size: 12px;
   `}
 `;
 
@@ -408,7 +420,7 @@ const InputBtn = styled.button<{ canquestion: boolean }>`
   cursor: pointer;
   ${({ theme }) => theme.common.flexCenter};
   font-size: ${({ theme }) => theme.fontSizes.paragraph};
-  font-weight: 500;
+  font-weight: 400;
   background-color: ${({ theme, canquestion }) => (canquestion ? theme.colors.Primary500 : theme.colors.Black100)};
   color: #fff;
   border-radius: 3rem;
@@ -418,8 +430,9 @@ const InputBtn = styled.button<{ canquestion: boolean }>`
     // 767 < 
     width: 100%;
     font-size: 4rem;
-    font-weight: 400;
+    background-color: ${({ theme, canquestion }: any) => (canquestion ? theme.colors.Primary500 : theme.colors.Black_W)};
     color: ${({ theme, canquestion }: any) => (canquestion ? '#fff' : theme.colors.Black500)};
+    font-weight: 400;
     height: 11.5rem;
   `}
 `;
@@ -445,8 +458,8 @@ const QuestionText = styled.p`
 
   ${media.mobile`
     // 767 < 
-    font-size:4rem;
-    font-weight: 500;
+    font-size:16px;
+    font-weight: 600;
   `}
 `;
 

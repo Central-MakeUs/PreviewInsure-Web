@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { ReactTyped } from 'react-typed';
 import media from '@styles/media';
+import { openNewTab } from '@utils/common/openNewTab';
 
-type link = {
+type linksProp = {
   insuranceCompany: string;
-  insuranceLink: string;
+  link: string;
 };
 
 type AnswerAnswerBoxProps = {
   text: string;
-  links: link[];
+  links: linksProp[];
 };
 
 function AnswerBox({ text, links }: AnswerAnswerBoxProps) {
@@ -39,7 +40,7 @@ function AnswerBox({ text, links }: AnswerAnswerBoxProps) {
             {links.map((e, i) => (
               <LinkBtn
                 onClick={() => {
-                  window.open(e.insuranceLink, '_blank', 'noopener, noreferrer');
+                  openNewTab(e.link);
                 }}
               >
                 {e.insuranceCompany}
@@ -63,14 +64,19 @@ const TextContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.Primary_W};
   font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.Black500};
-  font-weight: 400;
+  font-weight: 300;
   border-radius: 1.2rem;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.4rem;
+  line-height: 1.4;
 
   ${media.mobile`
     // ~ 767 
-    max-width: 70rem;
-    font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
+    max-width: 68rem;
+    font-size: 14px;
+    border-radius: 12px;
+    padding: 18px 20px;
+    line-height:1.4;
+    margin-bottom: 12px;
   `}
 `;
 
@@ -91,16 +97,20 @@ const fadeIn = keyframes`
 const LinksTextContainer = styled.div`
   width: fit-content;
   border-radius: 1.2rem;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.4rem;
   padding: 2rem 3rem;
   background-color: ${({ theme }) => theme.colors.Primary_W};
   font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.Black500};
   display: inline-block;
   animation: ${fadeIn} 1s ease-in-out;
+  font-weight: 300;
 
   ${media.mobile`
-    font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
+    font-size: 14px;
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
   `}
 `;
 
@@ -114,7 +124,7 @@ const LinkBtnGroup = styled.div`
 `;
 
 const LinkBtn = styled.button`
-  padding: 1.7rem 1.9rem;
+  padding: 2rem 3rem;
   display: none;
   border: none;
   background-color: ${({ theme }) => theme.colors.Primary100};
@@ -123,9 +133,11 @@ const LinkBtn = styled.button`
   font-size: ${({ theme }) => theme.fontSizes.small};
   border-radius: 1.2rem;
   cursor: pointer;
+  font-weight: 300;
 
   ${media.mobile`
-    font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
-    border-radius: 3rem;
+    font-size: 14px;
+    border-radius: 12px;
+    padding: 13px 20px;
   `}
 `;

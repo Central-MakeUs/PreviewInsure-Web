@@ -1,4 +1,12 @@
-import { UserInfoResponse, InsueItem, PostFavoritRequest, PostFavoritResponse, FavoritItem } from './account.d';
+import {
+  UserInfoResponse,
+  InsueItem,
+  PostFavoritRequest,
+  PostFavoritResponse,
+  FavoritItem,
+  DeleteFavoritRequest,
+  PatchInsueRequest,
+} from './account.d';
 import { accountKeys } from './account.keys';
 
 // 회원 탈퇴
@@ -46,6 +54,7 @@ export const useAccountInfoQuery = () => {
   return { accountQuery: query };
 };
 
+// =================================================
 // 내가 가입한 보험 정보 GET
 async function getInsueList() {
   const { accessToken } = useStore.getState();
@@ -60,10 +69,10 @@ async function getInsueList() {
 export const useInsueListQuery = () => {
   // const queryClient = useQueryClient();
   const query = useQuery<InsueItem[]>({
-    queryKey: ['account', 'insurances'],
+    queryKey: accountKeys.insurance(),
     queryFn: () => getInsueList(),
-    // staleTime: 10 * 1000, // 10초
-    // gcTime: 30 * 1000, // 30초
+    staleTime: 30 * 1000, // 30초
+    gcTime: 3 * 60 * 1000, // 3분
     // enabled: false,
     //   initialData: () => {
     //     const cachedHealth = queryClient.getQueryData<HealthTestResponse>(['health']);
@@ -74,6 +83,46 @@ export const useInsueListQuery = () => {
 
   return { insurancesQuery: query };
 };
+
+// 가입한 보험 수정 PATCH
+async function patchInsueCompany(data: PatchInsueRequest): Promise<PostFavoritResponse> {
+  const { accessToken } = useStore.getState();
+  const response = await axiosInstance.patch<PostFavoritResponse>('/account/insurance', data, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return response.data;
+}
+
+export function useInsueComponayPatchMutation() {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (data: PatchInsueRequest) => patchInsueCompany(data),
+    onSuccess: (newData, data) => {
+      const item: InsueItem = {
+        accountInsuranceId: data.accountInsuranceId,
+        insuranceType: data.insuranceType,
+        insuranceCompany: data.insuranceCompany,
+      };
+      queryClient.setQueryData(accountKeys.insurance(), (oldData: InsueItem[] | undefined) => {
+        if (!oldData) {
+          return [item];
+        }
+
+        return oldData.map((existingItem) =>
+          existingItem.accountInsuranceId === item.accountInsuranceId ? item : existingItem,
+        );
+      });
+    },
+    onError: (e: any) => {
+      console.log(e);
+    },
+  });
+
+  return { insueCompanyPatchMutation: mutation };
+}
 
 // =====================================================
 // 관심보험 GET
@@ -136,9 +185,45 @@ export function useFavoritMutation() {
       queryClient.setQueryData(accountKeys.favorit(), (oldData: any) => {
         return [...oldData, item];
       });
+
+      //새로 Get요청
+      queryClient.invalidateQueries({ queryKey: accountKeys.favorit() });
     },
     onError: () => {},
   });
 
   return { favoritMutation: mutation };
+}
+
+// 관심보험 삭제
+// 인슈 맵에서 사용
+async function deleteFavoritInsue(data: DeleteFavoritRequest): Promise<PostFavoritResponse> {
+  const { accessToken } = useStore.getState();
+  const response = await axiosInstance.delete('/account/favorite', {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    data: data,
+  });
+  return response.data;
+}
+
+export function useDeleteFavoritMutation() {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    // mutation에는 querykey를 작성하지 않는다.
+    mutationFn: (data: DeleteFavoritRequest) => deleteFavoritInsue(data),
+    onSuccess: (newData, data) => {
+      const id = data.favoriteInsuranceId;
+      queryClient.setQueryData(accountKeys.favorit(), (oldData: FavoritItem[] | undefined) => {
+        if (!oldData) return [];
+
+        return oldData.filter((item) => item.favoriteInsuranceId !== id);
+      });
+    },
+    onError: () => {},
+  });
+
+  return { deletefavoritMutation: mutation };
 }

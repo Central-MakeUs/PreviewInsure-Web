@@ -7,68 +7,104 @@ import { ReactComponent as Arrow } from '@assets/icons/Right.svg';
 import { ReactComponent as ArrowMini } from '@assets/icons/RightMini.svg';
 
 import { CategoryImg } from '@utils/common/InsurCategory';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import _ from 'lodash';
+import { Link } from 'react-router-dom';
 
 function MainScreen() {
   const [selected, setSelected] = useState<number>(-1);
   const scrollWrapperRef = useRef<HTMLDivElement>(null);
+  const ContainerRef = useRef<HTMLDivElement>(null);
   const SelectedIcon = selected >= 0 && CategoryImg[selected].img;
+  let selectFlag = false;
 
-  const hanldeSelected = (plus: 1 | -1) => {
-    if (selected + plus >= CategoryImg.length) setSelected(0);
-    else if (selected + plus < 0) setSelected(CategoryImg.length - 1);
-    else setSelected((s) => s + plus);
+  const MoveSelected = (num: number) => {
+    muCenter(num);
+    setSelected(num);
   };
 
-  useEffect(() => {
-    muCenter(selected);
-  }, [selected]);
+  const hanldeSelected = (plus: 1 | -1) => {
+    let sel = selected + plus;
+    if (selected + plus >= CategoryImg.length) sel = 0;
+    else if (selected + plus < 0) sel = CategoryImg.length - 1;
+
+    muCenter(sel);
+    setSelected(sel);
+  };
+
+  // useEffect(() => {
+  //   console.log('s', selected);
+  //   muCenter(selected);
+  // }, [selected]);
 
   // 첫 랜더링시 0번 아이템 선택
   useEffect(() => {
-    setSelected(0);
+    MoveSelected(0);
+  }, []);
+
+  // 스크롤시 selected 변경
+  const handleScroll = useCallback(
+    _.throttle(() => {
+      if (!selectFlag && scrollWrapperRef.current) {
+        const box = scrollWrapperRef.current;
+        const scrItems = box?.querySelectorAll<HTMLDivElement>('.horizonScroll__item');
+
+        if (!scrItems) return;
+
+        const boxRect = box.getBoundingClientRect();
+        let closestIndex = 0;
+        let closestDistance = Infinity;
+
+        scrItems.forEach((item, index) => {
+          const itemRect = item.getBoundingClientRect();
+          const itemCenter = itemRect.left + itemRect.width / 2;
+          const distance = Math.abs(boxRect.left + boxRect.width / 2 - itemCenter);
+
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestIndex = index;
+          }
+        });
+
+        // 현재 스크롤 위치에 따라 selected 업데이트
+        setSelected(closestIndex);
+      }
+
+      selectFlag = false;
+    }, 500), // 쓰로틀 간격
+    [],
+  );
+
+  useEffect(() => {
+    const ref = scrollWrapperRef.current;
+    if (ref) {
+      ref.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (ref) {
+        ref.removeEventListener('scroll', handleScroll);
+      }
+    };
   }, []);
 
   // 선택된 item 가운데로
   const muCenter = (targetIndex: number) => {
-    const box = scrollWrapperRef.current;
-    const scrItems = box?.querySelectorAll<HTMLDivElement>('.horizonScroll__item');
-    const boxHarf = (box?.clientWidth ?? 0) / 2;
-    let targetLeft = 0;
-
-    for (let i = 0; i < targetIndex; i++) {
-      targetLeft += scrItems?.[i].offsetWidth ?? 0;
+    if (scrollWrapperRef.current) {
+      selectFlag = true;
+      const box = scrollWrapperRef.current;
+      const scrItems = box?.querySelectorAll<HTMLDivElement>('.horizonScroll__item');
+      const targetElement = scrItems?.[targetIndex];
+      targetElement?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'end' });
     }
-
-    const target = scrItems?.[targetIndex];
-    const selectTargetPos = targetLeft + (target?.offsetWidth ?? 0) / 2;
-    let pos;
-
-    if (selectTargetPos <= boxHarf) {
-      pos = 0;
-    } else if (
-      (scrItems?.[scrItems.length - 1].offsetLeft ?? 0) +
-        (scrItems?.[scrItems.length - 1].offsetWidth ?? 0) -
-        selectTargetPos <=
-      boxHarf
-    ) {
-      pos =
-        (scrItems?.[scrItems.length - 1].offsetLeft ?? 0) +
-        (scrItems?.[scrItems.length - 1].offsetWidth ?? 0) -
-        (box?.clientWidth ?? 0);
-    } else {
-      pos = selectTargetPos - boxHarf;
-    }
-
-    box?.scrollTo({
-      left: pos,
-      behavior: 'smooth',
-    });
   };
 
   return (
-    <Container>
+    <Container ref={ContainerRef}>
+      {/* scroll overflow시 하얀화면 변경 */}
+      <Background />
+
       <TextBox>
         <Logoimg src={logo} />
         <TextSmall>가 선사하는</TextSmall>
@@ -81,32 +117,56 @@ function MainScreen() {
           <TransitionGroup>
             <CSSTransition key={selected} in={true} timeout={300} classNames="icon-transition" unmountOnExit>
               <IconBox>
-                <IconTxt>{CategoryImg[selected].name}</IconTxt>
+                {/* <IconTxt>{CategoryImg[selected].name}</IconTxt> */}
                 <Icon>{SelectedIcon && <SelectedIcon width={'100%'} height={'100%'} />}</Icon>
               </IconBox>
             </CSSTransition>
           </TransitionGroup>
           <CharacterImg src={character} />
+
+          <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+            <GradientImgBackground />
+            <ColorBackground />
+          </div>
         </CharacterBox>
       )}
 
-      <GradientImgBackground />
-      <ColorBackground />
-
       <ScrollBox ref={scrollWrapperRef}>
         <SelectBox>
+          <div onClick={() => MoveSelected(CategoryImg.length - 1)}>
+            <InsueMainIcon
+              txt={CategoryImg[10].name}
+              Icon={CategoryImg[10].img}
+              nav={CategoryImg[10].nav}
+              isSelected={selected === -1}
+            />
+          </div>
           {CategoryImg.map((category, _index) => (
-            <div onClick={() => setSelected(_index)} className="horizonScroll__item" key={_index}>
+            <ScrollItem onClick={() => MoveSelected(_index)} className="horizonScroll__item" key={_index}>
               <InsueMainIcon
                 txt={category.name}
                 Icon={category.img}
                 nav={category.nav}
                 isSelected={selected === _index}
               />
-            </div>
+            </ScrollItem>
           ))}
+
+          <div onClick={() => MoveSelected(0)}>
+            <InsueMainIcon
+              txt={CategoryImg[0].name}
+              Icon={CategoryImg[0].img}
+              nav={CategoryImg[0].nav}
+              isSelected={selected === 14}
+            />
+          </div>
         </SelectBox>
       </ScrollBox>
+
+      {/* Mobile */}
+      <InfoBox>
+        <Link to={'/policy/service'}>이용약관</Link> 및 <Link to={'/policy/privacy'}>개인정보 처리방침</Link>
+      </InfoBox>
 
       <ArrowBox onClick={() => hanldeSelected(1)}>
         <Arrow width={43} height={'100%'} color="white" />
@@ -134,6 +194,15 @@ const Container = styled.div`
   `};
 `;
 
+const Background = styled.div`
+  width: 100vw;
+  height: 50vh;
+  background-color: ${({ theme }) => theme.colors.Primary500};
+  position: fixed;
+  top: 0;
+  z-index: -1;
+`;
+
 const TextBox = styled.div`
   width: fit-content;
   height: fit-content;
@@ -143,7 +212,7 @@ const TextBox = styled.div`
 
   ${media.mobile`
     top: 3%;
-    left: 7%;
+    left: 32px;
   `};
 `;
 const Logoimg = styled.img`
@@ -204,7 +273,8 @@ const CharacterBox = styled.div`
     width: 100%;
     height: 100%;
     max-height: 100%;
-    margin-bottom: 25rem;
+    margin-bottom: 26rem;
+    overflow: hidden;
   `};
 `;
 
@@ -242,8 +312,9 @@ const IconBox = styled.div`
   `};
 
   ${media.mobile`
-    left:8%;
-    bottom: 35%;
+    left: 43%;
+    transform: translateX(-34rem);
+    bottom: calc(35rem + 15vw);
   `}
 
   transition:
@@ -293,7 +364,6 @@ const CharacterImg = styled.img`
   bottom: 10rem;
   left: 0;
   width: 100%;
-  height: fit-content;
   height: 100%;
   min-height: 90rem;
   max-width: 120rem;
@@ -304,11 +374,13 @@ const CharacterImg = styled.img`
   `}
 
   ${media.mobile`
+    height: fit-content;
+    max-height: 130rem;
     width:120%;
     max-width: 120%;
     left:53%;
-    bottom: 38%;
-    transform: translate(-50%, 50%);
+    bottom: 10rem;
+    transform: translate(-50%);
     /* position: absolute; */
     /* width: 100%; */
     /* height: 100%; */
@@ -323,30 +395,37 @@ const GradientImgBackground = styled.div`
   height: 20%;
   min-height: 5.8rem;
   position: absolute;
-  bottom: 27.8rem;
+  bottom: 24.8%;
   background: linear-gradient(180deg, rgba(104, 121, 251, 0) 0%, ${({ theme }) => theme.colors.Primary500} 100%);
 
+  ${media.medium`
+    bottom: 39.8%;
+  `}
   ${media.small`
-    bottom: 39.8rem;
+    bottom: 39.8%;
   `}
 
   ${media.mobile`
-  bottom: 59.8rem;
+    max-height: 16rem;
+    bottom: 30.8rem;
   `};
 `;
 
 const ColorBackground = styled.div`
   width: 100%;
-  height: 28rem;
+  height: 25%;
   position: absolute;
   bottom: 0;
   background-color: ${({ theme }) => theme.colors.Primary500};
 
+  ${media.medium`
+    height: 40%;
+  `}
   ${media.small`
-    height: 40rem;
+    height: 40%;
   `};
   ${media.mobile`
-    height: 60rem;
+    height: 31rem;
   `};
 `;
 
@@ -357,8 +436,19 @@ const ScrollBox = styled.div`
   overflow-x: auto;
   overflow-y: hidden;
 
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
+
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera에서 스크롤 바 숨기기 */
+  }
+`;
+
+const ScrollItem = styled.div`
+  scroll-snap-align: center;
 `;
 
 const SelectBox = styled.div`
@@ -366,13 +456,37 @@ const SelectBox = styled.div`
   min-width: 10rem;
   padding-bottom: 3%;
   z-index: 2;
+  padding-inline: 3rem;
 
   display: flex;
   gap: 1.6rem;
   align-items: end;
   overflow: visible;
 `;
+const InfoBox = styled.div`
+  display: none;
+  position: absolute;
+  bottom: 47rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 88%;
 
+  color: white;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 12px 22px;
+  border-radius: 12px;
+  background-color: ${({ theme }) => theme.colors.Primary400};
+
+  a {
+    color: white;
+    text-decoration: underline;
+  }
+
+  ${media.mobile`
+    display: block;
+  `}
+`;
 const ArrowBox = styled.div`
   z-index: 3;
   position: absolute;
@@ -386,8 +500,8 @@ const ArrowBox = styled.div`
 const LeftArrowBox = styled.div`
   z-index: 3;
   position: absolute;
-  bottom: 23%;
-  left: 2.5rem;
+  bottom: 38rem;
+  left: 5.5rem;
   display: none;
 
   transform: rotate(180deg);
@@ -398,8 +512,8 @@ const LeftArrowBox = styled.div`
 const RightArrowBox = styled.div`
   z-index: 3;
   position: absolute;
-  bottom: 23%;
-  right: 2.5rem;
+  bottom: 38rem;
+  right: 5.5rem;
   display: none;
   ${media.mobile`
     display: block;

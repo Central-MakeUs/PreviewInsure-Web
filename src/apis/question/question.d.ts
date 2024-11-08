@@ -11,7 +11,7 @@ interface questionItem {
 
 interface LinkItem {
   insuranceCompany: string;
-  insuranceLink: string;
+  link: string;
 }
 
 export interface questionResponse {

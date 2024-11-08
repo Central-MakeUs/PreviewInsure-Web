@@ -24,7 +24,7 @@ function Header() {
   };
 
   useEffect(() => {
-    location.pathname === '/' ? setIsHome(true) : setIsHome(false);
+    location.pathname === '/' || location.pathname === '/myInsue' ? setIsHome(true) : setIsHome(false);
     const cur = location.pathname.split('/')[1];
     setCurrent(cur);
   }, [location.pathname, setIsHome]);
@@ -102,26 +102,28 @@ const PC = styled.div`
 `;
 
 const LogoImg = styled.img`
-  width: 15.2rem;
   position: absolute;
+  height: 28px;
   left: 18rem;
   top: 7rem;
   z-index: 3;
+  object-fit: cover;
+
   cursor: pointer;
   ${media.medium`
-    width: 120px;
+    height: 27px;
     left: 10%;
     top: 10rem;
   `};
   ${media.small`
-    width: 100px;
+    height: 25px;
     left: 29px;
     top: 5.2rem
   `};
 
   ${media.mobile`
-    width: 76px;
-    left: 29px;
+    height: 22px;
+    left: 32px;
     top: 6rem
   `};
 `;

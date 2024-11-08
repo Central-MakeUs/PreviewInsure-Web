@@ -21,6 +21,16 @@ function Step4({ goNextStep, goPreviousStep, setSelectedInsures, setToSelectInsu
   const [selectedCards, setSelectedCards] = useState<any>([]);
   const [toSelectCards, setToSelectCards] = useState(initialCards);
 
+  //mobile 일 때
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767); //767
+  window.addEventListener('resize', function (e: any) {
+    if (e.currentTarget.innerWidth <= 767) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  });
+
   // platform === ios  일 때 처리
   const { platform } = useStore();
   const [fake, setFake] = useState(true);
@@ -32,7 +42,6 @@ function Step4({ goNextStep, goPreviousStep, setSelectedInsures, setToSelectInsu
         setFake(false);
         setSelectedCards([]);
       }, 100);
-      // setSelectedCards([]);
     } else {
       setFake(false);
     }
@@ -46,7 +55,11 @@ function Step4({ goNextStep, goPreviousStep, setSelectedInsures, setToSelectInsu
 
   const handleToSelectedCardClick = (card: any) => {
     const index = toSelectCards.findIndex((c: any) => c.text === card.text);
-    setSelectedCards([...selectedCards, { ...card }]);
+    if (isMobile) {
+      setSelectedCards([{ ...card }, ...selectedCards]);
+    } else {
+      setSelectedCards([...selectedCards, { ...card }]);
+    }
     setToSelectCards((prevState) => prevState.filter((_, i) => i !== index));
     // setToSelectCards(toSelectCards.filter((c: any) => c.text !== card.text));
   };
@@ -62,7 +75,7 @@ function Step4({ goNextStep, goPreviousStep, setSelectedInsures, setToSelectInsu
         <SubtitleP>가입한 보험을 모두 선택해 주세요</SubtitleP>
       </Subtitle>
 
-      <Selected fake={fake}>
+      <Selected fake={fake as boolean}>
         <TransitionGroup component={null}>
           {selectedCards.map((card: any, index: number) => (
             <CSSTransition key={card.text} timeout={300} classNames="card">
@@ -111,6 +124,11 @@ const Subtitle = styled.p`
   color: #000;
   line-height: 1.1;
   margin-bottom: 6.8rem;
+
+  ${media.mobile`
+    // 767 < 
+    font-size: 22px;
+  `}
 `;
 
 const SubtitleP = styled.p``;
@@ -136,7 +154,7 @@ const Selected = styled.div<{ fake: boolean }>`
   scrollbar-width: none;
   -ms-overflow-style: none; //drag 기능 추가
 
-  opacity: ${({ fake }) => fake && 0};
+  opacity: ${({ fake }) => (fake ? 0 : 1)};
 
   .card-enter {
     opacity: 0;
@@ -265,6 +283,7 @@ const RegisterBtn = styled.button`
   margin-bottom: 5rem;
   transition: all 0.3s ease;
   gap: 1.6rem;
+  font-family: 'Pretendard', sans-serif;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.Primary500};
@@ -277,7 +296,7 @@ const RegisterBtn = styled.button`
     bottom: 12%;
 
     width:80%;
-    font-size:3.2rem;
+    font-size:14px;
     font-weight:400;
     height:10rem;
     border-radius: 2.8rem;
@@ -290,7 +309,7 @@ const CheckIconBox = styled.div`
 
   ${media.mobile`
     // 767 < 
-    width: 6rem;
-    height: 6rem;
+    width: 28px;
+    height: 28px;
   `}
 `;

@@ -1,11 +1,12 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 import media from '@styles/media';
 import { useStore } from '@stores/useStore';
 import InsueSection from '@components/User/InsueSection';
+import { useInsueListQuery } from '@apis/account/account';
 
-function MyInsueScreen() {
+function RegistInsueScreen() {
   const { nickName } = useStore();
+  const { insurancesQuery } = useInsueListQuery();
 
   return (
     <>
@@ -16,7 +17,11 @@ function MyInsueScreen() {
       <HeadCircle />
 
       <Container>
-        <InsueSection />
+        <InsueSection
+          insurancesData={insurancesQuery.data}
+          isError={insurancesQuery.isError}
+          isLoading={insurancesQuery.isLoading}
+        />
       </Container>
     </>
   );
@@ -24,7 +29,7 @@ function MyInsueScreen() {
 
 const Head = styled.div`
   width: 100%;
-  padding: 7.5rem 6rem;
+  padding: 7.5rem 32px;
   background-color: ${({ theme }) => theme.colors.Primary100};
 `;
 
@@ -64,4 +69,4 @@ const Container = styled.div`
   position: relative;
   top: -8rem;
 `;
-export default MyInsueScreen;
+export default RegistInsueScreen;

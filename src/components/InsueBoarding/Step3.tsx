@@ -56,6 +56,7 @@ const Subtitle = styled.p`
   ${media.mobile`
     // 767 < 
     margin-bottom: 10rem;
+    font-size: 22px;
   `}
 `;
 
@@ -78,8 +79,8 @@ const HeartIconBox = styled.div`
 
   ${media.mobile`
     // 767 < 
-    width: 4rem;
-    height: 4rem;
+    width: 17px;
+    height: 17px;
   `}
 `;
 
@@ -89,8 +90,8 @@ const XIconBOx = styled.div`
 
   ${media.mobile`
     // 767 < 
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 16px;
+    height: 16px;
   `}
 `;
 
@@ -129,9 +130,9 @@ const RegisterBtn = styled.button`
 
   ${media.mobile`
     // 767 < 
-    width:38%;
-    height:10rem;
-    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
-    border-radius: 3.5rem;
+    font-size: 14px;
+    width:42%;
+    height:48px;
+    border-radius:14px;
   `}
 `;

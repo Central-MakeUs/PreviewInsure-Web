@@ -28,9 +28,9 @@ const OAuthButtonContainer = styled.button<{ type: string }>`
   ${media.mobile`
     // 767 < 
     width:80%;
-    height:10rem;
+    height:13rem;
     padding: 0 12.6rem;
-    border-radius: 2.8rem;
+    border-radius: 3.8rem;
   `}
 `;
 
@@ -38,12 +38,12 @@ const OAuthP = styled.p<{ type: string }>`
   font-size: ${({ theme }) => theme.fontSizes.small};
   font-weight: 600;
   color: ${({ type, theme }) => (type === 'google' ? theme.colors.Black500 : '#fff')};
-  font-family: Pretendard;
 
   ${media.mobile`
     // 767 < 
-    font-size:3.2rem;
-    font-weight:400;
+    font-size:14px;
+    font-weight:500;
+    font-family: 'Pretendard', sans-serif;
   `}
 `;
 

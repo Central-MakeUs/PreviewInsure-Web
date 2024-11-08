@@ -1,4 +1,5 @@
 import media from '@styles/media';
+import { openNewTab } from '@utils/common/openNewTab';
 import styled from 'styled-components';
 
 function RecommendItem({
@@ -10,11 +11,8 @@ function RecommendItem({
   link,
 }: RecommendItemProps) {
   const handleLink = () => {
-    const userConfirmed = window.confirm('해당 보험 상품 페이지로 이동하시겠습니까?');
-
-    if (userConfirmed) {
-      window.open(link, '_blank');
-    }
+    if (!link) return;
+    openNewTab(link);
   };
   return (
     <Container onClick={handleLink}>
@@ -24,7 +22,7 @@ function RecommendItem({
         <Content>{insuranceContent}</Content>
       </Wrap>
       <Detail>{insuranceRate}%</Detail>
-      <Detail>약 {price}원</Detail>
+      <Detail>약 {price?.toLocaleString()}원</Detail>
       <Line />
     </Container>
   );
@@ -47,13 +45,18 @@ const Container = styled.div`
 const Img = styled.img`
   flex: 2 1 0;
   object-fit: contain;
-  margin: 0 auto;
+  margin: auto;
+  padding-left: 3rem;
+  max-width: 16rem;
+  max-height: 7rem;
   /* width: 18rem; */
 
   ${media.mobile`
     flex: 3 1 0;
     margin-right: 10px;
     max-width: 18rem;
+    max-height: 10rem;
+    padding-left:0;
   `}
 `;
 
@@ -78,6 +81,7 @@ const Title = styled.p`
     font-size: 3rem;
     font-weight: 500;
     text-align: left;
+    margin-bottom:7px;
   `}
 `;
 

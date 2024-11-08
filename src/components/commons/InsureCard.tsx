@@ -39,7 +39,7 @@ function InsureCard({ text, rotate, SVG, getData, delay = 0 }: InsueCardProps) {
         <GradientBackground insueBoarding={true} />
         <InsueName>{text}</InsueName>
         <SelectWrapper>
-          <Button onClick={() => setShowMenu(!showMenu)}>
+          <Button showMenu={showMenu} onClick={() => setShowMenu(!showMenu)}>
             {insureCompany}{' '}
             {!showMenu ? (
               <IconBox>
@@ -136,12 +136,12 @@ const SelectWrapper = styled.div`
 
   ${media.mobile`
     top: 30%;
-    left:12%;
+    left:6%;
     width: 24rem;
   `}
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ showMenu: boolean }>`
   width: 14rem;
   height: 4.8rem;
   margin-top: 6rem;
@@ -158,11 +158,18 @@ const Button = styled.button`
   transition: all 0.3s ease-in-out;
 
   ${media.mobile`
-    width: 24rem;
-    height: 10rem;
-    border-radius: 8rem;
+    /* width: 24rem; */
+    width: 110px;
+    height: 40px;
+    border-radius: ${({ showMenu }: any) => (!showMenu ? '32px' : '')};
     gap: 2rem;
-    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+    font-size: 13px;
+    border-top-left-radius: ${({ showMenu }: any) => (showMenu ? '32px' : '')};
+    border-top-right-radius: ${({ showMenu }: any) => (showMenu ? '32px' : '')};
+    border-bottom-left-radius: ${({ showMenu }: any) => (showMenu ? '0' : '')};
+    border-bottom-right-radius: ${({ showMenu }: any) => (showMenu ? '0' : '')};
+    border-bottom: ${({ showMenu }: any) => (showMenu ? '1.5px solid #fff' : '')};
+    transition-delay: ${({ showMenu }: any) => (showMenu ? '0s' : '0.3s')};
   `}
 `;
 
@@ -182,9 +189,14 @@ const InsureContents = styled.div<{ open: boolean }>`
   }
 
   ${media.mobile`
-    margin-top: 0.8rem;
-    width: 100%;
-    border-radius: 3rem;
+    width:110px;
+    /* border-radius: 3rem; */
+    margin-top: 0;
+
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 32px;
+    border-bottom-right-radius: 32px;
   `}
 `;
 
@@ -201,7 +213,7 @@ const InsureContent = styled.button`
   margin-right: 1rem;
   align-items: center;
   justify-content: center;
-  border-bottom: 1.5px solid ${({ theme }) => theme.colors.Primary400};
+  border-bottom: 1.5px solid #fff;
   /* text-align: start; */
 
   &:hover {
@@ -209,9 +221,10 @@ const InsureContent = styled.button`
   }
 
   ${media.mobile`
-    width: 24rem;
-    height: 7rem;
-    font-size: ${({ theme }: any) => theme.fontSizes.paragraph};
+    width: 100%;
+    height: 8rem;
+    font-size: 13px;
+    margin-right: 0;
   `}
 `;
 

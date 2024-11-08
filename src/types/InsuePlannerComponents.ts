@@ -3,7 +3,7 @@ import type { QuestionTitle } from '@apis/insuePlanner/insuePlanner.d';
 
 interface link {
   insuranceCompany: string;
-  insuranceLink: string;
+  link: string;
 }
 
 export type InsuePlannerQuestionProps = {
@@ -11,6 +11,7 @@ export type InsuePlannerQuestionProps = {
   setCurrentScreen: (arg: 'Q' | 'A') => void;
   setCurrentAnswer: (arg: string) => void;
   setCurrentAnswerLinks: (arg: link[] | []) => void;
+  setCurrentQuestionId: (arg: number) => void;
 };
 
 export type QuestionBoxProps = {
@@ -19,15 +20,15 @@ export type QuestionBoxProps = {
   value: string;
   bottom: string;
   right: string;
-  setQuestion: (arg: string) => void;
 
-  postQuestion2: (data: any) => void;
+  questionHandler: (data: any) => void;
 };
 
 //answer
 
 export type InsuePlannerAnswerProps = {
   question: string;
+  currentQuestionId: number;
   setCurrentScreen: (arg: 'Q' | 'A') => void;
   currentAnswer: string;
   setCurrentAnswer: (arg: string) => void;

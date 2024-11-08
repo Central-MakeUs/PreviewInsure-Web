@@ -19,10 +19,13 @@ const Container = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.small};
   color: #fff;
   border-radius: 1.2rem;
-  font-weight: 400;
+  font-weight: 300;
+  line-height: 1.4;
 
   ${media.mobile`
     // 767 < 
-    font-size: ${({ theme }: any) => theme.fontSizes.subtitle};
+    font-size: 14px;
+    border-radius: 12px;
+    padding:14px;
   `}
 `;

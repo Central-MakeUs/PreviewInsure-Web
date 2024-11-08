@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import backgroundimg from '@/assets/imgs/qna-background.png';
+import backgroundimg from '@/assets/imgs/qna-background.webp';
 import { useEffect, useState } from 'react';
 import FailAlarm from '@components/commons/FailAlarm';
 import Categorys, { CategoryType } from '@utils/common/InsurCategory';
@@ -11,7 +11,8 @@ import Loading from '@components/commons/Loading';
 import media from '@styles/media';
 import { convertInsureType } from '@utils/common/convertInsureType';
 import { useStore } from '@stores/useStore';
-import { useInsueListQuery } from '@apis/account/account';
+import { useFavoritQuery } from '@apis/account/account';
+import { Virtuoso } from 'react-virtuoso';
 
 function Question() {
   const [alarmShown, setAlarmShown] = useState(false);
@@ -20,7 +21,7 @@ function Question() {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
 
   const { isLogin } = useStore();
-  const { insurancesQuery } = useInsueListQuery();
+  const { favoritQuery } = useFavoritQuery();
 
   // const myInsueCategory = ['']; // GET요청으로 변경 필요. includes 연산을 위해 빈배열X
   // const myInsueCategory = ['', '연금보험', '상해보험'];
@@ -37,8 +38,8 @@ function Question() {
 
   // 가입한 보험 보기에 뜨는 카테고리 설정
   useEffect(() => {
-    if (insurancesQuery.data) {
-      const typeNames = insurancesQuery.data.map((item) => item.insuranceType);
+    if (favoritQuery.data) {
+      const typeNames = favoritQuery.data.map((item) => item.insuranceType);
       const cate = ['', ...typeNames];
       console.log(2, cate);
 
@@ -48,7 +49,7 @@ function Question() {
       console.log(3, filtered);
       setMyCategorys(filtered);
     }
-  }, [insurancesQuery.isSuccess]);
+  }, [favoritQuery.isSuccess]);
 
   // 전체보기, 가입한 보험 보기
   function handleView(type: string) {
@@ -57,7 +58,7 @@ function Question() {
     // all -> my 이동 시 현재 가입한 보험이 없다면 fail
     if (type === 'my' && myCategorys.length === 0) {
       if (!isLogin) setAlarmMessage('로그인이 필요한 기능입니다.');
-      else setAlarmMessage('현재 가입한 보험이 없습니다.');
+      else setAlarmMessage('관심 보험이 없습니다.');
 
       setAlarmShown(true);
       return;
@@ -86,6 +87,9 @@ function Question() {
       questionQuery.fetchNextPage();
     }
   }, [inView]);
+
+  const questionItems = questionQuery.data?.pages.flatMap((page) => page.content) || []; // page flattening
+  // console.log('questionItems', questionItems);
 
   // 알림창
   useEffect(() => {
@@ -117,7 +121,7 @@ function Question() {
               전체보기
             </ViewBtn>
             <ViewBtn selected={viewType === 'my'} onClick={() => handleView('my')}>
-              가입한 보험 보기
+              관심보험 보기
             </ViewBtn>
           </ViewGroup>
           <ScrollGroup>
@@ -141,16 +145,35 @@ function Question() {
       </Search>
 
       <List>
-        <ListTitle>질문보기</ListTitle>{' '}
-        <QList>
+        <ListTitle>질문보기</ListTitle>
+        {/* 기존 렌더링 코드 */}
+        {/* <QList>
           {questionQuery.data?.pages.map((page, pageIndex) =>
             page.content.map((q, index) => (
               <QuestionAnswer key={`${pageIndex}-${index}`} question={q.question} answer={q.answer} tags={q.links} />
             )),
           )}
-        </QList>
+        </QList> */}
+        {/* react-virtuoso 를 활용한 가상화 적용 */}
+        <Virtuoso
+          useWindowScroll
+          style={{
+            height: '100vh',
+            marginBottom: '48rem',
+          }}
+          data={questionItems}
+          itemContent={(pageIndex, q) => {
+            return (
+              <QListItem key={pageIndex}>
+                <QuestionAnswer key={pageIndex} question={q.question} answer={q.answer} tags={q.links} />
+              </QListItem>
+            );
+          }}
+        />
         {questionQuery.isFetching && (
-          <Loading type={'spinningBubbles'} color={'#6879FB'} width={69.33} height={69.33} />
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Loading type={'spinningBubbles'} color={'#6879FB'} width={69.33} height={69.33} />
+          </div>
         )}
         <div ref={ref} />
       </List>
@@ -193,7 +216,9 @@ const TextBox = styled.div`
   transform: translate(-50%, 0);
 
   ${media.mobile`
-    top: 40%;
+    top: 37%;
+    font-size: 20px;
+    line-height: 1.4;
   `}
 `;
 const Search = styled.div`
@@ -256,7 +281,7 @@ const ViewBtn = styled.div<{ selected: boolean }>`
     border-radius: 14px;
     width: fit-content;
     padding: 3.1rem 5.1rem;
-    font-size: 3rem;
+    font-size: 14px;
   `};
 `;
 
@@ -318,6 +343,7 @@ const ListTitle = styled.div`
 
   ${media.small`
     font-size: 18px;
+    margin-bottom: 33px;
   `}
 `;
 
@@ -330,4 +356,13 @@ const QList = styled.div`
     gap: 8rem;
   `};
 `;
+
+const QListItem = styled.div`
+  margin-bottom: 7.5rem;
+
+  ${media.small`
+    margin-bottom: 8rem;
+  `};
+`;
+
 export default Question;

@@ -21,7 +21,7 @@ function BottomNav() {
     const cur = location.pathname.split('/')[1];
     setActiveNav('/' + cur);
 
-    if (cur === 'insueBording' || cur === 'login') setShowNav(false);
+    if (cur === 'insueBording') setShowNav(false);
     else setShowNav(true);
   }, [location.pathname]);
 
@@ -108,7 +108,7 @@ function BottomNav() {
 const Container = styled.div`
   width: 100%;
   height: fit-content; //78px
-  padding: 15px 40px;
+  padding: 15px 30px;
   background-color: white;
   z-index: 6;
   position: fixed;

@@ -4,7 +4,7 @@ import media from '@styles/media';
 
 import { plannerPOSTRequest } from '@apis/insuePlanner/insuePlanner.d';
 
-function QuestionBox({ svg, text, bottom, right, setQuestion, value, postQuestion2 }: QuestionBoxProps) {
+function QuestionBox({ svg, text, bottom, right, value, questionHandler }: QuestionBoxProps) {
   const questionData: plannerPOSTRequest = {
     quesion: value,
     isShare: false,
@@ -14,8 +14,7 @@ function QuestionBox({ svg, text, bottom, right, setQuestion, value, postQuestio
   return (
     <QuestionBoxWrapper
       onClick={() => {
-        setQuestion(value);
-        postQuestion2(questionData);
+        questionHandler(questionData);
       }}
     >
       <QuestionBoxSvg bottom={bottom} right={right}>
@@ -58,12 +57,13 @@ const QuestionBoxSvg = styled.div<{ bottom: string; right: string }>`
 
 const QuestionBoxText = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.small};
-  font-weight: 500;
+  font-weight: 400;
   color: ${({ theme }) => theme.colors.Black500};
   text-align: left;
+  font-family: 'Pretendard', sans-serif;
 
   ${media.mobile`
     // 767 < 
-    font-size: 4rem;
+    font-size: 16px;
   `}
 `;
